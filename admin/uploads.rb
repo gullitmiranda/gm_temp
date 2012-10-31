@@ -1,13 +1,15 @@
-ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
-
-  menu :priority => 4, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Upload)}
-
-  controller.authorize_resource :class => Goldencobra::Upload
+ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
+  menu  priority: 1,
+        label: proc{ I18n.t "activerecord.models.#{Rdcms::Upload.model_name.human.downcase}.other" },
+        parent: I18n.t('activerecord.models.content_management'),
+        if: proc{can?(:read, Rdcms::Upload)}
+  # 
+  controller.authorize_resource :class => Rdcms::Upload
 
   if ActiveRecord::Base.connection.table_exists?("tags")
-    Goldencobra::Upload.tag_counts_on(:tags).each do |utag|
+    Rdcms::Upload.tag_counts_on(:tags).each do |utag|
       if(utag.count > 5)
-        scope(I18n.t(utag.name, :scope => [:goldencobra, :widget_types], :default => utag.name)){ |t| t.tagged_with(utag.name) }
+        scope(I18n.t(utag.name, :scope => [:rdcms, :widget_types], :default => utag.name)){ |t| t.tagged_with(utag.name) }
       end
     end
   end
@@ -50,7 +52,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       result = ""
       result += link_to(t(:view), admin_upload_path(upload), :class => "member_link edit_link view", :title => "Vorschau")
       result += link_to(t(:edit), edit_admin_upload_path(upload), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:rdcms, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
       raw(result)
     end
   end
@@ -104,7 +106,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   #batch_action :destroy, false
 
   member_action :unzip_file do
-    upload = Goldencobra::Upload.find(params[:id])
+    upload = Rdcms::Upload.find(params[:id])
     upload.unzip_files
     redirect_to :action => :index, :notice => "File unzipped"
   end

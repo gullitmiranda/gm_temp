@@ -27,7 +27,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (1.0.8)
+    rdcms (1.0.8)
       activeadmin
       activeadmin-cancan
       acts-as-taggable-on
@@ -450,7 +450,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   friendly_id
-  goldencobra!
+  rdcms!
   growl
   guard (~> 1.1.1)
   guard-annotate

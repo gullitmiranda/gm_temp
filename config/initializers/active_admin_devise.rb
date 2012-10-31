@@ -14,7 +14,7 @@ ApplicationController.class_eval do
     protected
     def layout_by_resource_for_user_model
       if devise_controller? && resource_name == :user
-        "goldencobra/active_admin_resque" # we emulate the active_admin layout for consistancy
+        "rdcms/active_admin_resque" # we emulate the active_admin layout for consistancy
       else
         "application"
       end

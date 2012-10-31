@@ -1,15 +1,15 @@
-#Goldencobra
+#Rdcms
 
-[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)
+[![Build Status](https://secure.travis-ci.org/ikusei/Rdcms.png)](http://travis-ci.org/ikusei/Rdcms)
 
 This Project is under development
 
-[Demo in Heroku](http://demo-goldencobra.herokuapp.com/admin)
+[Demo in Heroku](http://demo-rdcms.herokuapp.com/admin)
 
 ```
 To access use:
 
-> email: admin@goldencobra.de
+> email: admin@rdcms.de
 > password: administrator
 ```
 
@@ -17,11 +17,11 @@ To access use:
 - ActiveAdmin
 
 #Installation
-    gem 'goldencobra', :git => "git://github.com/ikusei/Goldencobra.git"  
+    gem 'rdcms', :git => "git://github.com/ikusei/Rdcms.git"  
 
 And then  
 
-    rails generate goldencobra:install`
+    rails generate rdcms:install`
 
 This installs all necessary files and creates sensible defaults.
         
@@ -32,8 +32,8 @@ This installs all necessary files and creates sensible defaults.
         In the admin backend you have many values you can customize for your installation.  
         
         Important values are 
-        * Goldencobra-Facebook-AppId
-        * Goldencobra-url  
+        * Rdcms-Facebook-AppId
+        * Rdcms-url  
 
 
 When creating articles, a default value is set for open graph image url. Please make sure you provide a default open graph image at "/assets/open-graph.png"

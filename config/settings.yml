@@ -1,22 +1,22 @@
-goldencobra:
-    comments:
-        commentator: "User"
-    menues:
-        recreate_cache: "false"
-    widgets:
-        recreate_cache: "false"
-    html2pdf_uid: "c5c13af822"
-    use_solr: "false"
-    page:
-        default_title_tag: "Goldencobra"
-    article:
-        image_positions: "standard"
-        cache_articles: "true"
-        max_cache_24h: "false"
-        article_index:
-            link_to_article: "weiterlesen"
-    url: "www.goldencobra.de"
-    facebook:
-        appid: "123456"
-        opengraph_default_image: "/assets/open-graph.png"
-    geocode_ip_address: "false"
+rdcms:
+  comments:
+    commentator: "User"
+  menues:
+    recreate_cache: "false"
+  widgets:
+    recreate_cache: "false"
+  html2pdf_uid: "c5c13af822"
+  use_solr: "false"
+  page:
+    default_title_tag: "Rdcms"
+  article:
+    image_positions: "standard"
+    cache_articles: "true"
+    max_cache_24h: "false"
+    article_index:
+      link_to_article: "weiterlesen"
+  url: "www.rdcms.de"
+  facebook:
+    appid: "123456"
+    opengraph_default_image: "/assets/open-graph.png"
+  geocode_ip_address: "false"

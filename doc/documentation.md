@@ -26,7 +26,7 @@
 - Kommunikation mit externen CRMs (siehe quirin bank)
 - Anbindung an JavaScript MVC Frameworks möglich (siehe ulmen.tv)
 
-### Projekte die mit Goldencobra laufen
+### Projekte die mit Rdcms laufen
 4 Tagesspiegel-Portale, berlin-greeter.org, www.ulmen.tv ikusei.de, quirinbank.de
 
 

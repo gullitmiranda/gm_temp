@@ -1,10 +1,13 @@
 "pt-BR":
   activerecord:
     models:
+      content_management:
+        one: Gerenciamento de Conteúdo
+        other: Gestão de Conteúdos
       comment:
         one: "Comentário"
         other: "Comentários"
-      goldencobra/comment:
+      rdcms/comment:
         one: "Comentário"
         other: "Comentários"
       import:
@@ -13,37 +16,37 @@
       article:
         one: "Artigo"
         other: "Artigos"
-      goldencobra/article:
+      rdcms/article:
         one: "Artigo"
         other: "Artigos"
       setting:
         one: "Preferência"
         other: "Preferências"
-      goldencobra/setting:
+      rdcms/setting:
         one: "Preferência"
         other: "Preferências"
       menue:
         one: "Menu"
         other: "Menus"
-      goldencobra/menue:
+      rdcms/menue:
         one: "Menu"
         other: "Menus"
       metag:
         one: "Metatag"
         other: "Metatags"
-      goldencobra/metag:
+      rdcms/metag:
         one: "Metatag"
         other: "Metatags"
       widget:
         one: "Widget"
         other: "Widgets"
-      goldencobra/widget:
+      rdcms/widget:
         one: "Widget"
         other: "Widgets"
       upload:
         one: "Upload"
         other: "Uploads"
-      goldencobra/upload:
+      rdcms/upload:
         one: "Upload"
         other: "Uploads"
       user:
@@ -52,13 +55,13 @@
       permission:
         one: "Permissão"
         other: "Permissões"
-      goldencobra/permission:
+      rdcms/permission:
         one: "Permissão"
         other: "Permissões"
       role:
         one: "Cargo"
         other: "Cargos"
-      goldencobra/role:
+      rdcms/role:
         one: "Cargo"
         other: "Cargos"
   attributes:
@@ -91,13 +94,13 @@
       image_file_size: "tamanho da imagem"
       rights: "direitos"
       image: "imagem"
-    goldencobra/comment:
+    rdcms/comment:
       <<: *all_attributes
-    goldencobra/role:
+    rdcms/role:
       <<: *all_attributes
     user:
       <<: *all_attributes
-    goldencobra/article:
+    rdcms/article:
       <<: *all_attributes
-    goldencobra/upload:
+    rdcms/upload:
       <<: *all_attributes

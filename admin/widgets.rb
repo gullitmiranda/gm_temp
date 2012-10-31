@@ -1,5 +1,9 @@
-ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu :priority => 3, parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
+ActiveAdmin.register Rdcms::Widget, as: "Widget" do
+  menu  priority: 3,
+        label: proc{ I18n.t "activerecord.models.#{Rdcms::Widget.model_name.human.downcase}.other" },
+        parent: I18n.t('activerecord.models.content_management'),
+        if: proc{can?(:read, Rdcms::Widget)}
+  # 
 
   scope "Alle", :scoped, :default => true
   scope "online", :active
@@ -7,8 +11,8 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   scope "defaults", :default
 
   if ActiveRecord::Base.connection.table_exists?("tags")
-    Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
-      scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
+    Rdcms::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
+      scope(I18n.t(wtag, :scope => [:rdcms, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
     end
   end
 
@@ -26,20 +30,20 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :active
     end
     f.inputs "Darstellung" do
-      f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
-      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
-      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
+      f.input :offline_day, as: :check_boxes, collection: Rdcms::Widget::OfflineDays
+      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
+      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
       f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
       f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
     f.inputs "Admin" do
-      if(proc{can?(:read, Goldencobra::Widget)})
+      if(proc{can?(:read, Rdcms::Widget)})
         f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
       end
       f.input :description
     end
     f.inputs "Artikel" do
-      f.input :articles, :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
+      f.input :articles, :as => :select, :collection => Rdcms::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
     end
     f.actions
   end
@@ -61,7 +65,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     column "" do |widget|
       result = ""
       result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:rdcms, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
       raw(result)
     end
   end

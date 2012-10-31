@@ -1,38 +1,43 @@
 #Encoding: UTF-8
-ActiveAdmin.register Goldencobra::Article, :as => "Article" do
-
-  menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)}
-  controller.authorize_resource :class => Goldencobra::Article
-  unless Rails.env == "test"
+ActiveAdmin.register Rdcms::Article, :as => "Article" do
+  menu  priority: 1,
+        label: proc{ I18n.t "activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other" },
+        parent: I18n.t("activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other"),
+        if: proc{can?(:update, Rdcms::Article)}
+  # 
+  controller.authorize_resource :class => Rdcms::Article
+  
+  # Just set the location as ":de" if it is in the test environment and location and if there is no default location set.
+  if Rails.env != "test" and !(defined?(I18n.locale) or defined?(I18n.default_locale))
     I18n.locale = :de
     I18n.default_locale = :de
   end
 
-  filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
-  filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
-  filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:goldencobra, :filter], :default => "Unteritel")
-  filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter], :default => "Brotkruemel")
-  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => "URL")
-  filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter], :default => "Template Datei")
-  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => "erstellt")
-  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => "bearbeitet")
+  filter :parent_ids_in, :as => :select, :collection => proc { Rdcms::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:rdcms, :filter], :default => "Elternelement")
+  filter :article_type, :as => :select, :collection => Rdcms::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:rdcms, :filter], :default => "Artikeltyp")
+  filter :title, :label => I18n.t("filter_titel", :scope => [:rdcms, :filter], :default => "Titel")
+  filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:rdcms, :filter], :default => "Unteritel")
+  filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:rdcms, :filter], :default => "Brotkruemel")
+  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:rdcms, :filter], :default => "URL")
+  filter :template_file, :label =>  I18n.t("filter_template", :scope => [:rdcms, :filter], :default => "Template Datei")
+  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:rdcms, :filter], :default => "erstellt")
+  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:rdcms, :filter], :default => "bearbeitet")
 
   scope "Alle", :scoped, :default => true
   scope "online", :active
   scope "offline", :inactive
 
-  Goldencobra::Article.article_types_for_select.each do |article_type|
+  Rdcms::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
-    scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
+    scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:rdcms, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
 
 
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    render :partial => "/goldencobra/admin/articles/article_type", :locals => {:f => f}
+    render :partial => "/rdcms/admin/articles/article_type", :locals => {:f => f}
     if f.object.new_record?
-      render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
+      render :partial => "/rdcms/admin/articles/select_article_type", :locals => {:f => f}
     else
       f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
@@ -74,7 +79,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
                                                                                                                <li><strong>OpenGraph Image:</strong> Muss als URL &uuml;bergeben werden (http://www.mein.de/bild.jpg). Erscheint dann bei Facebook als Bild des Artikels.</li>
                                                                                                                </ul>", :class => "metadescription_hint", :id => "metadescription-tinymce"}
         f.has_many :metatags do |m|
-          m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
+          m.input :name, :as => :select, :collection => Rdcms::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
           m.input :value, :input_html => { :class => 'metatag_values'}
           m.input :_destroy, :as => :boolean
         end
@@ -82,13 +87,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.inputs "Einstellungen", :class => "foldable closed inputs" do
         f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
         f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
-        f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
+        f.input :parent_id, :as => :select, :collection => Rdcms::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
         f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
         f.input :enable_social_sharing, :label => t("Display Social Sharing actions"), :hint => "Sollen Besucher die actions angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
         f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
         f.input :commentable, :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?"
-        f.input :dynamic_redirection, :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
+        f.input :dynamic_redirection, :as => :select, :collection => Rdcms::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
         f.input :external_url_redirect
         f.input :redirect_link_title
         f.input :redirection_target_in_new_window
@@ -102,8 +107,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
-          ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
-          ai.input :position, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(","), :include_blank => false
+          ai.input :image, :as => :select, :collection => Rdcms::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
+          ai.input :position, :as => :select, :collection => Rdcms::Setting.for_key("rdcms.article.image_positions").split(","), :include_blank => false
           ai.input :_destroy, :as => :boolean
         end
       end
@@ -114,14 +119,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   index do
     selectable_column
-    column I18n.t("name", :scope => [:goldencobra, :menue]), :sortable => :url_name do |article|
+    column I18n.t("name", :scope => [:rdcms, :menue]), :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column :url  do |article|
       article.public_url
     end
     column :active, :sortable => :active do |article|
-      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => t("online", :scope => [:rdcms, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? "Standard" : article.article_type
@@ -132,11 +137,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     #column :updated_at, sortable: :updated_at do |article|
     #  l(article.updated_at)
     #end
-    column I18n.t("menue", :scope => [:goldencobra, :menue]) do |article|
+    column I18n.t("menue", :scope => [:rdcms, :menue]) do |article|
       if article.linked_menues.count > 0
-        link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url))
+        link_to(I18n.t("list", :scope => [:rdcms, :menue]), admin_menues_path("q[target_contains]" => article.public_url))
       else
-        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
+        link_to(I18n.t("create", :scope => [:rdcms, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
       end
     end
     column "" do |article|
@@ -144,44 +149,44 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau")
       result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link edit", :title => "bearbeiten")
       result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuer Unterartikel")
-      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => t("delete_article", :scope => [:rdcms, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
       raw(result)
     end
   end
 
   sidebar :overview, label: "Ueberblick", only: [:index] do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
+    render :partial => "/rdcms/admin/shared/overview", :object => Rdcms::Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
   end
 
   sidebar :widgets_options, only: [:edit] do
     _article = @_assigns['article']
-    render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => _article }
+    render "/rdcms/admin/articles/widgets_sidebar", :locals => { :current_article => _article }
   end
 
   sidebar :startpage_options, :only => [:show, :edit] do
       _article = @_assigns['article']
       if _article.startpage
-        t("startpage", :scope => [:goldencobra, :flash_notice])
+        t("startpage", :scope => [:rdcms, :flash_notice])
       else
-        link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(_article.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
+        link_to t("action_Startpage", :scope => [:rdcms, :flash_notice]) , mark_as_startpage_admin_article_path(_article.id), :confirm => t("name_of_flashnotice", :scope => [:rdcms, :flash_notice])
       end
   end
 
 
   sidebar :layout, only: [:edit] do
       _article = @_assigns['article']
-      render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
+      render "/rdcms/admin/articles/layout_sidebar", :locals => { :current_article => _article }
   end
 
   # Wird derzeit nicht benötigt, da es den Artikeltyp Default Index gibt,
   # der über Tags den Index gewünschter Artikel erstellt
   #sidebar :index_of_articles, only: [:edit] do
-    #render "/goldencobra/admin/articles/index_of_articles_sidebar"
+    #render "/rdcms/admin/articles/index_of_articles_sidebar"
   #end
 
 
   sidebar :image_module, :only => [:edit] do
-    render "/goldencobra/admin/articles/image_module_sidebar"
+    render "/rdcms/admin/articles/image_module_sidebar"
   end
 
   sidebar :menue_options, :only => [:show, :edit] do
@@ -194,7 +199,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
       end
     end
-    articles = Goldencobra::Article.active.where(:url_name => _article.url_name)
+    articles = Rdcms::Article.active.where(:url_name => _article.url_name)
     if articles.count > 1
       results = articles.select{|a| a.public_url == _article.public_url}.flatten.compact.uniq
     end
@@ -215,14 +220,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   member_action :mark_as_startpage do
-    article = Goldencobra::Article.find(params[:id])
+    article = Rdcms::Article.find(params[:id])
     article.mark_as_startpage!
-    flash[:notice] = I18n.t(:startpage, scope: [:flash_notice, :goldencobra]) #"Dieser Artikel ist nun der Startartikel"
+    flash[:notice] = I18n.t(:startpage, scope: [:flash_notice, :rdcms]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 
   member_action :set_page_online_offline do
-    article = Goldencobra::Article.find(params[:id])
+    article = Rdcms::Article.find(params[:id])
     if article.active
       article.active = false
       flash[:notice] = "Dieser Artikel ist nun online"
@@ -236,13 +241,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   member_action :update_widgets, :method => :post do
-    article = Goldencobra::Article.find(params[:id])
+    article = Rdcms::Article.find(params[:id])
     article.update_attributes(:widget_ids => params[:widget_ids])
     redirect_to :action => :edit, :notice => "Widgets added"
   end
 
   batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
-    Goldencobra::Article.find(selection).each do |article|
+    Rdcms::Article.find(selection).each do |article|
       article.updated_at = Time.now
       article.save
     end
@@ -251,7 +256,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   batch_action :set_article_online, :confirm => "Artikel online stellen: sind Sie sicher?" do |selection|
-    Goldencobra::Article.find(selection).each do |article|
+    Rdcms::Article.find(selection).each do |article|
       article.active = true
       article.save
     end
@@ -260,7 +265,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   batch_action :set_article_offline, :confirm => "Artikel offline stellen: sind Sie sicher?" do |selection|
-    Goldencobra::Article.find(selection).each do |article|
+    Rdcms::Article.find(selection).each do |article|
       article.active = false
       article.save
     end
@@ -280,9 +285,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
 
     def new
-      @article = Goldencobra::Article.new(params[:article])
+      @article = Rdcms::Article.new(params[:article])
       if params[:parent] && params[:parent].present?
-        @parent = Goldencobra::Article.find(params[:parent])
+        @parent = Rdcms::Article.find(params[:parent])
         @article.parent_id = @parent.id
       end
     end
@@ -299,7 +304,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => :index do
-    link_to("Import", new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
+    link_to("Import", new_admin_import_path(:target_model => "Rdcms::Article"), :class => "importer")
   end
 
   action_item :only => :edit do

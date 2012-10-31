@@ -4,7 +4,7 @@ en:
             comment:
                 one: "Comment"
                 other: "Comments"
-            goldencobra/comment:
+            rdcms/comment:
                 one: "Comment"
                 other: "Comments"
             import:
@@ -13,61 +13,58 @@ en:
             article:
                 one: "Article"
                 other: "Articles"
-            goldencobra/article:
+            rdcms/article:
                 one: "Article"
                 other: "Articles"
             setting:
                 one: "Setting"
                 other: "Settings"
-            goldencobra/setting:
+            rdcms/setting:
                 one: "Setting"
                 other: "Settings"
             menue:
                 one: "Menue"
                 other: "Menues"
-            goldencobra/menue:
+            rdcms/menue:
                 one: "Menue"
                 other: "Menues"
             metag:
                 one: "Metatag"
                 other: "Metatags"
-            goldencobra/metag:
+            rdcms/metag:
                 one: "Metatag"
                 other: "Metatags"
             widget:
                 one: "Widget"
                 other: "Widgets"
-            goldencobra/widget:
+            rdcms/widget:
                 one: "Widget"
                 other: "Widgets"
             upload:
                 one: "Upload"
                 other: "Uploads"
-            goldencobra/upload:
-                one: "Medium"
-                other: "Medien"
             user:
                 one: "User"
                 other: "Users"
             permission:
                 one: "Permission"
                 other: "Permissions"
-            goldencobra/permission:
+            rdcms/permission:
                 one: "Permission"
                 other: "Permissions"
             role:
                 one: "Role"
                 other: "Roles"
-            goldencobra/role:
+            rdcms/role:
                 one: "Role"
                 other: "Roles"
         attributes:
-            goldencobra/comment:
+            rdcms/comment:
                 content: "Content"
                 active: "active"
                 approved: "approved"
                 reported: "reported"
-            goldencobra/role:
+            rdcms/role:
                 description: "Description"
                 created_at: "created at"
                 updated_at: "updated at"
@@ -83,34 +80,13 @@ en:
                 email: "email"
                 created_at: "created at"
                 updated_at: "updated at"
-            goldencobra/article:
-                article_type: "article type"
+            rdcms/article:
                 title: "title"
                 url: "url"
-                sorter_limit: "number of sorted articles"
-                sort_order: "sort order"
-                reverse_sort: "descending order?"
-                author: "author"
-                url_name: "name of url"
-                slug: "url shortform"
-                content: "main content"
-                teaser: "teaser"
-                ancestry: "ancestry"
-                startpage: "startpage"
-                active: "online"
-                subtitle: "subtitle"
-                summary: "summary"
-                context_info: "sidebare content"
-                canonical_url: "url for search engines"
-                robots_no_index: "do not list in search engines"
-                breadcrumb: "breadcrumb"
-                template_file: "layout file"
-                enable_social_sharing: "show social media buttons"
-                cacheable: "cacheable"
-                external_url_redirect: "redirect to external url"
-                created_at: "created_at"
-                updated_at: "updated_at"
-            goldencobra/upload:
+                created_at: "created at"
+                updated_at: "updated at"
+                article_type: "article type"
+            rdcms/upload:
                 source: "source"
                 created_at: "created at"
                 updated_at: "updated at"
@@ -120,14 +96,4 @@ en:
                 rights: "rights"
                 description: "description"
                 image: "image"
-            goldencobra/widget:
-                active: "Online?"
-                offline_day: "Days which show alternative content"
-                offline_time_start: "Start time"
-                offline_time_start_hint: "Time as HH:MM(24h): e.g. 16:00"
-                offline_time_end: "End time"
-                offline_time_end_hint: "Time as HH:MM(24h): e.g. 17:35"
-                offline_time_active: "Use alternative offline content?"
-                offline_time_active_hint: "Tick if you want this widget to be offline at specific times."
-                alternative_content: "Content for offline widget"
-                alternative_content_hint: "This content will be shown, when widget is offline"
+

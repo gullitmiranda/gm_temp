@@ -1,0 +1,9 @@
+<%= f.inputs "", :class => "" do %>
+	<h3 class="rdcms_article_article_type">
+		<% if f.object.article_type.present? %>
+			<%= I18n.t("#{f.object.article_type.parameterize}", scope: [:article_types]) %><%= " : #{f.object.public_url}" if f.object.title.present? %>
+		<% else %>
+			<span>Standard<%= " : #{f.object.public_url}" if f.object.title.present? %></span>
+		<% end %>
+	</h3>
+<% end %>

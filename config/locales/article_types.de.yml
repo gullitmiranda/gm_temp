@@ -19,7 +19,7 @@ de:
     pressrelease-show: "Pressemitteilung Einzelseite"
     faq-index: "FAQ Übersicht"
     faq-show: "FAQ Einzelseite"
-  goldencobra:
+  rdcms:
     article_types:
       Chairman: "Vorstand"
       Subsidiary: "Niederlassungen"

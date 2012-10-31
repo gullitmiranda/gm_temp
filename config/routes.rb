@@ -2,7 +2,7 @@ if RUBY_VERSION.include?("1.9.")
   require 'sidekiq/web'
 end
 
-Goldencobra::Engine.routes.draw do
+Rdcms::Engine.routes.draw do
   if RUBY_VERSION.include?("1.9.")
     mount Sidekiq::Web => '/admin/background'
   end

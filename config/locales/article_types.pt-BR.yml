@@ -19,7 +19,7 @@
     pressrelease-show: "Liberação de imprensa"
     faq-index: "Índice de FAQ"
     faq-show: "FAQ"
-  goldencobra:
+  rdcms:
     article_types:
       Chairman: "Conselho"
       Subsidiary: "Axiliares"

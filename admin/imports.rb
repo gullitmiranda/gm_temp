@@ -1,6 +1,9 @@
-ActiveAdmin.register Goldencobra::Import, :as => "Import" do
-  menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Import)}
-
+ActiveAdmin.register Rdcms::Import, :as => "Import" do
+  menu  priority: 4,
+        label: proc{ I18n.t "activerecord.models.#{Rdcms::Import.model_name.human.downcase}.other" },
+        parent: I18n.t('activerecord.models.settings'),
+        if: proc{can?(:update, Rdcms::Import)}
+  # 
   index do
     column :id
     column :target_model
@@ -28,16 +31,16 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   end
 
   member_action "run" do
-    import = Goldencobra::Import.find(params[:id])
+    import = Rdcms::Import.find(params[:id])
     import.run!
     flash[:notice] = "Dieser Import wurde gestartet"
     redirect_to :action => :index
   end
   
   member_action :assignment do
-    @importer = Goldencobra::Import.find(params[:id])
+    @importer = Rdcms::Import.find(params[:id])
     if @importer
-      render 'goldencobra/imports/attributes', layout: 'active_admin'
+      render 'rdcms/imports/attributes', layout: 'active_admin'
     else
       render nothing: true
     end
@@ -47,7 +50,7 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   controller do
     
     def new
-      @import = Goldencobra::Import.new(:target_model => params[:target_model])
+      @import = Rdcms::Import.new(:target_model => params[:target_model])
     end
     
     def show
@@ -57,7 +60,7 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
     end
     
     def edit
-      @import = Goldencobra::Import.find(params[:id])
+      @import = Rdcms::Import.find(params[:id])
       @import.analyze_csv
     end
   end

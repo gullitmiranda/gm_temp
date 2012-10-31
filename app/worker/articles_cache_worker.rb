@@ -3,7 +3,7 @@ class ArticlesCacheWorker
   sidekiq_options queue: "default"
 
   def perform
-    Goldencobra::Article.active.each do |article|
+    Rdcms::Article.active.each do |article|
       article.updated_at = Time.now
       article.save
     end

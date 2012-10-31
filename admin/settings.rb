@@ -1,14 +1,18 @@
-ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
+ActiveAdmin.register Rdcms::Setting, :as => "Setting"  do
+  menu  priority: 5,
+        label: proc{ I18n.t "activerecord.models.#{Rdcms::Setting.model_name.human.downcase}.other" },
+        parent: I18n.t('activerecord.models.settings'),
+        if: proc{can?(:update, Rdcms::Setting)}
+  # 
 
-  menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Setting)}
-  controller.authorize_resource :class => Goldencobra::Setting
+  controller.authorize_resource :class => Rdcms::Setting
   scope "Werte", :with_values, :default => true
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title
       f.input :value
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Rdcms::Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
     end
     f.actions
   end
@@ -23,7 +27,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   end
 
   sidebar :overview, only: [:index]  do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
+    render :partial => "/rdcms/admin/shared/overview", :object => Rdcms::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
   end
 
   batch_action :destroy, false
