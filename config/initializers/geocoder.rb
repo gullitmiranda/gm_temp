@@ -3,5 +3,5 @@ Geocoder::Configuration.lookup = :google
 Geocoder::Configuration.api_key = ""
 Geocoder::Configuration.timeout = 5
 Geocoder::Configuration.use_https = false
-Geocoder::Configuration.language = :de
+Geocoder::Configuration.language = :"pt-BR"
 #Geocoder::Configuration.cache = Redis.new

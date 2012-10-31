@@ -7,6 +7,9 @@ class CreateRdcmsUploads < ActiveRecord::Migration
       t.string :image_file_name
       t.string :image_content_type
       t.integer :image_file_size
+      t.integer :attachable_id
+      t.string :attachable_type
+      t.string :alt_text
 
       t.timestamps
     end

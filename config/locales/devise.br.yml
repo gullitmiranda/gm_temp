@@ -1,4 +1,4 @@
-"pt-BR":
+br:
   devise:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso. Você está autenticado.

@@ -36,6 +36,18 @@ class AddDeviseToAdminUsers < ActiveRecord::Migration
       # Token authenticatable
       t.string :authentication_token
 
+      t.boolean :gender
+      t.string :title
+      t.string :firstname
+      t.string :lastname
+      t.string :function
+      t.string :phone
+      t.string :fax
+      t.string :facebook
+      t.string :twitter
+      t.string :linkedin
+      t.string :xing
+      t.string :googleplus
 
       # Uncomment below if timestamps were not included in your original model.
       t.timestamps

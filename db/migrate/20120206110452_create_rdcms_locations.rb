@@ -8,6 +8,8 @@ class CreateRdcmsLocations < ActiveRecord::Migration
       t.string :zip
       t.string :region
       t.string :country
+      
+      t.string :title
 
       t.timestamps
     end

@@ -7,7 +7,7 @@ class CreateRdcmsHelps < ActiveRecord::Migration
 
       t.timestamps
     end
-    Rdcms::Help.create!(:title => "Rdcms", :description => "https://github.com/ikusei/Rdcms")
+    Rdcms::Help.create!(:title => "Rdcms", :description => "http://www.requestdev.com.br/administrative-tool")
     
   end
 end

@@ -1,3 +1,3 @@
 module Rdcms
-  VERSION = "1.0.8"
+  VERSION = "0.1"
 end
