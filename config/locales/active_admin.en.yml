@@ -16,8 +16,8 @@ en:
       filter_updated: "updated at"
       filter_parent: "parent"
       filter_type: "article type"
-    menue:
-      menue: "Menue"
+    menu:
+      menu: "Menu"
       name: "name"
       list: "list"
       create: "create"

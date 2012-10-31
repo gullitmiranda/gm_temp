@@ -16,8 +16,8 @@ de:
       filter_updated: "bearbeitet am"
       filter_parent: "Elternelement"
       filter_type: "Artikeltyp"
-    menue:
-      menue: "Menü"
+    menu:
+      menu: "Menü"
       name: "Name"
       list: "auflisten"
       create: "erstellen"

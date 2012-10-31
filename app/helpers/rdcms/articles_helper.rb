@@ -29,27 +29,27 @@ module Rdcms
       end
     end
 
-    def navigation_menu(menue_id, options={})
-      return "id can't be blank" if menue_id.blank?
+    def navigation_menu(menu_id, options={})
+      return "id can't be blank" if menu_id.blank?
       #0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades
       depth = options[:depth] || 0
       class_name = options[:class] || ""
       id_name = options[:id] || ""
-      if menue_id.class == String
-        master_menue = Rdcms::Menue.active.find_by_title(menue_id)
+      if menu_id.class == String
+        master_menu = Rdcms::Menu.active.find_by_title(menu_id)
       else
-        master_menue = Rdcms::Menue.active.find_by_id(menue_id)
+        master_menu = Rdcms::Menu.active.find_by_id(menu_id)
       end
 
-      if master_menue.present?
+      if master_menu.present?
         content = ""
-        master_menue.children.active.includes(:image).collect do |child|
+        master_menu.children.active.includes(:image).collect do |child|
           content << navigation_menu_helper(child, depth, 1, options)
         end
         if id_name.present?
-          result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menu.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
         else
-          result = content_tag(:ul, raw(content), :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content), :class => "#{class_name} #{depth} navigation #{master_menu.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
         end
       end
       return raw(result)

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_menues
+# Table name: rdcms_menu
 #
 #  id                  :integer(4)      not null, primary key
 #  title               :string(255)
@@ -18,14 +18,14 @@
 #
 
 module Rdcms
-  class Menue < ActiveRecord::Base
+  class Menu < ActiveRecord::Base
     attr_accessible :title, :target, :parent_id, :sorter, :active, :css_class, :image_id, :description_title, :description, :call_to_action_name
     
     has_ancestry :orphan_strategy => :rootify
     belongs_to :image, :class_name => Rdcms::Upload, :foreign_key => "image_id"
     validates_presence_of :title
     if ActiveRecord::Base.connection.table_exists?("rdcms_settings")
-      if Rdcms::Setting.for_key("rdcms.menues.recreate_cache") == "true"
+      if Rdcms::Setting.for_key("rdcms.menus.recreate_cache") == "true"
         after_save 'Rdcms::Article.recreate_cache'
       end
     end

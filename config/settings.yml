@@ -1,7 +1,7 @@
 rdcms:
   comments:
     commentator: "User"
-  menues:
+  menus:
     recreate_cache: "false"
   widgets:
     recreate_cache: "false"

@@ -28,10 +28,10 @@ de:
             rdcms/setting:
                 one: "Einstellung"
                 other: "Einstellungen"
-            menue:
+            menu:
                 one: "Menü"
                 other: "Menüpunkte"
-            rdcms/menue:
+            rdcms/menu:
                 one: "Menü"
                 other: "Menüpunkte"
             metag:

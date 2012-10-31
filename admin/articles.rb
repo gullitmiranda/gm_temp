@@ -119,7 +119,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
 
   index do
     selectable_column
-    column I18n.t("name", :scope => [:rdcms, :menue]), :sortable => :url_name do |article|
+    column I18n.t("name", :scope => [:rdcms, :menu]), :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column :url  do |article|
@@ -137,11 +137,11 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
     #column :updated_at, sortable: :updated_at do |article|
     #  l(article.updated_at)
     #end
-    column I18n.t("menue", :scope => [:rdcms, :menue]) do |article|
-      if article.linked_menues.count > 0
-        link_to(I18n.t("list", :scope => [:rdcms, :menue]), admin_menues_path("q[target_contains]" => article.public_url))
+    column I18n.t("menu", :scope => [:rdcms, :menu]) do |article|
+      if article.linked_menus.count > 0
+        link_to(I18n.t("list", :scope => [:rdcms, :menu]), admin_menus_path("q[target_contains]" => article.public_url))
       else
-        link_to(I18n.t("create", :scope => [:rdcms, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
+        link_to(I18n.t("create", :scope => [:rdcms, :menu]), new_admin_menu_path(:menu => {:title => article.title, :target => article.public_url}))
       end
     end
     column "" do |article|
@@ -189,14 +189,14 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
     render "/rdcms/admin/articles/image_module_sidebar"
   end
 
-  sidebar :menue_options, :only => [:show, :edit] do
+  sidebar :menu_options, :only => [:show, :edit] do
     _article = @_assigns['article']
     ul do
-      if _article.linked_menues.count > 0
-        li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => _article.public_url))
-        li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+      if _article.linked_menus.count > 0
+        li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menus_path("q[target_contains]" => _article.public_url))
+        li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menu_path(:menu => {:title => _article.title, :target => _article.public_url}))
       else
-        li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+        li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menu_path(:menu => {:title => _article.title, :target => _article.public_url}))
       end
     end
     articles = Rdcms::Article.active.where(:url_name => _article.url_name)

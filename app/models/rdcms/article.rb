@@ -329,8 +329,8 @@ module Rdcms
       end
     end
 
-    def linked_menues
-      Rdcms::Menue.where(:target => self.public_url)
+    def linked_menus
+      Rdcms::Menu.where(:target => self.public_url)
     end
 
     def complete_json

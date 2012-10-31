@@ -16,8 +16,8 @@ br:
       filter_updated: "atualizado em"
       filter_parent: "pai"
       filter_type: "tipo de arquivo"
-    menue:
-      menue: "Menu"
+    menu:
+      menu: "Menu"
       name: "nome"
       list: "lista"
       create: "criar"

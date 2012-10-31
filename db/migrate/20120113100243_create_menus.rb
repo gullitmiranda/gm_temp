@@ -1,6 +1,6 @@
-class CreateMenues < ActiveRecord::Migration
+class CreateMenus < ActiveRecord::Migration
   def change
-    create_table :rdcms_menu do |t|
+    create_table :rdcms_menus do |t|
       t.string :title
       t.string :target
       t.string :css_class
@@ -16,6 +16,6 @@ class CreateMenues < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :rdcms_menu, :ancestry
+    add_index :rdcms_menus, :ancestry
   end
 end

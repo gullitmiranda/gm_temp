@@ -22,12 +22,12 @@ en:
             rdcms/setting:
                 one: "Setting"
                 other: "Settings"
-            menue:
-                one: "Menue"
-                other: "Menues"
-            rdcms/menue:
-                one: "Menue"
-                other: "Menues"
+            menu:
+              one: "Menu"
+              other: "Menus"
+            rdcms/menu:
+              one: "Menu"
+              other: "Menus"
             metag:
                 one: "Metatag"
                 other: "Metatags"

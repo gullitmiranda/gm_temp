@@ -54,9 +54,9 @@ call in any view_template:
 **example:**
 
 - `<%= navigation_menu(1, :depth => 1) %>`  
-renders Menue startign with id 1 and only childs of first grade  
+renders Menu startign with id 1 and only childs of first grade  
 - `<%= navigation_menu(2) %>`  
- renders Menue startign with id 2 and all children as a nested list  
+ renders Menu startign with id 2 and all children as a nested list  
         
 ##Rendering content in layouts
     <%= yield(:article_content) %>  

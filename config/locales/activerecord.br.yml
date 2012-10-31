@@ -106,7 +106,7 @@ br:
         one: Preferência
         other: Preferências
       # Gestão de Conteúdo
-      menue:
+      menu:
         one: Menu
         other: Menus
       upload:
