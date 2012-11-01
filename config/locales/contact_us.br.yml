@@ -1,0 +1,33 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+br:
+  activerecord:
+    errors:
+      not_send:
+        one: 'O %{model} não foi enviado pois possui 1 erro.'
+        other: 'O %{model} não foi enviado pois possui %{count} erros.'
+  contact_us:
+    contact_mailer:
+      contact_email:
+        sent_by_contact_form: "Enviado pelo formulário de contato. %{email}"
+        sent_by_name: "Enviada por %{name} <%{email}>"
+        phone: "Telefone: %{phone}"
+        subject: "Mensagem de contato de <strong>%{email}</strong>"
+    contacts:
+      new: &new
+        contact_us: Contate-nos
+        email: "Email"
+        message: "Mensagem"
+        name: "Nome"
+        phone: "Telefone"
+        subject: "Assunto"
+        submit: "Enviar"
+      new_formtastic:
+        <<: *new
+      new_simple_form:
+        <<: *new
+    notices:
+      error: "Você deve preencher os campos."
+      success: "Email de contato enviado com sucesso."
+  required: Obrigatório

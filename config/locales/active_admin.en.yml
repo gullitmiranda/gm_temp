@@ -22,8 +22,10 @@ en:
       list: "list"
       create: "create"
   active_admin:
+    administration: Administration
     dashboard: Dashboard
-    dashboard_welcome:
+    dashboard_header: Dashboard
+    dashboard_welcome: 
       welcome: "Welcome to Active Admin. This is the default dashboard page."
       call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
     dashboard_sections:
@@ -103,3 +105,17 @@ en:
         empty_text: "Comment wasn't saved, text was empty."
     articles:
       tag-select-placeholder: "Select tag"
+    devise:
+      login:
+        title: "Login"
+        remember_me: "Remember me"
+        submit: "Login"
+      reset_password:
+        title: "Forgot your password?"
+        submit: "Reset My Password"
+      change_password:
+        title: "Change your password"
+        submit: "Change my password"
+      links:
+        sign_in: "Sign in"
+        forgot_your_password: "Forgot your password?"

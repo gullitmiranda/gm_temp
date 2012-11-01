@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_menu
+# Table name: rdcms_menus
 #
 #  id                  :integer(4)      not null, primary key
 #  title               :string(255)

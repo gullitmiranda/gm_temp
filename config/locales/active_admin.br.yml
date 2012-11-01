@@ -23,7 +23,9 @@ br:
       create: "criar"
   # 
   active_admin:
+    administration: Administração
     dashboard: "Painel"
+    dashboard_header: "Painel Administrativo"
     dashboard_welcome:
       welcome: "Bem vindo ao Active Admin. Esta é a página de painéis padrão."
       call_to_action: "Para adicionar seções ao painel, verifique 'app/admin/dashboards.rb'"
