@@ -18,11 +18,13 @@ br:
     email: E-mail
     firstname: Nome
     function: Funções
+    gender: Gênero
+    googleplus: Google Plus
     height: Altura
     id: Código
-    image_file_name: Nome da imagem
-    image_content_type: Tipo da imagem
-    image_file_size: Tamanho da imagem
+    upload_file_name: Nome da imagem
+    upload_content_type: Tipo da imagem
+    upload_file_size: Tamanho da imagem
     image: Imagem
     last_sign_in_at: Último conexão
     lastname: Sobrenome
@@ -41,7 +43,6 @@ br:
     upload_content_type: Tipo
     upload_file_name: Nome
     upload_file_size: Tamanho
-    upload_updated_at: Atualizado em
     url: url
     reported: Relatado
     rights: direitos
@@ -79,11 +80,14 @@ br:
       product:
         one: Produto
         other: Produtos
+      rdcms_product:
+        one: Produto
+        other: Produtos
       gallery:
         one: Galeria
         other: Galerias
       # Artigos
-      article: &model_article
+      article:
         one: Artigo
         other: Artigos
       comment:
@@ -91,6 +95,9 @@ br:
         other: Comentários
       # Configurações
       user:
+        one: Usuário
+        other: Usuários
+      "rdcms/user":
         one: Usuário
         other: Usuários
       role:

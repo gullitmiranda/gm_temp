@@ -6,6 +6,7 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   # 
   controller.authorize_resource :class => Rdcms::Upload
 
+
   if ActiveRecord::Base.connection.table_exists?("tags")
     Rdcms::Upload.tag_counts_on(:tags).each do |utag|
       if(utag.count > 5)
@@ -42,9 +43,9 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
     end
     column :created_at, sortable: :created_at do |upload|
     	l(upload.created_at, format: :short)
-	end
+    end
 	  column "" do |upload|
-	    if upload.image_file_name && upload.image_file_name.include?(".zip")
+	    if upload.upload_file_name && upload.upload_file_name.include?(".zip")
 	      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
 	    end
 	  end
@@ -84,9 +85,9 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
       row :rights
       row :description
       row :tag_list
-      row :image_file_name
-      row :image_content_type
-      row :image_file_size
+      row :upload_file_name
+      row :upload_content_type
+      row :upload_file_size
       row :created_at
       row :updated_at
     end
@@ -104,6 +105,38 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   end
 
   #batch_action :destroy, false
+  controller do
+    def index
+      @uploads = Rdcms::Upload
+        .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
+        .order(params[:order])
+        .limit(params[:limit])
+        .offset(params[:offset])
+      
+      respond_to do |format|
+        format.html # index.html.erb
+        # format.json { render json: @uploads }
+        format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
+      end
+    end
+
+    def create
+      create! do |format|
+        if @upload.save
+          format.html {
+            render :json => [@upload.to_jq_upload].to_json,
+            :content_type => 'text/html',
+            :layout => false
+          }
+          format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
+          # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @upload.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
 
   member_action :unzip_file do
     upload = Rdcms::Upload.find(params[:id])
@@ -113,7 +146,7 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
 
   action_item :only => [:edit, :show] do
     _upload = @_assigns['upload']
-    if _upload.image_file_name && _upload.image_file_name.include?(".zip")
+    if _upload.upload_file_name && _upload.upload_file_name.include?(".zip")
       link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(_upload), :target => "_blank")
     end
    end

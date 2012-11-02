@@ -23,8 +23,12 @@ br:
       create: "criar"
   # 
   active_admin:
-    administration: Administração
-    dashboard: "Painel"
+    # models
+    admin: Administração
+    # article: Artigos
+    dashboard: Painel
+    product: Produtos
+
     dashboard_header: "Painel Administrativo"
     dashboard_welcome:
       welcome: "Bem vindo ao Active Admin. Esta é a página de painéis padrão."

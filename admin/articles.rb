@@ -1,4 +1,5 @@
-#Encoding: UTF-8
+#encoding: utf-8
+
 ActiveAdmin.register Rdcms::Article, :as => "Article" do
   menu  priority: 1,
         label: proc{ I18n.t "activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other" },
@@ -8,10 +9,10 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   controller.authorize_resource :class => Rdcms::Article
   
   # Just set the location as ":de" if it is in the test environment and location and if there is no default location set.
-  if Rails.env != "test" and !(defined?(I18n.locale) or defined?(I18n.default_locale))
-    I18n.locale = :de
-    I18n.default_locale = :de
-  end
+  # if Rails.env != "test" and !(defined?(I18n.locale) or defined?(I18n.default_locale))
+  #   I18n.locale = :de
+  #   I18n.default_locale = :de
+  # end
 
   filter :parent_ids_in, :as => :select, :collection => proc { Rdcms::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:rdcms, :filter], :default => "Elternelement")
   filter :article_type, :as => :select, :collection => Rdcms::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:rdcms, :filter], :default => "Artikeltyp")

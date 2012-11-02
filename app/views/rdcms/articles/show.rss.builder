@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
@@ -25,8 +27,8 @@ xml.rss version: "2.0" do
           xml.guid article.absolute_public_url
           if article.images && article.images.count > 0 && article.images.first.present?
             ai = article.images.first
-            xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Rdcms::Setting.for_key('rdcms.url')}#{ai.image.url(:thumb)}", :length => ai.image_file_size
-            xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Rdcms::Setting.for_key('rdcms.url')}#{ai.image.url(:medium)}", :length => ai.image_file_size
+            xml.tag! "enclosure", :type => ai.upload_content_type, :url => "http://#{Rdcms::Setting.for_key('rdcms.url')}#{ai.image.url(:thumb)}", :length => ai.upload_file_size
+            xml.tag! "enclosure", :type => ai.upload_content_type, :url => "http://#{Rdcms::Setting.for_key('rdcms.url')}#{ai.image.url(:medium)}", :length => ai.upload_file_size
           end
           xml.tag! "quirin:rating", "0.0"
           xml.tag! "quirin:teaser" do

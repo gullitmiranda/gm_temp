@@ -6,9 +6,9 @@
 #  source             :string(255)
 #  rights             :string(255)
 #  description        :text
-#  image_file_name    :string(255)
-#  image_content_type :string(255)
-#  image_file_size    :integer(4)
+#  upload_file_name    :string(255)
+#  upload_content_type :string(255)
+#  upload_file_size    :integer(4)
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
 #  attachable_id      :integer(4)

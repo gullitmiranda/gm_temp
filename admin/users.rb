@@ -60,8 +60,8 @@ ActiveAdmin.register User, :as => "User" do
     default_actions
   end
 
-  show :title => :lastname do
-    panel "User" do
+  show :title => :title do |u|
+    panel User.model_name.human do
       attributes_table_for user do
         [:firstname, :lastname, :title, :email, :gender, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :created_at, :updated_at].each do |aa|
           row aa

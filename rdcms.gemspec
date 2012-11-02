@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -8,7 +10,7 @@ Gem::Specification.new do |s|
   s.version     = Rdcms::VERSION
   s.authors     = ["Gullit Miranda"]
   s.email       = ["gullitmiranda@requestdev.com.br"]
-  s.homepage    = "http://www.requestdev.com.br/"
+  s.homepage    = "http://www.requestdev.com.br/rdcms"
   s.summary     = "Sistema de controle de conteúdo da Requestdev"
   s.description = "This is the Basic Module of Rdcms. It Offers Devise, ActiveAdmin, an Article-Module, a Menu-Module, and global Settings for an CMS"
 
@@ -58,6 +60,19 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-annotate'
   s.add_development_dependency 'pry'
 
-  
-  
+  s.add_dependency 'contact_us'
+  s.add_dependency "inherited_resources"
+  s.add_dependency "paperclipftp"#, "~> 0.2.4"
+  s.add_dependency 'contact_us'#, '~> 0.4.0.beta'
+  s.add_dependency 'globalize3'
+  s.add_dependency "globalize3-inputs-bootstrap"#, "~> 0.1"
+  s.add_dependency "awesome_nested_set"#, "~> 2.1.5"
+  s.add_dependency "jquery-fileupload-rails"
+  s.add_dependency "best_in_place"#, '~> 1.1.2'
+  s.add_dependency "ckeditor"#, "~> 3.7.3"
+  s.add_dependency "string_base64"#, "~> 1.0.1"
+  s.add_dependency "email_validator"#, "~> 1.3.0"
+  s.add_dependency 'formtastic'
+  s.add_dependency 'formtastic-bootstrap'
+  s.add_dependency 'client_side_validations-formtastic'
 end

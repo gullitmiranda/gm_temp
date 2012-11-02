@@ -40,30 +40,23 @@ gem "inherited_resources", "~> 1.3.1"
 # Upload de arquivos
 gem "paperclip", "~> 3.3.0"
 gem "paperclipftp", "~> 0.2.4"
-
-# Formulário de contato
 gem 'contact_us', '~> 0.4.0.beta', :git => 'git://github.com/gullitmiranda/contact_us.git'
-
-# Usada para url mais amigáveis e seguras
 gem 'friendly_id'
-
-# Usada para internacionalização de dados
 gem 'globalize3'
-# gem 'ActiveAdmin-Globalize3-inputs', :path => "/Users/gullitmiranda/dev/www/gems-fork/ActiveAdmin-Globalize3-inputs/"
-gem 'ActiveAdmin-Globalize3-inputs', :git => 'git://github.com/gullitmiranda/ActiveAdmin-Globalize3-inputs.git'
 
+gem "globalize3-inputs-bootstrap", "~> 0.1"
+# gem 'globalize3-inputs-bootstrap', :path => "/Users/gullitmiranda/dev/www/gems-fork/globalize3-inputs-bootstrap/"
+# gem 'ActiveAdmin-Globalize3-inputs', :git => 'git://github.com/gullitmiranda/ActiveAdmin-Globalize3-inputs.git'
+
+gem 'contact_us', '~> 0.4.0.beta', :git => 'git://github.com/gullitmiranda/contact_us.git'
 gem "meta_search", "~> 1.1.3"
 gem "awesome_nested_set", "~> 2.1.5"
-
-
 gem "jquery-fileupload-rails"
 gem "best_in_place", '~> 1.1.2'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem "ckeditor", "~> 3.7.3"
 gem "string_base64", "~> 1.0.1"
 gem "email_validator", "~> 1.3.0"
-
-## formtastic
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'client_side_validations-formtastic'

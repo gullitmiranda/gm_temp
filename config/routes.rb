@@ -10,6 +10,11 @@ Rdcms::Engine.routes.draw do
   match "/*article_id.pdf", :to => "articles#convert_to_pdf"
   match "/*article_id", :to => "articles#show"
 
+  # resources :products, :only => [:index, :show]
+
+  # match "/uploads", :to => "uploads"
+  # resources :uploads, :only => [:index, :create, :update, :destroy]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

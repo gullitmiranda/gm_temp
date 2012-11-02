@@ -13,5 +13,6 @@ class CreateRdcmsUploads < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :uploads, :upload_file_name
   end
 end

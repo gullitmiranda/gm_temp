@@ -3,11 +3,11 @@ class CreateArticles < ActiveRecord::Migration
     create_table :rdcms_articles do |t|
       t.string :title
 
-      t.string :rdcms_articles, :url_name
-      t.string :rdcms_articles, :slug
-      t.text :rdcms_articles, :content
-      t.text :rdcms_articles, :teaser
-      t.string :rdcms_articles, :ancestry
+      t.string :url_name
+      t.string :slug
+      t.text :content
+      t.text :teaser
+      t.string :ancestry
       t.boolean :startpage, :default => false
       t.boolean :active, :default => true
       t.string :subtitle
