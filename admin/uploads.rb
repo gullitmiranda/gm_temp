@@ -4,6 +4,8 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Rdcms::Upload)}
   # 
+  menu false;
+
   controller.authorize_resource :class => Rdcms::Upload
 
 
@@ -18,7 +20,7 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
     f.inputs "File" do
-      f.input :image, :as => :file
+      f.input :upload, :as => :file
     end
     f.inputs "Allgemein" do
       f.input :source
@@ -33,13 +35,13 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
     selectable_column
     column "url" do |upload|
       result = ""
-      result << upload.image.url
+      result << upload.upload.url
     end
     column :source, sortable: :source do |upload|
     	truncate(upload.source, length: 20)
     end
     column t("preview") do |upload|
-      image_tag(upload.image(:mini))
+      image_tag(upload.upload(:mini))
     end
     column :created_at, sortable: :created_at do |upload|
     	l(upload.created_at, format: :short)
@@ -61,25 +63,25 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   show do
     attributes_table do
       row "Vorschau" do
-          image_tag(upload.image(:thumb))
+          image_tag(upload.upload(:thumb))
       end
       row "original" do
-        upload.image(:original)
+        upload.upload(:original)
       end
       row "large" do
-        upload.image(:large)
+        upload.upload(:large)
       end
       row "big" do
-        upload.image(:big)
+        upload.upload(:big)
       end
       row "medium" do
-        upload.image(:medium)
+        upload.upload(:medium)
       end
       row "thumb" do
-        upload.image(:thumb)
+        upload.upload(:thumb)
       end
       row "mini" do
-        upload.image(:mini)
+        upload.upload(:mini)
       end
       row :source
       row :rights
@@ -107,35 +109,35 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   #batch_action :destroy, false
   controller do
     def index
-      @uploads = Rdcms::Upload
-        .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
-        .order(params[:order])
-        .limit(params[:limit])
-        .offset(params[:offset])
+      # @uploads = Rdcms::Upload
+      #   .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
+      #   .order(params[:order])
+      #   .limit(params[:limit])
+      #   .offset(params[:offset])
       
-      respond_to do |format|
+      index! do |format|
         format.html # index.html.erb
         # format.json { render json: @uploads }
         format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
       end
     end
 
-    def create
-      create! do |format|
-        if @upload.save
-          format.html {
-            render :json => [@upload.to_jq_upload].to_json,
-            :content_type => 'text/html',
-            :layout => false
-          }
-          format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
-          # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @upload.errors, status: :unprocessable_entity }
-        end
-      end
-    end
+  #   def create
+  #     create! do |format|
+  #       if @upload.save
+  #         format.html {
+  #           render :json => [@upload.to_jq_upload].to_json,
+  #           :content_type => 'text/html',
+  #           :layout => false
+  #         }
+  #         format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
+  #         # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
+  #       else
+  #         format.html { render action: "new" }
+  #         format.json { render json: @upload.errors, status: :unprocessable_entity }
+  #       end
+  #     end
+  #   end
   end
 
   member_action :unzip_file do

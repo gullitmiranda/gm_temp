@@ -65,7 +65,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclipftp"#, "~> 0.2.4"
   s.add_dependency 'contact_us'#, '~> 0.4.0.beta'
   s.add_dependency 'globalize3'
-  s.add_dependency "globalize3-inputs-bootstrap"#, "~> 0.1"
+  s.add_dependency "globalize3_helpers"
   s.add_dependency "awesome_nested_set"#, "~> 2.1.5"
   s.add_dependency "jquery-fileupload-rails"
   s.add_dependency "best_in_place"#, '~> 1.1.2'

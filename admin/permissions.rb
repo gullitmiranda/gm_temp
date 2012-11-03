@@ -5,6 +5,7 @@ ActiveAdmin.register Rdcms::Permission, :as => "Permission" do
         if: proc{can?(:update, Rdcms::Permission)}
   # 
   controller.authorize_resource :class => Rdcms::Permission
+  menu false;
 
   index do
     selectable_column

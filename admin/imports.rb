@@ -4,6 +4,8 @@ ActiveAdmin.register Rdcms::Import, :as => "Import" do
         parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Rdcms::Import)}
   # 
+  menu false;
+
   index do
     column :id
     column :target_model

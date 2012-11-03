@@ -43,10 +43,7 @@ gem "paperclipftp", "~> 0.2.4"
 gem 'contact_us', '~> 0.4.0.beta', :git => 'git://github.com/gullitmiranda/contact_us.git'
 gem 'friendly_id'
 gem 'globalize3'
-
-gem "globalize3-inputs-bootstrap", "~> 0.1"
-# gem 'globalize3-inputs-bootstrap', :path => "/Users/gullitmiranda/dev/www/gems-fork/globalize3-inputs-bootstrap/"
-# gem 'ActiveAdmin-Globalize3-inputs', :git => 'git://github.com/gullitmiranda/ActiveAdmin-Globalize3-inputs.git'
+gem "globalize3_helpers", :git => 'git://github.com/gullitmiranda/globalize3_helpers.git'
 
 gem 'contact_us', '~> 0.4.0.beta', :git => 'git://github.com/gullitmiranda/contact_us.git'
 gem "meta_search", "~> 1.1.3"

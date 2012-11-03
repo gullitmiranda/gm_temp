@@ -6,6 +6,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
         parent: I18n.t("activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other"),
         if: proc{can?(:update, Rdcms::Article)}
   # 
+  menu false;
   controller.authorize_resource :class => Rdcms::Article
   
   # Just set the location as ":de" if it is in the test environment and location and if there is no default location set.

@@ -54,22 +54,23 @@ br:
     width: Largura
   
   # Admin module
-  admin:
-    posts:
-      show:
-        <<: *atributes_all
-      form:
-        <<: *atributes_all
-    products:
-      show:
-        <<: *atributes_all
-      form:
-        <<: *atributes_all
-    sliders:
-      show:
-        <<: *atributes_all
-      form:
-        <<: *atributes_all
+  rdcms:
+    admin:
+      posts:
+        show:
+          <<: *atributes_all
+        form:
+          <<: *atributes_all
+      products:
+        show:
+          <<: *atributes_all
+        form:
+          <<: *atributes_all
+      sliders:
+        show:
+          <<: *atributes_all
+        form:
+          <<: *atributes_all
   # ActiveRecord
   activerecord:
     models:
@@ -142,16 +143,4 @@ br:
       upload:
         <<: *atributes_all
       admin_user:
-        <<: *atributes_all
-      
-      # Goldencobra
-      goldencobra/comment:
-        <<: *atributes_all
-      goldencobra/role:
-        <<: *atributes_all
-      user:
-        <<: *atributes_all
-      goldencobra/article:
-        <<: *atributes_all
-      goldencobra/upload:
         <<: *atributes_all

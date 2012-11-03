@@ -4,7 +4,8 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Rdcms::Menu)}
   # 
-  
+   menu false;
+ 
   controller.authorize_resource :class => Rdcms::Menu
 
   form do |f|

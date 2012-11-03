@@ -4,6 +4,7 @@ ActiveAdmin.register Rdcms::Setting, :as => "Setting"  do
         parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Rdcms::Setting)}
   # 
+  menu false;
 
   controller.authorize_resource :class => Rdcms::Setting
   scope "Werte", :with_values, :default => true

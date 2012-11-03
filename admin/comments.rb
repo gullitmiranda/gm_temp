@@ -4,6 +4,7 @@ ActiveAdmin.register Rdcms::Comment, :as => "comment" do
         parent: I18n.t("activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other"),
         if: proc{can?(:update, Rdcms::Comment)}
   # 
+  menu false;
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions

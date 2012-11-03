@@ -4,6 +4,7 @@ ActiveAdmin.register Rdcms::Widget, as: "Widget" do
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Rdcms::Widget)}
   # 
+  menu false;
 
   scope "Alle", :scoped, :default => true
   scope "online", :active

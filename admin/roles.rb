@@ -5,4 +5,5 @@ ActiveAdmin.register Rdcms::Role, :as => "Role" do
         if: proc{can?(:update, Rdcms::Role)}
   # 
   controller.authorize_resource :class => Rdcms::Role
+  menu false;
 end

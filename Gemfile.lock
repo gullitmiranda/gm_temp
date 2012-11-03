@@ -30,7 +30,6 @@ PATH
       friendly_id
       geocoder
       globalize3
-      globalize3-inputs-bootstrap
       inherited_resources
       jquery-fileupload-rails
       jquery-rails
@@ -233,9 +232,6 @@ GEM
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
-    globalize3-inputs-bootstrap (0.1)
-      activeadmin
-      globalize3
     growl (1.0.3)
     guard (1.1.1)
       listen (>= 0.4.2)
@@ -525,7 +521,6 @@ DEPENDENCIES
   formtastic-bootstrap
   friendly_id
   globalize3
-  globalize3-inputs-bootstrap (~> 0.1)
   growl
   guard (~> 1.1.1)
   guard-annotate
