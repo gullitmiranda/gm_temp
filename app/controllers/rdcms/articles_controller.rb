@@ -13,9 +13,9 @@ module Rdcms
 
     def show_cache_path
       if Rdcms::Setting.for_key("rdcms.article.max_cache_24h") == "true"
-        "rdcms/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
+        "g/u_#{current_user.id if current_user.present?}/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
       else
-        "rdcms/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
+        "g/u_#{current_user.id if current_user.present?}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
       end
     end
 

@@ -4,7 +4,7 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Rdcms::Menu)}
   # 
-   menu false;
+  menu false;
  
   controller.authorize_resource :class => Rdcms::Menu
 
@@ -82,9 +82,8 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
   end
 
   action_item :only => :edit do
-    _menu = @_assigns['menu']
-    if _menu.versions.last
-      link_to("Undo", revert_admin_menu_path(:id => _menu.versions.last), :class => "undo")
+    if resource.versions.last
+      link_to("Undo", revert_admin_menu_path(:id => resource.versions.last), :class => "undo")
     end
   end
 

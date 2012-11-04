@@ -147,9 +147,8 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   end
 
   action_item :only => [:edit, :show] do
-    _upload = @_assigns['upload']
-    if _upload.upload_file_name && _upload.upload_file_name.include?(".zip")
-      link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(_upload), :target => "_blank")
+    if resource.upload_file_name && resource.upload_file_name.include?(".zip")
+      link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(resource), :target => "_blank")
     end
-   end
+  end
 end

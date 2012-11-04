@@ -120,25 +120,27 @@ module Rdcms
           alt_template = Liquid::Template.parse(widget.alternative_content)
           if widget.id_name.present?
             result << content_tag(widget_wrapper, raw(template.render(Rdcms::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css}",
+                                  class: "#{widget.css_name} #{custom_css} rdcms_widget",
                                   id: widget.id_name,
                                   'data-time-day' => widget.offline_days,
                                   'data-time-start' => widget.offline_time_start_display,
                                   'data-time-end' => widget.offline_time_end_display,
-                                  'data-offline-active' => widget.offline_time_active)
+                                  'data-offline-active' => widget.offline_time_active,
+                                  'data-id' => widget.id)
             result << content_tag(widget_wrapper, raw(alt_template.render(Rdcms::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css} hidden",
-                                  id: widget.id_name)
+                                  class: "#{widget.css_name} #{custom_css} hidden rdcms_widget",
+                                  id: widget.id_name, 'data-id' => widget.id)
           else
             result << content_tag(widget_wrapper, raw(template.render(Rdcms::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css}",
+                                  class: "#{widget.css_name} #{custom_css} rdcms_widget",
                                   'data-time-day' => widget.offline_days,
                                   'data-time-start' => widget.offline_time_start_display,
                                   'data-time-end' => widget.offline_time_end_display,
-                                  'data-offline-active' => widget.offline_time_active)
+                                  'data-offline-active' => widget.offline_time_active,
+                                  'data-id' => widget.id)
             result << content_tag(widget_wrapper, raw(alt_template.render(Rdcms::Article::LiquidParser)),
                                   class: "#{widget.css_name} #{custom_css} hidden",
-                                  id: widget.id_name)
+                                  id: widget.id_name, 'data-id' => widget.id)
           end
         end
       end

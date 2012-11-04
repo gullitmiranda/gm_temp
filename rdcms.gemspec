@@ -17,7 +17,10 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.3"
+  s.requirements << "ImageMagick"
+  s.required_ruby_version = ">= 1.9.2"
+
+  s.add_dependency "rails", "~> 3.2.8"
   s.add_dependency "jquery-rails"
   s.add_dependency "jqueryui_rails"
   s.add_dependency 'devise'
@@ -52,6 +55,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sinatra'
   s.add_dependency 'slim'
   s.add_dependency 'whenever'
+  s.add_dependency 'inherited_resources'
   # s.add_dependency "pdfkit"
   # s.add_dependency 'wkhtmltopdf-binary'
   # s.add_dependency "wicked_pdf"
@@ -61,7 +65,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry'
 
   s.add_dependency 'contact_us'
-  s.add_dependency "inherited_resources"
   s.add_dependency "paperclipftp"#, "~> 0.2.4"
   s.add_dependency 'contact_us'#, '~> 0.4.0.beta'
   s.add_dependency 'globalize3'
