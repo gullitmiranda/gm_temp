@@ -5,3 +5,5 @@ Geocoder::Configuration.timeout = 5
 Geocoder::Configuration.use_https = false
 Geocoder::Configuration.language = :"pt-BR"
 #Geocoder::Configuration.cache = Redis.new
+
+Geokit::Geocoders::google = ""

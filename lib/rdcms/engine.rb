@@ -20,6 +20,7 @@ require 'sunspot_solr'
 require 'sidekiq'
 require 'sinatra'
 require 'slim'
+require 'geokit'
 
 
 

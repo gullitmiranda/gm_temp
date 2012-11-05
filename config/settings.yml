@@ -20,6 +20,7 @@ rdcms:
     article_index:
       link_to_article: "weiterlesen"
   url: "www.requestdev.com.br"
+  use_ssl: "false"
   facebook:
     appid: "123456"
     opengraph_default_image: "/assets/open-graph.png"

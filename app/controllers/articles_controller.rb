@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 class ArticlesController < ApplicationController
   load_and_authorize_resource
 
@@ -83,6 +85,11 @@ class ArticlesController < ApplicationController
 
 
   def sitemap
+    if Setting.for_key("rdcms.use_ssl") == "true"
+      @use_ssl = "s"
+    else
+      @use_ssl = ""
+    end
     @domain_name = Setting.for_key("rdcms.url")
     @articles = Article.for_sitemap
     respond_to do |format|
@@ -271,7 +278,7 @@ class ArticlesController < ApplicationController
           if @ip_result && @ip_result.city.present?
             Article::LiquidParser["user_location"] = @ip_result.city
           else
-            Article::LiquidParser["user_location"] = "berlin"
+            Article::LiquidParser["user_location"] = "Ji-Paraná"
           end
         else
           Article::LiquidParser["user_location"] = session[:user_location].city

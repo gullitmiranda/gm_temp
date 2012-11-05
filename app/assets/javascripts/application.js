@@ -38,6 +38,8 @@ $(document).ready(function(){
 
   });
 
+  console.log($('.rdcms_widget.hidden').length);
   $('.rdcms_widget.hidden').remove();
+  console.log($('.rdcms_widget.hidden').length);
 
 });
