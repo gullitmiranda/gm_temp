@@ -4,5 +4,5 @@ ActiveAdmin.register Role do
         if: proc{can?(:update, Role)}
   # 
   controller.authorize_resource :class => Role
-  # menu false;
+  menu false;
 end

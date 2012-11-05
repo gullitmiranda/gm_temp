@@ -1,6 +1,6 @@
 ActiveAdmin.register_page "About" do
   menu priority: 20, label: I18n.t('activerecord.models.about')
-  # menu false;
+  menu false;
   
   content do
     panel "Ueber Rdcms" do

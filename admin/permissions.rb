@@ -4,7 +4,7 @@ ActiveAdmin.register Permission do
         if: proc{can?(:update, Permission)}
   # 
   controller.authorize_resource :class => Permission
-  # menu false;
+  menu false;
 
   index do
     selectable_column

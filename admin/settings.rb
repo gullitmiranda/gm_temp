@@ -3,7 +3,7 @@ ActiveAdmin.register Setting  do
         parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Setting)}
   # 
-  # menu false;
+  menu false;
 
   controller.authorize_resource :class => Setting
   scope "Werte", :with_values, :default => true

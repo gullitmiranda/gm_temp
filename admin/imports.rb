@@ -3,7 +3,7 @@ ActiveAdmin.register Import do
         parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Import)}
   # 
-  # menu false;
+  menu false;
 
   index do
     column :id

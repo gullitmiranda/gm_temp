@@ -43,6 +43,7 @@ class Upload < ActiveRecord::Base
   has_many :imports, :class_name => Import
   belongs_to :attachable, polymorphic: true
   has_and_belongs_to_many :products, :join_table => "products_uploads"
+  has_and_belongs_to_many :galleries, :join_table => "galleries_uploads"
 
   # Taggings
   acts_as_taggable

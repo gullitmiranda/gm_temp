@@ -5,7 +5,7 @@ ActiveAdmin.register Article do
         parent: I18n.t("activerecord.models.blog.one"),
         if: proc{can?(:update, Article)}
   # 
-  # menu false;
+  menu false;
   controller.authorize_resource :class => Article
   
   # Just set the location as ":de" if it is in the test environment and location and if there is no default location set.

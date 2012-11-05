@@ -3,7 +3,7 @@ ActiveAdmin.register Widget do
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Widget)}
   # 
-  # menu false;
+  menu false;
 
   scope "Alle", :scoped, :default => true
   scope "online", :active

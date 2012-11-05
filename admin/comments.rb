@@ -4,7 +4,7 @@ ActiveAdmin.register Comment, :as => 'comment' do
         parent: I18n.t("activerecord.models.blog.one"),
         if: proc{can?(:update, Comment)}
   # 
-  # menu false;
+  menu false;
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions

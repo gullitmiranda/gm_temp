@@ -56,23 +56,32 @@ br:
     width: Largura
   
   # Admin module
-  rdcms:
-    admin:
-      posts:
-        show:
-          <<: *atributes_all
-        form:
-          <<: *atributes_all
-      products:
-        show:
-          <<: *atributes_all
-        form:
-          <<: *atributes_all
-      sliders:
-        show:
-          <<: *atributes_all
-        form:
-          <<: *atributes_all
+  admin:
+    posts:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    products:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    galleries:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    sliders:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    users:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
   # ActiveRecord
   activerecord:
     models:
@@ -133,13 +142,17 @@ br:
 
     # Atributos dos módulos
     attributes:
+      gallery:
+        <<: *atributes_all
       product:
         <<: *atributes_all
       post:
         <<: *atributes_all
         name: Título
         description: Texto
+      slider:
+        <<: *atributes_all
       upload:
         <<: *atributes_all
-      admin_user:
+      user:
         <<: *atributes_all

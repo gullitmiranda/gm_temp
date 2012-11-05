@@ -1,0 +1,45 @@
+<%= semantic_form_for [:admin, @gallery], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= errors_for @gallery %>
+
+  <div class="control-group">
+    <%= f.label :datetime, :class => 'control-label' %>
+    <div class="controls datetime_select">
+      <%= f.datetime_select :datetime %>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <%= f.globalize_inputs :translations do |lf| %>
+    <div class="control-group">
+      <%= lf.label :name, t(".name"), :class => 'control-label' %>
+      <div class="controls">
+        <%= lf.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= lf.label :description, t(". description"), :class => 'control-label' %>
+      <div class="controls">
+        <%= lf.cktext_area :description, :class => 'text_area' %>
+      </div>
+    </div>
+    <%= lf.hidden_field :locale %>
+  <% end %>
+  
+  <hr />
+  
+  <div class="control-group">
+    <%= f.label :tag_list, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tag_list, :class => 'text_field span4' %>
+    </div>
+    <em class="controls"><%= t(".separated_by_commas") %></em>
+  </div>
+  
+  <hr />
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t(".cancel"), admin_galleries_path, :class => 'btn btn-link' %>
+  </div>
+<% end %>
