@@ -1,0 +1,8 @@
+<div class="layout-sidebar">
+	<%= semantic_form_for ["admin", @article], :html => {:id => "rdcms_events_article_event_modul"} do |f| %>
+		<ul>
+			<%= f.input :template_file, :as => :select, :collection => Article.templates_for_select, :include_blank => false %>
+		</ul>
+		<p><br/><%= f.submit t("submit_layout", :scope => [:active_admin, :sidebars]) %></p>
+	<% end %>
+</div>

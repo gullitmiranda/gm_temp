@@ -4,52 +4,28 @@ de:
             article_comment:
                 one: "Kommentar"
                 other: "Kommentare"
-            rdcms/comment:
-                one: "Kommentar"
-                other: "Kommentare"
             import:
                 one: "Import"
                 other: "Imports"
             location:
                 one: "Adresse"
                 other: "Adressen"
-            rdcms/location:
-                one: "Adresse"
-                other: "Adressen"
             article:
-                one: "Artikel"
-                other: "Artikel"
-            rdcms/article:
                 one: "Artikel"
                 other: "Artikel"
             setting:
                 one: "Einstellung"
                 other: "Einstellungen"
-            rdcms/setting:
-                one: "Einstellung"
-                other: "Einstellungen"
             menu:
-                one: "Menü"
-                other: "Menüpunkte"
-            rdcms/menu:
                 one: "Menü"
                 other: "Menüpunkte"
             metag:
                 one: "Metatag"
                 other: "Metatags"
-            rdcms/metag:
-                one: "Metatag"
-                other: "Metatags"
             widget:
                 one: "Schnipsel"
                 other: "Schnipsel"
-            rdcms/widget:
-                one: "Schnipsel"
-                other: "Schnipsel"
             upload:
-                one: "Medium"
-                other: "Medien"
-            rdcms/upload:
                 one: "Medium"
                 other: "Medien"
             user:
@@ -58,28 +34,22 @@ de:
             permission:
                 one: "Zugriffsrecht"
                 other: "Zugriffsrechte"
-            rdcms/permission:
-                one: "Zugriffsrecht"
-                other: "Zugriffsrechte"
             role:
                 one: "Benutzerrolle"
                 other: "Benutzerrollen"
-            rdcms/role:
-                one: "Benutzerrolle"
-                other: "Benutzerrollen"
         attributes:
-            rdcms/comment:
+            comment:
                 content: "Inhalt"
                 active: "aktiv"
                 approved: "kontrolliert"
                 reported: "gemeldet"
-            rdcms/setting:
+            setting:
                 title: "Titel"
                 value: "Wert"
                 ancestry: "Pfad"
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"
-            rdcms/location:
+            location:
                 lat: "Latitude"
                 lng: "Longitude"
                 street: "Straße"
@@ -89,7 +59,7 @@ de:
                 country: "Land"
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"
-            rdcms/role:
+            role:
                 description: "Beschreibung"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
@@ -105,7 +75,7 @@ de:
                 email: "E-Mail"
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"
-            rdcms/article:
+            article:
                 article_type: "Artikeltyp"
                 title: "Titel"
                 url: "Webseite"
@@ -143,7 +113,7 @@ de:
                 tag_list: "Liste von internen Tags"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
-            rdcms/upload:
+            upload:
                 source: "Quellenverweis"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
@@ -153,7 +123,7 @@ de:
                 rights: "Rechteinhaber"
                 description: "Beschreibung"
                 image: "Bild"
-            rdcms/widget:
+            widget:
                 title: "Name"
                 content: "Standard Inhalt"
                 mobile_content: "Inhalt für mobile Geräte"

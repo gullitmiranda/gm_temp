@@ -1,13 +1,12 @@
 #encoding: utf-8
 
-ActiveAdmin.register Rdcms::Article, :as => "Article" do
+ActiveAdmin.register Article do
   menu  priority: 1,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other" },
-        parent: I18n.t("activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other"),
-        if: proc{can?(:update, Rdcms::Article)}
+        parent: I18n.t("activerecord.models.blog.one"),
+        if: proc{can?(:update, Article)}
   # 
-  menu false;
-  controller.authorize_resource :class => Rdcms::Article
+  # menu false;
+  controller.authorize_resource :class => Article
   
   # Just set the location as ":de" if it is in the test environment and location and if there is no default location set.
   # if Rails.env != "test" and !(defined?(I18n.locale) or defined?(I18n.default_locale))
@@ -15,8 +14,8 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   #   I18n.default_locale = :de
   # end
 
-  filter :parent_ids_in, :as => :select, :collection => proc { Rdcms::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:rdcms, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Rdcms::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:rdcms, :filter], :default => "Artikeltyp")
+  filter :parent_ids_in, :as => :select, :collection => proc { Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:rdcms, :filter], :default => "Elternelement")
+  filter :article_type, :as => :select, :collection => Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:rdcms, :filter], :default => "Artikeltyp")
   filter :title, :label => I18n.t("filter_titel", :scope => [:rdcms, :filter], :default => "Titel")
   filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:rdcms, :filter], :default => "Unteritel")
   filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:rdcms, :filter], :default => "Brotkruemel")
@@ -29,7 +28,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   scope "online", :active
   scope "offline", :inactive
 
-  Rdcms::Article.article_types_for_select.each do |article_type|
+  Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
     scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:rdcms, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
@@ -37,9 +36,9 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
 
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    # render :partial => "/rdcms/admin/articles/article_type", :locals => {:f => f}
+    # render :partial => "/admin/articles/article_type", :locals => {:f => f}
     if f.object.new_record?
-      render :partial => "/rdcms/admin/articles/select_article_type", :locals => {:f => f}
+      render :partial => "/admin/articles/select_article_type", :locals => {:f => f}
     else
       f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
@@ -81,7 +80,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
                                                                                                                <li><strong>OpenGraph Image:</strong> Muss als URL &uuml;bergeben werden (http://www.mein.de/bild.jpg). Erscheint dann bei Facebook als Bild des Artikels.</li>
                                                                                                                </ul>", :class => "metadescription_hint", :id => "metadescription-tinymce"}
         f.has_many :metatags do |m|
-          m.input :name, :as => :select, :collection => Rdcms::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
+          m.input :name, :as => :select, :collection => Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
           m.input :value, :input_html => { :class => 'metatag_values'}
           m.input :_destroy, :as => :boolean
         end
@@ -89,13 +88,13 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
       f.inputs "Einstellungen", :class => "foldable closed inputs" do
         f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
         f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
-        f.input :parent_id, :as => :select, :collection => Rdcms::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
+        f.input :parent_id, :as => :select, :collection => Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
         f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
         f.input :enable_social_sharing, :label => t("Display Social Sharing actions"), :hint => "Sollen Besucher die actions angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
         f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
         f.input :commentable, :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?"
-        f.input :dynamic_redirection, :as => :select, :collection => Rdcms::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
+        f.input :dynamic_redirection, :as => :select, :collection => Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
         f.input :external_url_redirect
         f.input :redirect_link_title
         f.input :redirection_target_in_new_window
@@ -109,8 +108,8 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
       end
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
-          ai.input :image, :as => :select, :collection => Rdcms::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
-          ai.input :position, :as => :select, :collection => Rdcms::Setting.for_key("rdcms.article.image_positions").split(","), :include_blank => false
+          ai.input :image, :as => :select, :collection => Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
+          ai.input :position, :as => :select, :collection => Setting.for_key("rdcms.article.image_positions").split(","), :include_blank => false
           ai.input :_destroy, :as => :boolean
         end
        end
@@ -157,11 +156,11 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   end
 
   sidebar :overview, label: "Ueberblick", only: [:index] do
-    render :partial => "/rdcms/admin/shared/overview", :object => Rdcms::Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
+    render :partial => "/admin/shared/overview", :object => Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
   end
 
   sidebar :widgets_options, only: [:edit] do
-    render "/rdcms/admin/articles/widgets_sidebar", :locals => { :current_article => resource }
+    render "/admin/articles/widgets_sidebar", :locals => { :current_article => resource }
   end
 
   sidebar :startpage_options, :only => [:show, :edit] do
@@ -174,18 +173,18 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
 
 
   sidebar :layout, only: [:edit] do
-    render "/rdcms/admin/articles/layout_sidebar", :locals => { :current_article => resource }
+    render "/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
 
   # Wird derzeit nicht benötigt, da es den Artikeltyp Default Index gibt,
   # der über Tags den Index gewünschter Artikel erstellt
   #sidebar :index_of_articles, only: [:edit] do
-    #render "/rdcms/admin/articles/index_of_articles_sidebar"
+    #render "/admin/articles/index_of_articles_sidebar"
   #end
 
 
   sidebar :image_module, :only => [:edit] do
-    render "/rdcms/admin/articles/image_module_sidebar"
+    render "/admin/articles/image_module_sidebar"
   end
 
   sidebar :menu_options, :only => [:show, :edit] do
@@ -198,7 +197,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
         li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menu_path(:menu => {:title => resource.title, :target => resource.public_url}))
       end
     end
-    articles = Rdcms::Article.active.where(:url_name => resource.url_name)
+    articles = Article.active.where(:url_name => resource.url_name)
     if articles.count > 1
       results = articles.select{|a| a.public_url == resource.public_url}.flatten.compact.uniq
     end
@@ -218,14 +217,14 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   end
 
   member_action :mark_as_startpage do
-    article = Rdcms::Article.find(params[:id])
+    article = Article.find(params[:id])
     article.mark_as_startpage!
     flash[:notice] = I18n.t(:startpage, scope: [:flash_notice, :rdcms]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 
   member_action :set_page_online_offline do
-    article = Rdcms::Article.find(params[:id])
+    article = Article.find(params[:id])
     if article.active
       article.active = false
       flash[:notice] = "Dieser Artikel ist nun online"
@@ -239,13 +238,13 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   end
 
   member_action :update_widgets, :method => :post do
-    article = Rdcms::Article.find(params[:id])
+    article = Article.find(params[:id])
     article.update_attributes(:widget_ids => params[:widget_ids])
     redirect_to :action => :edit, :notice => "Widgets added"
   end
 
   batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
-    Rdcms::Article.find(selection).each do |article|
+    Article.find(selection).each do |article|
       article.updated_at = Time.now
       article.save
     end
@@ -254,7 +253,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   end
 
   batch_action :set_article_online, :confirm => "Artikel online stellen: sind Sie sicher?" do |selection|
-    Rdcms::Article.find(selection).each do |article|
+    Article.find(selection).each do |article|
       article.active = true
       article.save
     end
@@ -263,7 +262,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   end
 
   batch_action :set_article_offline, :confirm => "Artikel offline stellen: sind Sie sicher?" do |selection|
-    Rdcms::Article.find(selection).each do |article|
+    Article.find(selection).each do |article|
       article.active = false
       article.save
     end
@@ -283,9 +282,9 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
     end
 
     def new
-      @article = Rdcms::Article.new(params[:article])
+      @article = Article.new(params[:article])
       if params[:parent] && params[:parent].present?
-        @parent = Rdcms::Article.find(params[:parent])
+        @parent = Article.find(params[:parent])
         @article.parent_id = @parent.id
       end
     end
@@ -302,7 +301,7 @@ ActiveAdmin.register Rdcms::Article, :as => "Article" do
   end
 
   action_item :only => :index do
-    link_to("Import", new_admin_import_path(:target_model => "Rdcms::Article"), :class => "importer")
+    link_to(t('.import'), new_admin_import_path(:target_model => "Article"), :class => "importer")
   end
 
   action_item :only => :edit do

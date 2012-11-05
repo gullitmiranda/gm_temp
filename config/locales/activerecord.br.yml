@@ -11,6 +11,7 @@ br:
     complete_name: Nome completo
     content: Conteúdo
     created_at: Criado em
+    contact_email: E-mail de contato
     current_sign_in_at: Conexão atual
     date: Data
     datetime: Data
@@ -29,6 +30,7 @@ br:
     last_sign_in_at: Último conexão
     lastname: Sobrenome
     length: Comprimento
+    localization: Localização
     measures: Medidas
     name: Nome
     password: Senha
@@ -81,13 +83,13 @@ br:
       product:
         one: Produto
         other: Produtos
-      rdcms_product:
-        one: Produto
-        other: Produtos
       gallery:
         one: Galeria
         other: Galerias
       # Artigos
+      blog:
+        one: Blog
+        other: Blogs
       article:
         one: Artigo
         other: Artigos
@@ -96,9 +98,6 @@ br:
         other: Comentários
       # Configurações
       user:
-        one: Usuário
-        other: Usuários
-      "rdcms/user":
         one: Usuário
         other: Usuários
       role:
@@ -126,12 +125,12 @@ br:
       widget:
         one: Widget
         other: Widgets
-      
+
       # Desativados
       metag:
         one: Metatag
         other: Metatags
-    
+
     # Atributos dos módulos
     attributes:
       product:

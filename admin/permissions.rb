@@ -1,11 +1,10 @@
-ActiveAdmin.register Rdcms::Permission, :as => "Permission" do
+ActiveAdmin.register Permission do
   menu  priority: 3,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Permission.model_name.human.downcase}.other" },
         parent: I18n.t('activerecord.models.settings'),
-        if: proc{can?(:update, Rdcms::Permission)}
+        if: proc{can?(:update, Permission)}
   # 
-  controller.authorize_resource :class => Rdcms::Permission
-  menu false;
+  controller.authorize_resource :class => Permission
+  # menu false;
 
   index do
     selectable_column
@@ -21,7 +20,7 @@ ActiveAdmin.register Rdcms::Permission, :as => "Permission" do
   form html: {enctype: "multipart/form-data"} do |f|
     f.actions
     f.inputs do
-      f.input :role_id, as: :select, collection: Rdcms::Role.all.map{|role| [role.name.capitalize, role.id]}, include_blank: false
+      f.input :role_id, as: :select, collection: Role.all.map{|role| [role.name.capitalize, role.id]}, include_blank: false
       f.input :action
       f.input :subject_class
       f.input :subject_id

@@ -1,9 +1,8 @@
-ActiveAdmin.register Rdcms::Role, :as => "Role" do
+ActiveAdmin.register Role do
   menu  priority: 2,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Role.model_name.human.downcase}.other" },
         parent: I18n.t('activerecord.models.settings'),
-        if: proc{can?(:update, Rdcms::Role)}
+        if: proc{can?(:update, Role)}
   # 
-  controller.authorize_resource :class => Rdcms::Role
-  menu false;
+  controller.authorize_resource :class => Role
+  # menu false;
 end

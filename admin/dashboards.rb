@@ -3,10 +3,11 @@ ActiveAdmin.register_page "Dashboard" do
   menu :priority => 1, :label => proc{ I18n.t("active_admin.dashboard") }
 
 
-  content :title => proc{ I18n.t "active_admin.dashboard_header" } do
+  content :title => proc{ t ".dashboard_header" } do
+  # content :title => proc{ I18n.t "active_admin.dashboard_header" } do
     div :class => "blank_slate_container", :id => "dashboard_default_message" do
       span :class => "blank_slate" do
-        span "Welcome to admin panel."
+        span I18n.t("active_admin.dashboard_welcome.welcome")
         # small "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
       end
     end
@@ -22,26 +23,26 @@ ActiveAdmin.register_page "Dashboard" do
     # Recents
     columns do
       column do
-        panel "Recent Products" do
-          @products = Rdcms::Product.all(:order => 'updated_at DESC', :limit => 5)
+        panel I18n.t("rdcms.recent_products") do
+          @products = Product.all(:order => 'updated_at DESC', :limit => 5)
           if @products.blank?
             div :class => "blank_slate_container" do
               div :class => "blank_slate" do
-                span I18n.t("active_admin.blank_slate.content", resource_name: Rdcms::Product.model_name.human)
-                small link_to(I18n.t('active_admin.new_model', model: Rdcms::Product.model_name.human), new_admin_product_path)
+                span I18n.t("active_admin.blank_slate.content", resource_name: Product.model_name.human)
+                # small link_to(I18n.t('active_admin.new_model', model: Product.model_name.human), new_admin_product_path)
               end
             end
           else
             ul do
               @products.map do |object|
-                li link_to(object.name, admin_product_path(object))
+                # li link_to(object.name, admin_product_path(object))
               end
             end
           end
         end
       end
       column do
-        panel "Recent Posts" do
+        panel I18n.t("rdcms.recent_posts") do
           @posts = Post.all(:order => 'datetime DESC', :limit => 5)
           if @posts.blank?
             div :class => "blank_slate_container" do
@@ -80,15 +81,15 @@ ActiveAdmin.register_page "Dashboard" do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   # section I18n.t('last_updated_articles', scope: [:dashboard_sections, :active_admin]), priority: 1, :if => proc{can?(:update, Rdcms::Article)} do
+   # section I18n.t('last_updated_articles', scope: [:dashboard_sections, :active_admin]), priority: 1, :if => proc{can?(:update, Article)} do
    #  table do
    #    tr do
-   #      [t(:title, scope: [:activerecord, :attributes, "rdcms/article"]), t(:updated_at, scope: [:activerecord, :attributes, "rdcms/article"]), t(:edit, scope: :active_admin)].each do |sa|
+   #      [t(:title, scope: [:activerecord, :attributes, "article"]), t(:updated_at, scope: [:activerecord, :attributes, "article"]), t(:edit, scope: :active_admin)].each do |sa|
    #        th sa
    #      end
    #    end
 
-   #    Rdcms::Article.recent(5).collect do |article|
+   #    Article.recent(5).collect do |article|
    #      tr do
    #        td article.title
    #        td l(article.updated_at, format: :short)

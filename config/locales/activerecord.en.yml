@@ -4,40 +4,22 @@ en:
             comment:
                 one: "Comment"
                 other: "Comments"
-            rdcms/comment:
-                one: "Comment"
-                other: "Comments"
             import:
                 one: "Import"
                 other: "Imports"
             article:
                 one: "Article"
                 other: "Articles"
-            rdcms/article:
-                one: "Article"
-                other: "Articles"
             setting:
-                one: "Setting"
-                other: "Settings"
-            rdcms/setting:
                 one: "Setting"
                 other: "Settings"
             menu:
               one: "Menu"
               other: "Menus"
-            rdcms/menu:
-              one: "Menu"
-              other: "Menus"
             metag:
                 one: "Metatag"
                 other: "Metatags"
-            rdcms/metag:
-                one: "Metatag"
-                other: "Metatags"
             widget:
-                one: "Widget"
-                other: "Widgets"
-            rdcms/widget:
                 one: "Widget"
                 other: "Widgets"
             upload:
@@ -49,22 +31,16 @@ en:
             permission:
                 one: "Permission"
                 other: "Permissions"
-            rdcms/permission:
-                one: "Permission"
-                other: "Permissions"
             role:
                 one: "Role"
                 other: "Roles"
-            rdcms/role:
-                one: "Role"
-                other: "Roles"
         attributes:
-            rdcms/comment:
+            comment:
                 content: "Content"
                 active: "active"
                 approved: "approved"
                 reported: "reported"
-            rdcms/role:
+            role:
                 description: "Description"
                 created_at: "created at"
                 updated_at: "updated at"
@@ -80,13 +56,13 @@ en:
                 email: "email"
                 created_at: "created at"
                 updated_at: "updated at"
-            rdcms/article:
+            article:
                 title: "title"
                 url: "url"
                 created_at: "created at"
                 updated_at: "updated at"
                 article_type: "article type"
-            rdcms/upload:
+            upload:
                 source: "source"
                 created_at: "created at"
                 updated_at: "updated at"

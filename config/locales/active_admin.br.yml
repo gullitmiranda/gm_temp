@@ -21,18 +21,22 @@ br:
       name: "nome"
       list: "lista"
       create: "criar"
-  # 
+
+    # Dashboard labels
+    recent_products: Produtos recentes
+    recent_posts: Artigos recentes
+
+    # Pages
+      # index:
+
   active_admin:
     # models
     admin: Administração
-    # article: Artigos
+    article: Artigos
     dashboard: Painel
-    product: Produtos
 
-    dashboard_header: "Painel Administrativo"
     dashboard_welcome:
-      welcome: "Bem vindo ao Active Admin. Esta é a página de painéis padrão."
-      call_to_action: "Para adicionar seções ao painel, verifique 'app/admin/dashboards.rb'"
+      welcome: "Bem vindo ao painel administrativo."
     dashboard_sections:
       last_updated_articles: 'Últimas atualizações de Artigos'
     view: "Visualizar"
@@ -124,6 +128,25 @@ br:
       links:
         sign_in: "Entrar"
         forgot_your_password: "Esqueceu sua senha?"
+    resource:
+      article:
+        one: Artigo
+        others: Artigos
+      product:
+        one: Produto
+        other: Produtos
+      index:
+        import: Importar
+        article:
+          one: Artigo
+          others: Artigos
+        product:
+          one: Produto
+          other: Produtos
+    page:
+      index:
+        dashboard_header: "Painel Administrativo"
+
   id: "ID"
   name: "Nome"
   content_type: "Tipo"

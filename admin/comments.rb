@@ -1,10 +1,10 @@
-ActiveAdmin.register Rdcms::Comment, :as => "comment" do
+ActiveAdmin.register Comment, :as => 'comment' do
   menu  priority: 4,
-  label: proc{ I18n.t "activerecord.models.#{Rdcms::Comment.model_name.human.downcase}.other" },
-        parent: I18n.t("activerecord.models.#{Rdcms::Article.model_name.human.downcase}.other"),
-        if: proc{can?(:update, Rdcms::Comment)}
+        label: Comment.model_name.human.pluralize,
+        parent: I18n.t("activerecord.models.blog.one"),
+        if: proc{can?(:update, Comment)}
   # 
-  menu false;
+  # menu false;
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
@@ -13,9 +13,9 @@ ActiveAdmin.register Rdcms::Comment, :as => "comment" do
       f.input :active
       f.input :approved
       f.input :reported
-      f.input :parent, :as => :select, :collection => Rdcms::Comment.scoped
-      f.input :article, :as => :select, :collection => Rdcms::Article.scoped
-      f.input :commentator, :as => :select, :collection => Rdcms::Setting.for_key("rdcms.comments.commentator").constantize.scoped
+      f.input :parent, :as => :select, :collection => Comment.scoped
+      f.input :article, :as => :select, :collection => Article.scoped
+      f.input :commentator, :as => :select, :collection => Setting.for_key("rdcms.comments.commentator").constantize.scoped
     end
     f.actions
   end

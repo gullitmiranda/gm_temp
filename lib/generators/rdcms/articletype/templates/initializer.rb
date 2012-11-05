@@ -1,5 +1,5 @@
 Rails.application.config.to_prepare do
-  Rdcms::Article.class_eval do
+  Article.class_eval do
     has_one :<%= name.underscore %>, :dependent => :destroy
     accepts_nested_attributes_for :<%= name.underscore %>
 

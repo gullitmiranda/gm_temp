@@ -1,19 +1,18 @@
-ActiveAdmin.register Rdcms::Setting, :as => "Setting"  do
+ActiveAdmin.register Setting  do
   menu  priority: 5,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Setting.model_name.human.downcase}.other" },
         parent: I18n.t('activerecord.models.settings'),
-        if: proc{can?(:update, Rdcms::Setting)}
+        if: proc{can?(:update, Setting)}
   # 
-  menu false;
+  # menu false;
 
-  controller.authorize_resource :class => Rdcms::Setting
+  controller.authorize_resource :class => Setting
   scope "Werte", :with_values, :default => true
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title
       f.input :value
-      f.input :parent_id, :as => :select, :collection => Rdcms::Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
     end
     f.actions
   end
@@ -28,7 +27,7 @@ ActiveAdmin.register Rdcms::Setting, :as => "Setting"  do
   end
 
   sidebar :overview, only: [:index]  do
-    render :partial => "/rdcms/admin/shared/overview", :object => Rdcms::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
+    render :partial => "/admin/shared/overview", :object => Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
   end
 
   batch_action :destroy, false

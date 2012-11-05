@@ -1,0 +1,47 @@
+<div id="upload-selector" class="row">
+  <div class="selected_container span6 tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#selected_container" data-toggle="tab"><%= raw t('selected') %></a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="selected_container" class="tab-pane active">
+        <%= form_for options[:form_for], :html => { :id => "file_selector", :remote => true } do |f| -%>
+          <div id="selected_container" class="row">
+            <div class="span6">
+              <ul class="uploads-list thumbnails selectable connectedSortable"></ul>
+            </div>
+            <div class="span6 actions-buttons form-inline align-right">
+              <button type="submit" class="btn btn-primary"><%= raw(t :save) %></button>
+              <label id="auto_save">
+                <input type="checkbox" checked><%= raw(t :auto_save) %>
+              </label>
+            </div>
+            <script type="text/javascript">
+              $("#selected_container ul:first").data(
+                'load',<%= raw defined?(options[:form_for][1].uploads) ? options[:form_for][1].uploads.map{|upload| upload.to_jq_upload }.to_json : '""' %>);
+            </script>
+          </div>
+        <% end if defined?(options[:form_for]) -%>
+      </div>
+    </div>
+  </div>
+  <!-- Fotos para seleção -->
+  <div class="select_container span6 tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#new_uploads"        data-toggle="tab"><%= raw t('upload'         ) %> ...</a></li>
+      <li><a href="#gallery_container" id="upload_tab" data-toggle="tab"><%= raw t('gallery_files' ) %></a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="new_uploads" class="tab-pane active">
+        <%= render :partial => 'admin/upload', :locals => { options: defined?(options) ? options : {} } %>
+      </div>
+      <div id="gallery_container" class="tab-pane">
+        <ul class="uploads-list thumbnails selectable connectedSortable"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var fileUploadsHashOptions = {  <%= "accept_content_type : '#{options[:accept]}',".html_safe if defined?(options[:accept]) %>  }
+</script>
+<%= javascript_include_tag "upload_selector" %>

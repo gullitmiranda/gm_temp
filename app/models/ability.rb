@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    can :read, Rdcms::Article
+    can :read, Article
     can :manage, :all
     user.roles.each do |role|
       role.permissions.each do |permission|

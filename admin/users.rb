@@ -1,6 +1,5 @@
-ActiveAdmin.register User, :as => "User" do
+ActiveAdmin.register User do
   menu  priority: 1,
-        label: proc{ User.model_name.human.pluralize },
         parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, User)}
   # 
@@ -21,7 +20,7 @@ ActiveAdmin.register User, :as => "User" do
       f.input :lastname
       f.input :email
       if current_user.has_role?('admin')
-        f.input :roles, :as => :check_boxes, :collection => Rdcms::Role.all
+        f.input :roles, :as => :check_boxes, :collection => Role.all
       end
       f.input :password, hint: "Freilassen, wenn das Passwort nicht geaendert werden soll."
       f.input :password_confirmation, hint: "Passwort bei Aenderung hier erneut eingeben"
@@ -40,7 +39,7 @@ ActiveAdmin.register User, :as => "User" do
           step.input :description, as: :string, label: "Eintrag"
           step.input :title, label: "Bearbeiter", hint: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
         else
-          render :partial => "/rdcms/admin/users/vita_steps", :locals => {:step => step}
+          render :partial => "/admin/users/vita_steps", :locals => {:step => step}
         end
       end
     end

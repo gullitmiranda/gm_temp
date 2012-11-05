@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_article_images
+# Table name: article_images
 #
 #  id         :integer(4)      not null, primary key
 #  article_id :integer(4)
@@ -12,10 +12,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class ArticleImageTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class ArticleImageTest < ActiveSupport::TestCase
+# test "the truth" do
+#   assert true
+# end
 end

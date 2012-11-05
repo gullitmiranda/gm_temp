@@ -1,10 +1,9 @@
-ActiveAdmin.register Rdcms::Widget, as: "Widget" do
-  menu  priority: 3,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Widget.model_name.human.downcase}.other" },
+ActiveAdmin.register Widget do
+  menu  priority: 4,
         parent: I18n.t('activerecord.models.content_management'),
-        if: proc{can?(:read, Rdcms::Widget)}
+        if: proc{can?(:read, Widget)}
   # 
-  menu false;
+  # menu false;
 
   scope "Alle", :scoped, :default => true
   scope "online", :active
@@ -12,7 +11,7 @@ ActiveAdmin.register Rdcms::Widget, as: "Widget" do
   scope "defaults", :default
 
   if ActiveRecord::Base.connection.table_exists?("tags")
-    Rdcms::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
+    Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
       scope(I18n.t(wtag, :scope => [:rdcms, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
     end
   end
@@ -31,20 +30,20 @@ ActiveAdmin.register Rdcms::Widget, as: "Widget" do
       f.input :active
     end
     f.inputs "Darstellung" do
-      f.input :offline_day, as: :check_boxes, collection: Rdcms::Widget::OfflineDays
-      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
-      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
+      f.input :offline_day, as: :check_boxes, collection: Widget::OfflineDays
+      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
+      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
       f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
       f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
     f.inputs "Admin" do
-      if(proc{can?(:read, Rdcms::Widget)})
+      if(proc{can?(:read, Widget)})
         f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
       end
       f.input :description
     end
     f.inputs "Artikel" do
-      f.input :articles, :as => :select, :collection => Rdcms::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
+      f.input :articles, :as => :select, :collection => Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
     end
     f.actions
   end

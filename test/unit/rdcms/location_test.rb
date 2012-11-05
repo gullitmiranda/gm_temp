@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_locations
+# Table name: locations
 #
 #  id         :integer(4)      not null, primary key
 #  lat        :string(255)
@@ -17,10 +17,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class LocationTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class LocationTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

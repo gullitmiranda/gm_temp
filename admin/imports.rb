@@ -1,10 +1,9 @@
-ActiveAdmin.register Rdcms::Import, :as => "Import" do
+ActiveAdmin.register Import do
   menu  priority: 4,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Import.model_name.human.downcase}.other" },
         parent: I18n.t('activerecord.models.settings'),
-        if: proc{can?(:update, Rdcms::Import)}
+        if: proc{can?(:update, Import)}
   # 
-  menu false;
+  # menu false;
 
   index do
     column :id
@@ -33,16 +32,16 @@ ActiveAdmin.register Rdcms::Import, :as => "Import" do
   end
 
   member_action "run" do
-    import = Rdcms::Import.find(params[:id])
+    import = Import.find(params[:id])
     import.run!
     flash[:notice] = "Dieser Import wurde gestartet"
     redirect_to :action => :index
   end
   
   member_action :assignment do
-    @importer = Rdcms::Import.find(params[:id])
+    @importer = Import.find(params[:id])
     if @importer
-      render 'rdcms/imports/attributes', layout: 'active_admin'
+      render 'imports/attributes', layout: 'active_admin'
     else
       render nothing: true
     end
@@ -52,7 +51,7 @@ ActiveAdmin.register Rdcms::Import, :as => "Import" do
   controller do
     
     def new
-      @import = Rdcms::Import.new(:target_model => params[:target_model])
+      @import = Import.new(:target_model => params[:target_model])
     end
     
     def show
@@ -62,7 +61,7 @@ ActiveAdmin.register Rdcms::Import, :as => "Import" do
     end
     
     def edit
-      @import = Rdcms::Import.find(params[:id])
+      @import = Import.find(params[:id])
       @import.analyze_csv
     end
   end

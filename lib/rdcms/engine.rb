@@ -27,17 +27,17 @@ module Rdcms
   class Engine < ::Rails::Engine
     isolate_namespace Rdcms
     config.to_prepare do
-      ApplicationController.helper(Rdcms::ApplicationHelper)
-      ActionController::Base.helper(Rdcms::ApplicationHelper)      
-      DeviseController.helper(Rdcms::ApplicationHelper)           
-      Devise::SessionsController.helper(Rdcms::ApplicationHelper)           
-      Devise::PasswordsController.helper(Rdcms::ApplicationHelper)      
+      ApplicationController.helper(ApplicationHelper)
+      ActionController::Base.helper(ApplicationHelper)      
+      DeviseController.helper(ApplicationHelper)           
+      Devise::SessionsController.helper(ApplicationHelper)           
+      Devise::PasswordsController.helper(ApplicationHelper)      
       
-      ApplicationController.helper(Rdcms::ArticlesHelper)
-      ActionController::Base.helper(Rdcms::ArticlesHelper)  
-      DeviseController.helper(Rdcms::ArticlesHelper)               
-      Devise::SessionsController.helper(Rdcms::ArticlesHelper)  
-      Devise::PasswordsController.helper(Rdcms::ArticlesHelper)        
+      ApplicationController.helper(ArticlesHelper)
+      ActionController::Base.helper(ArticlesHelper)  
+      DeviseController.helper(ArticlesHelper)               
+      Devise::SessionsController.helper(ArticlesHelper)  
+      Devise::PasswordsController.helper(ArticlesHelper)        
     end
   end
 end

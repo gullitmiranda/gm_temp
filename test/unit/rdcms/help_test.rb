@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_helps
+# Table name: helps
 #
 #  id          :integer(4)      not null, primary key
 #  title       :string(255)
@@ -12,10 +12,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class HelpTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class HelpTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

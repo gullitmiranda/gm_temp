@@ -1,10 +1,11 @@
-ActiveAdmin.register Rdcms::Product, :as => "Product" do
+ActiveAdmin.register Product do
+# ActiveAdmin.register Product do
   menu  priority: 2,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Product.model_name.human.downcase}.other" },
-        if: proc{can?(:update, Rdcms::Product)}
+        # label: Product.model_name.human.pluralize,
+        if: proc{can?(:update, Product)}
   # 
-  controller.authorize_resource :class => Rdcms::Product
-  
+  controller.authorize_resource :class => Product
+
   # Listagem dos produtos
   index do
     selectable_column
@@ -39,9 +40,9 @@ ActiveAdmin.register Rdcms::Product, :as => "Product" do
   filter :id
   
   show do
-    render :partial => "rdcms/admin/products/show", locals: { :s => product }
+    render :partial => "admin/products/show", locals: { :s => product }
   end
   
   # Formulário de edição dos itens e suas traduções
-  form :partial => "rdcms/admin/products/form"
+  form :partial => "admin/products/form"
 end

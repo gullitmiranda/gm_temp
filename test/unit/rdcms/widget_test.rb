@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_widgets
+# Table name: widgets
 #
 #  id                  :integer(4)      not null, primary key
 #  title               :string(255)
@@ -24,10 +24,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class WidgetTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class WidgetTest < ActiveSupport::TestCase
+# test "the truth" do
+#   assert true
+# end
 end

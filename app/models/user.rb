@@ -51,14 +51,14 @@ class User < ActiveRecord::Base
   liquid_methods :firstname, :lastname, :gender, :title, :function, :anrede, :gender_anrede
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids, :vita_steps_attributes
-  has_and_belongs_to_many :roles, :join_table => "rdcms_roles_users", :class_name => Rdcms::Role, :include => [:permissions]
-  has_many :vita_steps, :as => :loggable, :class_name => Rdcms::Vita
+  has_and_belongs_to_many :roles, :join_table => "roles_users", :class_name => Role, :include => [:permissions]
+  has_many :vita_steps, :as => :loggable, :class_name => Vita
   accepts_nested_attributes_for :vita_steps, allow_destroy: true, reject_if: lambda { |a| a[:description].blank? }
 
   before_save :ensure_authentication_token
 
   def has_role?(name)
-    self.roles.include?(Rdcms::Role.find_by_name(name))
+    self.roles.include?(Role.find_by_name(name))
   end
 
   def anrede

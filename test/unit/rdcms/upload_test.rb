@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_uploads
+# Table name: uploads
 #
 #  id                 :integer(4)      not null, primary key
 #  source             :string(255)
@@ -18,10 +18,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class UploadTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class UploadTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

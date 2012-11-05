@@ -1,7 +1,7 @@
 <% f.inputs "Index of Articles" do %>
   <% f.input :index_of_articles_tagged_with, :hint => "On the Facts page all products of the same type will be issued with these tags. No tags are specified, all products of the same type will be issued."%>
   <% f.input :not_tagged_with, :hint => "Do not show articles with these brands!", :label => "Exclusive list of tags" %>
-  <% sort_options = Rdcms::Article::SortOptions %>
+  <% sort_options = Article::SortOptions %>
   <% f.input :sort_order, as: :select, collection: sort_options, include_blank: false %>
   <% f.input :sorter_limit %>
   <% f.input :reverse_sort, hint: "Will be sorted in descending order? Standard: Ascending" %>

@@ -1,0 +1,15 @@
+<% article_types = {} %>
+<% Article.article_types_for_select.each do |article_type|
+  translated_article_type = I18n.t("#{article_type.parameterize.downcase}", scope: [:article_types], default: "#{article_type}")
+  article_types[translated_article_type.to_sym] = article_type
+end %>
+<%= f.inputs t(".selection"), :class => "foldable inputs" do
+	f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
+	if article_types.count > 0
+		f.input :article_type, :as => :select, :collection => article_types, include_blank: false, selected: "Default Show"
+	end
+	f.input :parent_id, :as => :hidden
+	f.input :url_name, :as => :hidden
+end
+
+%>

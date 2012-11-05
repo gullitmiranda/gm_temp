@@ -1,16 +1,16 @@
-ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
+ActiveAdmin.register Upload do
   menu  priority: 1,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Upload.model_name.human.downcase}.other" },
+        label: Upload.model_name.human.pluralize,
         parent: I18n.t('activerecord.models.content_management'),
-        if: proc{can?(:read, Rdcms::Upload)}
+        if: proc{can?(:read, Upload)}
   # 
-  menu false;
+  # menu false;
 
-  controller.authorize_resource :class => Rdcms::Upload
+  controller.authorize_resource :class => Upload
 
 
   if ActiveRecord::Base.connection.table_exists?("tags")
-    Rdcms::Upload.tag_counts_on(:tags).each do |utag|
+    Upload.tag_counts_on(:tags).each do |utag|
       if(utag.count > 5)
         scope(I18n.t(utag.name, :scope => [:rdcms, :widget_types], :default => utag.name)){ |t| t.tagged_with(utag.name) }
       end
@@ -109,7 +109,7 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
   #batch_action :destroy, false
   controller do
     def index
-      # @uploads = Rdcms::Upload
+      # @uploads = Upload
       #   .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
       #   .order(params[:order])
       #   .limit(params[:limit])
@@ -122,26 +122,26 @@ ActiveAdmin.register Rdcms::Upload, :as => "Upload"  do
       end
     end
 
-  #   def create
-  #     create! do |format|
-  #       if @upload.save
-  #         format.html {
-  #           render :json => [@upload.to_jq_upload].to_json,
-  #           :content_type => 'text/html',
-  #           :layout => false
-  #         }
-  #         format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
-  #         # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
-  #       else
-  #         format.html { render action: "new" }
-  #         format.json { render json: @upload.errors, status: :unprocessable_entity }
-  #       end
-  #     end
-  #   end
+    def create
+      create! do |format|
+        if @upload.save
+          format.html {
+            render :json => [@upload.to_jq_upload].to_json,
+            :content_type => 'text/html',
+            :layout => false
+          }
+          format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
+          # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @upload.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
   member_action :unzip_file do
-    upload = Rdcms::Upload.find(params[:id])
+    upload = Upload.find(params[:id])
     upload.unzip_files
     redirect_to :action => :index, :notice => "File unzipped"
   end

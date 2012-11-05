@@ -1,7 +1,7 @@
 class CreateProductsUploads < ActiveRecord::Migration
   def change
-    create_table :rdcms_products_uploads do |t|
-      t.references :rdcms_product, :rdcms_upload
+    create_table :products_uploads do |t|
+      t.references :product, :upload
       t.string :position
 
       t.timestamps

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_permissions
+# Table name: permissions
 #
 #  id            :integer(4)      not null, primary key
 #  action        :string(255)
@@ -13,10 +13,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class PermissionTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class PermissionTest < ActiveSupport::TestCase
+	# test "the truth" do
+	#   assert true
+	# end
 end

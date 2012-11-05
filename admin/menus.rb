@@ -1,19 +1,19 @@
-ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
+ActiveAdmin.register Menu do
   menu  priority: 2,
-        label: proc{ I18n.t "activerecord.models.#{Rdcms::Menu.model_name.human.downcase}.other" },
+        label: Menu.model_name.human.pluralize,
         parent: I18n.t('activerecord.models.content_management'),
-        if: proc{can?(:read, Rdcms::Menu)}
+        if: proc{can?(:read, Menu)}
   # 
-  menu false;
+  # menu false;
  
-  controller.authorize_resource :class => Rdcms::Menu
+  controller.authorize_resource :class => Menu
 
   form do |f|
     f.actions
     f.inputs "Allgemein" do
       f.input :title
       f.input :target
-      f.input :parent_id, :as => :select, :collection => Rdcms::Menu.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Menu.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true
     end
     f.inputs "Optionen" do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
@@ -22,7 +22,7 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
     end
 
     f.inputs "Details" do
-      f.input :image, :as => :select, :collection => Rdcms::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen"
+      f.input :image, :as => :select, :collection => Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen"
       f.input :description_title
       f.input :description, :input_html => { :rows => 5}
       f.input :call_to_action_name
@@ -55,7 +55,7 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
   end
 
   sidebar :overview, only: [:index] do
-    render :partial => "/rdcms/admin/shared/overview", :object => Rdcms::Menu.order(:title).roots, :locals => {:link_name => "title", :url_path => "menu", :order_by => "title" }
+    render :partial => "/admin/shared/overview", :object => Menu.order(:title).roots, :locals => {:link_name => "title", :url_path => "menu", :order_by => "title" }
   end
 
   batch_action :destroy, false
@@ -63,9 +63,9 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
 
   controller do
     def new
-      @menu = Rdcms::Menu.new(params[:menu])
+      @menu = Menu.new(params[:menu])
       if params[:parent] && params[:parent].present?
-        @parent = Rdcms::Menu.find(params[:parent])
+        @parent = Menu.find(params[:parent])
         @menu.parent_id = @parent.id
       end
     end
@@ -94,7 +94,4 @@ ActiveAdmin.register Rdcms::Menu, :as => "Menu" do
       end
     end
   end
-
-
-
 end

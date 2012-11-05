@@ -3,7 +3,7 @@ class ArticlesCacheWorker
   sidekiq_options queue: "default"
 
   def perform
-    Rdcms::Article.active.each do |article|
+    Article.active.each do |article|
       article.updated_at = Time.now
       article.save
     end

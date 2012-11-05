@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_comments
+# Table name: comments
 #
 #  id               :integer(4)      not null, primary key
 #  article_id       :integer(4)
@@ -17,10 +17,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class CommentTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class CommentTest < ActiveSupport::TestCase
+# test "the truth" do
+#   assert true
+# end
 end

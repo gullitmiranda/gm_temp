@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_imports
+# Table name: imports
 #
 #  id           :integer(4)      not null, primary key
 #  assignment   :text
@@ -15,10 +15,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class ImportTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class ImportTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

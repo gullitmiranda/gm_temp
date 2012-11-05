@@ -14,15 +14,15 @@ in your config/environements/development.rb and ../test.rb insert
 
 Setup Automatic
 
-	copy /rdcms/active_admin.css.scss to /app/assets/stylesheets/...
+	copy /active_admin.css.scss to /app/assets/stylesheets/...
 	rake db:migrations
 	rake db:seed
 	
 	<head>
 	  <%= display_meta_tags %>
-	  <%= stylesheet_link_tag    "rdcms/application", :media => "all" %>
 	  <%= stylesheet_link_tag    "application", :media => "all" %>
-	  <%= javascript_include_tag "rdcms/application" %>
+	  <%= stylesheet_link_tag    "application", :media => "all" %>
+	  <%= javascript_include_tag "application" %>
 	  <%= javascript_include_tag "application" %>	
 	  <%= csrf_meta_tags %>
 	</head>

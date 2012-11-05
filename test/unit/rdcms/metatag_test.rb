@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: rdcms_metatags
+# Table name: metatags
 #
 #  id         :integer(4)      not null, primary key
 #  name       :string(255)
@@ -12,10 +12,8 @@
 
 require 'test_helper'
 
-module Rdcms
-  class MetatagTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
+class MetatagTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

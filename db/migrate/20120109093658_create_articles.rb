@@ -1,6 +1,6 @@
 class CreateArticles < ActiveRecord::Migration
   def change
-    create_table :rdcms_articles do |t|
+    create_table :articles do |t|
       t.string :title
 
       t.string :url_name
@@ -42,7 +42,7 @@ class CreateArticles < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :rdcms_articles, :slug
-    add_index :rdcms_articles, :ancestry
+    add_index :articles, :slug
+    add_index :articles, :ancestry
   end
 end
