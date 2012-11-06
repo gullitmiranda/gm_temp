@@ -15,7 +15,10 @@ class Gallery < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
 
-  # Translate
+  # Escopos
+  scope :recents, lambda{ |limit = 10| order("datetime desc").limit(limit)}
+
+# Translate
   translates :name, :description
   accepts_nested_attributes_for :translations
   

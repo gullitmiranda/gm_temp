@@ -14,7 +14,7 @@ ActiveAdmin.register User do
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
-    f.inputs "Allgemein" do
+    f.inputs I18n.t("activerecord.attributes.user.general") do
       f.input :title
       f.input :firstname
       f.input :lastname
@@ -22,8 +22,8 @@ ActiveAdmin.register User do
       if current_user.has_role?('admin')
         f.input :roles, :as => :check_boxes, :collection => Role.all
       end
-      f.input :password, hint: "Freilassen, wenn das Passwort nicht geaendert werden soll."
-      f.input :password_confirmation, hint: "Passwort bei Aenderung hier erneut eingeben"
+      f.input :password, hint: I18n.t("activerecord.attributes.user.password_hint")
+      f.input :password_confirmation, hint: I18n.t("activerecord.attributes.user.password_confirmation")
       f.input :function
       f.input :phone
       f.input :fax
@@ -33,16 +33,16 @@ ActiveAdmin.register User do
       f.input :xing
       f.input :googleplus
     end
-    f.inputs "Historie" do
-      f.has_many :vita_steps do |step|
-        if step.object.new_record?
-          step.input :description, as: :string, label: "Eintrag"
-          step.input :title, label: "Bearbeiter", hint: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
-        else
-          render :partial => "/admin/users/vita_steps", :locals => {:step => step}
-        end
-      end
-    end
+    # f.inputs I18n.t("activerecord.attributes.user.history") do
+    #   f.has_many :vita_steps do |step|
+    #     if step.object.new_record?
+    #       step.input :description, as: :string, label: I18n.t("activerecord.attributes.user.entry")
+    #       step.input :title, label: "Bearbeiter", hint: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
+    #     else
+    #       render :partial => "/admin/users/vita_steps", :locals => {:step => step}
+    #     end
+    #   end
+    # end
 
     f.actions
   end

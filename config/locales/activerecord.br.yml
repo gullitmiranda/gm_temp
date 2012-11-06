@@ -17,15 +17,15 @@ br:
     datetime: Data
     description: Descrição
     email: E-mail
+    entry: Entrada
     firstname: Nome
     function: Funções
+    general: Geral
     gender: Gênero
     googleplus: Google Plus
     height: Altura
+    history: História
     id: Código
-    upload_file_name: Nome da imagem
-    upload_content_type: Tipo da imagem
-    upload_file_size: Tamanho da imagem
     image: Imagem
     last_sign_in_at: Último conexão
     lastname: Sobrenome
@@ -35,6 +35,7 @@ br:
     name: Nome
     password: Senha
     password_confirmation: Confirmação de senha
+    password_hint: Deixe em branco se a senha não deve ser alterada.
     phone: Telefone
     price: Preço
     sign_in_count: Número de conexões
@@ -54,7 +55,7 @@ br:
     username: Nome
     weight: Peso
     width: Largura
-  
+
   # Admin module
   admin:
     posts:
@@ -144,6 +145,9 @@ br:
     attributes:
       gallery:
         <<: *atributes_all
+        upload_file_name: Nome da imagem
+        upload_content_type: Tipo da imagem
+        upload_file_size: Tamanho da imagem
       product:
         <<: *atributes_all
       post:
