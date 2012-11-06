@@ -46,21 +46,21 @@ class Setting < ActiveRecord::Base
   end
 
   def self.for_key_helper(name)
-  if ActiveRecord::Base.connection.table_exists?("settings")
-    setting_title = name.split(".").last
-    settings = Setting.where(:title => setting_title)
-    if settings.count == 1
-      return settings.first.value
-    elsif settings.count > 1
-      settings.each do |set|
-        if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
-          return set.value
+    if ActiveRecord::Base.connection.table_exists?("settings")
+      setting_title = name.split(".").last
+      settings = Setting.where(:title => setting_title)
+      if settings.count == 1
+        return settings.first.value
+      elsif settings.count > 1
+        settings.each do |set|
+          if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
+            return set.value
+          end
         end
+      else
+        return setting_title
       end
-    else
-      return setting_title
     end
-  end
   end
 
   def self.set_value_for_key(value, name)

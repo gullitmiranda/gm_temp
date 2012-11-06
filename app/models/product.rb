@@ -21,7 +21,13 @@ class Product < ActiveRecord::Base
   translates :name, :description
   accepts_nested_attributes_for :translations
 
-  
+
+  # Escopos
+  # scope :recents, lambda{ |counter| order("updated_at DESC").limit(counter)}
+  # scope :visible, where("hidden != ?", true)
+  # scope :published, lambda { where("published_at <= ?", Time.zone.now) }
+  scope :recents, lambda{ |limit = 10| order("updated_at desc").limit(limit)}
+
   class Translation
     attr_accessible :locale, :name, :description
   end
