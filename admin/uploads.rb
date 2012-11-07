@@ -32,33 +32,66 @@ ActiveAdmin.register Upload do
   end
 
   index do
+    # Seleção para ações em lote
     selectable_column
-    column "url" do |upload|
-      result = ""
-      result << upload.upload.url
+    # Columa ID com link para visualização do objeto
+    id_column
+    
+    # column I18n.t("activerecord.attributes.upload.preview") do |i|
+    column :preview do |i|
+      link_to i.upload.url, :class => "image_thumb", :rel => "prettyPhoto", :target => "_blank" do
+        image_tag i.upload.url(:mini)
+      end
     end
-    column :source, sortable: :source do |upload|
-    	truncate(upload.source, length: 20)
+    
+    column :upload_file_name do |o|
+      best_in_place o, :upload_file_name, type: :input, path: [:admin, o]
     end
-    column t("preview") do |upload|
-      image_tag(upload.upload(:mini))
+    # column :upload_file_name, :upload_file_name
+    column :upload_content_type, :upload_content_type
+    column :upload_file_size, :sortable => :upload_file_size do |i|
+      div :class => "align-right" do
+        number_to_human_size i.upload_file_size
+      end
     end
-    column :created_at, sortable: :created_at do |upload|
-    	l(upload.created_at, format: :short)
-    end
-	  column "" do |upload|
-	    if upload.upload_file_name && upload.upload_file_name.include?(".zip")
-	      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
-	    end
-	  end
+
+    column :updated_at
+    column :created_at
+
     column "" do |upload|
-      result = ""
-      result += link_to(t(:view), admin_upload_path(upload), :class => "member_link edit_link view", :title => "Vorschau")
-      result += link_to(t(:edit), edit_admin_upload_path(upload), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:rdcms, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
-      raw(result)
+      if upload.upload_file_name && upload.upload_file_name.include?(".zip")
+        link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
+      end
     end
   end
+  # index do
+  #   selectable_column
+  #   column "url" do |upload|
+  #     result = ""
+  #     result << upload.upload.url
+  #   end
+  #   column :source, sortable: :source do |upload|
+  #   	truncate(upload.source, length: 20)
+  #   end
+  #   column t("preview") do |upload|
+  #     image_tag(upload.upload(:mini))
+  #   end
+  #   column :created_at, sortable: :created_at do |upload|
+  #   	l(upload.created_at, format: :short)
+  #   end
+	 #  column "" do |upload|
+	 #    if upload.upload_file_name && upload.upload_file_name.include?(".zip")
+	 #      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
+	 #    end
+	 #  end
+  #   column "" do |upload|
+  #     result = ""
+  #     result += link_to(t(:view), admin_upload_path(upload), :class => "member_link edit_link view", :title => "Vorschau")
+  #     result += link_to(t(:edit), edit_admin_upload_path(upload), :class => "member_link edit_link edit", :title => "bearbeiten")
+  #     result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:rdcms, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+  #     raw(result)
+  #   end
+  # end
 
   show do
     attributes_table do
@@ -97,24 +130,18 @@ ActiveAdmin.register Upload do
 
   sidebar :image_formates do
     ul do
-      li "original => AxB>"
-      li "large => 900x900>"
-      li "big => 600x600>"
-      li "medium => 300x300>"
-      li "thumb => 100x100>"
-      li "mini => 50x50>"
+      li "original  => WxH"
+      li "large     => 900x900>"
+      li "big       => 600x600>"
+      li "medium    => 570x324#"
+      li "thumb     => 260x180#"
+      li "mini      => 50x50#"
     end
   end
 
   #batch_action :destroy, false
   controller do
     def index
-      # @uploads = Upload
-      #   .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
-      #   .order(params[:order])
-      #   .limit(params[:limit])
-      #   .offset(params[:offset])
-      
       index! do |format|
         format.html # index.html.erb
         # format.json { render json: @uploads }

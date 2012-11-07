@@ -25,5 +25,18 @@ rdcms:
     appid: "123456"
     opengraph_default_image: "/assets/open-graph.png"
   geocode_ip_address: "false"
+
   dashboard:
     limit_itens: "10"
+  home:
+    products:
+      limit: "8"
+      box_size: "12"
+    articles:
+      limit: "5"
+      box_size: "6"
+    galleries:
+      limit: "4"
+      box_size: "6"
+    facebook:
+      box_size: "4"

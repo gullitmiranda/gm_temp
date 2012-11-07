@@ -13,7 +13,7 @@ ActiveAdmin.register User do
   #actions :all, :except => [:new]
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    f.actions
+    # f.actions
     f.inputs I18n.t("activerecord.attributes.user.general") do
       f.input :title
       f.input :firstname
