@@ -47,6 +47,11 @@ ActiveAdmin.register Upload do
     column :upload_file_name do |o|
       best_in_place o, :upload_file_name, type: :input, path: [:admin, o]
     end
+
+    column :tag_list do |o|
+      best_in_place o, :tag_list, type: :input, path: [:admin, o]
+    end
+
     # column :upload_file_name, :upload_file_name
     column :upload_content_type, :upload_content_type
     column :upload_file_size, :sortable => :upload_file_size do |i|
@@ -56,7 +61,7 @@ ActiveAdmin.register Upload do
     end
 
     column :updated_at
-    column :created_at
+    # column :created_at
 
     column "" do |upload|
       if upload.upload_file_name && upload.upload_file_name.include?(".zip")
@@ -94,40 +99,9 @@ ActiveAdmin.register Upload do
   # end
 
   show do
-    attributes_table do
-      row "Vorschau" do
-          image_tag(upload.upload(:thumb))
-      end
-      row "original" do
-        upload.upload(:original)
-      end
-      row "large" do
-        upload.upload(:large)
-      end
-      row "big" do
-        upload.upload(:big)
-      end
-      row "medium" do
-        upload.upload(:medium)
-      end
-      row "thumb" do
-        upload.upload(:thumb)
-      end
-      row "mini" do
-        upload.upload(:mini)
-      end
-      row :source
-      row :rights
-      row :description
-      row :tag_list
-      row :upload_file_name
-      row :upload_content_type
-      row :upload_file_size
-      row :created_at
-      row :updated_at
-    end
+    render :partial => "show", locals: { :s => upload }
   end
-
+  
   sidebar :image_formates do
     ul do
       li "original  => WxH"

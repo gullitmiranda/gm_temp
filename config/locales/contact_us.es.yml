@@ -20,7 +20,7 @@ es:
         email: "Email"
         message: "Mensaje"
         name: "Name"
-        phone: "teléfono"
+        phone: "Teléfono"
         subject: "Subject"
         submit: "Enviar"
       new_formtastic:

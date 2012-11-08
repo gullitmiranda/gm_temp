@@ -35,6 +35,7 @@ gem 'sinatra', :require => false
 gem 'slim'
 #gem 'bullet'  testing for slow queries
 gem 'geokit'
+gem 'fastimage'
 
 gem "inherited_resources", "~> 1.3.1"
 

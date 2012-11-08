@@ -4,6 +4,7 @@ br:
     active: ativo
     approved: aprovado
     article_type: tipo de artigo
+    author: Autor
     background: Imagen de fundo
     body: Texto
     cancel: Cancelar
@@ -14,6 +15,7 @@ br:
     contact_email: E-mail de contato
     current_sign_in_at: Conexão atual
     date: Data
+    dates: Datas
     datetime: Data
     description: Descrição
     email: E-mail
@@ -51,7 +53,7 @@ br:
     rights: direitos
     roles: Cargos
     separated_by_commas: 'Separado por virgulas ","'
-    source: código
+    source: Fonte
     username: Nome
     weight: Peso
     width: Largura
@@ -74,6 +76,11 @@ br:
       form:
         <<: *atributes_all
     sliders:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    uploads:
       show:
         <<: *atributes_all
       form:

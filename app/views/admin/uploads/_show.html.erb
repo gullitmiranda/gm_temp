@@ -1,0 +1,57 @@
+<div class="panel">
+  <h3><%= I18n.t('active_admin.details', :model => Upload.model_name.human) %></h3>
+  <div class="panel_contents" id="details">
+    <div class="attributes_table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th><%= t(".name"       ) %></th><td><%= s.upload_file_name %></td></tr>
+          <tr><th><%= t(".tag_list"   ) %></th><td><%= best_in_place s, :tag_list, type: :input, path: [:admin, s] %></td></tr>
+          <tr><th><%= t(".upload_content_type"  ) %></th><td><%= s.upload_content_type %></td></tr>
+          <tr><th><%= t(".upload_file_size"     ) %></th><td><%= number_to_human_size s.upload_file_size %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3><%= t('.author') %></h3>
+  <div class="panel_contents" id="details">
+    <div class="attributes_table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th><%= t(".source" ) %></th><td><%= s.source %></td></tr>
+          <tr><th><%= t(".rights" ) %></th><td><%= s.rights %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3><%= t('.dates') %></h3>
+  <div class="panel_contents" id="details">
+    <div class="attributes_table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>
+          <tr><th><%= t(".updated_at" ) %></th><td><%= l s.updated_at %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3><%= t ".preview" %></h3>
+  <div id="description" class="panel_contents">
+    <div class="attributes_table">
+      <div class="row">
+        <%=
+        if s.image_file?
+          list_all_images = content_tag(:div, image_tag(s.upload(:medium)), class: "thumbnail span6")
+          links = []
+          [:original, :large, :big, :medium, :thumb, :mini].each do |size|
+            # links << FastImage.size(s.upload(size).to_s)
+            links << content_tag(:li, link_to(t(".#{size}"), s.upload(size), target: "_blank"))
+          end
+          list_all_images << content_tag(:ul, class: "links_box span3") do
+            content_tag(:h4, t(".sizes")).html_safe + links.join("\n").html_safe
+          end
+        end
+        %>
+      </div>
+    </div>
+  </div>
+</div>
