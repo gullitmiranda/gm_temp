@@ -38,9 +38,11 @@ br:
     password: Senha
     password_confirmation: Confirmação de senha
     password_hint: Deixe em branco se a senha não deve ser alterada.
+    preview: Visualização
     phone: Telefone
     price: Preço
     sign_in_count: Número de conexões
+    sizes: Tamanhos
     slug: Link permanent
     tag_list: Categorias
     title: Título
@@ -56,10 +58,10 @@ br:
     source: Fonte
     username: Nome
     weight: Peso
+    weights_and_measures: Pesos e Medidas
     width: Largura
-
   # Admin module
-  admin:
+  admin: &admin
     posts:
       show:
         <<: *atributes_all
@@ -90,6 +92,7 @@ br:
         <<: *atributes_all
       form:
         <<: *atributes_all
+  <<: *admin
   # ActiveRecord
   activerecord:
     models:
@@ -101,8 +104,8 @@ br:
         one: Produto
         other: Produtos
       gallery:
-        one: Galeria
-        other: Galerias
+        one: Evento
+        other: Eventos
       # Artigos
       blog:
         one: Blog

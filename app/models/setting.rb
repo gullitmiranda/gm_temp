@@ -35,13 +35,21 @@ class Setting < ActiveRecord::Base
     end
   end
 
+  # Se o conteudo for do tipo boolean retorna em booleano
+  def self.boo?(val = nil)
+    if val.boolean?
+      return val.to_boolean
+    else
+      return val
+    end
+  end
 
   def self.for_key(name, cacheable=true)
     if cacheable
       @@key_value ||= {}
-      @@key_value[name] ||= for_key_helper(name)
+      @@key_value[name] ||= boo?(for_key_helper(name))
     else
-      for_key_helper(name)
+      boo?(for_key_helper(name))
     end
   end
 

@@ -28,6 +28,8 @@ rdcms:
 
   dashboard:
     limit_itens: "10"
+  upload:
+    auto_save: "false"
   home:
     products:
       limit: "8"

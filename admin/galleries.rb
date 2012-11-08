@@ -29,4 +29,11 @@ ActiveAdmin.register Gallery do
 
   # Formulário de edição dos itens e suas traduções
   form :partial => "form"
+
+  controller do
+    def update
+      update!
+      @gallery.reorder_positions params[:gallery]['upload_ids']
+    end
+  end
 end

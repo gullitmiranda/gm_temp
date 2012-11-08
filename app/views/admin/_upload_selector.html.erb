@@ -13,7 +13,7 @@
             <div class="span6 actions-buttons form-inline align-right">
               <button type="submit" class="btn btn-primary"><%= raw(t :save) %></button>
               <label id="auto_save">
-                <input type="checkbox" checked><%= raw(t :auto_save) %>
+                <input type="checkbox" <%= 'checked' if Setting.for_key("rdcms.upload.auto_save") %>><%= raw(t :auto_save) %>
               </label>
             </div>
             <script type="text/javascript">

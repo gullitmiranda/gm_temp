@@ -69,34 +69,6 @@ ActiveAdmin.register Upload do
       end
     end
   end
-  # index do
-  #   selectable_column
-  #   column "url" do |upload|
-  #     result = ""
-  #     result << upload.upload.url
-  #   end
-  #   column :source, sortable: :source do |upload|
-  #   	truncate(upload.source, length: 20)
-  #   end
-  #   column t("preview") do |upload|
-  #     image_tag(upload.upload(:mini))
-  #   end
-  #   column :created_at, sortable: :created_at do |upload|
-  #   	l(upload.created_at, format: :short)
-  #   end
-	 #  column "" do |upload|
-	 #    if upload.upload_file_name && upload.upload_file_name.include?(".zip")
-	 #      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
-	 #    end
-	 #  end
-  #   column "" do |upload|
-  #     result = ""
-  #     result += link_to(t(:view), admin_upload_path(upload), :class => "member_link edit_link view", :title => "Vorschau")
-  #     result += link_to(t(:edit), edit_admin_upload_path(upload), :class => "member_link edit_link edit", :title => "bearbeiten")
-  #     result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:rdcms, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
-  #     raw(result)
-  #   end
-  # end
 
   show do
     render :partial => "show", locals: { :s => upload }

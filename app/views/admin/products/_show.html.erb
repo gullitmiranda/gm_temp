@@ -5,15 +5,28 @@
       <table class="table table-bordered">
         <tbody>
           <tr><th><%= t(".tag_list"   ) %></th><td><%= best_in_place s, :tag_list, type: :input, path: [:admin, s] %></td></tr>
-        </tbody>
-      </table>
-      <table class="table table-bordered">
-        <tbody>
-          <tr><th><%= t(".weight"   ) %></th><td><%= "#{number_with_precision s.weight} kg" if s.weight %></td></tr>
-          <tr><th><%= t(".measures" ) %></th><td><%= "#{s.length || 0}x#{s.width || 0}x#{s.height || 0} m" if s.length or s.width or s.height %></td></tr>
           <tr><th><%= t(".price"    ) %></th><td><%= "#{number_to_currency s.price} kg" if s.price %></td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+  <h3><%= t('.weights_and_measures') %></h3>
+  <div class="panel_contents" id="measures">
+    <div class="attributes_table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th><%= t(".weight" ) %></th><td><%= "#{number_with_precision s.weight} kg" if s.weight %></td></tr>
+
+          <tr><th><%= t(".length" ) %></th><td><%= "#{s.length || 0} m" %></td></tr>
+          <tr><th><%= t(".width"  ) %></th><td><%= "#{s.width  || 0} m" %></td></tr>
+          <tr><th><%= t(".height" ) %></th><td><%= "#{s.height || 0} m" %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3><%= t('.dates') %></h3>
+  <div class="panel_contents" id="dates">
+    <div class="attributes_table">
       <table class="table table-bordered">
         <tbody>
           <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>

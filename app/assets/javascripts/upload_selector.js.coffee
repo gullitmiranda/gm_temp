@@ -38,35 +38,31 @@ jQuery ->
     _sortable(container).data("offset", itens.length).data()
 
   _sortable = (container) ->
-    container.sortable
-      handle: ".det.header",
-      connectWith: ".connectedSortable"
-      # placeholder: "ui-state-highlight ui-sortable-placeholder template-download span3 fade in"
-      opacity: 0.6
-      revert: true
-    .disableSelection()
-  
+    container
+      .sortable('destroy')
+      .sortable
+        handle: ".det.header"
+        connectWith: ".connectedSortable"
+        # placeholder: "ui-state-highlight ui-sortable-placeholder template-download span3 fade in"
+        opacity: 0.6
+        revert: true
+        stop: ->
+          file_selector.submit() if auto_save_checkbox.prop('checked')
+      .disableSelection()
+
   # end _sortable
-  _saveSelected = (ev) ->
-    ev.preventDefault()
-    _t = $(this)
-    console.debug selected_container_ul.sortable 'toArray'
-    # console.debug $.param(_t)
-    # console.debug _t.serializeArray()
-  #end renderFiles
-  
   #### end Core Functions
   
   # Renderiza os itens carregados do Banco de dados
   selectedData = selected_container_ul.data('load')
-  renderFiles selectedData, selected_container_ul, 0  if selectedData && selectedData.length
+  if selectedData && selectedData.length
+    renderFiles selectedData, selected_container_ul, 0
+  else
+    _sortable selected_container_ul
   
   # Quando a aba de galeria for selecionada carrega a lista de uploads
   upload_tab.on "click.load_uploads", (ev) ->
     getUploads()
-  $("#fileupload").bind 'fileuploaddone', (e, data) ->
-    console.debug _sortable(upload_container_ul)
-    console.debug e, data
   
   # Carregamento sobre demanda dos uploads
   gallery_container_ul.scroll (ev) ->
@@ -75,10 +71,7 @@ jQuery ->
       getUploads()
   
   # Ações de ordenação
-  # file_selector.removeAttr('data-remote').submit (ev) ->
-  file_selector.submit _saveSelected
   auto_save.checkbox()
-  
   
   upload_selector
     .on 'click.upload_selector', '.add button', (ev) ->
@@ -93,51 +86,9 @@ jQuery ->
     _ref.hide 'scale', () ->
       if !$("##{_ref.prop 'id'}", container).length
         _ref.appendTo(container).show 'scale'
-        # console.debug auto_save_checkbox.prop('checked')
         file_selector.submit() if auto_save_checkbox.prop('checked')
       else
         _ref.remove()
       
       
   # end Ações de ordenação
-  
-  
-  # $( "#selectable" ).selectable({
-  #   stop: function() {
-  #     var result = $( "#select-result" ).empty();
-  #     $( ".ui-selected", this ).each(function() {
-  #       var index = $( "#selectable li" ).index( this );
-  #       result.append( " #" + ( index + 1 ) );
-  #     });
-  #   }
-  # });  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  # $(".sortable"   , upload_selector).sortable({ handle: ".det.header" }).disableSelection()
-  # tabs.droppable {
-  #   accept      : ".connectedSortable li",
-  #   hoverClass  : "ui-state-hover",
-  #   drop        : (event, ui) ->
-  #     $item = $(this)
-  #     $list = $(".connectedSortable", $($("a", $item).attr("href")))
-  # 
-  #     ui.draggable.hide "slow", ->
-  #       # upload_selector.tabs "select", tabs.index($item)
-  #       chk = $(":checkbox", $(this).appendTo($list).show("slow"))
-  #       if $list.hasClass("selected_container")
-  #         chk.attr("checked","checked")
-  #       else
-  #         chk.removeAttr("checked")
-  #       
-  # }

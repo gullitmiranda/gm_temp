@@ -45,4 +45,11 @@ ActiveAdmin.register Product do
   
   # Formulário de edição dos itens e suas traduções
   form :partial => "admin/products/form"
+
+  controller do
+    def update
+      update!
+      @product.reorder_positions params[:product]['upload_ids']
+    end
+  end
 end
