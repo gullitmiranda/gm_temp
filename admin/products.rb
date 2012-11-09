@@ -49,7 +49,7 @@ ActiveAdmin.register Product do
   controller do
     def update
       update!
-      @product.reorder_positions params[:product]['upload_ids']
+      # @product.reorder_positions params[:product]['upload_ids']
     end
   end
 end
