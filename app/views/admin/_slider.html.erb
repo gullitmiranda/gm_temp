@@ -1,0 +1,47 @@
+<% @sliders = defined?(@sliders) ? @sliders : Slider.all %>
+<% if @sliders.blank? and defined?(admin) %>
+<div class="blank_slate_container">
+  <div class="blank_slate">
+    <span><%= I18n.t("active_admin.blank_slate.content", resource_name: Slider.model_name.human) %></span>
+    <small><%= link_to I18n.t('active_admin.new_model', model: Slider.model_name.human), new_admin_slider_path %></small>
+  </div>
+</div>
+<% else %>
+<ul id="home-slider" class="royalSlider clearfix">
+  <% @sliders.each do |slider| %>
+    <li class="royalSlide rsContent" style="background-image:url('<%= slider.background.url(:slider) %>');"> 
+      <div class="royalCaption bContainer" style="width:100%;">
+        <div class="rsABlock" data-show-effect="fade movetop"  data-move-offset="15">
+          <%= raw slider.body %>
+        </div>
+      </div>
+      <% if defined?(admin) and admin %>
+        <div class="admin-caption royalCaption">
+          <span><%= link_to slider.name, admin_slider_path(slider) %></span>
+          <div class="admin-actions">
+            <a class="btn btn-success btn-mini" href="<%= new_admin_slider_path %>" title="<%= I18n.t('.add') %>">
+              <i class="icon-plus-2"></i>
+            </a>
+            <a class="btn btn-primary btn-mini" href="<%= edit_admin_slider_path(slider) %>" title="<%= I18n.t('.edit') %>">
+              <i class="icon-pencil-2"></i>
+            </a>
+            <a class="btn btn-mini btn-danger" rel="nofollow" data-method="delete" href="<%= admin_slider_path(slider) %>" title="<%= I18n.t('.delete') %>">
+              <i class="icon-trashcan"></i>
+            </a>
+          </div>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= stylesheet_link_tag    "slider" %>
+<%= javascript_include_tag "slider" %>
+<script>	
+$(function() {
+  var defaultSlider = $("#home-slider").royalSlider({
+		captionShowEffects:["moveleft", "fade"]				
+	});
+});			  
+</script>
+<% end %>

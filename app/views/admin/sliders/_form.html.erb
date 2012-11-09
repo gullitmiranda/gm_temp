@@ -1,0 +1,43 @@
+<%= semantic_form_for [:admin, @slider], :html => { :multipart => true, class: 'form-horizontal' } do |f| %>
+  <%= errors_for @slider %>
+
+  <%= f.globalize_inputs :translations do |lf| %>
+    <div class="control-group">
+      <%= lf.label :name, t(".name"), :class => 'control-label' %>
+      <div class="controls">
+        <%= lf.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= lf.label :body, t(".body"), :class => 'control-label' %>
+      <div class="controls">
+        <%= lf.cktext_area :body, :class => 'text_area' %>
+      </div>
+    </div>
+    <%= lf.input :locale, :as => :hidden %>
+  <% end %>
+  
+  <hr />
+
+  <div class="control-group">
+    <%= f.label :background, t(".background"), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :background, :accept => "image/*" %>
+    </div>
+    <em class="controls"><%= t("recommended_size_for_upload", :size => "1150x400") %></em>
+  </div>
+  <div class="control-group">
+    <%= f.label :tag_list, t(".tag_list"), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tag_list, :class => 'text_field span4' %>
+    </div>
+    <em class="controls"><%= t(".separated_by_commas") %></em>
+  </div>
+  
+  <hr />
+
+  <div class="form-actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= link_to t(".cancel"), admin_sliders_path, :class => 'btn btn-link' %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+<div class="panel">
+  <h3><%= t "permalink" %>: <%= link_to slider_path(s), slider_path(s), target: "_blank" %></h3>
+  <div class="panel_contents" id="details">
+    <div class="attributes_table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th><%= t(".name"       ) %></th><td><%= s.name %></td></tr>
+          <tr><th><%= t(".tag_list"   ) %></th><td><%= best_in_place s, :tag_list, type: :input, path: [:admin, s] %></td></tr>
+          <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>
+          <tr><th><%= t(".updated_at" ) %></th><td><%= l s.updated_at %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3><%= t "description" %></h3>
+  <div class="panel_contents" id="description">
+    <div class="attributes_table well">
+      <%= render :partial => "admin/slider", :locals => { :"@sliders" => [s] } %>
+    </div>
+  </div>
+</div>
