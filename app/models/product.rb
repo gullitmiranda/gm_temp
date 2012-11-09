@@ -54,7 +54,7 @@ class Product < ActiveRecord::Base
     counter = 1
     ActiveRecord::Base.establish_connection
     ids.each do |id|
-      ActiveRecord::Base.connection.execute("UPDATE `products_uploads` SET `position`='#{counter}', `updated_at`='#{Time.now}' WHERE `product_id`='#{self.id}' AND `upload_id`='#{id}';\n")
+      ActiveRecord::Base.connection.execute("UPDATE products_uploads SET position=#{counter}, updated_at='#{Time.now}' WHERE product_id='#{self.id}' AND upload_id='#{id}';\n")
       counter += 1
     end
   end
