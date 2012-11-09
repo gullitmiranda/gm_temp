@@ -2,33 +2,33 @@
   <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
   <%= form_for Upload.new, :url => admin_uploads_path, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
     <div class="row fileupload-buttonbar">
-      <div class="span6">
-        <div class="span3 btn-toolbar">
-          <div class="btn-group">
-            <!-- The fileinput-button span is used to style the file input field as button -->
-            <span class="btn btn-success fileinput-button" title="<%= I18n.t('.add_files') %>">
-              <i class="icon-plus-2"></i>
-              <input type="file" name="upload[upload]"
-                <%= ' accept="#{options[:accept]}"'     .html_safe if defined?(options[:accept]) %>
-                <%= ' multiple="#{options[:multiple]}"' .html_safe if defined?(options[:multiple]) %>>
-            </span>
-            <button type="reset" class="btn btn-warning cancel" title="<%= I18n.t(".cancel") %>">
-              <i class="icon-denied"></i>
-            </button>
-            <button type="button" class="btn btn-danger delete" title="<%= I18n.t('.delete') %>">
-              <i class="icon-trashcan"></i>
-            </button>
-            <span class="btn btn-inverse">
-              <input type="checkbox" class="toggle" title="<%= I18n.t('.toggle_selection') %>">
-            </span>
-          </div>
+      <div class="span3 btn-toolbar">
+        <div class="btn-group">
+          <!-- The fileinput-button span is used to style the file input field as button -->
+          <span class="btn btn-success fileinput-button" title="<%= I18n.t('.add_files') %>">
+            <i class="icon-plus-2"></i>
+            <input type="file" name="upload[upload]"
+              <%= ' accept="#{options[:accept]}"'     .html_safe if defined?(options[:accept]) %>
+              <%= ' multiple="#{options[:multiple]}"' .html_safe if defined?(options[:multiple]) %>>
+          </span>
+          <button type="reset" class="btn btn-warning cancel" title="<%= I18n.t(".cancel") %>">
+            <i class="icon-denied"></i>
+          </button>
+          <button type="button" class="btn btn-danger delete" title="<%= I18n.t('.delete') %>">
+            <i class="icon-trashcan"></i>
+          </button>
+<!--
+           <span class="btn btn-inverse">
+            <input type="checkbox" class="toggle" title="<%= I18n.t('.toggle_selection') %>">
+          </span> -->
         </div>
-        <div class="span2">
-          <!-- The global progress bar -->
-          <div class="progress progress-success progress-striped active fade">
-            <div class="bar" style="width:0%;"></div>
-          </div>
+      </div>
+      <div class="span3 fileupload-progress fileupload-progressbar fade">
+        <!-- The global progress bar -->
+        <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="bar" style="width:0%;"></div>
         </div>
+        <div class="progress-extended">&nbsp;</div>
       </div>
     </div>
     <!-- The loading indicator is shown during image processing -->
