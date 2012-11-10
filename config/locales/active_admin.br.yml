@@ -23,8 +23,11 @@ br:
       create: "criar"
 
     # Dashboard labels
-    recent_products: Produtos recentes
+    recent_entries: Novos assinantes
     recent_posts: Artigos recentes
+    recent_products: Produtos recentes
+    recent_galleries: Galerias recentes
+    published_sliders: Sliders publicados
 
     # Pages
       # index:
@@ -136,6 +139,8 @@ br:
         one: Produto
         other: Produtos
       index:
+        no: Não
+        yes: Sim
         import: Importar
         article:
           one: Artigo

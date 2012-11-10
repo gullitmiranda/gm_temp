@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   attr_accessible :name, :description, :price, :length, :width, :height, :weight,
-      :slug, :locale, :translations_attributes, :tag_list,
+      :slug, :locale, :translations_attributes, :tag_list, :reference, :position, :published,
       # Associações
       :upload_ids, :upload
   
@@ -21,9 +21,9 @@ class Product < ActiveRecord::Base
 
   # Escopos
   # scope :recents, lambda{ |counter| order("updated_at DESC").limit(counter)}
-  # scope :visible, where("hidden != ?", true)
   # scope :published, lambda { where("published_at <= ?", Time.zone.now) }
-  scope :recents, lambda{ |limit = 10| order("updated_at desc").limit(limit)}
+  scope :visible, where("published = ?", true)
+  scope :recents, lambda{ |limit = 10| visible.order("updated_at desc").limit(limit)}
 
   class Translation
     attr_accessible :locale, :name, :description

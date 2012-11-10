@@ -12,7 +12,8 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
-    # Recents
+    # Recentes
+    ## Row #1 - [Produtos, Artigos, Newsletter]
     columns do
       # Produtos Recentes
       column do
@@ -54,16 +55,43 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
       end
-    end # end Recents
-    # Sliders
+      # Novas Assinaturas
+      column do
+        panel I18n.t("rdcms.recent_entries") do
+          @newsletters = Newsletter.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
+          if @newsletters.blank?
+            div :class => "blank_slate_container" do
+              div :class => "blank_slate" do
+                span I18n.t("active_admin.blank_slate.content", resource_name: Newsletter.model_name.human)
+                small link_to(I18n.t('active_admin.new_model', model: Newsletter.model_name.human), new_admin_newsletter_path)
+              end
+            end
+          else
+            ul do
+              @newsletters.map do |object|
+                li link_to("#{object.name} <#{object.email}>", admin_newsletter_path(object))
+              end
+            end
+          end
+        end
+      end
+    end # end Row #1
+    ## Row #2 - [Sliders, Galerias]
     columns do
       column do
-        panel "Sliders" do
+        panel I18n.t("rdcms.published_sliders") do
           div class:"attributes_table well align-center" do
             render :partial => "admin/slider", :locals => { :admin => true }
           end
         end
       end
-    end
+      column do
+        panel I18n.t("rdcms.recent_galleries") do
+          div class:"attributes_table well" do
+            # render :partial => "admin/slider", :locals => { :admin => true }
+          end
+        end
+      end
+    end # end Row #2
   end # content
 end

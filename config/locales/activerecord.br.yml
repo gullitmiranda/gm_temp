@@ -35,12 +35,14 @@ br:
     localization: Localização
     measures: Medidas
     name: Nome
+    no: Não
     password: Senha
     password_confirmation: Confirmação de senha
     password_hint: Deixe em branco se a senha não deve ser alterada.
     preview: Visualização
     phone: Telefone
     price: Preço
+    published: Publicado
     sign_in_count: Número de conexões
     sizes: Tamanhos
     slug: Link permanent
@@ -51,15 +53,18 @@ br:
     upload_file_name: Nome
     upload_file_size: Tamanho
     url: url
+    reference: Referência
     reported: Relatado
     rights: direitos
     roles: Cargos
     separated_by_commas: 'Separado por virgulas ","'
     source: Fonte
+    summary: Resumo
     username: Nome
     weight: Peso
     weights_and_measures: Pesos e Medidas
     width: Largura
+    yes: Sim
   # Admin module
   admin: &admin
     posts:
@@ -107,6 +112,9 @@ br:
         one: Evento
         other: Eventos
       # Artigos
+      post:
+        one: Artigo
+        other: Artigos
       blog:
         one: Blog
         other: Blogs

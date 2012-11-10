@@ -1,5 +1,7 @@
 class Slider < ActiveRecord::Base
-  attr_accessible :body, :name, :background, :background_content_type, :background_file_name, :background_file_size, :background_updated_at, :locale, :translations_attributes, :tag_list
+  attr_accessible :body, :name, :locale, :translations_attributes, :tag_list, :position, :published,
+    # Paperclip
+    :background, :background_content_type, :background_file_name, :background_file_size, :background_updated_at
   # Taggings
   acts_as_taggable
   
@@ -15,6 +17,11 @@ class Slider < ActiveRecord::Base
   # Translate
   translates :name, :body
   accepts_nested_attributes_for :translations
+
+  # Escopos
+  scope :visible, where("published = ?", true)
+  scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
+  scope :ordained, lambda{ |limit = 10| visible.order("position asc").limit(limit)}
 
   
   class Translation

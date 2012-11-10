@@ -1,6 +1,6 @@
 class Gallery < ActiveRecord::Base
   attr_accessible :datetime, :name, :description,
-      :slug, :locale, :translations_attributes, :tag_list,
+      :slug, :locale, :translations_attributes, :tag_list, :position, :published,
       # Associações
       :upload_ids, :upload
 
@@ -15,7 +15,8 @@ class Gallery < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :history]
 
   # Escopos
-  scope :recents, lambda{ |limit = 10| order("datetime desc").limit(limit)}
+  scope :visible, where("published = ?", true)
+  scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
 
 # Translate
   translates :name, :description
