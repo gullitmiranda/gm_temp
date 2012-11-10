@@ -37,7 +37,7 @@ class Setting < ActiveRecord::Base
 
   # Se o conteudo for do tipo boolean retorna em booleano
   def self.boo?(val = nil)
-    if val.boolean?
+    if defined?(val.boolean?) and val.boolean?
       return val.to_boolean
     else
       return val

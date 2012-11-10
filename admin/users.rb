@@ -69,8 +69,7 @@ ActiveAdmin.register User do
     end #end panel applicant
   end
 
-  batch_action :destroy, false
-
+  # batch_action :destroy, false
 
   controller do
     def update
@@ -84,7 +83,4 @@ ActiveAdmin.register User do
       render action: :edit
     end
   end
-
-
-
 end

@@ -16,5 +16,6 @@ ActiveAdmin.register Slider do
   
   form :partial => "form"
   
-  config.clear_sidebar_sections!
+ batch_action :destroy, false
+ config.clear_sidebar_sections!
 end

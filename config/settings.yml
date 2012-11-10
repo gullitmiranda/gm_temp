@@ -42,3 +42,10 @@ rdcms:
       box_size: "6"
     facebook:
       box_size: "4"
+  videos:
+    # [Video, Standardfeed, User, Playlist]
+    object: 'Playlist'
+    # ID
+    scope: 'PLN78J7sDciewBdMTaYosKKns30hyFUnJG'
+    limit: '10'
+    "api-version": '2'

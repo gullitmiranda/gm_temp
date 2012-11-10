@@ -22,6 +22,7 @@ module Rdcms
       end
 
       def setup_routes
+        route "mount Ckeditor::Engine => '/ckeditor'"
         route "mount Rdcms::Engine => '/'"
         route "devise_for :users, ActiveAdmin::Devise.config"
         route "ActiveAdmin.routes(self)"
