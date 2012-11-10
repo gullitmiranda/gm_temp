@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.tools.min.js
+//= require turbolinks
 //= require moment
 
 $(document).ready(function(){

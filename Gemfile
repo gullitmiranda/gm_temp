@@ -3,6 +3,7 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
+gem 'turbolinks'
 
 
 gem "devise", "~> 2.1.2"

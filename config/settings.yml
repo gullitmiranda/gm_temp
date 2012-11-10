@@ -49,3 +49,7 @@ rdcms:
     scope: 'PLN78J7sDciewBdMTaYosKKns30hyFUnJG'
     limit: '10'
     "api-version": '2'
+  mailer:
+    newsletter:
+      from_name: "Requestdev Sistemas"
+      from_email: notreplay@requestdev.com.br

@@ -115,11 +115,5 @@ $(document).ready(function() {
 	window.location = target;
 	return false;
   });
-
-
-
-
-
-
 });
 
