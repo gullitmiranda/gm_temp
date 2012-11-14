@@ -1,5 +1,24 @@
 //= require active_admin/base
+//= require jquery
+//= require jquery_ujs
 //= require keymaster
+
+// Edição de formulários na sua visualização
+//= require best_in_place
+//= require jquery-fileupload
+
+//= require twitter/bootstrap
+
+//= require formstyle
+
+// Evitar bug:
+// NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
+jQuery.ajaxSettings.traditional = true;
+
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+});
 
 $(document).ready(function() {
 	$('textarea.tinymce').tinymce({
