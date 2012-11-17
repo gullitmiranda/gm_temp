@@ -95,6 +95,26 @@ br:
       month: Mês
       second: Segundo
       year: Ano
+  distance_units:
+    centi:
+      one: "centímetro"
+      other: "centímetros"
+    unit:
+      one: "metro"
+      other: "metros"
+    thousand:
+      one: "quilômetro"
+      other: "quilômetros"
+  mass_units:
+    centi:
+      one: "grama"
+      other: "gramas"
+    unit:
+      one: "quilograma"
+      other: "quilogramas"
+    thousand:
+      one: "tonelada"
+      other: "toneladas"
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:

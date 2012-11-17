@@ -1,6 +1,7 @@
 // Active Admin CSS Styles
-//@import "active_admin/mixins";
-//@import "active_admin/base";
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import "chosen";
 
 @import "compass";
 
@@ -8,14 +9,126 @@
 // styles here:
 $background-color: black;
 
-body.active_admin #title_bar .action_items a.undo{
-
+body.active_admin {
+  @import "bootstrap_and_overrides";
+  @import "jquery.fileupload-ui";
+  @import "formstyle";
 }
 
-span.startpage{
-	font-weight:bold;
-	color:red;
-	display:inline-block;
+@import "glyphs";
+@import "core";
+
+body.active_admin {
+  padding: 0;
+  
+  form {
+    &.form-horizontal .controls {
+      display: block;
+    }
+    .datetime_select {
+      select {
+        width: auto;
+      }
+    }
+
+    label.label {
+      background-color: transparent;
+      border-radius: 0;
+      color: #5E6469;
+      font-size: 1em;
+      line-height: 20px;
+      padding: 0;
+      white-space: normal;
+    }
+  }
+  .attributes_table table {
+    tbody th { text-align: right; }
+  }
+  .thumbnails {
+    list-style: none outside none;
+  }
+  
+  .nav {
+    list-style: none outside none;
+    margin-bottom: 20px;
+    margin-left: 0;
+  }
+  .nav-tabs > .active > a,
+  .nav-tabs > .active > a:hover {
+    color: #555555;
+  }  
+  .thumbnails {
+    margin-left: -20px;
+    
+    > li {
+      margin-bottom: 20px;
+      margin-left: 20px;
+    }
+  }
+  
+  .tabbable {
+    $mp: 5px;
+    .nav {
+      margin-bottom: 0;
+    }
+    .thumbnails {
+
+      margin-left: -$mp;
+      padding-left: $mp;
+
+      padding-top: $mp;
+
+      > li {
+        margin-bottom: $mp;
+        margin-left: $mp;
+      }
+    }
+    form {
+      margin: 0;
+    }
+  }
+  
+  .actions-buttons {
+    margin-bottom: 5px;
+  }
+  
+  /* Uploads */
+  .uploads-list {
+    height: 512px;
+    overflow: auto;
+  }
+  #upload_container   .uploads-list { height: 492px;  }
+  #gallery_container  .uploads-list { height: 547px; }
+  
+  /* Artigos */
+  .post-list > h3 {
+    line-height: 24px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  $span6Width: 467px;
+  body.active_admin {
+    .uploads-list {
+      width: $span6Width;
+    }
+    .tab-content {
+      width: $span6Width;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  $span6Width: 357px;
+  body.active_admin {
+    .uploads-list {
+      width: $span6Width;
+    }
+    .tab-content {
+      width: $span6Width;
+    }
+  }
 }
 
 div#rdcms_image_maganger{
@@ -70,7 +183,7 @@ div#titlebar_left h2#page_title {
 #header h1 {
 	width:100px;
 	height:80px;
-	background:url("/assets/cobra.png") no-repeat;
+	background:url("/assets/rdcms.png") no-repeat;
 	text-indent:-9999px;
 	position:absolute;
 	left:30px;
@@ -90,40 +203,6 @@ div#main_content h3 {
 }
 a.button {
   margin-left: 10px;
-}
-
-legend .foldable_icon_wrapper{
-	.foldable_icon{
-		background:url("/assets/arrow.png");
-		width:20px;
-		height:20px;
-		float:right;
-		margin:5px;
-		cursor:pointer;
-		@include rotate(90deg);
-		@include transition(all 500ms);
-		&.open{
-			@include rotate(0deg);
-		}
-
-	}
-}
-
-h3 .foldable_icon_wrapper{
-	.foldable_icon{
-		background:url("/assets/arrow.png");
-		display:inline-block;
-		width:20px;
-		height:20px;
-		float:right;
-		cursor:pointer;
-		@include rotate(90deg);
-		@include transition(all 500ms);
-		&.open{
-			@include rotate(0deg);
-		}
-
-	}
 }
 
 .sidebar_section > div.panel_contents{
@@ -270,66 +349,37 @@ form li.hidden.input{
 	display:none;
 }
 
-body.active_admin .status{
-	background: none;
-	color: #000;
+legend .foldable_icon_wrapper{
+	.foldable_icon{
+		background:url("/assets/arrow.png");
+		width:20px;
+		height:20px;
+		float:right;
+		margin:5px;
+		cursor:pointer;
+		@include rotate(90deg);
+		@include transition(all 500ms);
+		&.open{
+			@include rotate(0deg);
+		}
+
+	}
 }
 
-body.active_admin .edit{
-	background: url("/assets/bearbeiten.png") no-repeat center center;
-	text-indent:-99999px;
-	width: 20px;
-	height: 20px;
-	display: inline-block;
+h3 .foldable_icon_wrapper{
+	.foldable_icon{
+		background:url("/assets/arrow.png");
+		display:inline-block;
+		width:20px;
+		height:20px;
+		float:right;
+		cursor:pointer;
+		@include rotate(90deg);
+		@include transition(all 500ms);
+		&.open{
+			@include rotate(0deg);
+		}
+
+	}
 }
 
-body.active_admin .view{
-	background: url("/assets/ansehen.png") no-repeat center center transparent;
-	text-indent:-99999px;
-	width: 30px;
-	height: 20px;
-	display: inline-block;
-}
-
-body.active_admin .delete{
-	background: url("/assets/loeschen.png") no-repeat center center transparent;
-	text-indent:-99999px;
-	width: 23px;
-	height: 20px;
-	display: inline-block;
-}
-
-body.active_admin .new_subarticle{
-	background: url("/assets/unterartikel.png") no-repeat center center transparent;
-	text-indent:-99999px;
-	width: 22px;
-	height: 20px;
-	display: inline-block;
-}
-
-body.active_admin .import{
-	background: url("/assets/import.jpg") no-repeat center center transparent;
-	text-indent:-99999px;
-	width: 22px;
-	height: 20px;
-	display: inline-block;
-}
-
-body.active_admin table.index_table th:last-child {
-	width: 130px;
-	min-width: 130px;
-}
-
-div.has_many.vita_steps {
-  li.input {
-    fieldset.inputs.has_many_fields {
-      margin: 0px;
-      padding: 0px;
-    }
-  }
-}
-
-// fieldset.actions li.input_action input, input[type="submit"]:not(.disabled):hover {
-// 	background: -webkit-gradient(linear, left top, left bottom, from(#67B34B), to(#325724));
-// 	background: -moz-linear-gradient(-90deg, #67B34B, #325724);
-// }

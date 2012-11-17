@@ -54,6 +54,7 @@ ActiveAdmin.register Product do
 
   controller do
     def update
+      StandardiseNumbers.new(params[:product], %w{ price length width height weight })
       update!
       @product.reorder_positions params[:product]['upload_ids'] unless params[:product]['upload_ids'].blank?
     end

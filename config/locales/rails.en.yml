@@ -95,6 +95,26 @@ en:
       month: Month
       second: Seconds
       year: Year
+  distance:
+    centi:
+      one: "centimeter"
+      other: "centimeters"
+    unit:
+      one: "meter"
+      other: "meters"
+    thousand:
+      one: "kilometer"
+      other: "kilometers"
+  mass_units:
+    centi:
+      one: "gram"
+      other: "grams"
+    unit:
+      one: "kilogram"
+      other: "kilograms"
+    thousand:
+      one: "tonne"
+      other: "tonnes"
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:

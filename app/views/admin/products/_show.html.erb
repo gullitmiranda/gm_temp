@@ -20,11 +20,11 @@
     <div class="attributes_table">
       <table class="table table-bordered">
         <tbody>
-          <tr><th><%= t(".weight" ) %></th><td><%= "#{number_with_precision s.weight} kg" if s.weight %></td></tr>
+          <tr><th><%= t(".weight" ) %></th><td><%= number_to_human s.weight , units: :mass_units, precision: 3, significant: false %></td></tr>
 
-          <tr><th><%= t(".length" ) %></th><td><%= "#{s.length || 0} m" %></td></tr>
-          <tr><th><%= t(".width"  ) %></th><td><%= "#{s.width  || 0} m" %></td></tr>
-          <tr><th><%= t(".height" ) %></th><td><%= "#{s.height || 0} m" %></td></tr>
+          <tr><th><%= t(".length" ) %></th><td><%= number_to_human s.length , units: :distance_units, significant: false %></td></tr>
+          <tr><th><%= t(".width"  ) %></th><td><%= number_to_human s.width  , units: :distance_units, significant: false %></td></tr>
+          <tr><th><%= t(".height" ) %></th><td><%= number_to_human s.height , units: :distance_units, significant: false %></td></tr>
         </tbody>
       </table>
     </div>

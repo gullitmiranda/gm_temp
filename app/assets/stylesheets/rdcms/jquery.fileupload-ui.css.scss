@@ -60,7 +60,7 @@
     }
   }
   .progress-animated .bar {
-    background: url(progressbar.gif) !important;
+    background: url('rdcms/progressbar.gif') !important;
     filter: none;
   }
   .fileupload-loading {
@@ -68,7 +68,7 @@
     left: 50%;
     width: 128px;
     height: 128px;
-    background: url(loading.gif) center no-repeat;
+    background: url('rdcms/loading.gif') center no-repeat;
     display: none;
   }
   .fileupload-processing .fileupload-loading {

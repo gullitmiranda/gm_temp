@@ -1,6 +1,7 @@
 <%= semantic_form_for [:admin, @product], :html => { :class => 'form-horizontal' } do |f| %>
   <%= errors_for @product %>
 
+  <!-- Nome, Descrição -->
   <div class="control-group">
     <%= f.globalize_inputs :translations do |lf| %>
       <div class="control-group">
@@ -21,6 +22,7 @@
   
   <hr />
   
+  <!-- Referência -->
   <div class="control-group">
     <%= f.label :reference, :class => 'control-label' %>
     <div class="controls">
@@ -28,6 +30,7 @@
     </div>
     <em class="controls"><%= t(".reference_hint") %></em>
   </div>
+  <!-- tags -->
   <div class="control-group">
     <%= f.label :tag_list, :class => 'control-label' %>
     <div class="controls">
@@ -37,30 +40,44 @@
   </div>
   
   <hr />
-
+  <!-- Preço -->
   <div class="control-group">
     <%= f.label :price, :class => 'control-label' %>
     <div class="controls input-prepend">
       <span class="add-on">R$</span>
-      <%= f.number_field :price, :class => 'number_field span2' %>
+      <%= f.number_field :price, :class => 'number_field span2', alt: 'decimal' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :length, t(".measures"), :class => 'control-label' %>
-    <div class="controls input-prepend input-append">
-      <%= f.text_field :length, :placeholder => I18n.t(".length"), :type => "number", :class => 'span2' %> x 
-      <span class="add-on" title="<%= I18n.t(:by) %>">x</span>
-      <%= f.text_field :width, :placeholder => I18n.t(".width"), :type => "number", :class => 'span2' %> x 
-      <span class="add-on" title="<%= I18n.t(:by) %>">x</span>
-      <%= f.text_field :height, :placeholder => I18n.t(".height"), :type => "number", :class => 'span2' %>
-      <span class="add-on" title="<%= I18n.t(:meters) %>">m</span>
-    </div>
-  </div>
+  <!-- Peso -->
   <div class="control-group">
     <%= f.label :weight, :class => 'control-label' %>
     <div class="controls input-append">
-      <%= f.number_field :weight, :class => 'number_field span2' %>
+      <%= f.number_field :weight, :class => 'number_field span2 weight' %>
       <span class="add-on" title="<%= I18n.t("kilograms") %>">kg</span>
+    </div>
+  </div>
+  <!-- Comprimento -->
+  <div class="control-group">
+    <%= f.label :length, t(".length"), :class => 'control-label' %>
+    <div class="controls input-prepend input-append">
+      <%= f.text_field :length, :type => "number", :class => 'span2 decimal', alt: 'decimal' %>
+      <span class="add-on" title="<%= I18n.t(:meters) %>">m</span>
+    </div>
+  </div>
+  <!-- Largura -->
+  <div class="control-group">
+    <%= f.label :width, t(".width"), :class => 'control-label' %>
+    <div class="controls input-prepend input-append">
+      <%= f.text_field :width, :type => "number", :class => 'span2 decimal', alt: 'decimal' %>
+      <span class="add-on" title="<%= I18n.t(:meters) %>">m</span>
+    </div>
+  </div>
+  <!-- Altura -->
+  <div class="control-group">
+    <%= f.label :height, t(".height"), :class => 'control-label' %>
+    <div class="controls input-prepend input-append">
+      <%= f.text_field :height, :type => "number", :class => 'span2 decimal', alt: 'decimal' %>
+      <span class="add-on" title="<%= I18n.t(:meters) %>">m</span>
     </div>
   </div>
   
@@ -68,6 +85,6 @@
   
   <div class="form-actions">
     <%= f.submit :class => 'btn btn-primary' %>
-    <%= link_to t(".cancel"), admin_products_path, :class => 'btn btn-link' %>
+    <%= link_to t(".cancel"), admin_products_path, :class => 'btn btn-link cancel' %>
   </div>
 <% end %>

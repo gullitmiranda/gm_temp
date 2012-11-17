@@ -13,9 +13,23 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require jquery.tools.min.js
+//= require rdcms/jquery.tools.min.js
+//= require jquery-fileupload
 //= require turbolinks
-//= require moment
+//= require rdcms/moment
+
+// Validações
+//= require rails.validations
+//= require_tree ./rails.validations/
+
+// Aparência
+//= require twitter/bootstrap
+
+//= require_tree ./plugins/
+
+// Evitar bug:
+// NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
+jQuery.ajaxSettings.traditional = true;
 
 $(document).ready(function(){
 

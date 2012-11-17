@@ -32,7 +32,6 @@
  */
 
 (function($) {
-
     var isIphone = (window.orientation != null);
 
     // browsers like firefox2 and before and opera doesnt have the onPaste event, but the paste feature can be done with the onInput event.
@@ -152,7 +151,8 @@
                 'decimal'           : {mask: '99,999.999.999.999', type: 'reverse', defaultValue: '000'},
                 'decimal-us'        : {mask: '99.999,999,999,999', type: 'reverse', defaultValue: '000'},
                 'signed-decimal'    : {mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+000'},
-                'signed-decimal-us' : {mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+000'}
+                'signed-decimal-us' : {mask: '99,999.999.999.999', type: 'reverse', defaultValue: '+000'},
+                'weight'            : {mask: '999,999.999.999.99', type: 'reverse', defaultValue: '000'}
             },
 
             init: function() {
@@ -714,4 +714,4 @@
         }
     });
 })(jQuery);
-
+

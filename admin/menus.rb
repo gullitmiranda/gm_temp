@@ -4,7 +4,7 @@ ActiveAdmin.register Menu do
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Menu)}
   # 
-  menu false;
+  # menu false;
  
   controller.authorize_resource :class => Menu
 

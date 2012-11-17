@@ -109,8 +109,8 @@ br:
         one: Produto
         other: Produtos
       gallery:
-        one: Evento
-        other: Eventos
+        one: Galeria
+        other: Galerias
       # Artigos
       post:
         one: Artigo
