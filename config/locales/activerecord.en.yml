@@ -1,75 +1,195 @@
 en:
-    activerecord:
-        models:
-            comment:
-                one: "Comment"
-                other: "Comments"
-            import:
-                one: "Import"
-                other: "Imports"
-            article:
-                one: "Article"
-                other: "Articles"
-            setting:
-                one: "Setting"
-                other: "Settings"
-            menu:
-              one: "Menu"
-              other: "Menus"
-            metag:
-                one: "Metatag"
-                other: "Metatags"
-            widget:
-                one: "Widget"
-                other: "Widgets"
-            upload:
-                one: "Upload"
-                other: "Uploads"
-            user:
-                one: "User"
-                other: "Users"
-            permission:
-                one: "Permission"
-                other: "Permissions"
-            role:
-                one: "Role"
-                other: "Roles"
-        attributes:
-            comment:
-                content: "Content"
-                active: "active"
-                approved: "approved"
-                reported: "reported"
-            role:
-                description: "Description"
-                created_at: "created at"
-                updated_at: "updated at"
-            user:
-                firstname: "firstname"
-                lastname: "lastname"
-                password: "password"
-                password_confirmation: "password confirmation"
-                roles: "roles"
-                function: "function"
-                phone: "phone"
-                complete_name: "name"
-                email: "email"
-                created_at: "created at"
-                updated_at: "updated at"
-            article:
-                title: "title"
-                url: "url"
-                created_at: "created at"
-                updated_at: "updated at"
-                article_type: "article type"
-            upload:
-                source: "source"
-                created_at: "created at"
-                updated_at: "updated at"
-                upload_file_name: "upload file name"
-                upload_content_type: "upload content type"
-                upload_file_size: "upload file size"
-                rights: "rights"
-                description: "description"
-                image: "image"
+  # Atributos para formulários
+  atributes_all: &atributes_all
+    active: "active"
+    approved: "approved"
+    article_type: tipo de artigo
+    author: Autor
+    auto_start: Iniciar automaticamente
+    background: Imagen de fundo
+    body: Texto
+    cancel: Cancelar
+    categories: Categorias
+    complete_name: "name"
+    content: "Content"
+    created_at: "created at"
+    contact_email: E-mail de contato
+    control_display: Controles
+    current_sign_in_at: Conexão atual
+    date: Data
+    dates: Datas
+    datetime: Data
+    description: "Description"
+    direction: Direção
+    email: "email"
+    entry: Entrada
+    firstname: "firstname"
+    function: "function"
+    general: Geral
+    gender: Gênero
+    googleplus: Google Plus
+    height: Altura
+    history: História
+    id: Código
+    image: "image"
+    last_sign_in_at: Último conexão
+    lastname: "lastname"
+    length: Comprimento
+    localization: Localização
+    loop: Contínuo
+    measures: Medidas
+    name: Nome
+    no: Não
+    password: "password"
+    password_confirmation: "password confirmation"
+    # password_hint: Deixe em branco se a senha não deve ser alterada.
+    preview: Visualização
+    phone: "phone"
+    price: Preço
+    published: Publicado
+    reference: Referência
+    reported: "reported"
+    rights: "rights"
+    roles: "roles"
+    separated_by_commas: 'Separado por virgulas ","'
+    sign_in_count: Número de conexões
+    sizes: Tamanhos
+    slug: Link permanent
+    source: "source"
+    speed: Velocidade
+    start_position: Posição inicial
+    summary: Resumo
+    tag_list: Categorias
+    title: "title"
+    tour: Panorama
+    updated_at: "updated at"
+    upload_content_type: "upload content type"
+    upload_file_name: "upload file name"
+    upload_file_size: "upload file size"
+    url: url
+    username: Nome
+    weight: Peso
+    weights_and_measures: Pesos e Medidas
+    width: Largura
+    yes: Sim
+  # Admin module
+  admin: &admin
+    posts:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    products:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    galleries:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    sliders:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    uploads:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    tours:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    users:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+  <<: *admin
+  # ActiveRecord
+  activerecord:
+    models:
+      about: About
+      content_management: Content Management
+      settings: Settings
 
+      product:
+        one: Product
+        other: Products
+      gallery:
+        one: Event
+        other: Events
+      # Artigos
+      post:
+        one: "Article"
+        other: "Articles"
+      blog:
+        one: Blog
+        other: Blogs
+      article:
+        one: "Article"
+        other: "Articles"
+      comment:
+        one: "Comment"
+        other: "Comments"
+      # Configurações
+      user:
+        one: User
+        other: Users
+      role:
+        one: Role
+        other: Roles
+      permission:
+        one: "Permission"
+        other: "Permissions"
+      import:
+        one: "Import"
+        other: "Imports"
+      setting:
+        one: "Setting"
+        other: "Settings"
+      # Gestão de Conteúdo
+      menu:
+        one: Menu
+        other: Menus
+      upload:
+        one: Upload
+        other: Uploads
+      slider:
+        one: Slider
+        other: Sliders
+      widget:
+        one: Widget
+        other: Widgets
+      tour: Virtual Tour
+
+      # Desativados
+      metag:
+        one: Metatag
+        other: Metatags
+
+    # Atributos dos módulos
+    attributes:
+      gallery:
+        <<: *atributes_all
+        upload_file_name: Image name
+        upload_content_type: Image type
+        upload_file_size: Image size
+      product:
+        <<: *atributes_all
+      post:
+        <<: *atributes_all
+        name: Title
+        description: Text
+      slider:
+        <<: *atributes_all
+      tour:
+        <<: *atributes_all
+      upload:
+        <<: *atributes_all
+      user:
+        <<: *atributes_all

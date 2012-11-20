@@ -13,6 +13,10 @@
 //= require formstyle
 //= require rdcms/chosen.jquery.min
 
+// Slider
+//= require rdcms/slider.js
+
+
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
 jQuery.ajaxSettings.traditional = true;

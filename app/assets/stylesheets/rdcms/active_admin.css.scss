@@ -5,6 +5,9 @@
 
 @import "compass";
 
+ // ***	Slider
+@import "rdcms/slider";
+
 // To customize the Active Admin interfaces, add your
 // styles here:
 $background-color: black;
@@ -113,9 +116,6 @@ body.active_admin {
     .uploads-list {
       width: $span6Width;
     }
-    .tab-content {
-      width: $span6Width;
-    }
   }
 }
 
@@ -123,9 +123,6 @@ body.active_admin {
   $span6Width: 357px;
   body.active_admin {
     .uploads-list {
-      width: $span6Width;
-    }
-    .tab-content {
       width: $span6Width;
     }
   }

@@ -3,22 +3,8 @@ rdcms:
     user: "current_user"
     role: "admin"
     api: ""
-  comments:
-    commentator: "User"
-  menus:
-    recreate_cache: "false"
-  widgets:
-    recreate_cache: "false"
   html2pdf_uid: "c5c13af822"
   use_solr: "false"
-  page:
-    default_title_tag: "Rdcms"
-  article:
-    image_positions: "standard"
-    cache_articles: "true"
-    max_cache_24h: "false"
-    article_index:
-      link_to_article: "weiterlesen"
   url: "www.requestdev.com.br"
   use_ssl: "false"
   facebook:
@@ -26,9 +12,9 @@ rdcms:
     opengraph_default_image: "/assets/open-graph.png"
   twitter:
     via: ""
-    rel: valeriatotti
-    hash: "valeriatotti, decoração, amazonia"
-  geocode_ip_address: "false"
+    rel: requestdev
+    hash: "requestdev sistemas, requestdev, request, development, dev, sistemas, system"
+  geocode_ip_address: "true"
 
   dashboard:
     limit_itens: "10"
@@ -37,13 +23,10 @@ rdcms:
   home:
     products:
       limit: "8"
-      box_size: "12"
     articles:
-      limit: "5"
-      box_size: "6"
+      limit: "6"
     galleries:
       limit: "4"
-      box_size: "6"
     facebook:
       box_size: "4"
   videos:
@@ -57,3 +40,5 @@ rdcms:
     newsletter:
       from_name: "Requestdev Sistemas"
       from_email: notreplay@requestdev.com.br
+  site:
+    name: Requestdev Sistemas

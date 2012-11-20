@@ -121,8 +121,8 @@ br:
         one: Produto
         other: Produtos
       gallery:
-        one: Galeria
-        other: Galerias
+        one: Evento
+        other: Eventos
       # Artigos
       post:
         one: Artigo
