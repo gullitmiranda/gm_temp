@@ -61,6 +61,10 @@ gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'client_side_validations-formtastic'
 
+group :assets do
+  gem "twitter-bootstrap-rails", "~> 2.1.3"
+end
+
 group :development do
   gem 'thin'
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
