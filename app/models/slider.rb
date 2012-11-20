@@ -1,5 +1,7 @@
 class Slider < ActiveRecord::Base
-  attr_accessible :body, :name, :locale, :translations_attributes, :tag_list, :position, :published,
+  attr_accessible :body, :name, :position, :published,
+    # Slug, I18n e tags
+    :slug, :locale, :translations_attributes, :tag_list,
     # Paperclip
     :background, :background_content_type, :background_file_name, :background_file_size, :background_updated_at
   # Taggings

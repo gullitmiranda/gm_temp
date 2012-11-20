@@ -52,7 +52,7 @@ $(document).ready(function() {
     $("#rdcms_image_maganger").fadeOut();
   });
 
-  $('#footer').html("<p>Rdcms</p>")
+  $('#footer').html("<p>Rdcms - Copyright© 2012 <a href=\"htttp://www.requestdev.com.br\">Requestdev</a></p>")
 
   //die fieldsets bekommen einen button zum auf und zu klappen
   $('div#main_content fieldset.foldable legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
@@ -82,15 +82,15 @@ $(document).ready(function() {
   });
   $('div#overview_sidebar div.title a').trigger("click");
 
-  // Formulários
+  // Atalhos de formulários Formulários
   $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
   key('⌘+s, ctrl+s', function(){
     $("#main_content form input:submit").trigger("click");
     return false;
   });
-  $("#main_content form .btn.cancel").append(" (ESC)");
+  $("form .form-actions .btn.cancel").append(" (ESC)");
   key('esc', function(){
-    target = $("#main_content form .btn.cancel").attr("href");
+    target = $("form .form-actions .btn.cancel").attr("href");
     window.location = target;
     return false;
   });

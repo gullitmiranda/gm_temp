@@ -18,18 +18,20 @@ ActiveAdmin.register_page "Dashboard" do
       # Produtos Recentes
       column do
         panel I18n.t("rdcms.recent_products") do
-          @products = Product.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
-          if @products.blank?
-            div :class => "blank_slate_container" do
-              div :class => "blank_slate" do
-                span I18n.t("active_admin.blank_slate.content", resource_name: Product.model_name.human)
-                small link_to(I18n.t('active_admin.new_model', model: Product.model_name.human), new_admin_product_path)
+          div class:"attributes_table well" do
+            @products = Product.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
+            if @products.blank?
+              div :class => "blank_slate_container" do
+                div :class => "blank_slate" do
+                  span I18n.t("active_admin.blank_slate.content", resource_name: Product.model_name.human)
+                  small link_to(I18n.t('active_admin.new_model', model: Product.model_name.human), new_admin_product_path)
+                end
               end
-            end
-          else
-            ul do
-              @products.map do |object|
-                li link_to(object.name, admin_product_path(object))
+            else
+              ul do
+                @products.map do |object|
+                  li link_to(object.name, admin_product_path(object))
+                end
               end
             end
           end
@@ -38,18 +40,20 @@ ActiveAdmin.register_page "Dashboard" do
       # Artigos Recentes
       column do
         panel I18n.t("rdcms.recent_posts") do
-          @posts = Post.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
-          if @posts.blank?
-            div :class => "blank_slate_container" do
-              div :class => "blank_slate" do
-                span I18n.t("active_admin.blank_slate.content", resource_name: Post.model_name.human)
-                small link_to(I18n.t('active_admin.new_model', model: Post.model_name.human), new_admin_post_path)
+          div class:"attributes_table well" do
+            @posts = Post.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
+            if @posts.blank?
+              div :class => "blank_slate_container" do
+                div :class => "blank_slate" do
+                  span I18n.t("active_admin.blank_slate.content", resource_name: Post.model_name.human)
+                  small link_to(I18n.t('active_admin.new_model', model: Post.model_name.human), new_admin_post_path)
+                end
               end
-            end
-          else
-            ul do
-              @posts.map do |object|
-                li link_to(object.name, admin_post_path(object))
+            else
+              ul do
+                @posts.map do |object|
+                  li link_to(object.name, admin_post_path(object))
+                end
               end
             end
           end
@@ -58,18 +62,20 @@ ActiveAdmin.register_page "Dashboard" do
       # Novas Assinaturas
       column do
         panel I18n.t("rdcms.recent_entries") do
-          @newsletters = Newsletter.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
-          if @newsletters.blank?
-            div :class => "blank_slate_container" do
-              div :class => "blank_slate" do
-                span I18n.t("active_admin.blank_slate.content", resource_name: Newsletter.model_name.human)
-                small link_to(I18n.t('active_admin.new_model', model: Newsletter.model_name.human), new_admin_newsletter_path)
+          div class:"attributes_table well" do
+            @newsletters = Newsletter.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
+            if @newsletters.blank?
+              div :class => "blank_slate_container" do
+                div :class => "blank_slate" do
+                  span I18n.t("active_admin.blank_slate.content", resource_name: Newsletter.model_name.human)
+                  small link_to(I18n.t('active_admin.new_model', model: Newsletter.model_name.human), new_admin_newsletter_path)
+                end
               end
-            end
-          else
-            ul do
-              @newsletters.map do |object|
-                li link_to("#{object.name} <#{object.email}>", admin_newsletter_path(object))
+            else
+              ul do
+                @newsletters.map do |object|
+                  li link_to("#{object.name} <#{object.email}>", admin_newsletter_path(object))
+                end
               end
             end
           end

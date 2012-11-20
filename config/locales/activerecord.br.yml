@@ -5,6 +5,7 @@ br:
     approved: aprovado
     article_type: tipo de artigo
     author: Autor
+    auto_start: Iniciar automaticamente
     background: Imagen de fundo
     body: Texto
     cancel: Cancelar
@@ -13,11 +14,13 @@ br:
     content: Conteúdo
     created_at: Criado em
     contact_email: E-mail de contato
+    control_display: Controles
     current_sign_in_at: Conexão atual
     date: Data
     dates: Datas
     datetime: Data
     description: Descrição
+    direction: Direção
     email: E-mail
     entry: Entrada
     firstname: Nome
@@ -33,6 +36,7 @@ br:
     lastname: Sobrenome
     length: Comprimento
     localization: Localização
+    loop: Contínuo
     measures: Medidas
     name: Nome
     no: Não
@@ -59,7 +63,10 @@ br:
     roles: Cargos
     separated_by_commas: 'Separado por virgulas ","'
     source: Fonte
+    speed: Velocidade
+    start_position: Posição inicial
     summary: Resumo
+    tour: Panorama
     username: Nome
     weight: Peso
     weights_and_measures: Pesos e Medidas
@@ -88,6 +95,11 @@ br:
       form:
         <<: *atributes_all
     uploads:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    tours:
       show:
         <<: *atributes_all
       form:
@@ -153,6 +165,7 @@ br:
       widget:
         one: Widget
         other: Widgets
+      tour: Passeio Virtual
 
       # Desativados
       metag:
@@ -173,6 +186,8 @@ br:
         name: Título
         description: Texto
       slider:
+        <<: *atributes_all
+      tour:
         <<: *atributes_all
       upload:
         <<: *atributes_all

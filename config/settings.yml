@@ -24,6 +24,10 @@ rdcms:
   facebook:
     appid: "123456"
     opengraph_default_image: "/assets/open-graph.png"
+  twitter:
+    via: ""
+    rel: valeriatotti
+    hash: "valeriatotti, decoração, amazonia"
   geocode_ip_address: "false"
 
   dashboard:

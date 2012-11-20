@@ -2,12 +2,11 @@ ActiveAdmin.register Upload do
   menu  priority: 1,
         # label: Upload.model_name.human.pluralize,
         parent: I18n.t('activerecord.models.content_management'),
-        if: proc{can?(:read, Upload)}
+        if: proc{can?(:update, Upload)}
   # 
   # menu false;
 
   controller.authorize_resource :class => Upload
-
 
   if ActiveRecord::Base.connection.table_exists?("tags")
     Upload.tag_counts_on(:tags).each do |utag|
@@ -18,7 +17,6 @@ ActiveAdmin.register Upload do
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    f.actions
     f.inputs "File" do
       f.input :upload, :as => :file
     end
@@ -29,6 +27,8 @@ ActiveAdmin.register Upload do
       f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
       f.input :alt_text
     end
+
+    f.actions
   end
 
   index do
