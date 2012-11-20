@@ -10,8 +10,8 @@ module RdcmsHelper
       icon = "<i class=\"flag flag-#{locale}\"></i>"
       
       if locale == I18n.locale
-        selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown" }) do
-          "#{icon} #{I18n.t(locale_key)}<span class=\"caret\"></span>".html_safe
+        selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown", title: I18n.t(locale_key) }) do
+          "#{icon} <span class=\"text\">#{I18n.t(locale_key)}</span><span class=\"caret\"></span>".html_safe
         end
       else
         link = link_to("#{icon} #{I18n.t(locale_key)}".html_safe, url_for(locale: locale.to_s))
@@ -20,7 +20,7 @@ module RdcmsHelper
     end
     dropdown = content_tag(:ul, links.join("\n").html_safe, class: "dropdown-menu")
     selector = content_tag(:li, selector.join("\n").html_safe + dropdown, { class: "dropdown" })
-    content_tag(:ul, selector, class: "nav nav-pills pull-right")
+    content_tag(:ul, selector, class: "nav nav-pills pull-right language_selector")
   end
 
   def flash_message
