@@ -25,8 +25,6 @@
 // Aparência
 //= require twitter/bootstrap
 
-//= require_tree ./plugins/
-
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
 jQuery.ajaxSettings.traditional = true;
