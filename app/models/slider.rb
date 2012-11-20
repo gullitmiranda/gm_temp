@@ -9,7 +9,7 @@ class Slider < ActiveRecord::Base
   
   has_attached_file :background, :styles => {
     :thumb        => "260x180#",
-    :slider       => "1150x400#"
+    :slider       => "1920x1200#"
   }
   
   # URL amigáveis através do :name
