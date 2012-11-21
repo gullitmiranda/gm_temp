@@ -58,6 +58,7 @@ br:
     upload_file_size: Tamanho
     url: url
     reference: Referência
+    reference_hint: Código de referência do produto
     reported: Relatado
     rights: direitos
     roles: Cargos
