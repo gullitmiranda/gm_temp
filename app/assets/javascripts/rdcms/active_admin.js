@@ -14,7 +14,7 @@
 //= require rdcms/chosen.jquery.min
 
 // Slider
-//= require rdcms/slider.js
+//= require slider
 
 
 // Evitar bug:
