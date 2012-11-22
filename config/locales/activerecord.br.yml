@@ -1,4 +1,7 @@
 br:
+  # Outras traduções utilizadas no active_record
+  edit: Editar
+
   # Atributos para formulários
   atributes_all: &atributes_all
     active: ativo

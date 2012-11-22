@@ -6,6 +6,7 @@
         <tbody>
           <tr><th><%= t(".name"       ) %></th><td><%= s.name %></td></tr>
           <tr><th><%= t(".tag_list"   ) %></th><td><%= best_in_place s, :tag_list, type: :input, path: [:admin, s] %></td></tr>
+          <tr><th><%= t(".published"  ) %></th><td><%= best_in_place s, :published, type: :checkbox , path: [:admin, s] %></td></tr>
           <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>
           <tr><th><%= t(".updated_at" ) %></th><td><%= l s.updated_at %></td></tr>
         </tbody>

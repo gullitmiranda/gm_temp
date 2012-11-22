@@ -33,6 +33,12 @@
     </div>
     <em class="controls"><%= t(".separated_by_commas") %></em>
   </div>
+  <div class="control-group">
+    <%= f.label :published, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :published, :class => 'checkbox' %>
+    </div>
+  </div>
   
   <hr />
 
