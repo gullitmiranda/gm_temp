@@ -47,5 +47,10 @@ ActiveAdmin.register Setting  do
       link_to("Undo", revert_admin_setting_path(:id => resource.versions.last), :class => "undo")
     end
   end
-
+  controller do
+    def update
+      update!
+      Setting.cleancache
+    end
+  end
 end

@@ -43,6 +43,12 @@ class Setting < ActiveRecord::Base
     end
   end
 
+  # limpa o cache
+  def self.cleancache
+    logger.debug "====> Clean settings cache"
+    @@key_value = {}
+  end
+
   # Se o conteudo for do tipo boolean retorna em booleano
   def self.boo?(val = nil)
     if defined?(val.boolean?) and val.boolean?

@@ -29,10 +29,9 @@ $(document).ready(function() {
   jQuery(".best_in_place").best_in_place();
   
   // call setMask function on the document.ready event
-  jQuery(function($) {
+  if (!$.browser.chrome)
     $('input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], input[type=tel]')
       .setMask();
-  });
 });
 
 $(document).ready(function() {
