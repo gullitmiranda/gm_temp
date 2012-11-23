@@ -29,6 +29,7 @@ rdcms:
       limit: "4"
     facebook:
       box_size: "4"
+
   videos:
     # [Video, Standardfeed, User, Playlist]
     object: 'Playlist'
@@ -42,3 +43,14 @@ rdcms:
       from_email: notreplay@requestdev.com.br
   site:
     name: Requestdev Sistemas
+
+  view:
+    # Visualização
+    application:
+      logo: logo.png
+      background: ""
+      inner-background: ""
+    full_screen:
+      logo: logo_fullscreen.png
+      background: ""
+      inner-background: ""

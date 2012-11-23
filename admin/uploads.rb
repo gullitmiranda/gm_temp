@@ -98,11 +98,7 @@ ActiveAdmin.register Upload do
     def create
       create! do |format|
         if @upload.save
-          format.html {
-            render :json => [@upload.to_jq_upload].to_json,
-            :content_type => 'text/html',
-            :layout => false
-          }
+          format.html { redirect_to admin_upload_path @upload }
           format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
           # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
         else

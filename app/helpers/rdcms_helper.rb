@@ -86,4 +86,64 @@ module RdcmsHelper
       render :partial => "articles/bugherd", :locals => {:bugherd_api => bugherd_api}
     end
   end
+
+  def render_header(setting_name="rdcms.view.application", preview=false, options={})
+    setting_name = "rdcms.view.application" if defined?(setting_name)
+
+    @logo             = Setting.get_object("#{setting_name}.logo")
+    @background       = Setting.get_object("rdcms.view.application.background")
+    @innerBackground  = Setting.get_object("rdcms.view.application.inner-background")
+
+    noBlk   = @logo.uploads.last.blank?
+
+    image = !noBlk ? @logo.uploads.last.upload(:logo) : Setting.for_key("#{setting_name}.logo")
+
+    unless preview
+      nav = %Q{
+            <div class="nav-collapse collapse">
+              #{navigation_links.html_safe}
+              #{language_links.html_safe}
+            </div>}
+    else
+      form = %Q{
+            <div id="updates" class="hidden">
+              #{best_in_place(@logo       , :upload_ids, type: :input, classes: "brand_logo", path: [:admin, @logo])}
+              #{best_in_place(@background , :value, type: :input, classes: "background", path: [:admin, @background])}
+              #{best_in_place(@innerBackground, :value, type: :input, classes: "innerBackground", path: [:admin, @innerBackground])}
+            </div>
+      }
+    end
+
+    brand = link_to(root_path, :class => "brand") do
+      html = image_tag(image, :class => "logo")
+      # html << best_in_place(@logo, :upload_ids, type: :input, classes: "hidden", path: [:admin, @logo]) if preview
+      html
+    end
+
+    styleHeader = ""
+    styleHeader << "background: #{@background.value}" if @background.value
+
+    style = ""
+    style << "background: #{@innerBackground.value};" if @innerBackground.value
+    style << "#{options[:styles]}"
+
+    inner_html = %Q{
+    <div class="navbar">
+      <div class="navbar-inner nav-colorize" style="#{styleHeader}">
+        <div class="container green-sea" style="#{style}">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
+          #{brand}
+          #{nav or ""}
+          #{form or ""}
+        </div>
+      </div>
+    </div>}
+
+    inner_html.html_safe
+  end
 end

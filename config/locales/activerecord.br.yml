@@ -5,6 +5,7 @@ br:
   # Atributos para formulários
   atributes_all: &atributes_all
     active: ativo
+    applay_colors: Aplicar cores
     approved: aprovado
     article_type: tipo de artigo
     author: Autor
@@ -113,6 +114,14 @@ br:
         <<: *atributes_all
       form:
         <<: *atributes_all
+    view_settings:
+      index:
+        <<: *atributes_all
+        header: Cabeçalho
+        file: Imagem
+        file_hint: "O tamanho recomendável é de %{size}."
+        background: Cor da linha superior
+        inner_background: Cor de fundo
   <<: *admin
   # ActiveRecord
   activerecord:
@@ -156,6 +165,7 @@ br:
       setting:
         one: Preferência
         other: Preferências
+      view_settings: Aparência
       # Gestão de Conteúdo
       menu:
         one: Menu

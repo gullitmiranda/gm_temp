@@ -29,11 +29,16 @@ class Upload < ActiveRecord::Base
                         :big    => ["600x600>",:jpg],
                         :medium => ["570x324#",:jpg],
                         :thumb  => ["260x180#",:jpg],
-                        :mini   => ["50x50#"  ,:jpg]
+                        :mini   => ["50x50#"  ,:jpg],
+
+                        # Logo
+                        :logo       => ["600x175#"],
                       },
+
                       # :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
                       # :url => "/system/:attachment/:id/:style/:filename",
-                      :convert_options => { :all => '-auto-orient -strip -colorspace sRGB -flatten' }
+                      :convert_options => { :all => '-auto-orient -strip -colorspace sRGB' }
+                      # :convert_options => { :all => '-auto-orient -strip -colorspace sRGB -flatten' }
 
     before_post_process :image_file?
   end
@@ -44,6 +49,7 @@ class Upload < ActiveRecord::Base
   belongs_to :attachable, polymorphic: true
   has_and_belongs_to_many :products, :join_table => "products_uploads"
   has_and_belongs_to_many :galleries, :join_table => "galleries_uploads"
+  has_and_belongs_to_many :settings, :join_table => "settings_uploads"
 
   # Taggings
   acts_as_taggable
@@ -111,7 +117,9 @@ class Upload < ActiveRecord::Base
         "big"         => upload.url(:big    ),
         "medium"      => upload.url(:medium ),
         "thumb"       => upload.url(:thumb  ),
-        "mini"        => upload.url(:mini   )
+        "mini"        => upload.url(:mini   ),
+        # Logo
+        "logo"        => upload.url(:logo   )
       },
       "url"           => upload.url(:original),
       "thumb"         => upload.url(:thumb),

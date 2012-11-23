@@ -12,7 +12,15 @@
 
 class Setting < ActiveRecord::Base
   @key_value = {}
-  attr_accessible :title, :value, :ancestry, :parent_id
+  attr_accessible :title, :value, :ancestry, :parent_id,
+      # Associações
+      :upload_ids, :upload
+  
+  # Relacionando com os uploads
+  has_and_belongs_to_many :uploads,
+    :join_table => "settings_uploads"
+  accepts_nested_attributes_for :uploads
+
   has_ancestry :orphan_strategy => :restrict
   if ActiveRecord::Base.connection.table_exists?("versions")
     has_paper_trail
@@ -53,15 +61,21 @@ class Setting < ActiveRecord::Base
     end
   end
 
-  def self.for_key_helper(name)
+  def self.get_object(name)
+    for_key_helper(name, true)
+  end
+
+  def self.for_key_helper(name, object=false)
     if ActiveRecord::Base.connection.table_exists?("settings")
       setting_title = name.split(".").last
       settings = Setting.where(:title => setting_title)
       if settings.count == 1
+        return settings.first if object
         return settings.first.value
       elsif settings.count > 1
         settings.each do |set|
           if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
+            return set if object
             return set.value
           end
         end

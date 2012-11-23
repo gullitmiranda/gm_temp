@@ -13,6 +13,9 @@
 //= require formstyle
 //= require rdcms/chosen.jquery.min
 
+// Color Picker
+//= require ./farbtastic
+
 // Slider
 //= require slider
 
