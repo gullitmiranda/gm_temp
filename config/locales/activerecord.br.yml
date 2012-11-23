@@ -114,6 +114,11 @@ br:
         <<: *atributes_all
       form:
         <<: *atributes_all
+    pages:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
     view_settings:
       index:
         <<: *atributes_all
@@ -180,6 +185,9 @@ br:
         one: Widget
         other: Widgets
       tour: Passeio Virtual
+      page:
+        one: Página
+        other: Páginas
 
       # Desativados
       metag:
@@ -206,4 +214,6 @@ br:
       upload:
         <<: *atributes_all
       user:
+        <<: *atributes_all
+      page:
         <<: *atributes_all
