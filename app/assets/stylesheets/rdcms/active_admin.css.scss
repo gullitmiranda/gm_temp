@@ -109,6 +109,24 @@ body.active_admin {
     line-height: 24px;
     margin: 0;
   }
+
+  /* Configurações de aparências */
+  #admin_header,
+  #admin_footer {
+		.attributes_table > .row {
+  		margin-left: -23px
+  	}
+  }
+
+  #admin_footer {
+  	footer {
+  		box-shadow: none;
+
+	  	.container {
+	  		padding-left: 20px;
+	  	}
+  	}
+  }
 }
 
 @media (max-width: 1200px) {

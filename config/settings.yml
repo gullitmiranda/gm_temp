@@ -27,8 +27,6 @@ rdcms:
       limit: "6"
     galleries:
       limit: "4"
-    facebook:
-      box_size: "4"
 
   videos:
     # [Video, Standardfeed, User, Playlist]
@@ -41,15 +39,33 @@ rdcms:
     newsletter:
       from_name: "Requestdev Sistemas"
       from_email: notreplay@requestdev.com.br
+  # Informações da compania
+  company:
+    name: Requestdev Desenvolvimento e Consultoria LTDA
+    address: Rua dos Caripunas, 75
+    district: Bairro Urupá
+    cep: 76.900-184
+    city: Ji-Paraná
+    state: Rondônia
+    country: Brasil
+    phone: "+55 (69) 3421-4346"
+    email: "contato@requestdev.com.br"
+
   site:
     name: Requestdev Sistemas
 
   view:
     # Visualização
     application:
-      logo: logo.png
-      background: ""
-      inner-background: ""
+      header:
+        logo: logo.png
+        background: ""
+        inner_background: ""
+        padding: "10px 0 0"
+      footer:
+        background: ""
+        padding: "15px 0 0"
+        container_background: ""
     full_screen:
       logo: logo_fullscreen.png
       background: ""

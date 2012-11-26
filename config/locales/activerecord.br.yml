@@ -44,6 +44,8 @@ br:
     measures: Medidas
     name: Nome
     no: Não
+    padding: Espaçamento interno
+    padding_hint: 'Espaçamento seguindo a conveção:<br />[ <b>superior direito inferior esquerdo</b> ]<br /><br />ex:<br /> [ 10px 10px 10px 10px ]<br />ou<br />[ 5% 0px 0 10px ]'
     password: Senha
     password_confirmation: Confirmação de senha
     password_hint: Deixe em branco se a senha não deve ser alterada.
@@ -125,7 +127,7 @@ br:
         header: Cabeçalho
         file: Imagem
         file_hint: "O tamanho recomendável é de %{size}."
-        background: Cor da linha superior
+        background: Cor do espaçamento
         inner_background: Cor de fundo
   <<: *admin
   # ActiveRecord

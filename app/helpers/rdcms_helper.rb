@@ -2,25 +2,43 @@
 
 module RdcmsHelper
   
-  def language_links
+  def language_links(options={})
     links = []
     selector = []
+
+    dropdown  = defined?(options[:dropdown ]) ? options[:dropdown ] : true
+    string    = defined?(options[:string   ]) ? options[:string   ] : true
+
     I18n.available_locales.each do |locale|
-      locale_key = "translation.#{locale}"
+      locale_key  = "translation.#{locale}"
+      span_key    = "<span class=\"text\">#{I18n.t(locale_key)}</span>"
       icon = "<i class=\"flag flag-#{locale}\"></i>"
-      
-      if locale == I18n.locale
-        selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown", title: I18n.t(locale_key) }) do
-          "#{icon} <span class=\"text\">#{I18n.t(locale_key)}</span><span class=\"caret\"></span>".html_safe
+
+      if dropdown
+        if locale == I18n.locale
+          selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown", title: I18n.t(locale_key) }) do
+            "#{icon} #{span_key}<span class=\"caret\"></span>".html_safe
+          end
+        else
+          link = link_to("#{icon} #{span_key}</span>".html_safe, url_for(locale: locale.to_s))
+          links << content_tag(:li, link).html_safe
         end
       else
-        link = link_to("#{icon} #{I18n.t(locale_key)}".html_safe, url_for(locale: locale.to_s))
-        links << content_tag(:li, link).html_safe
+        options = locale == I18n.locale ? { class: "active" } : {}
+        link = link_to("#{icon} #{span_key}".html_safe, url_for(locale: locale.to_s))
+        links << content_tag(:li, link, options).html_safe
       end
     end
-    dropdown = content_tag(:ul, links.join("\n").html_safe, class: "dropdown-menu")
-    selector = content_tag(:li, selector.join("\n").html_safe + dropdown, { class: "dropdown" })
-    content_tag(:ul, selector, class: "nav nav-pills pull-right language_selector")
+    object_class = "nav nav-pills pull-right language_selector"
+    object_class << " no_string" unless string
+
+    if dropdown
+      dropdown = content_tag(:ul, links.join("\n").html_safe, class: "dropdown-menu")
+      selector = content_tag(:li, selector.join("\n").html_safe + dropdown, { class: "dropdown" })
+    else
+      selector = links.join("\n").html_safe
+    end
+    content_tag(:ul, selector, class: "#{object_class}")
   end
 
   def flash_message
@@ -90,19 +108,20 @@ module RdcmsHelper
   def render_header(setting_name="rdcms.view.application", preview=false, options={})
     setting_name = "rdcms.view.application" if defined?(setting_name)
 
-    @logo             = Setting.get_object("#{setting_name}.logo")
-    @background       = Setting.get_object("rdcms.view.application.background")
-    @innerBackground  = Setting.get_object("rdcms.view.application.inner-background")
+    @logo             = Setting.get_object("#{setting_name}.header.logo")
+    @background       = Setting.get_object("#{setting_name}.header.background")
+    @innerBackground  = Setting.get_object("#{setting_name}.header.inner_background")
+    @padding          = Setting.get_object("#{setting_name}.header.padding")
 
     noBlk   = @logo.uploads.last.blank?
 
-    image = !noBlk ? @logo.uploads.last.upload(:logo) : Setting.for_key("#{setting_name}.logo")
+    image = !noBlk ? @logo.uploads.last.upload(:logo) : @logo.value
 
     unless preview
       nav = %Q{
             <div class="nav-collapse collapse">
               #{navigation_links.html_safe}
-              #{language_links.html_safe}
+              #{language_links(options[:language]).html_safe}
             </div>}
     else
       form = %Q{
@@ -116,16 +135,19 @@ module RdcmsHelper
 
     brand = link_to(root_path, :class => "brand") do
       html = image_tag(image, :class => "logo")
-      # html << best_in_place(@logo, :upload_ids, type: :input, classes: "hidden", path: [:admin, @logo]) if preview
       html
     end
 
     styleHeader = ""
-    styleHeader << "background: #{@background.value}" if @background.value
+    styleHeader << "background: #{@background.value};" unless @background.value.empty?
+    styleHeader << "padding: #{@padding.value};" unless @padding.value.empty?
+    styleHeader << "position: relative;" if preview
 
     style = ""
-    style << "background: #{@innerBackground.value};" if @innerBackground.value
-    style << "#{options[:styles]}"
+    style << "background: #{@innerBackground.value};" unless @innerBackground.value.empty?
+    style << "#{options[:styles]}" unless options[:styles].blank?
+
+    block = %Q{<div class="overlay-block"></div>} if preview
 
     inner_html = %Q{
     <div class="navbar">
@@ -138,12 +160,138 @@ module RdcmsHelper
           </a>
 
           #{brand}
-          #{nav or ""}
-          #{form or ""}
+          #{nav}
+          #{form}
         </div>
+        #{block}
       </div>
     </div>}
 
     inner_html.html_safe
+  end
+
+  # Rendereiza o rodapé
+  def render_footer(setting_name="rdcms.view.application", preview=false, options={})
+    setting_name = "rdcms.view.application" if defined?(setting_name)
+
+    isApplication = setting_name == "rdcms.view.application"
+
+    # Nome da companhia
+    @companyName = Setting.get_object("rdcms.company.name")
+
+    if isApplication
+      # Informações da companhia
+      @companyAddress = Setting.get_object("rdcms.company.address")
+      @companyDistrict = Setting.get_object("rdcms.company.district")
+      @companyCep = Setting.get_object("rdcms.company.cep")
+      @companyCity = Setting.get_object("rdcms.company.city")
+      @companyState = Setting.get_object("rdcms.company.state")
+      @companyCountry = Setting.get_object("rdcms.company.country")
+      @companyPhone = Setting.get_object("rdcms.company.phone")
+      @companyEmail = Setting.get_object("rdcms.company.email")
+
+      # Dados a serem exibidos sobre a companhia
+      address = ""
+      address = "<strong>#{@companyName.value}</strong><br>" unless @companyName.value.empty?
+      address << "#{@companyAddress.value}<br>" unless @companyAddress.value.empty?
+      address << "#{@companyDistrict.value}" unless @companyDistrict.value.empty?
+      address << ", CEP: #{@companyCep.value}" unless @companyCep.value.empty?
+      address << "<br>" if !@companyDistrict.value.empty? or !@companyCep.value.empty?
+      address << "#{@companyCity.value}" unless @companyCity.value.empty?
+      address << " - #{@companyState.value}" unless @companyState.value.empty?
+      address << ", #{@companyCountry.value}" unless @companyCountry.value.empty?
+
+      phone = "<em>#{I18n.t('atributes_all.phone'        )}: #{@companyPhone.value}</em><br>" unless @companyPhone.value.empty?
+      email = "<em>#{I18n.t('atributes_all.contact_email')}: <a href=\"mailto:#{@companyEmail.value}\">#{@companyEmail.value}</a></em>" unless @companyEmail.value.empty?
+
+      # Objetos da Estilização
+      @footerBackground           = Setting.get_object("#{setting_name}.footer.background")
+      @footerPadding              = Setting.get_object("#{setting_name}.footer.padding")
+      @footerContainerBackground  = Setting.get_object("#{setting_name}.footer.container_background")
+
+      # Simula form quando for preview
+      if preview
+        form = %Q{
+              <div id="updates" class="hidden">
+                #{best_in_place(@footerBackground , :value, type: :input, classes: "footerBackground", path: [:admin, @footerBackground])}
+                #{best_in_place(@footerContainerBackground, :value, type: :input, classes: "footerContainerBackground", path: [:admin, @footerContainerBackground])}
+              </div>
+        }
+      end
+
+      footerStyle = ""
+      footerStyle << "background: #{@footerBackground.value};" unless @footerBackground.value.empty?
+      footerStyle << "padding: #{@footerPadding.value};" unless @footerPadding.value.empty?
+
+      footerContainerStyle = ""
+      footerContainerStyle << "background: #{@footerContainerBackground.value};" unless @footerContainerBackground.value.empty?
+      footerContainerStyle << "#{options[:styles]}" unless options[:styles].blank?
+
+      return html = %Q{
+        <footer #{"style=\"position: relative;\"" if preview}>
+          <div class="footer-box green-sea" style="#{footerStyle}">
+            <div class="footer-container" style="#{footerContainerStyle}">
+              <div class="container">
+                <div class="row">
+                  <div class="span4">
+                    <h4>#{t('.contact')}</h4>
+                    <address>
+                      <p>#{address}</p>
+                      #{phone}
+                      #{email}
+                    </address>
+                  </div>
+                  <div class="span4">
+                    <h4>#{t('.pages')}</h4>
+
+                    #{navigation_links "nav"}
+                    <ul class="nav">
+                      <li>#{link_to t("menu_nav.login"), admin_root_path, target: "_blank"}</li>
+                    </ul>
+                  </div>
+                  <div class="span4">
+                    <div class="row">
+                      <ul class="span4 follow_us">
+                        <li>
+                          <a href="https://www.facebook.com/ValeriaTottiAmazonia" target="_blank"><i class="icon-facebook"></i></a>
+                        </li>
+                        <li>
+                          <a href="https://plus.google.com/109651582712671519424" target="_blank"><i class="icon-google-plus"></i></a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <div class="span4 newsletter">
+                        <p class="description">#{t('.newsletter_description')}.</p>
+                        #{render :template => "newsletters/new"}
+                      </div>
+                    </div>
+                  </div>
+                  #{form}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="copyright_developer">
+            <div class="container">
+              <div class="row">
+                <div class="copyright span8">
+                  <em>#{t('.copyright', :company => "Valeria Totti", :year => "2012")}</em>
+                </div>
+                <div class="developer span4">
+                  #{t('.developed_by')}:
+                  <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br">
+                    <img alt="Requestdev Sistemas" src="http://requestdev.com.br/images/Logo 204x48.png">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        #{"<div class=\"overlay-block\"></div>".html_safe if preview}
+        </footer>
+      }.html_safe
+    else
+      return html = %Q{}.html_safe
+    end
   end
 end
