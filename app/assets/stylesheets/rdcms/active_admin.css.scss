@@ -6,7 +6,7 @@
 @import "compass";
 @import "farbtastic";
 
- // ***	Slider
+ // *** Slider
 @import "slider";
 
 // To customize the Active Admin interfaces, add your
@@ -113,19 +113,27 @@ body.active_admin {
   /* Configurações de aparências */
   #admin_header,
   #admin_footer {
-		.attributes_table > .row {
-  		margin-left: -23px
-  	}
+    .attributes_table > .row {
+      margin-left: -23px;
+    }
   }
 
   #admin_footer {
-  	footer {
-  		box-shadow: none;
+    footer {
+      box-shadow: none;
 
-	  	.container {
-	  		padding-left: 20px;
-	  	}
-  	}
+      .container {
+        padding-left: 20px;
+      }
+    }
+  }
+
+  /* Informações da Empresa */
+  .settings_company {
+    dl.form {
+      float: none;
+      margin: 0 auto;
+    }
   }
 }
 
@@ -148,47 +156,47 @@ body.active_admin {
 }
 
 div#rdcms_image_maganger{
-	position:fixed;
-	right:330px;
-	top:200px;
-	height:200px;
-	width:350px;
-	background-color:$background-color;
-	opacity:0.8;
-	box-shadow:10px 10px 10px grey;
-	ul{
-		list-style:none;
-		padding: 0;
-		li{
-			float:left;
-			margin:3px;
-			img{
-				cursor:move;
-			}
-		}
-	}
-	.header{
-		background-color: grey;
-		width:100%;
-		height:16px;
-		cursor:move;
-		.close{
-			margin:1px;
-			float:right;
-			height:14px;
-			width:14px;
-			background:url("/assets/close.png") no-repeat transparent;
-			cursor:pointer;
-		}
-	}
+  position:fixed;
+  right:330px;
+  top:200px;
+  height:200px;
+  width:350px;
+  background-color:$background-color;
+  opacity:0.8;
+  box-shadow:10px 10px 10px grey;
+  ul{
+    list-style:none;
+    padding: 0;
+    li{
+      float:left;
+      margin:3px;
+      img{
+        cursor:move;
+      }
+    }
+  }
+  .header{
+    background-color: grey;
+    width:100%;
+    height:16px;
+    cursor:move;
+    .close{
+      margin:1px;
+      float:right;
+      height:14px;
+      width:14px;
+      background:url("/assets/close.png") no-repeat transparent;
+      cursor:pointer;
+    }
+  }
 }
 
 .panel_contents .well .royalSlider {
-	margin: 0;
+  margin: 0;
 }
 
 #header ul#tabs > li, #header #utility_nav {
-	font-weight:bold;
+  font-weight:bold;
 }
 #header ul#tabs > li.has_nested.current > a, #header ul#tabs > li.has_nested > a {
     padding-right: 35px;
@@ -197,19 +205,19 @@ div#rdcms_image_maganger{
   left: 92px;
 }
 #header h1 {
-	background:url("/assets/rdcms.png") no-repeat;
-	// width:100px;
-	// height:80px;
-	// text-indent:-9999px;
-	// position:absolute;
-	// left:30px;
+  background:url("/assets/rdcms.png") no-repeat;
+  // width:100px;
+  // height:80px;
+  // text-indent:-9999px;
+  // position:absolute;
+  // left:30px;
  //  z-index: 5000;
 }
 #header {
-	padding:9px 30px 9px 150px;
+  padding:9px 30px 9px 150px;
 }
 #title_bar {
-	padding:10px 30px 10px 158px;
+  padding:10px 30px 10px 158px;
 }
 div#main_content h3 {
   margin-left: 10px;
@@ -219,90 +227,90 @@ a.button {
 }
 
 .sidebar_section > div.panel_contents{
-	padding-left:0px;
-	padding-right:0px;
+  padding-left:0px;
+  padding-right:0px;
 }
 
 .sidebar_section.warning > div.panel_contents{
-	//background-color: lightred;
-	@include background(linear-gradient(top, #ffffff 0%, red 100%));
-	border-bottom: 1px solid grey;
-	border-right: 1px solid grey;
-	border-left: 1px solid grey;
+  //background-color: lightred;
+  @include background(linear-gradient(top, #ffffff 0%, red 100%));
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
 }
 
 body.active_admin .sidebar_section > div div.overview-sidebar{
-	margin:0 0 0 -30px;
-	padding:0 0 0 0px;
-	ul{
-		list-style:none;
-		margin:0 0 0 0;
-		padding:0 0 0 15px;
-		li{
-			margin:0 0 0 0;
-			padding:0 0 0 0;
+  margin:0 0 0 -30px;
+  padding:0 0 0 0px;
+  ul{
+    list-style:none;
+    margin:0 0 0 0;
+    padding:0 0 0 15px;
+    li{
+      margin:0 0 0 0;
+      padding:0 0 0 0;
 
-			div.item{
-				width:90%;
-				//background:url("/assets/tree.png") no-repeat 5px;
-				padding:0 0 0 8%;
-				line-height:14px;
-				border-bottom: 1px dotted transparent;
-				&:hover{
-					border-bottom: 1px dotted grey;
-				}
+      div.item{
+        width:90%;
+        //background:url("/assets/tree.png") no-repeat 5px;
+        padding:0 0 0 8%;
+        line-height:14px;
+        border-bottom: 1px dotted transparent;
+        &:hover{
+          border-bottom: 1px dotted grey;
+        }
 
-				div.folder{
-					background:url("/assets/tree.png") no-repeat -6px;
-					height:12px;
-					width:12px;
-					display:inline-block;
-					cursor:pointer;
-				}
+        div.folder{
+          background:url("/assets/tree.png") no-repeat -6px;
+          height:12px;
+          width:12px;
+          display:inline-block;
+          cursor:pointer;
+        }
 
-				div.last_folder{
-					background:url("/assets/tree.png") no-repeat -9px;
-					height:12px;
-					width:12px;
-					display:inline-block;
-				}
+        div.last_folder{
+          background:url("/assets/tree.png") no-repeat -9px;
+          height:12px;
+          width:12px;
+          display:inline-block;
+        }
 
 
-				div.title{
-					display:inline-block;
-					ul{
-						display:none;
-					}
-					a{
-						text-decoration:none;
-						cursor:pointer;
-					}
-					overflow: hidden;
-					width: 145px;
-					height: 16px;
-					line-height: 16px;
-				}
-				div.options{
-					display:inline-block;
-					float:right;
-					a{
-						display:inline-block;
-						text-indent:-9999px;
-					}
-					a.new_link{
-						width:14px;
-						height:14px;
-						background:url("/assets/create.png");
-					}
-					a.edit_link{
-						width:14px;
-						height:14px;
-						background:url("/assets/edit.png");
-					}
-				}
-			}
-		}
-	}
+        div.title{
+          display:inline-block;
+          ul{
+            display:none;
+          }
+          a{
+            text-decoration:none;
+            cursor:pointer;
+          }
+          overflow: hidden;
+          width: 145px;
+          height: 16px;
+          line-height: 16px;
+        }
+        div.options{
+          display:inline-block;
+          float:right;
+          a{
+            display:inline-block;
+            text-indent:-9999px;
+          }
+          a.new_link{
+            width:14px;
+            height:14px;
+            background:url("/assets/create.png");
+          }
+          a.edit_link{
+            width:14px;
+            height:14px;
+            background:url("/assets/edit.png");
+          }
+        }
+      }
+    }
+  }
 }
 
 textarea.metadescription_hint {
@@ -331,68 +339,68 @@ textarea#article_summary, textarea#article_teaser{
 }
 
 .per_page_links a{
-	color: #5c6469;
-	text-decoration:none;
-	font-weight:bold;
+  color: #5c6469;
+  text-decoration:none;
+  font-weight:bold;
 }
 
 .index_as_table {
-	a{
-		&.online{
-			color:green;
-			text-decoration:none;
-		}
-		&.offline{
-			color:red;
-			text-decoration:none;
-		}
+  a{
+    &.online{
+      color:green;
+      text-decoration:none;
+    }
+    &.offline{
+      color:red;
+      text-decoration:none;
+    }
 
-	}
+  }
 }
 
 h3.rdcms_article_article_type{
-	text-align:center;
+  text-align:center;
 }
 
 table.importer_assoziations td.nested_model_header{
-	font-weight:bold;
+  font-weight:bold;
 }
 
 form li.hidden.input{
-	display:none;
+  display:none;
 }
 
 legend .foldable_icon_wrapper{
-	.foldable_icon{
-		background:url("/assets/arrow.png");
-		width:20px;
-		height:20px;
-		float:right;
-		margin:5px;
-		cursor:pointer;
-		@include rotate(90deg);
-		@include transition(all 500ms);
-		&.open{
-			@include rotate(0deg);
-		}
+  .foldable_icon{
+    background:url("/assets/arrow.png");
+    width:20px;
+    height:20px;
+    float:right;
+    margin:5px;
+    cursor:pointer;
+    @include rotate(90deg);
+    @include transition(all 500ms);
+    &.open{
+      @include rotate(0deg);
+    }
 
-	}
+  }
 }
 
 h3 .foldable_icon_wrapper{
-	.foldable_icon{
-		background:url("/assets/arrow.png");
-		display:inline-block;
-		width:20px;
-		height:20px;
-		float:right;
-		cursor:pointer;
-		@include rotate(90deg);
-		@include transition(all 500ms);
-		&.open{
-			@include rotate(0deg);
-		}
+  .foldable_icon{
+    background:url("/assets/arrow.png");
+    display:inline-block;
+    width:20px;
+    height:20px;
+    float:right;
+    cursor:pointer;
+    @include rotate(90deg);
+    @include transition(all 500ms);
+    &.open{
+      @include rotate(0deg);
+    }
 
-	}
+  }
 }
 

@@ -126,8 +126,9 @@ module RdcmsHelper
 
 
   # Renderiza o cabeçalho
-  def render_header(setting_name="rdcms.view.application", preview=false, options={})
-    setting_name = "rdcms.view.application" if defined?(setting_name)
+  def render_header(setting_layout="application", preview=false, options={})
+    setting_layout = "application" if defined?(setting_layout)
+    setting_name = "rdcms.view.#{setting_layout}"
 
     @logo             = Setting.get_object("#{setting_name}.header.logo")
     @background       = Setting.get_object("#{setting_name}.header.background")
@@ -192,8 +193,9 @@ module RdcmsHelper
   end
 
   # Renderiza o rodapé
-  def render_footer(setting_name="rdcms.view.application", preview=false, options={})
-    setting_name = "rdcms.view.application" if defined?(setting_name)
+  def render_footer(setting_layout="application", preview=false, options={})
+    setting_layout = "application" if defined?(setting_layout)
+    setting_name = "rdcms.view.#{setting_layout}"
 
     isApplication = setting_name == "rdcms.view.application"
 
@@ -255,7 +257,7 @@ module RdcmsHelper
               <div class="container">
                 <div class="row">
                   <div class="span4">
-                    <h4>#{t('.contact')}</h4>
+                    <h4>#{t("layouts.#{setting_layout}.contact")}</h4>
                     <address>
                       <p>#{address}</p>
                       #{phone}
@@ -263,7 +265,7 @@ module RdcmsHelper
                     </address>
                   </div>
                   <div class="span4">
-                    <h4>#{t('.pages')}</h4>
+                    <h4>#{t("layouts.#{setting_layout}.pages")}</h4>
 
                     #{navigation_links "nav"}
                     <ul class="nav">
@@ -276,7 +278,7 @@ module RdcmsHelper
                     </div>
                     <div class="row">
                       <div class="span4 newsletter">
-                        <p class="description">#{t('.newsletter_description')}.</p>
+                        <p class="description">#{t("layouts.#{setting_layout}.newsletter_description")}.</p>
                         #{render :template => "newsletters/new"}
                       </div>
                     </div>
@@ -290,10 +292,10 @@ module RdcmsHelper
             <div class="container">
               <div class="row">
                 <div class="copyright span8">
-                  <em>#{t('.copyright', :company => "Valeria Totti", :year => "2012")}</em>
+                  <em>#{t("layouts.#{setting_layout}.copyright", :company => "Valeria Totti", :year => "2012")}</em>
                 </div>
                 <div class="developer span4">
-                  #{t('.developed_by')}:
+                  #{t("layouts.#{setting_layout}.developed_by")}:
                   <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br">
                     <img alt="Requestdev Sistemas" src="http://requestdev.com.br/images/Logo 204x48.png">
                   </a>

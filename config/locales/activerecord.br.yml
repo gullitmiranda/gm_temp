@@ -5,6 +5,7 @@ br:
   # Atributos para formulários
   atributes_all: &atributes_all
     active: ativo
+    address: Endereço
     applay_colors: Aplicar cores
     approved: aprovado
     article_type: tipo de artigo
@@ -14,20 +15,24 @@ br:
     body: Texto
     cancel: Cancelar
     categories: Categorias
+    city: Cidade
     complete_name: Nome completo
     content: Conteúdo
     created_at: Criado em
     contact_email: E-mail de contato
     control_display: Controles
+    country: País
     current_sign_in_at: Conexão atual
     date: Data
     dates: Datas
     datetime: Data
     description: Descrição
     direction: Direção
+    district: Bairro
     email: E-mail
     entry: Entrada
     firstname: Nome
+    footer: Rodapé
     function: Funções
     general: Geral
     gender: Gênero
@@ -121,14 +126,16 @@ br:
         <<: *atributes_all
       form:
         <<: *atributes_all
-    view_settings:
-      index:
+    settings:
+      visualization:
         <<: *atributes_all
         header: Cabeçalho
         file: Imagem
         file_hint: "O tamanho recomendável é de %{size}."
         background: Cor do espaçamento
         inner_background: Cor de fundo
+      company:
+        <<: *atributes_all
   <<: *admin
   # ActiveRecord
   activerecord:
@@ -172,7 +179,8 @@ br:
       setting:
         one: Preferência
         other: Preferências
-      view_settings: Aparência
+      visualization: Aparência
+      company: Informações da Empresa
       # Gestão de Conteúdo
       menu:
         one: Menu

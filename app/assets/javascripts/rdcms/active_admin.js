@@ -26,7 +26,9 @@ jQuery.ajaxSettings.traditional = true;
 
 $(document).ready(function() {
   /* Activating Best In Place */
-  jQuery(".best_in_place").best_in_place();
+  jQuery(".best_in_place").best_in_place()
+    .bind("best_in_place:activate", function() { $(this).addClass("focus"); })
+    .bind("best_in_place:abort", function() { $(this).removeClass("focus"); });
   
   // call setMask function on the document.ready event
   if (!$.browser.chrome)
@@ -97,7 +99,8 @@ $(document).ready(function() {
   $("form .form-actions .btn.cancel").append(" (ESC)");
   key('esc', function(){
     target = $("form .form-actions .btn.cancel").attr("href");
-    window.location = target;
+    if (target)
+      window.location = target;
     return false;
   });
 
