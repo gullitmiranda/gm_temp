@@ -1,7 +1,61 @@
 #encoding: utf-8
 
 module RdcmsHelper
+  # Menssagem de notificações
+  def flash_message
+    messages = []
+    button_close = "<button data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>"
+    [:notice, :info, :warning, :error].each {|type|
+      classtype = case type
+        when :notice then "success"
+        else type
+      end
+      if flash[type]
+        messages << content_tag(:div, "#{button_close}#{flash[type]}".html_safe, class: "alert alert-#{classtype}")
+      end
+    }
+
+    # messages.html_safe
+    content_tag(:div, messages.join("\n").html_safe, class: "flash_message_container")
+  end
+
+  # Error explanation
+  def errors_for(object, message=nil)
+    html = ""
+    unless object.errors.blank?
+      html << "<div id=\"error_explanation\" class=\"alert alert-error #{object.class.name.humanize.downcase}Errors'>\n"
+      html << "\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>\n"
+      if message.blank?
+        html << "\t<h2>#{pluralize(f.object.errors.count, "error")} prohibited this product from being saved:</h2>"
+      else
+        html << "<h2>#{message}</h2>"
+      end  
+      html << "\t<ul>\n"
+      object.errors.full_messages.each do |error|
+        html << "\t\t<li>#{error}</li>\n"
+      end
+      html << "\t</ul>\n"
+      html << "</div>\n"
+    end
+    html
+  end  
   
+  # alias para Setting.for_key(name)
+  def s(name)
+    if name.present?
+      Setting.for_key(name)
+    end
+  end
+
+  def bugtracker
+    user_mod = Setting.for_key("rdcms.bugherd.user")
+    role_mod = Setting.for_key("rdcms.bugherd.role")
+    bugherd_api = Setting.for_key("rdcms.bugherd.api")
+    if bugherd_api.present? && user_mod.present? && role_mod.present? && eval("#{user_mod} && #{user_mod}.has_role?('#{role_mod}')")
+      render :partial => "articles/bugherd", :locals => {:bugherd_api => bugherd_api}
+    end
+  end
+  # Renderiza language selector
   def language_links(options={})
     links = []
     selector = []
@@ -25,6 +79,8 @@ module RdcmsHelper
         end
       else
         options = locale == I18n.locale ? { class: "active" } : {}
+        options[:title] = I18n.t(locale_key) unless string
+
         link = link_to("#{icon} #{span_key}".html_safe, url_for(locale: locale.to_s))
         links << content_tag(:li, link, options).html_safe
       end
@@ -41,43 +97,7 @@ module RdcmsHelper
     content_tag(:ul, selector, class: "#{object_class}")
   end
 
-  def flash_message
-    messages = []
-    button_close = "<button data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>"
-    [:notice, :info, :warning, :error].each {|type|
-      classtype = case type
-        when :notice then "success"
-        else type
-      end
-      if flash[type]
-        messages << content_tag(:div, "#{button_close}#{flash[type]}".html_safe, class: "alert alert-#{classtype}")
-      end
-    }
-
-    # messages.html_safe
-    content_tag(:div, messages.join("\n").html_safe, class: "flash_message_container")
-  end
-
-  def errors_for(object, message=nil)
-    html = ""
-    unless object.errors.blank?
-      html << "<div id=\"error_explanation\" class=\"alert alert-error #{object.class.name.humanize.downcase}Errors'>\n"
-      html << "\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>\n"
-      if message.blank?
-        html << "\t<h2>#{pluralize(f.object.errors.count, "error")} prohibited this product from being saved:</h2>"
-      else
-        html << "<h2>#{message}</h2>"
-      end  
-      html << "\t<ul>\n"
-      object.errors.full_messages.each do |error|
-        html << "\t\t<li>#{error}</li>\n"
-      end
-      html << "\t</ul>\n"
-      html << "</div>\n"
-    end
-    html
-  end  
-  
+  # Renderiza botões de curti nas redes sociais
   def social_buttons_json
     data = {
       "twitter" => {
@@ -90,21 +110,22 @@ module RdcmsHelper
     data.to_json
   end
 
-  def s(name)
-    if name.present?
-      Setting.for_key(name)
+  # Renderiza botões de páginas das redes sociais
+  def social_pages_buttons
+    # Botões das redes sociais
+    @social_pages = Setting.get_object("rdcms.social_pages")
+    html = ""
+    @social_pages.children.each do |record|
+      html << content_tag(:li, target: "_blank") do
+        link_to("<i class=\"icon-#{record.title}\"></i>".html_safe, record.value)
+      end unless record.value.empty?
     end
+
+    content_tag(:ul, html.html_safe, class: "follow_us")
   end
 
-  def bugtracker
-    user_mod = Setting.for_key("rdcms.bugherd.user")
-    role_mod = Setting.for_key("rdcms.bugherd.role")
-    bugherd_api = Setting.for_key("rdcms.bugherd.api")
-    if bugherd_api.present? && user_mod.present? && role_mod.present? && eval("#{user_mod} && #{user_mod}.has_role?('#{role_mod}')")
-      render :partial => "articles/bugherd", :locals => {:bugherd_api => bugherd_api}
-    end
-  end
 
+  # Renderiza o cabeçalho
   def render_header(setting_name="rdcms.view.application", preview=false, options={})
     setting_name = "rdcms.view.application" if defined?(setting_name)
 
@@ -170,7 +191,7 @@ module RdcmsHelper
     inner_html.html_safe
   end
 
-  # Rendereiza o rodapé
+  # Renderiza o rodapé
   def render_footer(setting_name="rdcms.view.application", preview=false, options={})
     setting_name = "rdcms.view.application" if defined?(setting_name)
 
@@ -251,14 +272,7 @@ module RdcmsHelper
                   </div>
                   <div class="span4">
                     <div class="row">
-                      <ul class="span4 follow_us">
-                        <li>
-                          <a href="https://www.facebook.com/ValeriaTottiAmazonia" target="_blank"><i class="icon-facebook"></i></a>
-                        </li>
-                        <li>
-                          <a href="https://plus.google.com/109651582712671519424" target="_blank"><i class="icon-google-plus"></i></a>
-                        </li>
-                      </ul>
+                      <div class="span4">#{social_pages_buttons}</div>
                     </div>
                     <div class="row">
                       <div class="span4 newsletter">

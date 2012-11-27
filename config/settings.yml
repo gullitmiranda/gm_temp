@@ -7,6 +7,14 @@ rdcms:
   use_solr: "false"
   url: "www.requestdev.com.br"
   use_ssl: "false"
+
+  # Botões dos perfis nas redes sociais
+  social_pages:
+    facebook: https://www.facebook.com/Requestedev.com.br
+    google-plus: https://plus.google.com/u/0/116782495692009309425
+    twitter: https://twitter.com/requestd
+
+  # Redes Sociais
   facebook:
     appid: "123456"
     opengraph_default_image: "/assets/open-graph.png"
