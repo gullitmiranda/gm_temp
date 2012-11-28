@@ -116,14 +116,39 @@ module RdcmsHelper
     @social_pages = Setting.get_object("rdcms.social_pages")
     html = ""
     @social_pages.children.each do |record|
-      html << content_tag(:li, target: "_blank") do
-        link_to("<i class=\"icon-#{record.title}\"></i>".html_safe, record.value)
+      html << content_tag(:li) do
+        link_to("<i class=\"icon-#{record.title}\"></i>".html_safe, record.value, target: "_blank")
       end unless record.value.empty?
     end
 
     content_tag(:ul, html.html_safe, class: "follow_us")
   end
 
+  # Renderiza o endereço formatado
+  def render_address
+    @companyName = Setting.get_object("rdcms.company.name")
+    @companyAddress = Setting.get_object("rdcms.company.address")
+    @companyDistrict = Setting.get_object("rdcms.company.district")
+    @companyCep = Setting.get_object("rdcms.company.cep")
+    @companyCity = Setting.get_object("rdcms.company.city")
+    @companyState = Setting.get_object("rdcms.company.state")
+    @companyCountry = Setting.get_object("rdcms.company.country")
+    @companyPhone = Setting.get_object("rdcms.company.phone")
+    @companyEmail = Setting.get_object("rdcms.company.email")
+
+    # Dados a serem exibidos sobre a companhia
+    address = ""
+    address = "<strong>#{@companyName.value}</strong><br>" unless @companyName.value.empty?
+    address << "#{@companyAddress.value}<br>" unless @companyAddress.value.empty?
+    address << "#{@companyDistrict.value}" unless @companyDistrict.value.empty?
+    address << ", CEP: #{@companyCep.value}" unless @companyCep.value.empty?
+    address << "<br>" if !@companyDistrict.value.empty? or !@companyCep.value.empty?
+    address << "#{@companyCity.value}" unless @companyCity.value.empty?
+    address << " - #{@companyState.value}" unless @companyState.value.empty?
+    address << ", #{@companyCountry.value}" unless @companyCountry.value.empty?
+
+    address.html_safe
+  end
 
   # Renderiza o cabeçalho
   def render_header(setting_layout="application", preview=false, options={})
@@ -199,30 +224,10 @@ module RdcmsHelper
 
     isApplication = setting_name == "rdcms.view.application"
 
-    # Nome da companhia
-    @companyName = Setting.get_object("rdcms.company.name")
-
     if isApplication
-      # Informações da companhia
-      @companyAddress = Setting.get_object("rdcms.company.address")
-      @companyDistrict = Setting.get_object("rdcms.company.district")
-      @companyCep = Setting.get_object("rdcms.company.cep")
-      @companyCity = Setting.get_object("rdcms.company.city")
-      @companyState = Setting.get_object("rdcms.company.state")
-      @companyCountry = Setting.get_object("rdcms.company.country")
+      # Data objetos com algumas informações da companhia
       @companyPhone = Setting.get_object("rdcms.company.phone")
       @companyEmail = Setting.get_object("rdcms.company.email")
-
-      # Dados a serem exibidos sobre a companhia
-      address = ""
-      address = "<strong>#{@companyName.value}</strong><br>" unless @companyName.value.empty?
-      address << "#{@companyAddress.value}<br>" unless @companyAddress.value.empty?
-      address << "#{@companyDistrict.value}" unless @companyDistrict.value.empty?
-      address << ", CEP: #{@companyCep.value}" unless @companyCep.value.empty?
-      address << "<br>" if !@companyDistrict.value.empty? or !@companyCep.value.empty?
-      address << "#{@companyCity.value}" unless @companyCity.value.empty?
-      address << " - #{@companyState.value}" unless @companyState.value.empty?
-      address << ", #{@companyCountry.value}" unless @companyCountry.value.empty?
 
       phone = "<em>#{I18n.t('atributes_all.phone'        )}: #{@companyPhone.value}</em><br>" unless @companyPhone.value.empty?
       email = "<em>#{I18n.t('atributes_all.contact_email')}: <a href=\"mailto:#{@companyEmail.value}\">#{@companyEmail.value}</a></em>" unless @companyEmail.value.empty?
@@ -259,7 +264,7 @@ module RdcmsHelper
                   <div class="span4">
                     <h4>#{t("layouts.#{setting_layout}.contact")}</h4>
                     <address>
-                      <p>#{address}</p>
+                      <p>#{render_address}</p>
                       #{phone}
                       #{email}
                     </address>
