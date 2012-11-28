@@ -117,7 +117,7 @@ module RdcmsHelper
     html = ""
     @social_pages.children.each do |record|
       html << content_tag(:li) do
-        link_to("<i class=\"icon-#{record.title}\"></i>".html_safe, record.value, target: "_blank")
+        link_to("<i class=\"icon-#{record.title}\"></i>".html_safe, record.value, target: "_blank", rel: "publisher")
       end unless record.value.empty?
     end
 

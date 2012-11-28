@@ -1,8 +1,13 @@
-en:
+es:
+  # Outras traduções utilizadas no active_record
+  edit: Editar
+
   # Atributos para formulários
   atributes_all: &atributes_all
-    active: "active"
-    approved: "approved"
+    active: ativo
+    address: Endereço
+    applay_colors: Aplicar cores
+    approved: aprovado
     article_type: tipo de artigo
     author: Autor
     auto_start: Iniciar automaticamente
@@ -10,63 +15,70 @@ en:
     body: Texto
     cancel: Cancelar
     categories: Categorias
-    complete_name: "name"
-    content: "Content"
-    created_at: "created at"
-    contact_email: Contact email
+    city: Cidade
+    complete_name: Nome completo
+    content: Conteúdo
+    created_at: Criado em
+    contact_email: Email de contacto
     control_display: Controles
+    country: País
     current_sign_in_at: Conexão atual
     date: Data
     dates: Datas
     datetime: Data
-    description: "Description"
+    description: Descrição
     direction: Direção
-    email: "email"
+    district: Bairro
+    email: E-mail
     entry: Entrada
-    firstname: "firstname"
-    function: "function"
+    firstname: Nome
+    footer: Rodapé
+    function: Funções
     general: Geral
     gender: Gênero
     googleplus: Google Plus
     height: Altura
     history: História
     id: Código
-    image: "image"
+    image: Imagem
     last_sign_in_at: Último conexão
-    lastname: "lastname"
+    lastname: Sobrenome
     length: Comprimento
     localization: Localização
     loop: Contínuo
     measures: Medidas
     name: Nome
     no: Não
-    password: "password"
-    password_confirmation: "password confirmation"
-    # password_hint: Deixe em branco se a senha não deve ser alterada.
+    padding: Espaçamento interno
+    padding_hint: 'Espaçamento seguindo a conveção:<br />[ <b>superior direito inferior esquerdo</b> ]<br /><br />ex:<br /> [ 10px 10px 10px 10px ]<br />ou<br />[ 5% 0px 0 10px ]'
+    password: Senha
+    password_confirmation: Confirmação de senha
+    password_hint: Deixe em branco se a senha não deve ser alterada.
     preview: Visualização
-    phone: Phone
+    phone: Teléfono
     price: Preço
     published: Publicado
-    reference: Referência
-    reported: "reported"
-    rights: "rights"
-    roles: "roles"
-    separated_by_commas: 'Separado por virgulas ","'
     sign_in_count: Número de conexões
     sizes: Tamanhos
     slug: Link permanent
-    source: "source"
+    tag_list: Categorias
+    title: Título
+    updated_at: Atualizado em
+    upload_content_type: Tipo
+    upload_file_name: Nome
+    upload_file_size: Tamanho
+    url: url
+    reference: Referência
+    reference_hint: Código de referência do produto
+    reported: Relatado
+    rights: direitos
+    roles: Cargos
+    separated_by_commas: 'Separado por virgulas ","'
+    source: Fonte
     speed: Velocidade
     start_position: Posição inicial
     summary: Resumo
-    tag_list: Categorias
-    title: "title"
     tour: Panorama
-    updated_at: "updated at"
-    upload_content_type: "upload content type"
-    upload_file_name: "upload file name"
-    upload_file_size: "upload file size"
-    url: url
     username: Nome
     weight: Peso
     weights_and_measures: Pesos e Medidas
@@ -109,63 +121,83 @@ en:
         <<: *atributes_all
       form:
         <<: *atributes_all
+    pages:
+      show:
+        <<: *atributes_all
+      form:
+        <<: *atributes_all
+    settings:
+      visualization:
+        <<: *atributes_all
+        header: Cabeçalho
+        file: Imagem
+        file_hint: "O tamanho recomendável é de %{size}."
+        background: Cor do espaçamento
+        inner_background: Cor de fundo
+      company:
+        <<: *atributes_all
   <<: *admin
   # ActiveRecord
   activerecord:
     models:
-      about: About
-      content_management: Content Management
-      settings: Settings
+      about: Sobre este sistema
+      content_management: Gestão de Conteúdos
+      settings: Configurações
 
       product:
-        one: Product
-        other: Products
+        one: Produto
+        other: Produtos
       gallery:
-        one: Event
-        other: Events
+        one: Evento
+        other: Eventos
       # Artigos
       post:
-        one: "Article"
-        other: "Articles"
+        one: Artigo
+        other: Artigos
       blog:
         one: Blog
         other: Blogs
       article:
-        one: "Article"
-        other: "Articles"
+        one: Artigo
+        other: Artigos
       comment:
-        one: "Comment"
-        other: "Comments"
+        one: Comentário
+        other: Comentários
       # Configurações
       user:
-        one: User
-        other: Users
+        one: Usuário
+        other: Usuários
       role:
-        one: Role
-        other: Roles
+        one: Cargo
+        other: Cargos
       permission:
-        one: "Permission"
-        other: "Permissions"
+        one: Permissão
+        other: Permissões
       import:
-        one: "Import"
-        other: "Imports"
+        one: Importar
+        other: Importações
       setting:
-        one: "Setting"
-        other: "Settings"
+        one: Preferência
+        other: Preferências
+      visualization: Aparência
+      company: Informações da Empresa
       # Gestão de Conteúdo
       menu:
         one: Menu
         other: Menus
       upload:
-        one: Upload
-        other: Uploads
+        one: Arquivo
+        other: Arquivos
       slider:
         one: Slider
         other: Sliders
       widget:
         one: Widget
         other: Widgets
-      tour: Virtual Tour
+      tour: Passeio Virtual
+      page:
+        one: Página
+        other: Páginas
 
       # Desativados
       metag:
@@ -176,15 +208,15 @@ en:
     attributes:
       gallery:
         <<: *atributes_all
-        upload_file_name: Image name
-        upload_content_type: Image type
-        upload_file_size: Image size
+        upload_file_name: Nome da imagem
+        upload_content_type: Tipo da imagem
+        upload_file_size: Tamanho da imagem
       product:
         <<: *atributes_all
       post:
         <<: *atributes_all
-        name: Title
-        description: Text
+        name: Título
+        description: Texto
       slider:
         <<: *atributes_all
       tour:
@@ -192,4 +224,6 @@ en:
       upload:
         <<: *atributes_all
       user:
+        <<: *atributes_all
+      page:
         <<: *atributes_all
