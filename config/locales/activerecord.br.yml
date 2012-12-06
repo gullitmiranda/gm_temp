@@ -3,7 +3,7 @@ br:
   edit: Editar
 
   # Atributos para formulários
-  atributes_all: &atributes_all
+  attributes_all: &attributes_all
     active: ativo
     address: Endereço
     applay_colors: Aplicar cores
@@ -13,7 +13,10 @@ br:
     auto_start: Iniciar automaticamente
     background: Imagen de fundo
     body: Texto
+    name_placeholder: Digite alguma descrição
+    campaign: Campanha
     cancel: Cancelar
+    catalogue: Catálogo
     categories: Categorias
     city: Cidade
     complete_name: Nome completo
@@ -48,9 +51,12 @@ br:
     loop: Contínuo
     measures: Medidas
     name: Nome
+    name_placeholder: Digite um nome
     no: Não
+    object_type: Tipo
     padding: Espaçamento interno
     padding_hint: 'Espaçamento seguindo a conveção:<br />[ <b>superior direito inferior esquerdo</b> ]<br /><br />ex:<br /> [ 10px 10px 10px 10px ]<br />ou<br />[ 5% 0px 0 10px ]'
+    pages: Páginas
     password: Senha
     password_confirmation: Confirmação de senha
     password_hint: Deixe em branco se a senha não deve ser alterada.
@@ -88,54 +94,61 @@ br:
   admin: &admin
     posts:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     products:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     galleries:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     sliders:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     uploads:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     tours:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     users:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     pages:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
+    publications:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+        name_placeholder: Publicação sem nome
+        body_placeholder: Escreva algo relacionado a essa publicação
     settings:
       visualization:
-        <<: *atributes_all
+        <<: *attributes_all
         header: Cabeçalho
         file: Imagem
         file_hint: "O tamanho recomendável é de %{size}."
         background: Cor do espaçamento
         inner_background: Cor de fundo
       company:
-        <<: *atributes_all
+        <<: *attributes_all
   <<: *admin
   # ActiveRecord
   activerecord:
@@ -198,6 +211,9 @@ br:
       page:
         one: Página
         other: Páginas
+      publication:
+        one: Publicação
+        other: Publicações
 
       # Desativados
       metag:
@@ -207,23 +223,25 @@ br:
     # Atributos dos módulos
     attributes:
       gallery:
-        <<: *atributes_all
+        <<: *attributes_all
         upload_file_name: Nome da imagem
         upload_content_type: Tipo da imagem
         upload_file_size: Tamanho da imagem
       product:
-        <<: *atributes_all
+        <<: *attributes_all
       post:
-        <<: *atributes_all
+        <<: *attributes_all
         name: Título
         description: Texto
       slider:
-        <<: *atributes_all
+        <<: *attributes_all
       tour:
-        <<: *atributes_all
+        <<: *attributes_all
       upload:
-        <<: *atributes_all
+        <<: *attributes_all
       user:
-        <<: *atributes_all
+        <<: *attributes_all
       page:
-        <<: *atributes_all
+        <<: *attributes_all
+      publication:
+        <<: *attributes_all

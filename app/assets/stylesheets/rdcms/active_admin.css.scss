@@ -29,6 +29,11 @@ body.active_admin {
     &.form-horizontal .controls {
       display: block;
     }
+
+    .line + .line {
+      margin-top: 10px;
+    }
+
     .datetime_select {
       select {
         width: auto;
@@ -43,6 +48,19 @@ body.active_admin {
       line-height: 20px;
       padding: 0;
       white-space: normal;
+    }
+    .radio_button,
+    .checkbox_button {
+      padding-top: 6px;
+
+      input[type="radio"],
+      input[type="checkbox"] {
+        margin: -5px 0 0;
+      }
+      label {
+        display: inline-block;
+        margin-right: 20px;
+      }
     }
   }
   .attributes_table table {
@@ -133,6 +151,38 @@ body.active_admin {
     dl.form {
       float: none;
       margin: 0 auto;
+    }
+  }
+
+  /* Publicações */
+  &.admin_publications {
+    .form-actions {
+      padding: 10px 0;
+    }
+    .tabbable {
+      .tab-content {
+        padding: 25px;
+      }
+    }
+    .description .text_area {
+      height: 73px;
+      padding: 4px 6px;
+    }
+    #upload_container {
+      .uploads-list {
+        height: auto;
+  
+        .template-download {
+          .det.footer > div {
+            float: none;
+            display: inline-block;
+
+            a.btn-primary {
+              color: #fff;
+            }  
+          }
+        }
+      }
     }
   }
 }

@@ -229,8 +229,8 @@ module RdcmsHelper
       @companyPhone = Setting.get_object("rdcms.company.phone")
       @companyEmail = Setting.get_object("rdcms.company.email")
 
-      phone = "<em>#{I18n.t('atributes_all.phone'        )}: #{@companyPhone.value}</em><br>" unless @companyPhone.value.empty?
-      email = "<em>#{I18n.t('atributes_all.contact_email')}: <a href=\"mailto:#{@companyEmail.value}\">#{@companyEmail.value}</a></em>" unless @companyEmail.value.empty?
+      phone = "<em>#{I18n.t('attributes_all.phone'        )}: #{@companyPhone.value}</em><br>" unless @companyPhone.value.empty?
+      email = "<em>#{I18n.t('attributes_all.contact_email')}: <a href=\"mailto:#{@companyEmail.value}\">#{@companyEmail.value}</a></em>" unless @companyEmail.value.empty?
 
       # Objetos da Estilização
       @footerBackground           = Setting.get_object("#{setting_name}.footer.background")

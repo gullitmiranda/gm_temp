@@ -1,6 +1,6 @@
 en:
   # Atributos para formulários
-  atributes_all: &atributes_all
+  attributes_all: &attributes_all
     active: "active"
     approved: "approved"
     article_type: tipo de artigo
@@ -76,39 +76,39 @@ en:
   admin: &admin
     posts:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     products:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     galleries:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     sliders:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     uploads:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     tours:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
     users:
       show:
-        <<: *atributes_all
+        <<: *attributes_all
       form:
-        <<: *atributes_all
+        <<: *attributes_all
   <<: *admin
   # ActiveRecord
   activerecord:
@@ -175,21 +175,21 @@ en:
     # Atributos dos módulos
     attributes:
       gallery:
-        <<: *atributes_all
+        <<: *attributes_all
         upload_file_name: Image name
         upload_content_type: Image type
         upload_file_size: Image size
       product:
-        <<: *atributes_all
+        <<: *attributes_all
       post:
-        <<: *atributes_all
+        <<: *attributes_all
         name: Title
         description: Text
       slider:
-        <<: *atributes_all
+        <<: *attributes_all
       tour:
-        <<: *atributes_all
+        <<: *attributes_all
       upload:
-        <<: *atributes_all
+        <<: *attributes_all
       user:
-        <<: *atributes_all
+        <<: *attributes_all
