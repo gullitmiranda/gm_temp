@@ -74,6 +74,8 @@ rdcms:
         background: ""
         padding: "15px 0 0"
         container_background: ""
+      contact:
+        background: ""
     full_screen:
       logo: logo_fullscreen.png
       background: ""

@@ -130,7 +130,8 @@ body.active_admin {
 
   /* Configurações de aparências */
   #admin_header,
-  #admin_footer {
+  #admin_footer,
+  #admin_contact {
     .attributes_table > .row {
       margin-left: -23px;
     }
@@ -143,6 +144,18 @@ body.active_admin {
       .container {
         padding-left: 20px;
       }
+    }
+  }
+
+  #admin_contact {
+    .preview_contact_background {
+      height: 255px;
+      width: 100%;
+      background: url("slider/pattern_bg.png") repeat scroll 0 0 #282828;
+
+      -webkit-border-radius: 10px;
+         -moz-border-radius: 10px;
+              border-radius: 10px;
     }
   }
 

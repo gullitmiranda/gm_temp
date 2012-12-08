@@ -6,6 +6,7 @@ br:
   attributes_all: &attributes_all
     active: ativo
     address: Endereço
+    applay_color: Aplicar cor
     applay_colors: Aplicar cores
     approved: aprovado
     article_type: tipo de artigo
@@ -24,6 +25,7 @@ br:
     complete_name: Nome completo
     content: Conteúdo
     created_at: Criado em
+    contact: Contato
     contact_email: E-mail de contato
     control_display: Controles
     country: País
