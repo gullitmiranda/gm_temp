@@ -15,8 +15,10 @@ br:
     body: Texto
     name_placeholder: Digite alguma descrição
     campaign: Campanha
+    campaigns: Campanhas
     cancel: Cancelar
     catalogue: Catálogo
+    catalogues: Catálogos
     categories: Categorias
     city: Cidade
     complete_name: Nome completo
