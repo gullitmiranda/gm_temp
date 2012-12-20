@@ -21,6 +21,7 @@ br:
     catalogue: Catálogo
     catalogues: Catálogos
     categories: Categorias
+    children: Filhos
     city: Cidade
     complete_name: Nome completo
     content: Conteúdo
@@ -249,3 +250,4 @@ br:
         <<: *attributes_all
       publication:
         <<: *attributes_all
+        children: Páginas

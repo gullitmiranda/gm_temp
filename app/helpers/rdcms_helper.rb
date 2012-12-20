@@ -60,8 +60,10 @@ module RdcmsHelper
     links = []
     selector = []
 
-    dropdown  = defined?(options[:dropdown ]) ? options[:dropdown ] : true
-    string    = defined?(options[:string   ]) ? options[:string   ] : true
+    dropdown  = defined?(options[:dropdown  ]) ? options[:dropdown  ] : true
+    string    = defined?(options[:string    ]) ? options[:string    ] : true
+    placement = defined?(options[:placement ]) ? options[:placement ] : "bottom"
+     # data-placement="bottom"
 
     I18n.available_locales.each do |locale|
       locale_key  = "translation.#{locale}"
@@ -70,7 +72,7 @@ module RdcmsHelper
 
       if dropdown
         if locale == I18n.locale
-          selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown", title: I18n.t(locale_key) }) do
+          selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown", title: I18n.t(locale_key) }, rel: "tooltip", :"data-placement" => placement) do
             "#{icon} #{span_key}<span class=\"caret\"></span>".html_safe
           end
         else
@@ -80,6 +82,8 @@ module RdcmsHelper
       else
         options = locale == I18n.locale ? { class: "active" } : {}
         options[:title] = I18n.t(locale_key) unless string
+        options[:rel] = "tooltip"
+        options[:"data-placement"] = placement
 
         link = link_to("#{icon} #{span_key}".html_safe, url_for(locale: locale.to_s))
         links << content_tag(:li, link, options).html_safe
@@ -301,7 +305,7 @@ module RdcmsHelper
                 </div>
                 <div class="developer span4">
                   #{t("layouts.#{setting_layout}.developed_by")}:
-                  <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br">
+                  <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br" rel="tooltip" data-placement="bottom">
                     <img alt="Requestdev Sistemas" src="http://requestdev.com.br/images/Logo 204x48.png">
                   </a>
                 </div>
