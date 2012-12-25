@@ -1,0 +1,17 @@
+<div class="social-container" data-url="<%= post_url(@post) %>"></div>
+<script type="text/javascript" charset="utf-8">
+$('.social-container').social(<%= raw social_buttons_json %>);
+</script>
+
+<div class="panel post-list">
+  <h3><%= @post.name %></h3>
+  <div class="details">
+    <span class="post-data">- <%= time_ago_in_words @post.datetime %> (<%= l @post.datetime %>)</span>
+    <span class="post-categories"><%= @post.tag_list %></span>
+  </div>
+  <div id="description">
+    <div class="attributes_table well">
+      <%= raw @post.body %>
+    </div>
+  </div>
+</div>

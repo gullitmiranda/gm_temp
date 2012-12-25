@@ -1,0 +1,22 @@
+<div class="row">
+  <div id="post-list-container" class="span8">
+    <ul class="thumbnails">
+      <% if !posts.blank? %>
+        <% for post in posts %>
+          <li class="span8">
+            <div class="thumbnail post-list">
+            <!-- <div class=""> -->
+              <h3><%= link_to post.name, admin_post_path(post) %></h3>
+              <div class="details">
+                <span class="post-data">- <%= time_ago_in_words post.datetime %> (<%= l post.datetime %>)</span>
+                <span class="post-categories"><%= best_in_place post, :tag_list, type: :input, path: [:admin, post] %></span>
+              </div>
+              <div class="post-body clearfix"><%= raw truncate post.body, length: 350, omission: " <strong>[...]</strong>" %></div>
+              <div class="read_more"><%= link_to t(:view_more), admin_post_path(post), class: "btn btn-link" %></div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="row">
+  <div id="post-list-container" class="<%= defined?(list_class) ? list_class : "span12" %>">
+    <% unless defined?(disable_social) and disable_social %>
+      <div class="social-container" data-url="<%= posts_url %>"></div>
+      <script type="text/javascript" charset="utf-8">
+      $('.social-container').social(<%= raw social_buttons_json %>);
+      </script>
+    <% end -%>
+    <ul class="thumbnails">
+      <% @posts.each do |post| %>
+        <li class="span6">
+          <div class="thumbnail post-list">
+            <h3><%= link_to post.name, post_path(post) %></h3>
+            <div class="details">
+              <span class="post-data">- <%= time_ago_in_words post.datetime %> (<%= l post.datetime %>)</span>
+              <span class="post-categories"><%= post.tag_list %></span>
+              <!-- <span class="post-categories">< %= post.tag_list.map {|t| link_to t, tag_path(t) }.join(', ') %></span> -->
+            </div>
+            <div class="post-body clearfix"><%= raw post.summary %></div>
+            <div class="read_more"><%= link_to t(:view_more), post_path(post), class: "btn btn-link" %></div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

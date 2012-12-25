@@ -1,0 +1,42 @@
+<%= semantic_form_for [:admin, @post], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= errors_for @post %>
+
+  <%= f.globalize_inputs :translations do |lf| %>
+    <div class="control-group">
+      <%= lf.label :name, t(".name"), :class => 'label' %>
+      <%= lf.text_field :name, :class => 'text_field' %>
+    </div>
+    <div class="control-group summary">
+      <%= lf.label :summary, t(".summary"), :class => 'label' %>
+      <%= lf.cktext_area :summary, :class => 'text_area' %>
+    </div>
+    <div class="control-group">
+      <%= lf.label :body, t(".body"), :class => 'label' %>
+      <%= lf.cktext_area :body, :class => 'text_area', :toolbar => 'Full' %>
+    </div>
+    <%= lf.input :locale, :as => :hidden %>
+  <% end %>
+  
+  <hr />
+  
+  <div class="control-group">
+    <%= f.label :datetime, :class => 'control-label' %>
+    <div class="controls datetime_select">
+      <%= f.datetime_select :datetime %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tag_list, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tag_list %>
+    </div>
+    <em class="controls"><%= t(".separated_by_commas") %></em>
+  </div>
+  
+  <hr />
+  
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel'), admin_posts_path, :class => 'btn btn-link cancel' %>
+  </div>
+<% end %>
