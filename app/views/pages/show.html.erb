@@ -1,0 +1,14 @@
+<div class="social-container align-right" data-url="<%= page_url(@page) %>"></div>
+<script type="text/javascript" charset="utf-8">
+$('.social-container').social(<%= raw social_buttons_json %>);
+</script>
+
+<div class="panel page-list">
+  <h2 class"title"><%= @page.name %></h2>
+
+	<hr class="page">
+
+  <div id="description">
+    <%= raw @page.content %>
+  </div>
+</div>

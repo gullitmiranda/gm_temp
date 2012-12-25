@@ -1,0 +1,20 @@
+<div class="panel">
+  <h3><%= t "permalink" %>: <%= link_to page_path(s), page_path(s), target: "_blank" %></h3>
+  <div class="panel_contents" id="details">
+    <div class="attributes_table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>
+          <tr><th><%= t(".updated_at" ) %></th><td><%= l s.updated_at %></td></tr>
+          <tr><th><%= t(".published"  ) %></th><td><%= best_in_place s, :published, type: :checkbox , path: [:admin, s] %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h2 class="title"><%= s.name %></h2>
+  <div class="panel_contents" id="description">
+    <div class="attributes_table well">
+      <%= s.content.html_safe %>
+    </div>
+  </div>
+</div>
