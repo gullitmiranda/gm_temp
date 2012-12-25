@@ -1,0 +1,265 @@
+<div class="panel">
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#admin_header" data-toggle="tab"><%= t(".header") %></a></li>
+      <li><a href="#admin_footer" data-toggle="tab"><%= t(".footer") %></a></li>
+      <li><a href="#admin_contact" data-toggle="tab"><%= t(".contact") %></a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="admin_header" class="tab-pane active">
+        <div class="panel_contents preview">
+          <div class="attributes_table">
+            <!-- Objetos -->
+            <% @logo            = Setting.get_object("rdcms.view.application.logo") %>
+            <% @background      = Setting.get_object("rdcms.view.application.background") %>
+            <% @innerBackground = Setting.get_object("rdcms.view.application.inner-background") %>
+            <% @headerPadding   = Setting.get_object("rdcms.view.application.header.padding") %>
+            
+            <!-- Prévisualização do cabeçalho do site principal -->
+            <div class="row">
+              <div id="preview" class="span12">
+                <%= form_for [:admin, @logo], :html => { :remote => true } do |f| -%>
+                  <%= render_header nil, true %>
+                <% end -%>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <!-- Upload da logo -->
+              <div class="span4">
+                <dl>
+                  <dt> <strong><%= t(".file") %>:</strong> </dt>
+                  <dd>
+                    <%= render :partial => 'admin/single_upload', :locals => {
+                        options: {
+                          # especific options
+                          :style              => "logo",
+                          :form_for           => [:admin, @logo],
+                          :show_type          => "image",
+                          :accept             => "image/*",                    
+                          :accept_file_types  => "/(\.|\/)(gif|jpe?g|png)$/i",
+                        },
+                      }
+                    %>
+                  </dd>
+                  <dd><div class="hint"><%= t(".file_hint", :size => "600x175px") %></div></dd>
+                </dl>
+              </div>
+              <!-- Espaçamento interno -->
+              <div class="span2">
+                <div class="row">
+                  <dl>
+                    <dt><strong><%= t(".padding") %>:</strong></dt>
+                    <dd><%= best_in_place @headerPadding, :value, type: :input, classes: "header_padding", path: [:admin, @headerPadding] %></dd>
+                    <dd> <div class="hint"><%= t('.padding_hint').html_safe %></div> </dd>
+                  </dl>
+                </div>
+              </div>
+              <!-- Definição do background da barra de navegação -->
+              <div class="span3">
+                <dl>
+                  <dt><strong><%= t(".background") %>:</strong><input id="background" class="colorpicker" value="<%= @background.value.empty? ? "#ffffff" : @background.value %>" type="text" size="7" /></dt>
+                  <dd><div id="backgroundPicker"></div></dd>
+                </dl>
+              </div>
+              <!-- Definição do background do interior da barra navegação -->
+              <div class="span3">
+                <dl>
+                  <dt><strong><%= t(".inner_background") %>:</strong><input id="innerBackground" class="colorpicker" value="<%= @innerBackground.value.empty? ? "#ffffff" : @innerBackground.value %>" type="text" size="7" /></dt>
+                  <dd><div id="innerBackgroundPicker"></div></dd>
+                </dl>
+              </div>
+            </div>
+            <!-- Botão -->
+            <div class="row">
+              <div class="span5 offset6 form-actions align-center">
+                <%= button_tag t(".applay_colors"), type: "button", class: "btn btn-primary save_backgrounds" %>
+              </div>
+            </div>
+            <script type="text/javascript" charset="utf-8">
+              $(function () {
+                var single_logo     = $('#fileupload.single_logo'),
+                    admin_header    = $('#admin_header'),
+                    brand           = $('.brand'        , admin_header),
+                    navbarInner     = $('.navbar-inner' , admin_header),
+                    navbarContainer = $('.container'    , navbarInner),
+                    formulario      = $('#updates'      , navbarContainer);
+
+                /* Upload da logo */
+                single_logo.bind('fileuploaddone', function (e, data) {
+                  var $this = $(this),
+                      that  = $this.data('fileupload'),
+                      dt    = data.result[0];
+
+                  // Remover item após upload
+                  that._adjustMaxNumberOfFiles(1);
+                  $('.template-download', $this).fadeOut(function () {$(this).remove(); });
+
+                  
+                  img_nav = $('img', brand).attr('src', dt.images.logo);
+                  input   = $('.brand_logo.best_in_place', formulario).click(function() {$('input', this).val(dt.id).trigger('blur') }).trigger('click');
+                });
+                
+                /* Aplica espaçamento do nav-inner */
+                $('.header_padding.best_in_place', admin_header).bind("ajax:success", function(){
+                  if ($(this).html() != "" || $(this).html() != "-")
+                    navbarInner.css('padding', $(this).html());
+                });
+
+                /* Atualização dos backgrounds */
+                var cInner      = $('#backgroundPicker', admin_header).farbtastic("#admin_header #background");
+                var cContainer  = $('#innerBackgroundPicker', admin_header).farbtastic("#admin_header #innerBackground");
+
+                $('.save_backgrounds', admin_header).bind("click", function(ev) {
+                  ev.preventDefault();
+                  valInner      = $('#background'     , admin_header).val()
+                  valContainer  = $('#innerBackground', admin_header).val()
+
+                  navbarInner.css('background', valInner);
+                  navbarContainer.css('background', valContainer);
+
+                  $('.background.best_in_place'     , formulario).click(function() {$('input', this).val(valInner     ).trigger('blur') }).trigger('click');
+                  $('.innerBackground.best_in_place', formulario).click(function() {$('input', this).val(valContainer ).trigger('blur') }).trigger('click');
+                });
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+      <div id="admin_footer" class="tab-pane">
+        <div class="panel_contents preview">
+          <div class="attributes_table">
+            <!-- Objetos -->
+            <% @footerPadding              = Setting.get_object("rdcms.view.application.footer.padding") %>
+            <% @footerBackground           = Setting.get_object("rdcms.view.application.footer.background") %>
+            <% @footerContainerBackground  = Setting.get_object("rdcms.view.application.footer.container_background") %>
+            
+            <!-- Prévisualização do cabeçalho do site principal -->
+            <div class="row">
+              <div id="preview" class="span12">
+                <%= render_footer nil, true %>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <div class="span3">&nbsp;</div>
+              <!-- Espaçamento interno -->
+              <div class="span3">
+                <dl>
+                  <dt><strong><%= t(".padding") %>:</strong></dt>
+                  <dd><%= best_in_place @footerPadding, :value, type: :input, classes: "footer_padding", path: [:admin, @footerPadding] %></dd>
+                  <dd> <div class="hint"><%= t('.padding_hint').html_safe %></div> </dd>
+                </dl>
+              </div>
+              <!-- Definição do background da barra de navegação -->
+              <div class="span3">
+                <dl>
+                  <dt><strong><%= t(".background") %>:</strong><input id="background" class="colorpicker" value="<%= @footerBackground.value.empty? ? "#ffffff" : @footerBackground.value %>" type="text" size="7" /></dt>
+                  <dd><div id="backgroundPicker"></div></dd>
+                </dl>
+              </div>
+              <!-- Definição do background do interior da barra navegação -->
+              <div class="span3">
+                <dl>
+                  <dt><strong><%= t(".inner_background") %>:</strong><input id="innerBackground" class="colorpicker" value="<%= @footerContainerBackground.value.empty? ? "#ffffff" : @footerContainerBackground.value %>" type="text" size="7" /></dt>
+                  <dd><div id="innerBackgroundPicker"></div></dd>
+                </dl>
+              </div>
+            </div>
+            <!-- Botão -->
+            <div class="row">
+              <div class="span5 offset6 form-actions align-center">
+                <%= button_tag t(".applay_colors"), type: "button", class: "btn btn-primary save_backgrounds" %>
+              </div>
+            </div>
+            <script type="text/javascript" charset="utf-8">
+              $(function () {
+                var admin_footer    = $('#admin_footer'),
+                    footerBox       = $('.footer-box'       , admin_footer),
+                    footerContainer = $('.footer-container' , footerBox),
+                    formulario      = $('#updates'          , footerContainer);
+
+                /* Aplica espaçamento do nav-inner */
+                $('.footer_padding.best_in_place', admin_footer).bind("ajax:success", function(){
+                  if ($(this).html() != "" || $(this).html() != "-")
+                    footerBox.css('padding', $(this).html());
+                });
+
+                /* Atualização dos backgrounds */
+                var cInner      = $('#backgroundPicker', admin_footer).farbtastic("#admin_footer #background");
+                var cContainer  = $('#innerBackgroundPicker', admin_footer).farbtastic("#admin_footer #innerBackground");
+
+                $('.save_backgrounds', admin_footer).bind("click", function(ev) {
+                  ev.preventDefault();
+                  valInner      = $('#background'     , admin_footer).val()
+                  valContainer  = $('#innerBackground', admin_footer).val()
+
+                  footerBox.css('background', valInner);
+                  footerContainer.css('background', valContainer);
+
+                  $('.footerBackground.best_in_place'         , formulario).click(function() {$('input', this).val(valInner     ).trigger('blur') }).trigger('click');
+                  $('.footerContainerBackground.best_in_place', formulario).click(function() {$('input', this).val(valContainer ).trigger('blur') }).trigger('click');
+                });
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+      <div id="admin_contact" class="tab-pane">
+        <div class="panel_contents preview">
+          <div class="attributes_table">
+            <!-- Objetos -->
+            <% @contactBackground = Setting.get_object("rdcms.view.application.contact.background") %>
+        
+            <div class="row">
+              <!-- Definição do background do topo onde se localiza o mapa -->
+              <div class="span3">
+                <dl>
+                  <dt><strong><%= t(".inner_background") %>:</strong><input id="background" class="colorpicker" value="<%= @contactBackground.value.empty? ? "#ffffff" : @contactBackground.value %>" type="text" size="7" /></dt>
+                  <dd><div id="backgroundPicker"></div></dd>
+                </dl>
+              </div>
+              <!-- Preview -->
+              <div class="span3">
+                <div class="preview_contact_background" style="<%= "background-color: #{@contactBackground.value};" unless @contactBackground.value.empty?
+ %>"></div>
+                <div id="updates" class="hidden">
+                  <%= best_in_place(@contactBackground , :value, type: :input, classes: "background", path: [:admin, @contactBackground]) %>
+                </div>
+              </div>
+            </div>
+            <!-- Botão -->
+            <div class="row">
+              <div class="span6 form-actions align-center">
+                <%= button_tag t(".applay_color"), type: "button", class: "btn btn-primary save_backgrounds" %>
+              </div>
+            </div>
+            <script type="text/javascript" charset="utf-8">
+              $(function () {
+                var admin_contact       = $('#admin_contact'),
+                    preview_background  = $('.preview_contact_background' , admin_contact),
+                    formulario          = $('#updates'                    , admin_contact);
+
+                /* Atualização dos backgrounds */
+                var cBackground      = $('#backgroundPicker', admin_contact).farbtastic("#admin_contact #background");
+
+                $('.save_backgrounds', admin_contact).bind("click", function(ev) {
+                  ev.preventDefault();
+                  valBackground = $('#background'     , admin_contact).val()
+
+                  preview_background.css('background-color', valBackground);
+                  console.debug($('.background.best_in_place' , formulario));
+                  $('.background.best_in_place' , formulario).click(function() {$('input', this).val(valBackground ).trigger('blur') }).trigger('click');
+                });
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

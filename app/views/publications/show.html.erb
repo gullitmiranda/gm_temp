@@ -1,0 +1,61 @@
+<%- content_for :title, "#{Setting.for_key("rdcms.site.name")} / #{I18n.t("activerecord.models.publication.other")} / #{@publication.name}" -%>
+
+<%- content_for :navegation_link do %>
+  <%= link_to "<span class=\"icon-back\" aria-hidden=\"true\"></span>".html_safe, publications_path, class: "BigButton fade in btnBack", rel: "tooltip", title: I18n.t("back") %>
+<% end -%>
+
+<% unless @pages.blank? %>
+<div id="publication-<%= @publication.slug %>" class="fade">
+  <%=
+    li_index = []
+
+    @pages.each_with_index do |page, index|
+      li_index << content_tag(:li, link_to("#{page.name || page.publication_file_name}", "#page/#{index+1}", title: "#{page.body}", rel: "tooltip" ))
+    end
+
+    content_tag(:ul, li_index.join("\n").html_safe, class: "flipbook-index dropdown-menu")
+  %>
+  <div class="flipbook-center">
+    <div class="flipbook-container">
+    <%
+    count = @pages.count
+    @pages.each_with_index do |page, index|
+      options = {}
+      options[:class] = "hard" if index <= 1 or count <= (index+2)
+      options[:class] << " front-side depth_start" if index == 1
+      options[:class] << " back-side depth_end" if count == (index+2)
+      %>
+      
+      <% # Página %>
+      <%= content_tag :div, options do %>
+        <%= image_tag page.publication(:page), class: "flipPG" %>
+      <% end -%>
+    <% end -%>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  // Load the HTML4 version if there's not CSS transform
+  yepnope({
+    test : Modernizr.csstransforms,
+    yep: ['/assets/flip/turn.js'],
+    nope: ['/assets/flip/turn.html4.js'],
+    both: ['/assets/flip/zoom.js'],
+    complete: function() {
+      $("#publication-<%= @publication.slug %>").makeFlip({
+        download_url: "<%= publication_path(@publication, format: :pdf) %>"
+      });
+    }
+  }); 
+});
+</script>
+<% end -%>
+
+<% content_for :social_buttons do -%>
+  <div class="social-container" data-url="<%= publication_url(@publication) %>"></div>
+  <script type="text/javascript" charset="utf-8">
+  $('.social-container').social(<%= raw social_buttons_json %>);
+  </script>
+<% end unless defined?(disable_social) and disable_social -%>

@@ -1,0 +1,45 @@
+<% @contact = ContactUs::Contact.new if !defined?(@contact) %>
+<h2 class="title"><%= t('.contact_us') %></h2>
+<%= form_for @contact, :url => contacts_path, :html => {:class => 'form-horizontal'}, :validate => true do |f| %>
+  <%= errors_for @contact %>
+  
+  <div class="row">
+    <div class="span6">
+      <% if ContactUs.require_name %>
+        <div class="control-group">
+          <%= f.label :name, (t('.name') + content_tag(:abbr, ' *', { :title => I18n.t(:required), :class => 'required' })).html_safe, :class => 'control-label' %>
+
+          <div class="controls"> <%= f.text_field :name, :class => 'text_field span4' %> </div>
+        </div>
+      <% end %>
+      <div class="control-group">
+        <%= f.label :email, (t('.email') + content_tag(:abbr, ' *', { :title => I18n.t(:required), :class => 'required' })).html_safe, :class => 'control-label' %>
+        <div class="controls"> <%= f.text_field :email, :class => 'text_field span4' %> </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone, (t('.phone')).html_safe, :class => 'control-label' %>
+        <div class="controls"> <%= f.phone_field :phone, :class => 'text_field span4' %> </div>
+      </div>
+      <% if ContactUs.require_subject %>
+        <div class="control-group">
+          <%= f.label :subject, (t('.subject') + content_tag(:abbr, ' *', { :title => I18n.t(:required), :class => 'required' })).html_safe, :class => 'control-label' %>
+          <div class="controls"> <%= f.text_field :subject, :class => 'text_field span4' %> </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="span6">
+      <div class="control-group">
+        <%= f.label :message, (t('.message') + content_tag(:abbr, ' *', { :title => I18n.t(:required), :class => 'required' })).html_safe %>
+        <%= f.text_area :message, :class => 'text_area span5' %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="span12">
+      <div class="form-actions align-center">
+        <%= f.submit t('.submit').html_safe, :class => 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

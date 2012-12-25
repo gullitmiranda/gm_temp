@@ -1,0 +1,57 @@
+<% @publication = Publication.new if !defined?(@publication) %>
+
+<%= semantic_form_for [:admin, @publication], :validate => true, :remote => params[:action] != "new", :html => { :multipart => true, class: 'form-horizontal' } do |f| %>
+  <%= errors_for @publication %>
+
+  <div class="row">
+    <!-- Acões -->
+    <div class="span<%= params[:action] == "edit_page" ? "10" : "12" %>">
+      <div class="align-right">
+        <%= f.submit :class => 'btn btn-primary' %>
+        <%= link_to t(".cancel"), admin_publications_path, :class => 'btn btn-link cancel' %>
+      </div>
+    </div>
+
+    <!-- Nome e descrição -->
+    <div class="span6">
+      <%= f.globalize_inputs :translations do |lf| %>
+        <div class="line name"><%= lf.text_field :name, :class => 'text_field span4', placeholder: t(".name_placeholder") %> </div>
+        <div class="line description"><%= lf.text_area :body, :class => 'text_area span4', placeholder: t(".body_placeholder") %></div>
+        <%= lf.input :locale, :as => :hidden %>
+      <% end %>
+    </div>
+    <!-- tipo, data, categorias, publicado -->
+    <div class="span6">
+      <%- unless params[:action] == "edit_page" %>
+      <div class="control-group">
+        <%= f.label :object_type, "#{t('.object_type')}:", :class => 'control-label' %>
+        <div class="controls radio_button">
+          <%= f.radio_button :object_type, '0', checked: true %> <%= f.label :catalogue, for: "publication_object_type_0" %>
+          <%= f.radio_button :object_type, '1' %> <%= f.label :campaign, for: "publication_object_type_1" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :datetime, :class => 'control-label' %>
+        <div class="controls datetime_select">
+          <%= f.date_select :datetime %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :tag_list, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :tag_list %>
+        </div>
+        <em class="controls"><%= t(".separated_by_commas") %></em>
+      </div>
+      <div class="control-group">
+        <%= f.label :published, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :published, :class => 'checkbox' %>
+        </div>
+      </div>
+      <% else %>
+        <%= f.check_box :published, :class => 'checkbox hidden', checked: "checked" %>
+      <% end -%>
+    </div>
+  </div>
+<% end %>

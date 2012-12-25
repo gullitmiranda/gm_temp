@@ -1,0 +1,84 @@
+<%- content_for :no_container do %>
+<% @contactBackground = Setting.get_object("rdcms.view.application.contact.background") %>
+<% unless @contactBackground.value.empty? %>
+<style type="text/css">
+	body.contact_us #no_container {
+		background-color: <%= @contactBackground.value %>;
+	}
+</style>
+<% end -%>
+<!-- Map e informações -->
+<div class="container">
+<div class="row">
+	<div class="span8">
+		<h2><%= t(".localization") %></h2>
+		<div id="contact_map" class="map box-rounded-shadow-dark"></div>
+		<div class="company_mark_viewport hidden">
+	  	<div class="company_mark">
+				<div class="company_mark_content" title="<%= "#{Setting.for_key("rdcms.company.name")}" %>"><%= image_tag "favicons/favicon.png" %></div>
+				<div class="company_mark_arrow above"></div>
+			</div>
+		</div>
+  </div>
+	<div class="span4">
+		<h2><%= t(".informations") %></h2>
+		<div class="row">
+			<div class="span4">
+				<div class="box-rounded-shadow-dark company_information_box company_andress">
+					<div class="thumb"><i class="icon-location"></i></div>
+					<p> <%= render_address %> </p>
+				</div>
+				<!-- Phone -->
+				<% phone = Setting.for_key("rdcms.company.phone") %>
+				<%- unless phone.empty? %>
+				<div class="box-rounded-shadow-dark company_information_box company_phone">
+					<div class="thumb"><i class="icon-phone"></i></div>
+					<p><strong><%= phone %></strong></p>
+				</div>
+				<% end -%>
+				<!-- Email -->
+				<% email = Setting.for_key("rdcms.company.email") %>
+				<%- unless email.empty? %>
+				<div class="box-rounded-shadow-dark company_information_box company_email">
+					<div class="thumb"><i class="icon-envelope"></i></div>
+					<p><strong><%= email %></strong></p>
+				</div>
+				<% end -%>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+	  var map,
+	  		company_mark = $('.company_mark_viewport').hide();
+
+    map = new GMaps({
+      el: '#contact_map',
+      lat: -10.891089,
+      lng: -61.92233
+      // -10.891089,-61.92233
+    });
+    map.drawOverlay({
+      lat: map.getCenter().lat(),
+      lng: map.getCenter().lng(),
+      layer: 'overlayLayer',
+      content: company_mark.html(),
+      verticalAlign: 'top',
+      horizontalAlign: 'center'
+    });
+  });
+</script>
+</div>
+<% end -%>
+
+<hr class="page">
+<div class="row">
+	<div class="span12">
+		<div class="contact_us_form_container">
+		  <%= render :template => "contact_us/contacts/new" %>
+		</div>
+	</div>
+</div>
+<%= stylesheet_link_tag    "contact_us" %>
+<%= javascript_include_tag "contact_us" %>

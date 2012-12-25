@@ -1,0 +1,10 @@
+<%- content_for :title, "#{Setting.for_key("rdcms.site.name")} / #{I18n.t("activerecord.models.publication.other")} / #{@publication.name}" -%>
+
+<% unless @pages.blank? %>
+<div id="publication-<%= @publication.slug %>">
+  <% @pages.each_with_index do |page, index| %>
+    <%= image_tag page.publication(:page), class: "full_image" %>
+    <div class="pb_before"></div>
+  <% end -%>
+</div>
+<% end -%>

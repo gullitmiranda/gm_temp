@@ -1,0 +1,48 @@
+<%- content_for :title, "#{Setting.for_key("rdcms.site.name")} / #{I18n.t("activerecord.models.publication.other")}" -%>
+
+<%- content_for :navegation_link do %>
+  <%= link_to "<span class=\"icon-back\" aria-hidden=\"true\"></span>".html_safe, root_path, class: "BigButton fade in btnBack", rel: "tooltip", title: I18n.t("back") %>
+<% end -%>
+
+<% content_for :container do -%>
+<div id="publications-container">
+	<div class="row">
+		<!-- Publicações -->
+		<%- @publications.each_with_index do |record, index| %>
+		<% unless record.blank? %>
+		<div class="span6">
+			<div class="publication_column">
+				<h3 class="title"><%= I18n.t("attributes_all.#{index == 0 ? "catalogues" : "campaigns"}") %></h3>
+		    <ul class="thumbnails publication_box">
+					<% record.each do |item| %>
+						<% unless item.children.blank? %>
+		        <li class="span3">
+		          <div class="thumbnail">
+		            <%= link_to(item, { title: item.name, class: "thumb" }) do %>
+		              <%= image_tag item.children.ordained.first.publication(:thumb), class: "img-rounded" %>
+		            <% end %>
+
+		            <div class="details">
+		              <span class="line name"><%= link_to(item.name, item) %></span>
+		              <span class="line description"><%= item.body %></span>
+		            </div>
+		          </div>
+		        </li>
+		        <% end -%>
+		      <% end %>
+		    </ul>
+			</div>
+		</div>
+		<% end -%>
+		<% end -%>
+	</div>
+</div>
+<% end -%>
+
+<!-- Botões Sociais -->
+<% content_for :social_buttons do -%>
+  <div class="social-container" data-url="<%= publications_url %>"></div>
+  <script type="text/javascript" charset="utf-8">
+  $('.social-container').social(<%= raw social_buttons_json %>);
+  </script>
+<% end unless defined?(disable_social) and disable_social -%>

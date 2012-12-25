@@ -1,0 +1,27 @@
+<div class="row">
+  <div id="gallery_list" class="<%= defined?(list_class) ? list_class : "span12" %>">
+    <% unless defined?(disable_social) and disable_social %>
+      <div class="social-container" data-url="<%= galleries_url %>"></div>
+      <script type="text/javascript" charset="utf-8">
+      $('.social-container').social(<%= raw social_buttons_json %>);
+      </script>
+    <% end -%>
+    <ul class="thumbnails">
+      <% @galleries.each do |gallery| %>
+        <li class="span3">
+          <div class="thumbnail">
+            <%= link_to(gallery_path(gallery), { title: gallery.name, class: "thumb" }) do %>
+              <%= image_tag gallery.uploads.blank? ? "empty.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
+            <% end %>
+
+            <div class="details">
+              <span class="line name"><%= link_to(gallery.name, gallery_path(gallery), { title: gallery.name }) %></span>
+              <span class="line datetime"><%= l gallery.datetime.to_date, format: :long %></span>
+              <span class="line categories"><%= gallery.tag_list.blank? ? "&nbsp;".html_safe : gallery.tag_list %></span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

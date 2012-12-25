@@ -1,0 +1,55 @@
+<% @company = Setting.get_object("rdcms.company").children %>
+
+<div class="settings_company">
+<!-- <div class="panel settings_company"> -->
+  <!-- <div id="description" class="panel_contents preview"> -->
+    <!-- <div class="attributes_table well"> -->
+    <div class="thumbnail">
+      <!-- Objetos -->
+      <% name     = @company.find_by_title("name"     ) %>
+      <% address  = @company.find_by_title("address"  ) %>
+      <% district = @company.find_by_title("district" ) %>
+      <% cep      = @company.find_by_title("cep"      ) %>
+      <% city     = @company.find_by_title("city"     ) %>
+      <% state    = @company.find_by_title("state"    ) %>
+      <% country  = @company.find_by_title("country"  ) %>
+      <% phone    = @company.find_by_title("phone"    ) %>
+      <% email    = @company.find_by_title("email"    ) %>
+
+      <dl class="form span6">
+        <!-- Nome -->
+        <dt><%= t(".name") %>:</dt>
+        <dd><%= best_in_place name, :value, type: :input, classes: "span4", path: [:admin, name] %></dd>
+
+        <!-- Endereço -->
+        <dt><%= t(".address") %>:</dt>
+        <dd><%= best_in_place address, :value, type: :input, classes: "span4", path: [:admin, address] %></dd>
+
+        <!-- Bairro -->
+        <dt><%= t(".district") %>:</dt>
+        <dd><%= best_in_place district, :value, type: :input, classes: "span4", path: [:admin, district] %></dd>
+
+        <!-- CEP -->
+        <dt><%= t(".cep") %>:</dt>
+        <dd><%= best_in_place cep, :value, type: :input, classes: "span4", path: [:admin, cep] %></dd>
+
+        <!-- Cidade -->
+        <dt><%= t(".city") %>:</dt>
+        <dd><%= best_in_place city, :value, type: :input, classes: "span4", path: [:admin, city] %></dd>
+
+        <!-- País -->
+        <dt><%= t(".country") %>:</dt>
+        <dd><%= best_in_place country, :value, type: :input, classes: "span4", path: [:admin, country] %></dd>
+
+        <!-- Telefone -->
+        <dt><%= t(".phone") %>:</dt>
+        <dd><%= best_in_place phone, :value, type: :input, classes: "span4", path: [:admin, phone] %></dd>
+
+        <!-- E-mail -->
+        <dt><%= t(".email") %>:</dt>
+        <dd><%= best_in_place email, :value, type: :input, classes: "span4", path: [:admin, email] %></dd>
+
+      </dl>
+    </div>
+  <!-- </div> -->
+</div>
