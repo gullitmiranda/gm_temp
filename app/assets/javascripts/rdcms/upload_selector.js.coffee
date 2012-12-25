@@ -38,8 +38,9 @@ jQuery ->
     _sortable(container).data("offset", itens.length).data()
 
   _sortable = (container) ->
+
+    container.sortable('destroy') if container.data("sortable")
     container
-      .sortable('destroy')
       .sortable
         handle: ".det.header"
         connectWith: ".connectedSortable"
