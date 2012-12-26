@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require rdcms/jquery.tools.min.js
 //= require jquery-fileupload
-//= require turbolinks
 //= require rdcms/moment
 
 // Validações
