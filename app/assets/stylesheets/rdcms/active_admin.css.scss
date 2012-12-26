@@ -135,6 +135,10 @@ body.active_admin {
     .attributes_table > .row {
       margin-left: -23px;
     }
+    .header_padding,
+    .footer_padding {
+      input { width: auto; }
+    }
   }
 
   #admin_footer {
