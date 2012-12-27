@@ -15,7 +15,7 @@
    </div>
   <% end %>
 
-  <%= stylesheet_link_tag    "slider" %>
+  <%= stylesheet_link_tag    "slider", "movies" %>
   <%= javascript_include_tag "slider" %>
 
   <script>  
@@ -25,10 +25,6 @@
         enabled: true,
         nativeFS: true
       },
-    	// controlNavigation: 'thumbnails',
-      // captionShowEffects:["moveleft", "fade"],
-    // });
-	  // $('#video-gallery').royalSlider({
 	    arrowsNav: false,
 	    fadeinLoadedSlide: true,
 	    controlNavigationSpacing: 0,
@@ -37,7 +33,8 @@
 	    thumbs: {
 	      autoCenter: false,
 	      fitInViewport: true,
-	      orientation: 'vertical',
+        orientation: 'horizontal',
+	      // orientation: 'vertical',
 	      spacing: 0
 	    },
 	    keyboardNavEnabled: true,
@@ -57,85 +54,6 @@
 	  });
   });
   </script>
-  <style>
-#video-gallery {
-  width: 100%;
-  color: #FFF;
-}
-.videoGallery .rsCloseVideoBtn {
-  display: none;
-} 
-/* Styling thumbnails */
-.videoGallery h5 {
-  margin: 0;
-}
-.videoGallery p {
-  color: #ddd;
-  font-size: 13px;
-}
-.videoGallery .rsTmb {
-  padding: 20px;
-}
-
-.videoGallery .rsThumbs .rsThumb {
-  width: 220px;
-  height: 80px;
-  border-bottom: 1px solid #2E2E2E;
-}
-.videoGallery .rsThumbs.rsThumbsVer {
-  width: 220px;
-  padding: 0;
-}
-.videoGallery .rsThumb:hover {
-  background: #000;
-}
-.videoGallery .rsThumb.rsNavSelected {
-  background-color: #02874A;
-  border-bottom: 1px solid #009E56;
-}
-
-.rsDefault .rsOverflow,
-.rsDefault .rsSlide,
-.rsDefault .rsVideoFrameHolder,
-.rsDefault .rsThumbs {
-  background: #202020;
-}
-
-.sampleBlock {
-  left: 3%; 
-  top: 1%; 
-  width: 100%;
-  max-width: 400px;
-}
-
-@media screen and (min-width: 0px) and (max-width: 500px) {
-  .videoGallery .rsTmb {
-    padding: 6px 8px;
-  }
-  .videoGallery h5 {
-    font-size: 13px;
-    line-height: 17px;
-  }
-  .videoGallery .rsThumbs.rsThumbsVer {
-    width: 100px;
-    padding: 0;
-  }
-  .videoGallery .rsThumbs .rsThumb {
-    width: 100px;
-    height: 47px;
-  }
-  .videoGallery .rsTmb p {
-    display: none;
-  }
-  .videoGallery .rsOverflow,
-  .royalSlider.videoGallery {
-    height: 300px !important;
-  }
-  .sampleBlock {
-    font-size: 14px;
-  }
-}
-    </style>
   <!-- end imagens -->
 <% else %>
 	<div class="index_movies_container"></div>
