@@ -148,8 +148,8 @@ es:
         one: Produto
         other: Produtos
       gallery:
-        one: Evento
-        other: Eventos
+        one: Galería
+        other: Galerías
       # Artigos
       post:
         one: Artigo

@@ -121,8 +121,8 @@ en:
         one: Product
         other: Products
       gallery:
-        one: Event
-        other: Events
+        one: Gallery
+        other: Galleries
       # Artigos
       post:
         one: "Article"
