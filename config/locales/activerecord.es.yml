@@ -83,6 +83,7 @@ es:
     weight: Peso
     weights_and_measures: Pesos e Medidas
     width: Largura
+    year: Año
     yes: Sim
   # Admin module
   admin: &admin

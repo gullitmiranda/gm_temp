@@ -230,8 +230,10 @@ module RdcmsHelper
 
     if isApplication
       # Data objetos com algumas informações da companhia
+      @companyName  = Setting.get_object("rdcms.company.name")
       @companyPhone = Setting.get_object("rdcms.company.phone")
       @companyEmail = Setting.get_object("rdcms.company.email")
+      @companyYear  = Setting.get_object("rdcms.company.year")
 
       phone = "<em>#{I18n.t('attributes_all.phone'        )}: #{@companyPhone.value}</em><br>" unless @companyPhone.value.empty?
       email = "<em>#{I18n.t('attributes_all.contact_email')}: <a href=\"mailto:#{@companyEmail.value}\">#{@companyEmail.value}</a></em>" unless @companyEmail.value.empty?
@@ -301,11 +303,11 @@ module RdcmsHelper
             <div class="container">
               <div class="row">
                 <div class="copyright span8">
-                  <em>#{t("layouts.#{setting_layout}.copyright", :company => "Valeria Totti", :year => "2012")}</em>
+                  <em>#{t("layouts.#{setting_layout}.copyright", :company => @companyName.value, :year => @companyYear.value)}</em>
                 </div>
                 <div class="developer span4">
                   #{t("layouts.#{setting_layout}.developed_by")}:
-                  <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br" rel="tooltip" data-placement="bottom">
+                  <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br" rel="tooltip" data-placement="top">
                     <img alt="Requestdev Sistemas" src="http://requestdev.com.br/images/Logo 204x48.png">
                   </a>
                 </div>

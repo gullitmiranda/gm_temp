@@ -58,6 +58,7 @@ rdcms:
     country: Brasil
     phone: "+55 (69) 3421-4346"
     email: "contato@requestdev.com.br"
+    year: "2011"
 
   site:
     name: Requestdev Sistemas

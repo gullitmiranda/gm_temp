@@ -127,6 +127,12 @@ body.active_admin {
     line-height: 24px;
     margin: 0;
   }
+  &.admin_posts {
+    .summary .text_area {
+      height: 73px;
+      padding: 4px 6px;
+    }
+  }
 
   /* Configurações de aparências */
   #admin_header,

@@ -16,7 +16,7 @@ ActiveAdmin.register Post do
     column :id
     column :name, :sortable => :name do |p|
       title = p.name if p.name.to_s.length < 40
-      link_to(truncate(p.name, :length => 40), [:admin, p], title: "#{title || ""}" )
+      link_to(truncate(p.name, :length => 40), edit_admin_post_path(p), title: "#{title || ""}" )
     end
     column :summary, :sortable => :summary do |p|
       text = strip_tags(p.summary).to_s.strip

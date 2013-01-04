@@ -15,6 +15,7 @@
       <% country  = @company.find_by_title("country"  ) %>
       <% phone    = @company.find_by_title("phone"    ) %>
       <% email    = @company.find_by_title("email"    ) %>
+      <% year     = @company.find_by_title("year"     ) %>
 
       <dl class="form span6">
         <!-- Nome -->
@@ -48,6 +49,10 @@
         <!-- E-mail -->
         <dt><%= t(".email") %>:</dt>
         <dd><%= best_in_place email, :value, type: :input, classes: "span4", path: [:admin, email] %></dd>
+
+        <!-- Ano -->
+        <dt><%= t(".year") %>:</dt>
+        <dd><%= best_in_place year, :value, type: :input, classes: "span4", path: [:admin, year] %></dd>
 
       </dl>
     </div>

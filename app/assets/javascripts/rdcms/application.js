@@ -23,6 +23,7 @@
 
 // Aparência
 //= require twitter/bootstrap
+//= require bootstrap
 
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument

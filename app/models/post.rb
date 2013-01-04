@@ -1,5 +1,11 @@
 class Post < ActiveRecord::Base
-  attr_accessible :datetime, :name, :summary, :body, :slug, :translations_attributes, :tag_list, :published
+  attr_accessible :datetime, :name, :summary, :body, :published,
+    # Slug, I18n e tags
+    :slug, :locale, :translations_attributes, :tag_list,
+    # Paperclip
+    :posts, :posts_content_type, :posts_file_name, :posts_file_size
+  
+  has_attached_file :posts, :styles => { :thumb => "260x180#" }
 
   # URL amigáveis através do :name
   extend FriendlyId

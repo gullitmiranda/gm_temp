@@ -12,11 +12,16 @@
           <div class="thumbnail post-list">
             <h3><%= link_to post.name, post_path(post) %></h3>
             <div class="details">
-              <span class="post-data">- <%= time_ago_in_words post.datetime %> (<%= l post.datetime %>)</span>
+              <span class="post-data"><%= time_ago_in_words post.datetime %> (<%= l post.datetime %>)</span>
               <span class="post-categories"><%= post.tag_list %></span>
               <!-- <span class="post-categories">< %= post.tag_list.map {|t| link_to t, tag_path(t) }.join(', ') %></span> -->
             </div>
-            <div class="post-body clearfix"><%= raw post.summary %></div>
+            <div class="post-body clearfix">
+              <%= link_to(post, { title: t("view_more"), class: "thumb" }) do %>
+                <%= image_tag post.posts(:thumb), class: "img-rounded" %>
+              <% end if post.posts? %>
+              <p><%= raw post.summary %></p>
+            </div>
             <div class="read_more"><%= link_to t(:view_more), post_path(post), class: "btn btn-link" %></div>
           </div>
         </li>

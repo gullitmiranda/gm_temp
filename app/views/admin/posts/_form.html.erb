@@ -1,18 +1,12 @@
-<%= semantic_form_for [:admin, @post], :html => { :class => 'form-horizontal' } do |f| %>
+<%= semantic_form_for [:admin, @post], :html => { :multipart => true, class: 'form-horizontal' } do |f| %>
   <%= errors_for @post %>
 
   <%= f.globalize_inputs :translations do |lf| %>
-    <div class="control-group">
-      <%= lf.label :name, t(".name"), :class => 'label' %>
-      <%= lf.text_field :name, :class => 'text_field' %>
-    </div>
-    <div class="control-group summary">
-      <%= lf.label :summary, t(".summary"), :class => 'label' %>
-      <%= lf.cktext_area :summary, :class => 'text_area' %>
-    </div>
+    <div class="line name"><%= lf.text_field :name, :class => 'text_field span4', placeholder: t(".name_placeholder") %> </div>
+    <div class="line summary"><%= lf.text_area :summary, :class => 'text_area span4', placeholder: t(".summary_placeholder") %></div>
     <div class="control-group">
       <%= lf.label :body, t(".body"), :class => 'label' %>
-      <%= lf.cktext_area :body, :class => 'text_area', :toolbar => 'Full' %>
+      <%= lf.cktext_area :body, :class => 'text_area', :toolbar => 'Full', placeholder: t(".body_placeholder") %>
     </div>
     <%= lf.input :locale, :as => :hidden %>
   <% end %>
@@ -26,13 +20,26 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label :posts, t(".image"), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :posts, :accept => "image/*" %>
+    </div>
+    <em class="controls"><%= t("recommended_size_for_upload", :size => "260x180") %></em>
+  </div>
+  <div class="control-group">
     <%= f.label :tag_list, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :tag_list %>
     </div>
     <em class="controls"><%= t(".separated_by_commas") %></em>
   </div>
-  
+  <div class="control-group">
+    <%= f.label :published, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :published, :class => 'checkbox' %>
+    </div>
+  </div>
+
   <hr />
   
   <div class="form-actions">

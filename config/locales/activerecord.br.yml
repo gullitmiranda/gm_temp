@@ -56,7 +56,6 @@ br:
     loop: Contínuo
     measures: Medidas
     name: Nome
-    name_placeholder: Digite um nome
     no: Não
     object_type: Tipo
     padding: Espaçamento interno
@@ -94,7 +93,14 @@ br:
     weight: Peso
     weights_and_measures: Pesos e Medidas
     width: Largura
+    year: Ano
     yes: Sim
+
+    # Placeholders
+    body_placeholder: Escreva o conteúdo completo
+    name_placeholder: Digite um nome
+    summary_placeholder: Escreva uma curta descrição
+
   # Admin module
   admin: &admin
     posts:
