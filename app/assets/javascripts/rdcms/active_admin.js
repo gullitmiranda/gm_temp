@@ -9,6 +9,7 @@
 //= require jquery.meio.mask
 
 //= require twitter/bootstrap
+//= require bootstrap
 
 //= require formstyle
 //= require rdcms/chosen.jquery.min
