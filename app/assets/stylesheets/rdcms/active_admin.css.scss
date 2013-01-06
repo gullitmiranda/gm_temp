@@ -6,7 +6,9 @@
 @import "compass";
 @import "farbtastic";
 
- // *** Slider
+@import "all";
+
+// *** Slider
 @import "slider";
 
 // To customize the Active Admin interfaces, add your
@@ -477,3 +479,9 @@ h3 .foldable_icon_wrapper{
   }
 }
 
+/* Settings > Visualizations */
+body.admin_visualization {
+  div#main_content h3 {
+    margin-left: 0;
+  }  
+}

@@ -6,7 +6,8 @@ es:
   attributes_all: &attributes_all
     active: ativo
     address: Endereço
-    applay_colors: Aplicar cores
+    apply_color: Aplicar cor
+    apply_colors: Aplicar cores
     approved: aprovado
     article_type: tipo de artigo
     author: Autor

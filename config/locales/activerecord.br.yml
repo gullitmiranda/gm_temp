@@ -6,8 +6,9 @@ br:
   attributes_all: &attributes_all
     active: ativo
     address: Endereço
-    applay_color: Aplicar cor
-    applay_colors: Aplicar cores
+    application_template: Páginas padrões
+    apply_color: Aplicar cor
+    apply_colors: Aplicar cores
     approved: aprovado
     article_type: tipo de artigo
     author: Autor
@@ -42,6 +43,7 @@ br:
     firstname: Nome
     footer: Rodapé
     function: Funções
+    fullscreen_template: Páginas de visualizações
     general: Geral
     gender: Gênero
     googleplus: Google Plus

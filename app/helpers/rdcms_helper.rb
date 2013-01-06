@@ -120,7 +120,7 @@ module RdcmsHelper
     @social_pages = Setting.get_object("rdcms.social_pages")
     html = ""
     @social_pages.children.each do |record|
-      html << content_tag(:li) do
+      html << content_tag(:li, title: I18n.t(".social_pages.#{record.title}"), rel: "tooltip") do
         link_to("<i class=\"icon-#{record.title}\"></i>".html_safe, record.value, target: "_blank", rel: "publisher")
       end unless record.value.empty?
     end
@@ -156,54 +156,65 @@ module RdcmsHelper
 
   # Renderiza o cabeçalho
   def render_header(setting_layout="application", preview=false, options={})
-    setting_layout = "application" if defined?(setting_layout)
+    setting_layout ||= "application"
     setting_name = "rdcms.view.#{setting_layout}"
 
-    @logo             = Setting.get_object("#{setting_name}.header.logo")
-    @background       = Setting.get_object("#{setting_name}.header.background")
-    @innerBackground  = Setting.get_object("#{setting_name}.header.inner_background")
-    @padding          = Setting.get_object("#{setting_name}.header.padding")
+    styleHeader = ""
+    form        = ""
+    style       = ""
+
+    styleHeader << "position: relative;" if preview
+    block = %Q{<div class="overlay-block"></div>} if preview
+
+    # Application template
+    if setting_layout == "application"
+      @logo             = Setting.get_object("#{setting_name}.header.logo")
+      @background       = Setting.get_object("#{setting_name}.header.background")
+      @innerBackground  = Setting.get_object("#{setting_name}.header.inner_background")
+      @padding          = Setting.get_object("#{setting_name}.header.padding")
+
+      styleHeader << "background: #{@background.value};" unless @background.value.empty?
+      styleHeader << "padding: #{@padding.value};" unless @padding.value.empty?
+  
+      style << "background: #{@innerBackground.value};" unless @innerBackground.value.empty?
+      style << "#{options[:styles]}" unless options[:styles].blank?
+
+    # Fullscreen
+    elsif setting_layout == "full_screen"
+      @logo   = Setting.get_object("#{setting_name}.logo")
+    end
 
     noBlk   = @logo.uploads.last.blank?
 
     image = !noBlk ? @logo.uploads.last.upload(:logo) : @logo.value
 
-    unless preview
+    unless preview or setting_layout == "full_screen"
       nav = %Q{
             <div class="nav-collapse collapse">
               #{navigation_links.html_safe}
               #{language_links(options[:language]).html_safe}
             </div>}
     else
-      form = %Q{
-            <div id="updates" class="hidden">
-              #{best_in_place(@logo       , :upload_ids, type: :input, classes: "brand_logo", path: [:admin, @logo])}
-              #{best_in_place(@background , :value, type: :input, classes: "background", path: [:admin, @background])}
-              #{best_in_place(@innerBackground, :value, type: :input, classes: "innerBackground", path: [:admin, @innerBackground])}
-            </div>
-      }
+      form = %Q{<div id="updates" class="hidden">}
+      form << %Q{#{best_in_place(@logo       , :upload_ids, type: :input, classes: "brand_logo", path: [:admin, @logo])} }
+      
+      form << %Q{
+            #{best_in_place(@background , :value, type: :input, classes: "background", path: [:admin, @background])}
+            #{best_in_place(@innerBackground, :value, type: :input, classes: "innerBackground", path: [:admin, @innerBackground])}
+      } if setting_layout == "application"
+
+      form << %Q{</div>}
     end
 
-    brand = link_to(root_path, :class => "brand") do
+    brand = link_to(root_path, class: "brand", title: I18n.t(".back_to_homepage"), rel: "tooltip") do
       html = image_tag(image, :class => "logo")
       html
     end
 
-    styleHeader = ""
-    styleHeader << "background: #{@background.value};" unless @background.value.empty?
-    styleHeader << "padding: #{@padding.value};" unless @padding.value.empty?
-    styleHeader << "position: relative;" if preview
-
-    style = ""
-    style << "background: #{@innerBackground.value};" unless @innerBackground.value.empty?
-    style << "#{options[:styles]}" unless options[:styles].blank?
-
-    block = %Q{<div class="overlay-block"></div>} if preview
-
     inner_html = %Q{
-    <div class="navbar">
+    <div class="navbar #{setting_layout}">
       <div class="navbar-inner nav-colorize" style="#{styleHeader}">
-        <div class="container green-sea" style="#{style}">
+        <div class="container nav-background" style="#{style}">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -262,8 +273,8 @@ module RdcmsHelper
       footerContainerStyle << "#{options[:styles]}" unless options[:styles].blank?
 
       return html = %Q{
-        <footer #{"style=\"position: relative;\"" if preview}>
-          <div class="footer-box green-sea" style="#{footerStyle}">
+        <footer class="#{setting_layout}" #{"style=\"position: relative;\"" if preview}>
+          <div class="footer-box nav-background" style="#{footerStyle}">
             <div class="footer-container" style="#{footerContainerStyle}">
               <div class="container">
                 <div class="row">

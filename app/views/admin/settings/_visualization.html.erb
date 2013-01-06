@@ -8,7 +8,10 @@
     <div class="tab-content">
       <div id="admin_header" class="tab-pane active">
         <div class="panel_contents preview">
-          <div class="attributes_table">
+          <!-- Application template -->
+          <div id="application" class="attributes_table">
+            <div class="section"><h3><%= t(".application_template") %></h3></div>
+            
             <!-- Objetos -->
             <% @logo            = Setting.get_object("rdcms.view.application.header.logo") %>
             <% @background      = Setting.get_object("rdcms.view.application.header.background") %>
@@ -36,6 +39,7 @@
                         options: {
                           # especific options
                           :style              => "logo",
+                          :class              => "application_logo",
                           :form_for           => [:admin, @logo],
                           :show_type          => "image",
                           :accept             => "image/*",                    
@@ -75,13 +79,13 @@
             <!-- Botão -->
             <div class="row">
               <div class="span5 offset6 form-actions align-center">
-                <%= button_tag t(".applay_colors"), type: "button", class: "btn btn-primary save_backgrounds" %>
+                <%= button_tag t(".apply_colors"), type: "button", class: "btn btn-primary save_backgrounds" %>
               </div>
             </div>
             <script type="text/javascript" charset="utf-8">
               $(function () {
-                var single_logo     = $('#fileupload.single_logo'),
-                    admin_header    = $('#admin_header'),
+                var admin_header    = $('#admin_header #application'),
+                    single_logo     = $('#fileupload.single_logo', admin_header),
                     brand           = $('.brand'        , admin_header),
                     navbarInner     = $('.navbar-inner' , admin_header),
                     navbarContainer = $('.container'    , navbarInner),
@@ -125,6 +129,66 @@
                 });
               });
             </script>
+          </div>
+
+          <!-- Fullscreen template -->
+          <div id="full_screen" class="attributes_table">
+            <div class="section"><h3><%= t(".fullscreen_template") %></h3></div>
+            
+            <div class="row">
+              <!-- Objetos Fullscreen -->
+              <% @logoFullscreen = Setting.get_object("rdcms.view.full_screen.logo") %>
+              
+              <div class="span4">
+                <dl>
+                  <dt> <strong><%= t(".file") %>:</strong> </dt>
+                  <dd>
+                    <%= render :partial => 'admin/single_upload', :locals => {
+                        options: {
+                          # especific options
+                          :style              => "logo",
+                          :class              => "fullscreen_logo",
+                          :form_for           => [:admin, @logoFullscreen],
+                          :show_type          => "image",
+                          :accept             => "image/*",                    
+                          :accept_file_types  => "/(\.|\/)(gif|jpe?g|png)$/i",
+                        },
+                      }
+                    %>
+                  </dd>
+                  <dd><div class="hint"><%= t(".file_hint", :size => "600x175px") %></div></dd>
+                </dl>
+              </div>
+              <div id="preview" class="span4">
+                <%= form_for [:admin, @logo], :html => { :remote => true } do |f| -%>
+                  <%= render_header "full_screen", true %>
+                <% end -%>
+              </div>
+
+            <script type="text/javascript" charset="utf-8">
+              $(function () {
+                var full_screen       = $('#admin_header #full_screen'),
+                    fullscreen_logo   = $('#fileupload.single_logo', full_screen),
+                    fullscreen_brand  = $('.brand'        , full_screen),
+                    fullscreen_form   = $('#updates'      , full_screen);
+
+                /* Upload da logo */
+                fullscreen_logo.bind('fileuploaddone', function (e, data) {
+                  var $this = $(this),
+                      that  = $this.data('fileupload'),
+                      dt    = data.result[0];
+
+                  // Remover item após upload
+                  that._adjustMaxNumberOfFiles(1);
+                  $('.template-download', $this).fadeOut(function () {$(this).remove(); });
+
+                  
+                  img_nav = $('img', fullscreen_brand).attr('src', dt.images.logo);
+                  input   = $('.brand_logo.best_in_place', fullscreen_form).click(function() {$('input', this).val(dt.id).trigger('blur') }).trigger('click');
+                });
+              });
+            </script>
+            </div>
           </div>
         </div>
       </div>
@@ -173,7 +237,7 @@
             <!-- Botão -->
             <div class="row">
               <div class="span5 offset6 form-actions align-center">
-                <%= button_tag t(".applay_colors"), type: "button", class: "btn btn-primary save_backgrounds" %>
+                <%= button_tag t(".apply_colors"), type: "button", class: "btn btn-primary save_backgrounds" %>
               </div>
             </div>
             <script type="text/javascript" charset="utf-8">
@@ -225,8 +289,7 @@
               </div>
               <!-- Preview -->
               <div class="span3">
-                <div class="preview_contact_background" style="<%= "background-color: #{@contactBackground.value};" unless @contactBackground.value.empty?
- %>"></div>
+                <div class="preview_contact_background" style="<%= "background-color: #{@contactBackground.value};" unless @contactBackground.value.empty? %>"></div>
                 <div id="updates" class="hidden">
                   <%= best_in_place(@contactBackground , :value, type: :input, classes: "background", path: [:admin, @contactBackground]) %>
                 </div>
@@ -235,7 +298,7 @@
             <!-- Botão -->
             <div class="row">
               <div class="span6 form-actions align-center">
-                <%= button_tag t(".applay_color"), type: "button", class: "btn btn-primary save_backgrounds" %>
+                <%= button_tag t(".apply_color"), type: "button", class: "btn btn-primary save_backgrounds" %>
               </div>
             </div>
             <script type="text/javascript" charset="utf-8">
