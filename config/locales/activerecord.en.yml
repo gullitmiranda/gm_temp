@@ -110,6 +110,34 @@ en:
         <<: *attributes_all
       form:
         <<: *attributes_all
+    pages:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+    partners:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+        add_partner: Adicionar parceiro
+    publications:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+        name_placeholder: Publicação sem nome
+        body_placeholder: Escreva algo relacionado a essa publicação
+    settings:
+      visualization:
+        <<: *attributes_all
+        header: Cabeçalho
+        file: Imagem
+        file_hint: "O tamanho recomendável é de %{size}."
+        background: Cor do espaçamento
+        inner_background: Cor de fundo
+      company:
+        <<: *attributes_all
   <<: *admin
   # ActiveRecord
   activerecord:
@@ -167,6 +195,15 @@ en:
         one: Widget
         other: Widgets
       tour: Virtual Tour
+      page:
+        one: Página
+        other: Páginas
+      partner:
+        one: Parceiro
+        other: Parceiros
+      publication:
+        one: Publicação
+        other: Publicações
 
       # Desativados
       metag:
@@ -194,3 +231,10 @@ en:
         <<: *attributes_all
       user:
         <<: *attributes_all
+      page:
+        <<: *attributes_all
+      partner:
+        <<: *attributes_all
+      publication:
+        <<: *attributes_all
+        children: Páginas

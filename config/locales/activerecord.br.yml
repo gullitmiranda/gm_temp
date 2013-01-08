@@ -15,7 +15,6 @@ br:
     auto_start: Iniciar automaticamente
     background: Imagen de fundo
     body: Texto
-    name_placeholder: Digite alguma descrição
     campaign: Campanha
     campaigns: Campanhas
     cancel: Cancelar
@@ -100,8 +99,10 @@ br:
 
     # Placeholders
     body_placeholder: Escreva o conteúdo completo
+    description_placeholder: Digite uma descrição
     name_placeholder: Digite um nome
     summary_placeholder: Escreva uma curta descrição
+    url_placeholder: Digite o endereço do site
 
   # Admin module
   admin: &admin
@@ -145,6 +146,12 @@ br:
         <<: *attributes_all
       form:
         <<: *attributes_all
+    partners:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+        add_partner: Adicionar parceiro
     publications:
       show:
         <<: *attributes_all
@@ -224,6 +231,9 @@ br:
       page:
         one: Página
         other: Páginas
+      partner:
+        one: Parceiro
+        other: Parceiros
       publication:
         one: Publicação
         other: Publicações
@@ -255,6 +265,8 @@ br:
       user:
         <<: *attributes_all
       page:
+        <<: *attributes_all
+      partner:
         <<: *attributes_all
       publication:
         <<: *attributes_all

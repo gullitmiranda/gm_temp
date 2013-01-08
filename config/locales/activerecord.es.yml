@@ -128,6 +128,19 @@ es:
         <<: *attributes_all
       form:
         <<: *attributes_all
+    partners:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+        add_partner: Adicionar parceiro
+    publications:
+      show:
+        <<: *attributes_all
+      form:
+        <<: *attributes_all
+        name_placeholder: Publicação sem nome
+        body_placeholder: Escreva algo relacionado a essa publicação
     settings:
       visualization:
         <<: *attributes_all
@@ -200,6 +213,12 @@ es:
       page:
         one: Página
         other: Páginas
+      partner:
+        one: Parceiro
+        other: Parceiros
+      publication:
+        one: Publicação
+        other: Publicações
 
       # Desativados
       metag:
@@ -229,3 +248,8 @@ es:
         <<: *attributes_all
       page:
         <<: *attributes_all
+      partner:
+        <<: *attributes_all
+      publication:
+        <<: *attributes_all
+        children: Páginas
