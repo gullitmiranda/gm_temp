@@ -29,7 +29,7 @@ module RdcmsHelper
         html << "\t<h2>#{pluralize(f.object.errors.count, "error")} prohibited this product from being saved:</h2>"
       else
         html << "<h2>#{message}</h2>"
-      end  
+      end
       html << "\t<ul>\n"
       object.errors.full_messages.each do |error|
         html << "\t\t<li>#{error}</li>\n"
@@ -38,8 +38,8 @@ module RdcmsHelper
       html << "</div>\n"
     end
     html
-  end  
-  
+  end
+
   # alias para Setting.for_key(name)
   def s(name)
     if name.present?
@@ -175,7 +175,7 @@ module RdcmsHelper
 
       styleHeader << "background: #{@background.value};" unless @background.value.empty?
       styleHeader << "padding: #{@padding.value};" unless @padding.value.empty?
-  
+
       style << "background: #{@innerBackground.value};" unless @innerBackground.value.empty?
       style << "#{options[:styles]}" unless options[:styles].blank?
 
@@ -197,7 +197,7 @@ module RdcmsHelper
     else
       form = %Q{<div id="updates" class="hidden">}
       form << %Q{#{best_in_place(@logo       , :upload_ids, type: :input, classes: "brand_logo", path: [:admin, @logo])} }
-      
+
       form << %Q{
             #{best_in_place(@background , :value, type: :input, classes: "background", path: [:admin, @background])}
             #{best_in_place(@innerBackground, :value, type: :input, classes: "innerBackground", path: [:admin, @innerBackground])}
@@ -212,7 +212,7 @@ module RdcmsHelper
     end
 
     inner_html = %Q{
-    <div class="navbar #{setting_layout}">
+    <div class="navbar #{setting_layout} #{"navbar navbar-fixed-top navbar-fade-background" if options[:fixed] == true}">
       <div class="navbar-inner nav-colorize" style="#{styleHeader}">
         <div class="container nav-background" style="#{style}">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
