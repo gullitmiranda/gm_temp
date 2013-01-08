@@ -21,7 +21,7 @@ class Upload < ActiveRecord::Base
                   :source, :rights, :tag_list, :description, :alt_text
                   # Associações
                   :products_id
-  
+
   if ActiveRecord::Base.connection.table_exists?("uploads")
     has_attached_file :upload,
                       :styles => {

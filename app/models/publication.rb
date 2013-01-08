@@ -88,9 +88,6 @@ class Publication < ActiveRecord::Base
   # Refaz a ordenação dos uploads
   def self.reorder_positions(ids = nil)
     [] if ids.blank?
-    logger.debug "\n======== Reorder Positions ========="
-    logger.debug "\n======== #{ids} =========\n"
-
     counter = 1
     ActiveRecord::Base.establish_connection
     ids.each do |id|

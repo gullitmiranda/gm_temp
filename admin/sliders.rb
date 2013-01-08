@@ -5,7 +5,7 @@ ActiveAdmin.register Slider do
         if: proc{can?(:update, Slider)}
   # menu :priority => 4
   # menu false
-  
+
   index do
     render :partial => "admin/slider", :locals => { :admin => true }
   end
@@ -13,9 +13,9 @@ ActiveAdmin.register Slider do
   show do
     render :partial => "show", locals: { :s => slider }
   end
-  
+
   form :partial => "form"
-  
- batch_action :destroy, false
- config.clear_sidebar_sections!
+
+  batch_action :destroy, false
+  config.clear_sidebar_sections!
 end

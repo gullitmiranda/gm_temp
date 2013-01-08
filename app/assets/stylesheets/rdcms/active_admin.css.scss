@@ -26,7 +26,7 @@ body.active_admin {
 
 body.active_admin {
   padding: 0;
-  
+
   form {
     &.form-horizontal .controls {
       display: block;
@@ -71,7 +71,7 @@ body.active_admin {
   .thumbnails {
     list-style: none outside none;
   }
-  
+
   .nav {
     list-style: none outside none;
     margin-bottom: 20px;
@@ -80,16 +80,16 @@ body.active_admin {
   .nav-tabs > .active > a,
   .nav-tabs > .active > a:hover {
     color: #555555;
-  }  
+  }
   .thumbnails {
     margin-left: -20px;
-    
+
     > li {
       margin-bottom: 20px;
       margin-left: 20px;
     }
   }
-  
+
   .tabbable {
     $mp: 5px;
     .nav {
@@ -111,11 +111,11 @@ body.active_admin {
       margin: 0;
     }
   }
-  
+
   .actions-buttons {
     margin-bottom: 5px;
   }
-  
+
   /* Uploads */
   .uploads-list {
     height: 512px;
@@ -123,7 +123,7 @@ body.active_admin {
   }
   #upload_container   .uploads-list { height: 492px;  }
   #gallery_container  .uploads-list { height: 547px; }
-  
+
   /* Artigos */
   .post-list > h3 {
     line-height: 24px;
@@ -196,7 +196,7 @@ body.active_admin {
     #upload_container {
       .uploads-list {
         height: auto;
-  
+
         .template-download {
           .det.footer > div {
             float: none;
@@ -204,10 +204,48 @@ body.active_admin {
 
             a.btn-primary {
               color: #fff;
-            }  
+            }
           }
         }
       }
+    }
+  }
+  /* Partners */
+  &.admin_partners {
+    .form-actions {
+      padding: 10px 0;
+    }
+    .tabbable {
+      .tab-content {
+        padding: 25px;
+      }
+    }
+    .description .text_area {
+      height: 73px;
+      padding: 4px 6px;
+    }
+    #upload_container {
+      .uploads-list {
+        height: auto;
+
+        .template-download {
+          .det.footer > div {
+            float: none;
+            display: inline-block;
+
+            a.btn-primary {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Settings > Visualizations */
+  &.admin_visualization {
+    div#main_content h3 {
+      margin-left: 0;
     }
   }
 }
@@ -477,11 +515,4 @@ h3 .foldable_icon_wrapper{
     }
 
   }
-}
-
-/* Settings > Visualizations */
-body.admin_visualization {
-  div#main_content h3 {
-    margin-left: 0;
-  }  
 }
