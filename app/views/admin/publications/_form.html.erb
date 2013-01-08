@@ -11,7 +11,11 @@
         <%= link_to t(".cancel"), admin_publications_path, :class => 'btn btn-link cancel' %>
       </div>
     </div>
+  </div>
 
+  <hr>
+
+  <div class="row">
     <!-- Nome e descrição -->
     <div class="span6">
       <%= f.globalize_inputs :translations do |lf| %>
@@ -43,15 +47,17 @@
         </div>
         <em class="controls"><%= t(".separated_by_commas") %></em>
       </div>
+      <% else %>
+      <div class="control-group thumb_item">
+        <%= image_tag @publication.publication(:thumb), class: "img-polaroid" %>
+      </div>
+      <% end -%>
       <div class="control-group">
         <%= f.label :published, :class => 'control-label' %>
         <div class="controls">
           <%= f.check_box :published, :class => 'checkbox' %>
         </div>
       </div>
-      <% else %>
-        <%= f.check_box :published, :class => 'checkbox hidden', checked: "checked" %>
-      <% end -%>
     </div>
   </div>
 <% end %>
