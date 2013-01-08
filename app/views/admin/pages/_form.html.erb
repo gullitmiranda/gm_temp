@@ -7,7 +7,7 @@
       <%= f.check_box :published, :class => 'checkbox' %>
     </div>
   </div>
-  
+
   <hr />
 
   <%= f.globalize_inputs :translations do |lf| %>
@@ -25,11 +25,11 @@
     </div>
     <%= lf.input :locale, :as => :hidden %>
   <% end %>
-  
+
   <hr />
 
   <div class="form-actions">
     <%= f.submit :class => 'btn btn-primary' %>
-    <%= link_to t(".cancel"), admin_tours_path, :class => 'btn btn-link cancel' %>
+    <%= link_to t(".cancel"), admin_pages_path, :class => 'btn btn-link cancel' %>
   </div>
 <% end %>
