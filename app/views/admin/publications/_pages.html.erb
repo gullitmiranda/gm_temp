@@ -13,13 +13,13 @@
             <i class="icon-plus-2"></i>
             <input type="file" name="publication[publication]" accept="image/*" multiple="multiple" />
           </span>
+<!--
           <button type="reset" class="btn btn-warning cancel disable" title="<%= I18n.t(".cancel") %>" rel="tooltip" >
             <i class="icon-denied"></i>
           </button>
           <button type="button" class="btn btn-danger delete disable" title="<%= I18n.t('.delete') %>" rel="tooltip" >
             <i class="icon-trashcan"></i>
           </button>
-<!--
            <span class="btn btn-inverse" title="<%= I18n.t('.select') %>" rel="tooltip" >
             <input type="checkbox" class="toggle">
           </span>
@@ -84,7 +84,7 @@
           <div class="thumbnail">
             <div class="det bg header clearfix">
               <span>{%=file.name%}</span>
-              <input type="checkbox" name="selected" value="{%=file.id%}" class="toggle_selected">
+              <!-- <input type="checkbox" name="selected" value="{%=file.id%}" class="toggle_selected"> -->
             </div>
             <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
               <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : 'empty.png' %}" />
@@ -109,7 +109,7 @@
                 <input type="checkbox" value="{%=file.id%}" class="hidden">
               </div>
               {% } %}
-            
+
               <div class="delete">
                 <button class="btn btn-mini btn-danger" title="<%= I18n.t('.delete') %>" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                   <i class="icon-trashcan"></i>

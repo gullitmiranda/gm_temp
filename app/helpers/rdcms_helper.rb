@@ -60,7 +60,7 @@ module RdcmsHelper
     links = []
     selector = []
 
-    dropdown  = defined?(options[:dropdown  ]) ? options[:dropdown  ] : true
+    options[:dropdown  ] = defined?(options[:dropdown    ]) ? options[:dropdown    ] : true
     string    = defined?(options[:string    ]) ? options[:string    ] : true
     placement = defined?(options[:placement ]) ? options[:placement ] : "bottom"
      # data-placement="bottom"
@@ -70,7 +70,7 @@ module RdcmsHelper
       span_key    = "<span class=\"text\">#{I18n.t(locale_key)}</span>"
       icon = "<i class=\"flag flag-#{locale}\"></i>"
 
-      if dropdown
+      if options[:dropdown  ]
         if locale == I18n.locale
           selector << link_to('#', { class: "dropdown-toggle", :"data-toggle" => "dropdown", title: I18n.t(locale_key) }, rel: "tooltip", :"data-placement" => placement) do
             "#{icon} #{span_key}<span class=\"caret\"></span>".html_safe
@@ -92,7 +92,7 @@ module RdcmsHelper
     object_class = "nav nav-pills pull-right language_selector"
     object_class << " no_string" unless string
 
-    if dropdown
+    if options[:dropdown  ]
       dropdown = content_tag(:ul, links.join("\n").html_safe, class: "dropdown-menu")
       selector = content_tag(:li, selector.join("\n").html_safe + dropdown, { class: "dropdown" })
     else

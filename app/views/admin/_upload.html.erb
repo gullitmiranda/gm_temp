@@ -11,16 +11,17 @@
               <%= ' accept="#{options[:accept]}"'     .html_safe if defined?(options[:accept]) %>
               <%= ' multiple="#{options[:multiple]}"' .html_safe if defined?(options[:multiple]) %>>
           </span>
+<!--
           <button type="reset" class="btn btn-warning cancel" title="<%= I18n.t(".cancel") %>">
             <i class="icon-denied"></i>
           </button>
           <button type="button" class="btn btn-danger delete" title="<%= I18n.t('.delete') %>">
             <i class="icon-trashcan"></i>
           </button>
-<!--
            <span class="btn btn-inverse">
             <input type="checkbox" class="toggle" title="<%= I18n.t('.toggle_selection') %>">
-          </span> -->
+          </span>
+-->
         </div>
       </div>
       <div class="span3 fileupload-progress fileupload-progressbar fade">
@@ -99,7 +100,7 @@
                   <%= " name='#{options[:attribute_name]}'".html_safe if defined?(options[:attribute_name]) %>>
               </div>
               {% } %}
-            
+
               <div class="delete">
                 <button class="btn btn-mini btn-danger" title="<%= I18n.t('.delete') %>" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                   <i class="icon-trashcan"></i>

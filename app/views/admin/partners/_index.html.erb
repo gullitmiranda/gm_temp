@@ -11,13 +11,15 @@
             <i class="icon-plus-2"></i>
             <input type="file" name="partner[partner]" accept="image/*" multiple="multiple" />
           </span>
+<!--
           <button type="reset" class="btn btn-warning cancel disable" title="<%= I18n.t(".cancel") %>" rel="tooltip" >
             <i class="icon-denied"></i>
           </button>
           <button type="button" class="btn btn-danger delete disable" title="<%= I18n.t('.delete') %>" rel="tooltip" >
             <i class="icon-trashcan"></i>
           </button>
-        </div>
+-->
+         </div>
         <em><%= t("recommended_size_for_upload", :size => "260x180") %></em>
       </div>
       <div class="span3 fileupload-progress fileupload-progressbar fade">
@@ -77,7 +79,7 @@
           <div class="thumbnail">
             <div class="det bg header clearfix">
               <span>{%=file.name%}</span>
-              <input type="checkbox" name="selected" value="{%=file.id%}" class="toggle_selected">
+              <!-- <input type="checkbox" name="selected" value="{%=file.id%}" class="toggle_selected"> -->
             </div>
             <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
               <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : 'empty.png' %}" />
