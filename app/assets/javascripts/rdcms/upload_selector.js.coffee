@@ -10,32 +10,40 @@ jQuery ->
   upload_container_ul   = $('#upload_container ul:first'  , upload_selector)
   gallery_container_ul  = $('#gallery_container ul:first' , upload_selector)
   action                = form.prop('action') || form.prop('href')
+  item_type             = $("#upload_item_type", form).val()
   #### end Selectores
-  
+
   #### Core Functions
   # getUploads - Puxa listagem de uploads
   getUploads = (options) ->
     options = $.extend
-      limit: 20,
-      offset: 0,
+      limit: 20
+      offset: 0
       order: "upload_file_name"
+      item_type: item_type
     , fileUploadsHashOptions, options, gallery_container_ul.data()
-    
+
     $.getJSON action, options, (data) =>
       renderFiles data, gallery_container_ul, options.offset
   #end getUploads
-  
+
   # renderFiles - Renderiza os itens
   renderFiles = (data = {}, container = $(), offset) ->
-    itens     = container.append(tmpl "template-download", files: data).children()
-    itens.each(() ->
-      _li = $(this)
-      _li.remove() if $("##{_li.prop 'id'}", selected_container_ul).length
-    ) if container == gallery_container_ul
-    itens.addClass('in')
-    
+    template  = tmpl "template-download", files: data
+
+    if container == gallery_container_ul
+      temp_itens  = $("<div />").append(template).children()
+      # console.debug temp_itens
+      $("<div />").append(template).children().each(() ->
+        _li = $(this)
+        _li.appendTo(container).addClass('in') unless $("##{_li.prop 'id'}", upload_selector).length
+      )
+    else
+      itens = container.append(template).children().addClass('in')
+
     container.scrollTop(0) if offset == 0
-    _sortable(container).data("offset", itens.length).data()
+    _sortable(container).data("offset", $(".template-download", gallery_container_ul).length).data()
+
 
   _sortable = (container) ->
 
@@ -53,27 +61,27 @@ jQuery ->
 
   # end _sortable
   #### end Core Functions
-  
+
   # Renderiza os itens carregados do Banco de dados
   selectedData = selected_container_ul.data('load')
   if selectedData && selectedData.length
     renderFiles selectedData, selected_container_ul, 0
   else
     _sortable selected_container_ul
-  
+
   # Quando a aba de galeria for selecionada carrega a lista de uploads
   upload_tab.on "click.load_uploads", (ev) ->
     getUploads()
-  
+
   # Carregamento sobre demanda dos uploads
   gallery_container_ul.scroll (ev) ->
     $t = $(this)
     if $t.scrollTop() + $t.outerHeight() == $t.get(0).scrollHeight
       getUploads()
-  
+
   # Ações de ordenação
   auto_save.checkbox()
-  
+
   upload_selector
     .on 'click.upload_selector', '.add button', (ev) ->
       ev.preventDefault()
@@ -90,6 +98,5 @@ jQuery ->
         file_selector.submit() if auto_save_checkbox.prop('checked')
       else
         _ref.remove()
-      
-      
+
   # end Ações de ordenação

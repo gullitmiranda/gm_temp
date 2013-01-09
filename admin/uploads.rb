@@ -3,8 +3,8 @@ ActiveAdmin.register Upload do
         # label: Upload.model_name.human.pluralize,
         parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:update, Upload)}
-  # 
-  # menu false;
+  #
+  menu false;
 
   controller.authorize_resource :class => Upload
 
@@ -36,14 +36,14 @@ ActiveAdmin.register Upload do
     selectable_column
     # Columa ID com link para visualização do objeto
     id_column
-    
+
     # column I18n.t("activerecord.attributes.upload.preview") do |i|
     column :preview do |i|
       link_to i.upload.url, :class => "image_thumb", :rel => "prettyPhoto", :target => "_blank" do
         image_tag i.upload.url(:mini)
       end
     end
-    
+
     column :upload_file_name do |o|
       best_in_place o, :upload_file_name, type: :input, path: [:admin, o]
     end
@@ -73,7 +73,7 @@ ActiveAdmin.register Upload do
   show do
     render :partial => "show", locals: { :s => upload }
   end
-  
+
   sidebar :image_formates do
     ul do
       li "original  => WxH"
@@ -88,9 +88,15 @@ ActiveAdmin.register Upload do
   #batch_action :destroy, false
   controller do
     def index
-      index! do |format|
+      @uploads = Upload
+        .where(params[:item_type] ? "item_type = '#{params[:item_type]}'" : "")
+        .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
+        .order(params[:order])
+        .limit(params[:limit])
+        .offset(params[:offset])
+
+      respond_to do |format|
         format.html # index.html.erb
-        # format.json { render json: @uploads }
         format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
       end
     end

@@ -10,6 +10,7 @@ class CreateUploads < ActiveRecord::Migration
       t.integer :attachable_id
       t.string :attachable_type
       t.string :alt_text
+      t.string :item_type
 
       t.timestamps
     end

@@ -3,11 +3,11 @@ ActiveAdmin.register Gallery do
         if: proc{can?(:update, Gallery)}
   # menu false
   controller.authorize_resource :class => Gallery
-  
+
   # Listagem dos itens
   index do
     selectable_column
-    
+
     column :id
     column :name, :sortable => :name do |p|
       title = p.name if p.name.to_s.length < 40
@@ -23,9 +23,9 @@ ActiveAdmin.register Gallery do
   end
 
   show do
-    render :partial => "show", locals: { :s => gallery }
+    render :partial => "show", locals: { :@gallery => gallery }
   end
-  
+
   # Formulário de edição dos itens e suas traduções
   form :partial => "form"
 

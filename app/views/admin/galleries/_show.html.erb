@@ -1,21 +1,21 @@
 <div class="panel">
-  <h3><%= t "permalink" %>: <%= link_to gallery_path(s), gallery_path(s), target: "_blank" %></h3>
+  <h3><%= t "permalink" %>: <%= link_to gallery_path(@gallery), gallery_path(@gallery), target: "_blank" %></h3>
   <div class="panel_contents" id="details">
     <div class="attributes_table">
       <table class="table table-bordered">
         <tbody>
           <tr>
             <th><%= t '.published'  %></th>
-            <td><%= best_in_place s, :published, type: :checkbox, path: [:admin, s]  %></td>
+            <td><%= best_in_place @gallery, :published, type: :checkbox, path: [:admin, @gallery]  %></td>
           </tr>
-          <tr><th><%= t(".tag_list"   ) %></th><td><%= best_in_place s, :tag_list, type: :input, path: [:admin, s] %></td></tr>
+          <tr><th><%= t(".tag_list"   ) %></th><td><%= best_in_place @gallery, :tag_list, type: :input, path: [:admin, @gallery] %></td></tr>
         </tbody>
       </table>
       <table class="table table-bordered">
         <tbody>
-          <tr><th><%= t(".datetime"   ) %></th><td><%= l s.datetime %></td></tr>
-          <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>
-          <tr><th><%= t(".updated_at" ) %></th><td><%= l s.updated_at %></td></tr>
+          <tr><th><%= t(".datetime"   ) %></th><td><%= l @gallery.datetime %></td></tr>
+          <tr><th><%= t(".created_at" ) %></th><td><%= l @gallery.created_at %></td></tr>
+          <tr><th><%= t(".updated_at" ) %></th><td><%= l @gallery.updated_at %></td></tr>
         </tbody>
       </table>
     </div>
@@ -23,7 +23,7 @@
   <h3><%= t "description" %></h3>
   <div class="panel_contents" id="description">
     <div class="attributes_table well">
-      <%= raw s.description %>
+      <%= raw @gallery.description %>
     </div>
   </div>
   <h3><%= t "images" %></h3>
@@ -31,10 +31,11 @@
     <div class="attributes_table">
       <%= render :partial => 'admin/upload_selector', :locals => {
         options: {
-          :form_for           => [:admin, @gallery],                     
-          :show_type          => "image",                      
-          :attribute_name     => "gallery[#{:upload_ids}][]", 
-          :accept             => "image/*",                    
+          :form_for           => [:admin, @gallery],
+          :item_type          => @gallery.class.name,
+          :attribute_name     => "gallery[#{:upload_ids}][]",
+          :show_type          => "image",
+          :accept             => "image/*",
           :accept_file_types  => "/(\.|\/)(gif|jpe?g|png)$/i" }
         }
       %>
