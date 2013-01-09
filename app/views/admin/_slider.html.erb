@@ -1,4 +1,4 @@
-<% @sliders = defined?(@sliders) ? @sliders : Slider.ordained %>
+<% @sliders = defined?(@sliders) ? @sliders : Slider.visible.ordained %>
 <% if @sliders.blank? and defined?(admin) %>
 <div class="blank_slate_container">
   <div class="blank_slate">
@@ -9,7 +9,7 @@
 <% else %>
 <ul id="home-slider" class="royalSlider clearfix">
   <% @sliders.each do |slider| %>
-    <li class="royalSlide rsContent" style="background-image:url('<%= slider.background.url(:slider) %>');"> 
+    <li class="royalSlide rsContent" style="background-image:url('<%= slider.background.url(:slider) %>');">
       <div class="royalCaption bContainer" style="width:100%;">
         <div class="rsABlock" data-show-effect="fade movetop"  data-move-offset="15">
           <%= raw slider.body %>
@@ -35,11 +35,11 @@
   <% end %>
 </ul>
 
-<script>	
+<script>
 $(function() {
   var defaultSlider = $("#home-slider").royalSlider({
-		captionShowEffects:["moveleft", "fade"]				
+		captionShowEffects:["moveleft", "fade"]
 	});
-});			  
+});
 </script>
 <% end %>
