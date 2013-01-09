@@ -1,4 +1,4 @@
-<%- content_for :title, "#{Setting.for_key("rdcms.site.name")} / #{I18n.t("activerecord.models.publication.other")}" -%>
+<%- content_for :title, "#{I18n.t("activerecord.models.publication.other")} :: #{Setting.for_key("rdcms.site.name")}" -%>
 
 <%- content_for :navegation_link do %>
   <%= link_to "<span class=\"icon-back\" aria-hidden=\"true\"></span>".html_safe, root_path, class: "BigButton fade in btnBack", rel: "tooltip", title: I18n.t("back") %>

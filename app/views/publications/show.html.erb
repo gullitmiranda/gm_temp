@@ -1,4 +1,4 @@
-<%- content_for :title, "#{Setting.for_key("rdcms.site.name")} / #{I18n.t("activerecord.models.publication.other")} / #{@publication.name}" -%>
+<%- content_for :title, "#{I18n.t("activerecord.models.publication.other")} / #{@publication.name} :: #{Setting.for_key("rdcms.site.name")}" -%>
 
 <%- content_for :navegation_link do %>
   <%= link_to "<span class=\"icon-back\" aria-hidden=\"true\"></span>".html_safe, publications_path, class: "BigButton fade in btnBack", rel: "tooltip", title: I18n.t("back") %>
@@ -25,7 +25,7 @@
       options[:class] << " front-side depth_start" if index == 1
       options[:class] << " back-side depth_end" if count == (index+2)
       %>
-      
+
       <% # Página %>
       <%= content_tag :div, options do %>
         <%= image_tag page.publication(:page), class: "flipPG" %>
@@ -48,7 +48,7 @@ jQuery(document).ready(function($) {
         download_url: "<%= publication_path(@publication, format: :pdf) %>"
       });
     }
-  }); 
+  });
 });
 </script>
 <% end -%>
