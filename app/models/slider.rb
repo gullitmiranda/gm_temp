@@ -3,7 +3,7 @@ class Slider < ActiveRecord::Base
     # Slug, I18n e tags
     :slug, :locale, :translations_attributes, :tag_list,
     # Paperclip
-    :background, :background_content_type, :background_file_name, :background_file_size, :background_updated_at
+    :background, :background_content_type, :background_file_name, :background_file_size
   # Taggings
   acts_as_taggable
 
