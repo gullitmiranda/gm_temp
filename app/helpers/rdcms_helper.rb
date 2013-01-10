@@ -206,7 +206,7 @@ module RdcmsHelper
       form << %Q{</div>}
     end
 
-    brand = link_to(root_path, class: "brand", title: I18n.t(".back_to_homepage"), rel: "tooltip") do
+    brand = link_to("/#{I18n.locale.to_s}/", class: "brand", title: I18n.t(".back_to_homepage"), rel: "tooltip") do
       html = image_tag(image, :class => "logo")
       html
     end

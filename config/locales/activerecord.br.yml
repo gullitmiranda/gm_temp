@@ -13,6 +13,7 @@ br:
     article_type: tipo de artigo
     author: Autor
     auto_start: Iniciar automaticamente
+    back_page: "Página anterior"
     background: Imagen de fundo
     body: Texto
     campaign: Campanha
@@ -50,6 +51,7 @@ br:
     history: História
     id: Código
     image: Imagem
+    index: Índice
     last_sign_in_at: Último conexão
     lastname: Sobrenome
     length: Comprimento
@@ -57,6 +59,7 @@ br:
     loop: Contínuo
     measures: Medidas
     name: Nome
+    next_page: "Próxima página"
     no: Não
     object_type: Tipo
     padding: Espaçamento interno
@@ -67,6 +70,7 @@ br:
     password_hint: Deixe em branco se a senha não deve ser alterada.
     preview: Visualização
     phone: Telefone
+    play_stop: Reproduzir/Parar
     price: Preço
     published: Publicado
     sign_in_count: Número de conexões
@@ -84,9 +88,13 @@ br:
     reported: Relatado
     rights: direitos
     roles: Cargos
+    rotate_left: Rotacionar para esquerda
+    rotate_right: Rotacionar para direita
+    save: "Salvar"
     separated_by_commas: 'Separado por virgulas ","'
     source: Fonte
     speed: Velocidade
+    start_playback: Iniciar Reprodução
     start_position: Posição inicial
     summary: Resumo
     tour: Panorama
@@ -96,6 +104,7 @@ br:
     width: Largura
     year: Ano
     yes: Sim
+    zoom: "Ampliar/Reduzir"
 
     # Placeholders
     body_placeholder: Escreva o conteúdo completo

@@ -12,6 +12,7 @@ es:
     article_type: tipo de artigo
     author: Autor
     auto_start: Iniciar automaticamente
+    back_page: Página anterior
     background: Imagen de fundo
     body: Texto
     cancel: Cancelar
@@ -42,6 +43,7 @@ es:
     history: História
     id: Código
     image: Imagem
+    index: Índice
     last_sign_in_at: Último conexão
     lastname: Sobrenome
     length: Comprimento
@@ -49,6 +51,7 @@ es:
     loop: Contínuo
     measures: Medidas
     name: Nome
+    next_page: Página siguiente
     no: Não
     padding: Espaçamento interno
     padding_hint: 'Espaçamento seguindo a conveção:<br />[ <b>superior direito inferior esquerdo</b> ]<br /><br />ex:<br /> [ 10px 10px 10px 10px ]<br />ou<br />[ 5% 0px 0 10px ]'
@@ -57,6 +60,7 @@ es:
     password_hint: Deixe em branco se a senha não deve ser alterada.
     preview: Visualização
     phone: Teléfono
+    play_stop: Reproducir/Deténgase
     price: Preço
     published: Publicado
     sign_in_count: Número de conexões
@@ -74,6 +78,9 @@ es:
     reported: Relatado
     rights: direitos
     roles: Cargos
+    rotate_left: Rotar a la izquierda
+    rotate_right: Gire a la derecha
+    save: Guardar
     separated_by_commas: 'Separado por virgulas ","'
     source: Fonte
     speed: Velocidade
@@ -86,6 +93,8 @@ es:
     width: Largura
     year: Año
     yes: Sim
+    zoom: Ampliar / Reducir
+
   # Admin module
   admin: &admin
     posts:

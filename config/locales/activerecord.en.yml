@@ -6,6 +6,7 @@ en:
     article_type: tipo de artigo
     author: Autor
     auto_start: Iniciar automaticamente
+    back_page: Previous Page
     background: Imagen de fundo
     body: Texto
     cancel: Cancelar
@@ -32,6 +33,7 @@ en:
     history: História
     id: Código
     image: "image"
+    index: Index
     last_sign_in_at: Último conexão
     lastname: "lastname"
     length: Comprimento
@@ -39,18 +41,23 @@ en:
     loop: Contínuo
     measures: Medidas
     name: Nome
+    next_page: Next Page
     no: Não
     password: "password"
     password_confirmation: "password confirmation"
     # password_hint: Deixe em branco se a senha não deve ser alterada.
     preview: Visualização
     phone: Phone
+    play_stop: Play/Stop
     price: Preço
     published: Publicado
     reference: Referência
     reported: "reported"
     rights: "rights"
     roles: "roles"
+    rotate_left: Rotate Left
+    rotate_right: Rotate right
+    save: Save
     separated_by_commas: 'Separado por virgulas ","'
     sign_in_count: Número de conexões
     sizes: Tamanhos
@@ -73,6 +80,7 @@ en:
     width: Largura
     year: Year
     yes: Sim
+    zoom: Enlarge / Reduce
   # Admin module
   admin: &admin
     posts:
