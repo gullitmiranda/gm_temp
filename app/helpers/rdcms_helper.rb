@@ -2,9 +2,13 @@
 
 module RdcmsHelper
   # Menssagem de notificações
-  def flash_message
+  def flash_message(options={})
+    options = {
+      close_button: true
+      }.merge options
+
     messages = []
-    button_close = "<button data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>"
+    button_close = "<button data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>" if options[:close_button]
     [:notice, :info, :warning, :error].each {|type|
       classtype = case type
         when :notice then "success"
@@ -300,8 +304,10 @@ module RdcmsHelper
                     </div>
                     <div class="row">
                       <div class="span4 newsletter">
-                        <p class="description">#{t("layouts.#{setting_layout}.newsletter_description")}.</p>
-                        #{render :template => "newsletters/new"}
+                        <div class="newsletter_form">
+                          <p class="description">#{t("layouts.#{setting_layout}.newsletter_description")}.</p>
+                          #{render :template => "newsletters/new"}
+                        </div>
                       </div>
                     </div>
                   </div>
