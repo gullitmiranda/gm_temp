@@ -88,16 +88,18 @@ ActiveAdmin.register Upload do
   #batch_action :destroy, false
   controller do
     def index
-      @uploads = Upload
-        .where(params[:item_type] ? "item_type = '#{params[:item_type]}'" : "")
-        .where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
-        .order(params[:order])
-        .limit(params[:limit])
-        .offset(params[:offset])
+      if request.xhr?
+        @uploads = Upload.filters_params(params)
 
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
+        end
+      else
+        index! do |format|
+          format.html # index.html.erb
+          format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
+        end
       end
     end
 
@@ -106,7 +108,6 @@ ActiveAdmin.register Upload do
         if @upload.save
           format.html { redirect_to admin_upload_path @upload }
           format.json { render json: [@upload.to_jq_upload].to_json, status: :created }
-          # format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: admin_upload_path(@upload) }
         else
           format.html { render action: "new" }
           format.json { render json: @upload.errors, status: :unprocessable_entity }

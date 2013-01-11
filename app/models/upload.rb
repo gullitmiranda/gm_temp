@@ -36,6 +36,15 @@ class Upload < ActiveRecord::Base
   # Taggings
   acts_as_taggable
 
+  # Escopos
+  scope :filters_params, lambda{ |params = {}|
+    where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
+    .where(params[:item_type] ? "item_type = '#{params[:item_type]}'" : "")
+    .order(params[:order])
+    .limit(params[:limit])
+    .offset(params[:offset])
+  }
+
   def title
     "#{self.upload_file_name} (#{self.upload_content_type})"
   end
