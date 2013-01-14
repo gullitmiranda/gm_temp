@@ -4,6 +4,7 @@ class CreateNewsletters < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.boolean :confirmed
+      t.boolean :downloaded, :default => false
 
       t.timestamps
     end

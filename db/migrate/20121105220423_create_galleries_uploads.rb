@@ -3,8 +3,6 @@ class CreateGalleriesUploads < ActiveRecord::Migration
     create_table :galleries_uploads do |t|
       t.references :gallery, :upload
       t.string :position
-
-      t.timestamps
     end
   end
 end
