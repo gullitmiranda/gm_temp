@@ -325,7 +325,7 @@ module RdcmsHelper
                 <div class="developer span4">
                   #{t("layouts.#{setting_layout}.developed_by")}:
                   <a title="Requestdev Sistemas" class="developer-logo" href="http://www.requestdev.com.br" rel="tooltip" data-placement="top">
-                    <img alt="Requestdev Sistemas" src="http://requestdev.com.br/images/Logo 204x48.png">
+                    <img alt="Requestdev Sistemas" src="http://requestdev.com.br/images/requestdev_developer.png">
                   </a>
                 </div>
               </div>

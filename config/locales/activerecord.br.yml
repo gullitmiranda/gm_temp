@@ -186,6 +186,9 @@ br:
       content_management: Gestão de Conteúdos
       settings: Configurações
 
+      analytics:
+        one: Estatística
+        other: Estatísticas
       product:
         one: Produto
         other: Produtos

@@ -81,3 +81,8 @@ rdcms:
       logo: logo_fullscreen.png
       background: ""
       inner-background: ""
+  omniauth:
+    google: # also used by the YouTube provider
+      key: "632827312868.apps.googleusercontent.com"
+      secret: "lJFcmxPbTDla8aYE1QiXz5YJ"
+      token: ""
