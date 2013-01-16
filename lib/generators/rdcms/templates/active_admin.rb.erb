@@ -7,6 +7,8 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "<%= Rails.application.class.name.split("::").first.titlecase %>"
 
+  config.before_filter :current_ability
+
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
@@ -38,7 +40,7 @@ ActiveAdmin.setup do |config|
   #   config.default_namespace = false
   #
   # Default:
-  # config.default_namespace = :admin
+  config.default_namespace = :admin
   #
   # You can customize the settings for each namespace by using
   # a namespace block. For example, to change the site title
@@ -91,6 +93,14 @@ ActiveAdmin.setup do |config|
   # config.logout_link_method = :get
 
 
+  # == Root
+  #
+  # Set the action to call for the root path. You can set different
+  # roots for each namespace.
+  #
+  # Default:
+  config.root_to = 'dashboard#index'
+
   # == Admin Comments
   #
   # Admin comments allow you to add comments to any model for admin use.
@@ -113,8 +123,8 @@ ActiveAdmin.setup do |config|
   # Enable and disable Batch Actions
   #
   # Default:
-  # config.batch_actions = true
-  
+  config.batch_actions = true
+
 
   # == Controller Filters
   #
@@ -131,11 +141,12 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-  config.register_stylesheet 'rdcms/active_admin'
-  config.register_stylesheet 'rdcms/chosen.css'
+  # config.register_stylesheet 'rdcms/active_admin'
+  # config.register_stylesheet 'rdcms/chosen.css'
 
   # To load a javascript file:
-  config.register_javascript 'rdcms/active_admin.js'
-  config.register_javascript 'rdcms/chosen.jquery.min.js'
+  # config.register_javascript 'rdcms/active_admin.js'
+  # config.register_javascript 'rdcms/chosen.jquery.min.js'
+
   config.register_javascript 'ckeditor/init.js'
 end
