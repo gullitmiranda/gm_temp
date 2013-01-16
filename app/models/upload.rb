@@ -16,11 +16,7 @@ class Upload < ActiveRecord::Base
                         # Logo
                         :logo       => ["600x175#"],
                       },
-
-                      # :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-                      # :url => "/system/:attachment/:id/:style/:filename",
-                      :convert_options => { :all => '-auto-orient -strip -colorspace sRGB' }
-                      # :convert_options => { :all => '-auto-orient -strip -colorspace sRGB -flatten' }
+                      :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
 
     before_post_process :image_file?
   end

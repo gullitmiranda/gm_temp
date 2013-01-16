@@ -11,13 +11,14 @@ class Publication < ActiveRecord::Base
   has_ancestry
 
   has_attached_file :publication,
-								  	:styles => { :thumb => "260x180#", :page => "1920x1200#" },
-								    :processors => [:thumbnail, :compression]
+                    :styles => { :thumb => "260x180#", :page => "1920x1200#" },
+                    :processors => [:thumbnail, :compression],
+                    :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
 
   # URL amigáveis através do :name
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
-  
+
   # Escopos
   scope :publication_root, where("ancestry is ?", nil)
   scope :visible, where("published = ?", true)
@@ -27,7 +28,7 @@ class Publication < ActiveRecord::Base
   # View scopes
   scope :catalogue, where("object_type=?", 0)
   scope :campaign,  where("object_type=?", 1)
-  
+
   # Translate
   translates :name, :body
   accepts_nested_attributes_for :translations
@@ -68,7 +69,7 @@ class Publication < ActiveRecord::Base
       "created_at"    => read_attribute(:created_at),
       "images" =>  {
         "original"    => publication.url,
-        "page"       	=> publication.url(:page  ),
+        "page"        => publication.url(:page  ),
         "thumb"       => publication.url(:thumb  ),
       },
       "url"           => publication.url(:original),

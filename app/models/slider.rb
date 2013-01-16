@@ -7,10 +7,12 @@ class Slider < ActiveRecord::Base
   # Taggings
   acts_as_taggable
 
-  has_attached_file :background, :styles => {
-    :thumb        => "260x180#",
-    :slider       => "1920x1200#"
-  }
+  has_attached_file :background,
+                    :styles => {
+                      :thumb        => "260x180#",
+                      :slider       => "1920x1200#"
+                    },
+                    :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
 
   # URL amigáveis através do :name
   extend FriendlyId
