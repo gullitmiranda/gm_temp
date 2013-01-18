@@ -9,7 +9,7 @@ br:
     - Sex
     - Sáb
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fev
     - Mar
@@ -35,7 +35,7 @@ br:
       long: ! '%d de %B de %Y'
       short: ! '%d de %B'
     month_names:
-    - 
+    -
     - Janeiro
     - Fevereiro
     - Março
@@ -119,7 +119,7 @@ br:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: deve ser aceito
-      blank: não pode ficar em branco
+      blank: required field
       confirmation: não está de acordo com a confirmação
       empty: não pode ficar vazio
       equal_to: deve ser igual a %{count}
