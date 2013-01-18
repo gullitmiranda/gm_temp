@@ -119,7 +119,7 @@ en:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: must be accepted
-      blank: required field
+      blank: Required field
       confirmation: doesn't match confirmation
       empty: can't be empty
       equal_to: must be equal to %{count}

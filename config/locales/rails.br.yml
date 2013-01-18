@@ -119,7 +119,7 @@ br:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: deve ser aceito
-      blank: required field
+      blank: Campo obrigatório
       confirmation: não está de acordo com a confirmação
       empty: não pode ficar vazio
       equal_to: deve ser igual a %{count}
