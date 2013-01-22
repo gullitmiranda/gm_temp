@@ -254,6 +254,21 @@ body.active_admin {
       margin-left: 0;
     }
   }
+  /* Google Analytics */
+  .google_analytics_container {
+    table {
+      font-size: 14px;
+
+      tbody {
+        th { text-align: center; }
+        td { text-align: left; }
+      }
+    }
+    .metrics {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
 
 @media (max-width: 1200px) {

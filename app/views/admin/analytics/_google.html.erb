@@ -1,0 +1,319 @@
+<div class="google_analytics_container">
+<%
+# Caso não possua o código de autenticação solicita a autorização
+
+token   = Setting.for_key("rdcms.omniauth.google.token")
+ga      = Analytic.new redirect_uri: url_for(:only_path => false)
+
+if token.nil? or token.blank?
+  code  = params[:code]
+  if code.blank?
+    %>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="pull-right"> <%= ga.authorize_button %> </div>
+      </div>
+    </div>
+    <%
+  else
+    ga.connect code
+
+    if ga.error?
+      %>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="pull-right"> <%= ga.authorize_button %> </div>
+        </div>
+      </div>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <%= ga.error_message %>
+      </div>
+      <%
+    else
+      oauth = ga.oauth2
+      token = oauth.token
+    end
+  end
+else
+  oauth = ga.new_oauth token
+  oauth = ga.refreshToken! if !oauth.nil? and oauth.expired?
+end
+# Caso a token ainda for inexistente interrompe a renderização da página
+# return false if token.nil? or token.blank?
+unless token.blank?
+  # pusha lista de perfis
+  rest = ga.get_json("https://www.googleapis.com/analytics/v3/management/accounts/~all/webproperties/~all/profiles")
+
+  unless defined?(rest_dimensions.code)
+    rest_response = rest.parsed
+    accounts_list   = []
+    graphtype_list  = []
+    account_selected = nil
+
+    values = {
+      "access_token"  =>  token,
+      "id"            =>  rest_response["items"].first["id"],
+      "start-date"    =>  Date.current.next_month(-1),
+      "end-date"      =>  Date.current,
+      "graphtype"     =>  "month"
+    }.merge! params
+
+    values["start-date" ] =  values["start-date"].to_date if values["start-date"].class.name == "String"
+    values["end-date"   ] =  values["end-date"  ].to_date if values["end-date"  ].class.name == "String"
+
+    # Cria lista de contas
+    rest_response["items"].each do |account|
+      options = { value: account["id"] }
+      if account["id"] == values["id"]
+        options[:selected] = "selected"
+        account_selected = account
+      end
+
+      accounts_list << content_tag(:option, account["name"], options)
+    end
+
+    # Cria lista de tipos de gráficos
+    %w{ month date }.each do |type|
+      options = { value: type }
+      options[:selected] = "selected" if values["graphtype"] == type
+
+      graphtype_list << content_tag(:option, I18n.t("admin.analytics.#{type}"), options)
+    end
+
+    %>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <form id="analytics_integration_form" class="navbar-form pull-right form-inline analytics_integration_form" name="analytics_integration_form" method="get" action="<%= url_for(:only_path => false) %>">
+          <select name="id" id="id" title="<%= I18n.t("admin.analytics.profile") %>" rel="tooltip" >
+            <%= accounts_list.join("\n").html_safe %>
+          </select>
+
+          <label for='end-date'><%= I18n.t("admin.analytics.start_date") %>:</label>
+          <input id='start-date' readonly='readonly' type='text' value="<%= I18n.l values["start-date"] %>" title="<%= I18n.t("admin.analytics.start_date") %>" rel="tooltip" />
+          <input type='hidden' name='start-date' id='start_alternate' value="<%= values["start-date"] %>" />
+
+          <label for='end-date'><%= I18n.t("admin.analytics.end_date") %>:</label>
+          <input id='end-date' readonly='readonly' type='text' value="<%= I18n.l values["end-date"] %>" title="<%= I18n.t("admin.analytics.end_date") %>" rel="tooltip" />
+          <input type='hidden' name='end-date' id='end_alternate' value="<%= values["end-date"] %>" />
+
+          <label for='end-date'><%= I18n.t("admin.analytics.type") %>:</label>
+          <select name="graphtype" id="graphtype" title="<%= I18n.t("admin.analytics.type") %>" rel="tooltip" >
+            <%= graphtype_list.join("\n").html_safe %>
+          </select>
+
+          <button class="btn btn-primary" type="submit" title="<%= I18n.t("admin.analytics.update") %>" rel="tooltip">
+            <span class="icon-reload-CW" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <%
+  else
+    ga.refreshToken! if rest.status == "401"
+  end
+
+  unless values.blank?
+    # paramâmetros padrões de busca
+    query = { :ids          => "ga:#{account_selected["id"]}",
+              :metrics      => "ga:visitors,ga:visits",
+              :"start-date" => values["start-date"],
+              :"end-date"   => values["end-date"] }
+
+    # Verificar se end-date > start-date
+    if values["start-date"] > values["end-date"]
+      values.merge!("start-date"    =>  Date.current.next_month(-1),
+                    "end-date"      =>  Date.current)
+      %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <h4>Erro:</h4>
+        A data de incício deve ser menor que a de término!
+      </div>
+      <%
+    end
+
+
+
+    # Puxa a métrica de visitas e visitantes em um intervalo de datas
+    rest_metrics = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", query.merge!(:metrics => "ga:visitors,ga:visits"))
+
+    if defined?(rest_metrics.code)
+      # mostra mensagem de erro
+      %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <h4>Erro:</h4>
+        <%= rest_metrics.code["message"] %>
+      </div>
+      <%
+    else
+      rest_metrics_response  = rest_metrics.parsed
+      metrics    = []
+
+      rest_metrics_response["columnHeaders"].each do |header|
+        metrics << content_tag(:div) do
+          content_tag(:span, "#{I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")}: ", class: "name") + content_tag(:span, rest_metrics_response["totalsForAllResults"][header["name"]], class: "value")
+        end
+      end
+    end
+
+
+
+
+
+    # Puxa a métrica de visitas e visitantes em um intervalo de datas
+    rest_dimensions = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", query.merge!(:metrics        => "ga:visits",
+                                                                                                  :dimensions     => "ga:source",
+                                                                                                  :sort           => "-ga:visits",
+                                                                                                  :"max-results"  => "10"))
+
+    if defined?(rest_dimensions.code)
+      # mostra mensagem de erro
+      %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <h4>Erro:</h4>
+        <%= rest_dimensions.code["message"] %>
+      </div>
+      <%
+    else
+      rest_dimensions_response  = rest_dimensions.parsed
+      dimensions    = []
+
+      # Criar header ta tabela
+      dimensions_h  = []
+      rest_dimensions_response["columnHeaders"].each { |header| dimensions_h << content_tag(:th, I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")) }
+      dimensions << content_tag(:thead, content_tag(:tr, dimensions_h.join.html_safe))
+
+      # Cria body da tabela
+      dimensions_b  = []
+      rest_dimensions_response["rows"].each do |row|
+        row_h = []
+        row.each { |value| row_h << content_tag(:td, value) }
+        dimensions_b << content_tag(:tr, row_h.join.html_safe)
+      end
+      dimensions << content_tag(:tbody, dimensions_b.join.html_safe)
+
+      # lista os dados
+      %>
+      <div class="row">
+        <div class="span4">
+          <table>
+            <tbody>
+              <tr> <th><%= I18n.t("admin.analytics.visits") %></th> </tr>
+              <tr> <td><%= content_tag(:div, metrics.join.html_safe, class: "metrics") %></td> </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="span8"><div class="visits_barchart"></div></div>
+      </div>
+      <div class="row">
+        <div class="span4">
+          <table>
+            <tbody>
+              <tr> <th><%= I18n.t("admin.analytics.referrals") %></th> </tr>
+              <tr> <td><%= content_tag(:table, dimensions.join("\n").html_safe, class: "referrals") %></td> </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="span8"><div class="referrals_piechart"></div></div>
+      </div>
+      <%
+    end
+
+
+
+
+
+    # Puxa a métricas de visitas para gráfico
+=begin
+    rest_dimensions = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", query.merge!(:metrics        => "ga:visits",
+                                                                                                  :dimensions     => "ga:#{values["graphtype"]}",
+                                                                                                  :sort           => "#{"ga:year" if values["graphtype"] == "month"}"))
+
+    if defined?(rest_dimensions.code)
+      # mostra mensagem de erro
+      concat rest_dimensions.code["message"]
+    else
+      rest_dimensions_response  = rest_dimensions.parsed
+      dimensions    = []
+
+      # Criar header ta tabela
+      dimensions_h  = []
+      rest_dimensions_response["columnHeaders"].each { |header| dimensions_h << content_tag(:th, header["name"].gsub(/^ga:/, '')) }
+      dimensions << content_tag(:thead, content_tag(:tr, dimensions_h.join.html_safe))
+
+      # Cria body da tabela
+      dimensions_b  = []
+      rest_dimensions_response["rows"].each do |row|
+        row_h = []
+        row.each { |value| row_h << content_tag(:td, value) }
+        dimensions_b << content_tag(:tr, row_h.join.html_safe)
+      end
+      dimensions << content_tag(:tbody, dimensions_b.join.html_safe)
+
+      # renderiza os dados
+      concat content_tag :table, dimensions.join("\n").html_safe
+    end
+=end
+  end
+end
+%>
+</div>
+<!--
+ HTTP/1.1 200 OK
+ Content-length: 244
+ X-xss-protection: 1; mode=block
+ Content-location: https://www.googleapis.com/oauth2/v1/userinfo?access_token=ya29.AHES6ZQnzxi-o6OdnmJg22o8KBJEd3fppW8OXLdkem-CP-M
+ X-content-type-options: nosniff
+ Expires: Fri, 01 Jan 1990 00:00:00 GMT
+ X-google-cache-control: remote-fetch
+ Server: GSE
+ Reason: OK
+ Via: HTTP/1.1 GWA
+ Pragma: no-cache
+ Cache-control: no-cache, no-store, max-age=0, must-revalidate
+ Date: Fri, 18 Jan 2013 18:01:08 GMT
+ X-frame-options: SAMEORIGIN
+ Content-type: application/json; charset=UTF-8
+ -content-encoding: gzip
+
+ {
+  "id": "106649545261331314301",
+  "email": "admin@requestdev.com.br",
+  "verified_email": true,
+  "name": "Administrador Requestdev",
+  "given_name": "Administrador",
+  "family_name": "Requestdev",
+  "locale": "pt-BR",
+  "hd": "requestdev.com.br"
+ }
+  -->
+<!--
+      <div class="control-group">
+        <label for="post_datetime" class="control-label">Data</label>
+        <div class="controls datetime_select">
+          <select name="post[datetime(3i)]" id="post_datetime_3i">
+            <option value="2">2</option>
+            <option value="3" selected="selected">3</option>
+          </select>
+          <select name="post[datetime(2i)]" id="post_datetime_2i">
+            <option value="1" selected="selected">Janeiro</option>
+            <option value="2">Fevereiro</option>
+          </select>
+          <select name="post[datetime(1i)]" id="post_datetime_1i">
+            <option value="2013" selected="selected">2013</option>
+            <option value="2018">2018</option>
+          </select>
+           &mdash; <select name="post[datetime(4i)]" id="post_datetime_4i">
+            <option value="15">15</option>
+            <option value="16" selected="selected">16</option>
+          </select>
+           : <select name="post[datetime(5i)]" id="post_datetime_5i">
+            <option value="43">43</option>
+            <option value="44" selected="selected">44</option>
+          </select>
+        </div>
+      </div>
+ -->

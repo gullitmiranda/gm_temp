@@ -99,5 +99,15 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end # end Row #2
+    ## Row #3 - [Analytics]
+    columns do
+      column do
+        panel I18n.t("activerecord.models.analytics.other") do
+          div class:"attributes_table well align-center" do
+            render :partial => "admin/analytics/google"
+          end
+        end
+      end
+    end # end Row #3
   end # content
 end
