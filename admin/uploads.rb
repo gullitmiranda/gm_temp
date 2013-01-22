@@ -1,7 +1,6 @@
 ActiveAdmin.register Upload do
   menu  priority: 1,
-        # label: Upload.model_name.human.pluralize,
-        parent: I18n.t('activerecord.models.content_management'),
+        parent: proc{ I18n.t('activerecord.models.content_management') },
         if: proc{can?(:update, Upload)}
   #
   menu false;

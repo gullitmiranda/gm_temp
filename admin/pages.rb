@@ -1,15 +1,15 @@
 ActiveAdmin.register Page do
   menu  priority: 6,
-        parent: I18n.t('activerecord.models.content_management'),
+        parent: proc{ I18n.t('activerecord.models.content_management') },
         if: proc{can?(:update, Page)}
   # menu false
-  
+
   controller.authorize_resource :class => Page
 
   # Listagem dos itens
   index do
     selectable_column
-    
+
     column :id
     column :name, :sortable => :name do |p|
       title = p.name if p.name.to_s.length < 40
@@ -27,7 +27,7 @@ ActiveAdmin.register Page do
 
   # Formulário de edição dos itens e suas traduções
   form :partial => "form"
-  
+
   filter :name
   filter :content
   filter :created_at

@@ -1,8 +1,8 @@
 ActiveAdmin.register Setting  do
   menu  priority: 5,
-        parent: I18n.t('activerecord.models.settings'),
+        parent: proc{ I18n.t('activerecord.models.settings') },
         if: proc{can?(:update, Setting)}
-  # 
+  #
   menu false;
 
   controller.authorize_resource :class => Setting

@@ -1,18 +1,15 @@
 ActiveAdmin.register Partner do
   menu  priority: 8,
-        parent: I18n.t('activerecord.models.content_management'),
+        parent: proc{ I18n.t('activerecord.models.content_management') },
         if: proc{can?(:update, Partner)}
 
   index do
     render "index", locals: { :@partners => partners }
-    # render :partial => "admin/partners/index", locals: { :@partners => partners }
   end
 
   form :partial => "form"
 
   controller do
-    # layout nil, :except => [:edit]
-
     def index
       index! do |format|
         format.html # index.html.erb
@@ -23,7 +20,6 @@ ActiveAdmin.register Partner do
     def edit
       @partner = Partner.find(params[:id])
       render "edit", layout: false
-      # render :layout => false, :template => 'admin/partner/edit'
     end
 
     def create

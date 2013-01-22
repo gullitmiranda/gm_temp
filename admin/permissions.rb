@@ -1,8 +1,8 @@
 ActiveAdmin.register Permission do
   menu  priority: 3,
-        parent: I18n.t('activerecord.models.settings'),
+        parent: proc{ I18n.t('activerecord.models.settings') },
         if: proc{can?(:update, Permission)}
-  # 
+  #
   controller.authorize_resource :class => Permission
   menu false;
 

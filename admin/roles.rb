@@ -1,8 +1,9 @@
 ActiveAdmin.register Role do
   menu  priority: 2,
-        parent: I18n.t('activerecord.models.settings'),
+        parent: proc{ I18n.t('activerecord.models.settings') },
         if: proc{can?(:update, Role)}
-  # 
-  controller.authorize_resource :class => Role
+  #
   menu false;
+
+  controller.authorize_resource :class => Role
 end

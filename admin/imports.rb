@@ -1,8 +1,8 @@
 ActiveAdmin.register Import do
   menu  priority: 4,
-        parent: I18n.t('activerecord.models.settings'),
+        parent: proc{ I18n.t('activerecord.models.settings') },
         if: proc{can?(:update, Import)}
-  # 
+  #
   menu false;
 
   index do
@@ -22,7 +22,7 @@ ActiveAdmin.register Import do
     end
   end
 
-  form :html => { :enctype => "multipart/form-data" }  do |f|  
+  form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Select File for #{f.object.target_model}" do
       f.input :target_model
       f.input :upload
@@ -37,7 +37,7 @@ ActiveAdmin.register Import do
     flash[:notice] = "Dieser Import wurde gestartet"
     redirect_to :action => :index
   end
-  
+
   member_action :assignment do
     @importer = Import.find(params[:id])
     if @importer
@@ -46,20 +46,20 @@ ActiveAdmin.register Import do
       render nothing: true
     end
   end
-  
+
 
   controller do
-    
+
     def new
       @import = Import.new(:target_model => params[:target_model])
     end
-    
+
     def show
       show! do |format|
          format.html { redirect_to assignment_admin_import_path(@import), :flash => flash }
       end
     end
-    
+
     def edit
       @import = Import.find(params[:id])
       @import.analyze_csv

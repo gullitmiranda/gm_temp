@@ -1,15 +1,14 @@
 ActiveAdmin.register Publication do
   menu  priority: 7,
-        # label: proc{ I18n.t "activerecord.models.#{Slider.model_name.human.downcase}.other" },
-        parent: I18n.t('activerecord.models.content_management'),
+        parent: proc{ I18n.t('activerecord.models.content_management') },
         if: proc{can?(:update, Publication)}
   # menu false
-  
+
   scope :publication_root, default: true
 
   index do
     selectable_column
-    
+
     column :id
     column :name, :sortable => :name do |p|
       title = p.name if p.name.to_s.length < 40
@@ -36,9 +35,9 @@ ActiveAdmin.register Publication do
   show do
     render :partial => "show", locals: { :@publication => publication }
   end
-  
+
   form :partial => "form"
-  
+
   controller do
     # layout nil, :except => [:edit]
 

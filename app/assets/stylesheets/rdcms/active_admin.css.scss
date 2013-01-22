@@ -116,6 +116,12 @@ body.active_admin {
     margin-bottom: 5px;
   }
 
+  a {
+    &.btn { text-decoration: none }
+    &.btn-primary { color: #FFF; }
+    &.btn-link { text-decoration: underline; }
+  }
+
   /* Uploads */
   .uploads-list {
     height: 512px;

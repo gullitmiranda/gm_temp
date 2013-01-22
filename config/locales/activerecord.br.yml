@@ -13,6 +13,7 @@ br:
     article_type: tipo de artigo
     author: Autor
     auto_start: Iniciar automaticamente
+    authorize_access: Autorizar acesso
     back_page: "Página anterior"
     background: Imagen de fundo
     body: Texto
@@ -39,6 +40,7 @@ br:
     direction: Direção
     district: Bairro
     email: E-mail
+    end_date: Data final
     entry: Entrada
     firstname: Nome
     footer: Rodapé
@@ -69,6 +71,7 @@ br:
     password_confirmation: Confirmação de senha
     password_hint: Deixe em branco se a senha não deve ser alterada.
     preview: Visualização
+    profile: Perfil
     phone: Telefone
     play_stop: Reproduzir/Parar
     price: Preço
@@ -83,6 +86,7 @@ br:
     upload_file_name: Nome
     upload_file_size: Tamanho
     url: url
+    referrals: Encaminhamentos
     reference: Referência
     reference_hint: Código de referência do produto
     reported: Relatado
@@ -94,11 +98,16 @@ br:
     separated_by_commas: 'Separado por virgulas ","'
     source: Fonte
     speed: Velocidade
+    start_date: Data inicial
     start_playback: Iniciar Reprodução
     start_position: Posição inicial
     summary: Resumo
     tour: Panorama
+    type: Tipo
+    update: Atualizar
     username: Nome
+    visitors: Visitantes
+    visits: Visitas
     weight: Peso
     weights_and_measures: Pesos e Medidas
     width: Largura
@@ -115,6 +124,12 @@ br:
 
   # Admin module
   admin: &admin
+    analytics:
+      <<: *attributes_all
+      date: Diário
+      month: Mensal
+      referrals: Fontes de tráfego
+      source: Origem
     posts:
       show:
         <<: *attributes_all
