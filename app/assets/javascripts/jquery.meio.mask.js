@@ -35,7 +35,7 @@
     var isIphone = (window.orientation != null);
 
     // browsers like firefox2 and before and opera doesnt have the onPaste event, but the paste feature can be done with the onInput event.
-    var pasteEvent = (($.browser.opera || ($.browser.mozilla && parseFloat($.browser.version.substr(0,3)) < 1.9)) ? 'input' : 'paste');
+    var pasteEvent = (($.browser.opera || ($.browser.mozilla && $.browser.version < 1.9)) ? 'input' : 'paste');
 
     // the timeout is set because we can't get the value from the input without it
     var pasteHandler = function(e) {

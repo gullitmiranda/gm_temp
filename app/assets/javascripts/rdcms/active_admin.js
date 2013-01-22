@@ -1,6 +1,7 @@
 //= require active_admin/base
 //= require jquery
 //= require jquery_ujs
+//= require jquery.mb.browser
 //= require rdcms/keymaster
 
 // Edição de formulários na sua visualização
@@ -30,7 +31,7 @@ $(document).ready(function() {
   jQuery(".best_in_place").best_in_place()
     .bind("best_in_place:activate", function() { $(this).addClass("focus"); })
     .bind("best_in_place:abort", function() { $(this).removeClass("focus"); });
-  
+
   // call setMask function on the document.ready event
   if (!$.browser.chrome)
     $('input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], input[type=tel]')

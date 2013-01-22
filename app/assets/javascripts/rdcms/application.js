@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require rdcms/jquery.tools.min.js
+//= require jquery.mb.browser
+//= require rdcms/jquery.tools.min
 //= require jquery-fileupload
 //= require rdcms/moment
 
