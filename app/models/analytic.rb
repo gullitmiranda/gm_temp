@@ -6,8 +6,8 @@ class Analytic
   def initialize(settings={})
     # Merge Configurações padrões com as definidas pelo usuário
     @settings = {
-      client_id:        Setting.for_key("rdcms.omniauth.google.key"),
-      client_secret:    Setting.for_key("rdcms.omniauth.google.secret"),
+      client_id:        Setting.for_key("rdcms.omniauth.google.key", false),
+      client_secret:    Setting.for_key("rdcms.omniauth.google.secret", false),
       scope:            "https://www.googleapis.com/auth/analytics.readonly",
       redirect_uri:     "",
       approval_prompt:  "force",
@@ -104,9 +104,9 @@ class Analytic
       Setting.set_value_for_key(opts[:refresh_token], "rdcms.omniauth.google.refresh_token") unless opts[:refresh_token].blank?
     end
 
-    token ||= Setting.for_key("rdcms.omniauth.google.token")
-    opts = {:refresh_token  => Setting.for_key("rdcms.omniauth.google.refresh_token"),
-            :expires_at     => Setting.for_key("rdcms.omniauth.google.expires_at").to_i}.merge opts
+    token ||= Setting.for_key("rdcms.omniauth.google.token", false)
+    opts = {:refresh_token  => Setting.for_key("rdcms.omniauth.google.refresh_token", false),
+            :expires_at     => Setting.for_key("rdcms.omniauth.google.expires_at", false).to_i}.merge opts
 
     @oauth2 = OAuth2::AccessToken.new @client, token, opts
   end

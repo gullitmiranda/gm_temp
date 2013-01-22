@@ -2,7 +2,7 @@
 <%
 # Caso não possua o código de autenticação solicita a autorização
 
-token   = Setting.for_key("rdcms.omniauth.google.token")
+token   = Setting.for_key("rdcms.omniauth.google.token", false)
 ga      = Analytic.new redirect_uri: url_for(controller: "/admin/analytics", :only_path => false)
 
 if token.nil? or token.blank?
