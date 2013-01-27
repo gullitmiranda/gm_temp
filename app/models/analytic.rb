@@ -115,10 +115,6 @@ class Analytic
   def get_json(url, data={})
     return false if !defined?(url) or url.blank?
 
-    data = {
-      access_token: "#{@oauth2.token unless @oauth2.nil?}"
-    }.merge data
-
     begin
       @oauth2.get url, params: data
     rescue OAuth2::Error => exception

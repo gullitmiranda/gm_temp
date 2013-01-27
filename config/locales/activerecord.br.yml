@@ -128,7 +128,9 @@ br:
       <<: *attributes_all
       date: Diário
       month: Mensal
+      more_in_google_analytics: Para mais informações acesse o Google Analytics
       referrals: Fontes de tráfego
+      referrer_visits: Origem/Visitas
       source: Origem
     posts:
       show:

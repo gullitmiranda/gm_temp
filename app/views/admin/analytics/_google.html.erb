@@ -45,7 +45,7 @@ unless token.blank?
   # pusha lista de perfis
   rest = ga.get_json("https://www.googleapis.com/analytics/v3/management/accounts/~all/webproperties/~all/profiles")
 
-  unless defined?(rest_dimensions.code)
+  unless defined?(rest.code)
     rest_response = rest.parsed
     accounts_list   = []
     graphtype_list  = []
@@ -56,8 +56,9 @@ unless token.blank?
       "id"            =>  rest_response["items"].first["id"],
       "start-date"    =>  Date.current.next_month(-1),
       "end-date"      =>  Date.current,
-      "graphtype"     =>  "month"
+      "graphtype"     =>  "date"
     }.merge! params
+
 
     values["start-date" ] =  values["start-date"].to_date if values["start-date"].class.name == "String"
     values["end-date"   ] =  values["end-date"  ].to_date if values["end-date"  ].class.name == "String"
@@ -84,7 +85,9 @@ unless token.blank?
     %>
     <div class="navbar">
       <div class="navbar-inner">
-        <form id="analytics_integration_form" class="navbar-form pull-right form-inline analytics_integration_form" name="analytics_integration_form" method="get" action="<%= url_for(:only_path => false) %>">
+        <a rel="tooltip" class="brand" href="https://www.google.com/analytics/web/" title="<%= I18n.t("admin.analytics.more_in_google_analytics") %>" target="_blank" >Google Analytics</a>
+
+        <form id="analytics_integration_form" class="navbar-form pull-right form-inline analytics_integration_form" name="analytics_integration_form" method="get" action="/admin/analytics">
           <select name="id" id="id" title="<%= I18n.t("admin.analytics.profile") %>" rel="tooltip" >
             <%= accounts_list.join("\n").html_safe %>
           </select>
@@ -114,6 +117,14 @@ unless token.blank?
   end
 
   unless values.blank?
+    # Adiciona API do Google Charts
+    concat javascript_include_tag "https://www.google.com/jsapi"
+    %>
+    <script type="text/javascript">
+      var google_charts = []
+    </script>
+    <%
+
     # paramâmetros padrões de busca
     query = { :ids          => "ga:#{account_selected["id"]}",
               :metrics      => "ga:visitors,ga:visits",
@@ -156,164 +167,155 @@ unless token.blank?
           content_tag(:span, "#{I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")}: ", class: "name") + content_tag(:span, rest_metrics_response["totalsForAllResults"][header["name"]], class: "value")
         end
       end
+
+      # lista os dados
+      %>
+      <h2 class="title"><%= I18n.t("admin.analytics.visits") %></h2>
+      <div class="row">
+        <div class="span4">
+          <%= content_tag(:div, metrics.join.html_safe, class: "metrics") %>
+        </div>
+        <!-- # Gráfico de visitas -->
+        <div class="span8">
+          <%
+          rest_g_visits_query = query.merge!( :metrics        => "ga:visits")
+
+          if values["graphtype"] == "date"
+            rest_g_visits_query = rest_g_visits_query.merge!(:dimensions  => "ga:date")
+          else
+            rest_g_visits_query = rest_g_visits_query.merge!( :dimensions => "ga:month,ga:year",
+                                                              :sort       => "ga:year")
+          end
+          rest_g_visits = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", rest_g_visits_query)
+          if defined?(rest_g_visits.code)
+            # mostra mensagem de erro
+            %>
+            <div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              <h4>Erro:</h4>
+              <%= rest_g_visits.code["message"] %>
+            </div>
+            <%
+          else
+            rest_g_visits_response  = rest_g_visits.parsed
+            %>
+              <div class="visits_barchart"></div>
+              <script type="text/javascript">
+                // Gera gráfico das origens de tráfegos
+                google_charts.push(function() {
+                  var data = new google.visualization.DataTable();
+                    data.addColumn('string', '<%= I18n.t("admin.analytics.day") %>');
+                    data.addColumn('number', '<%= I18n.t("admin.analytics.visits") %>');
+                    data.addRows(<%= rest_g_visits_response["totalResults"] %>);
+                    <%
+                    rest_g_visits_response["rows"].each_with_index do |row, row_key|
+                      # Origem
+                      if values["graphtype"] == "date"
+                        date = I18n.l(row[0].insert(6, "-").insert(4, "-").to_date, format: :short_month)
+                      else
+                        date = I18n.l("#{row[0]}-#{row[1]}-01".to_date, format: :month)
+                      end
+                      concat "data.setValue(#{row_key},0,\"#{date}\")\n".html_safe
+                      # Quantidade
+                      concat "data.setValue(#{row_key},1,#{row.last})\n".html_safe
+                      # data.setValue(<?php echo $row ?>,0,'<?php if ($visits_graph_type === "month"){echo date("M", mktime(0, 0, 0, $visits["month"]))." ".$visits["year"];}else{echo substr($visits['date'],6,2)."-".date('M', mktime(0, 0, 0, substr($visits['date'],4,2)))."-".substr($visits['date'],0,4);} ?>');
+                    end
+                    %>
+                  var chart = new google.visualization.AreaChart($(".visits_barchart")[0]);
+                    chart.draw(data, {
+                      title: '<%= I18n.t("admin.analytics.visits") %>',
+                      height: 400
+                    });
+                });
+              </script>
+            <%
+          end
+          %>
+        </div>
+      </div>
+      <%
     end
 
 
 
-
-
-    # Puxa a métrica de visitas e visitantes em um intervalo de datas
-    rest_dimensions = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", query.merge!(:metrics        => "ga:visits",
+    # Origem de tráfefo
+    rest_referrals = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", query.merge!( :metrics        => "ga:visits",
                                                                                                   :dimensions     => "ga:source",
                                                                                                   :sort           => "-ga:visits",
                                                                                                   :"max-results"  => "10"))
 
-    if defined?(rest_dimensions.code)
+    if defined?(rest_referrals.code)
       # mostra mensagem de erro
       %>
       <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">x</button>
         <h4>Erro:</h4>
-        <%= rest_dimensions.code["message"] %>
+        <%= rest_referrals.code["message"] %>
       </div>
       <%
     else
-      rest_dimensions_response  = rest_dimensions.parsed
+      rest_referrals_response = rest_referrals.parsed
+
       dimensions    = []
 
       # Criar header ta tabela
       dimensions_h  = []
-      rest_dimensions_response["columnHeaders"].each { |header| dimensions_h << content_tag(:th, I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")) }
+      rest_referrals_response["columnHeaders"].each { |header| dimensions_h << content_tag(:th, I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")) }
       dimensions << content_tag(:thead, content_tag(:tr, dimensions_h.join.html_safe))
 
       # Cria body da tabela
       dimensions_b  = []
-      rest_dimensions_response["rows"].each do |row|
+      rest_referrals_response["rows"].each do |row|
         row_h = []
         row.each { |value| row_h << content_tag(:td, value) }
         dimensions_b << content_tag(:tr, row_h.join.html_safe)
       end
       dimensions << content_tag(:tbody, dimensions_b.join.html_safe)
 
-      # lista os dados
+      # lista os dados e graficos
       %>
+      <hr class="page">
+
+      <h2 class="title"><%= I18n.t("admin.analytics.referrals") %></h2>
       <div class="row">
         <div class="span4">
-          <table>
-            <tbody>
-              <tr> <th><%= I18n.t("admin.analytics.visits") %></th> </tr>
-              <tr> <td><%= content_tag(:div, metrics.join.html_safe, class: "metrics") %></td> </tr>
-            </tbody>
-          </table>
+          <%= content_tag(:table, dimensions.join("\n").html_safe, class: "referrals") %>
         </div>
-        <div class="span8"><div class="visits_barchart"></div></div>
-      </div>
-      <div class="row">
-        <div class="span4">
-          <table>
-            <tbody>
-              <tr> <th><%= I18n.t("admin.analytics.referrals") %></th> </tr>
-              <tr> <td><%= content_tag(:table, dimensions.join("\n").html_safe, class: "referrals") %></td> </tr>
-            </tbody>
-          </table>
+        <div class="span8">
+          <div class="referrals_piechart"></div>
+          <script type="text/javascript">
+            // Gera gráfico das origens de tráfegos
+            google_charts.push(function() {
+              var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Referrer');
+                data.addColumn('number', 'Visits');
+                data.addRows(<%= rest_referrals_response["totalResults"] %>);
+                <%
+                rest_referrals_response["rows"].each_with_index do |row, row_key|
+                  # Origem
+                  concat "data.setValue(#{row_key},0,\"#{row[0]}\")\n".html_safe
+                  # Quantidade
+                  concat "data.setValue(#{row_key},1,#{row[1]})\n".html_safe
+                end
+                %>
+              var chart = new google.visualization.PieChart($(".referrals_piechart")[0]);
+                chart.draw(data, {height: 440, is3D: true, title: '<%= I18n.t("admin.analytics.referrer_visits") %>'});
+            });
+          </script>
         </div>
-        <div class="span8"><div class="referrals_piechart"></div></div>
       </div>
       <%
     end
 
 
-
-
-
-    # Puxa a métricas de visitas para gráfico
-=begin
-    rest_dimensions = ga.get_json("https://www.googleapis.com/analytics/v3/data/ga", query.merge!(:metrics        => "ga:visits",
-                                                                                                  :dimensions     => "ga:#{values["graphtype"]}",
-                                                                                                  :sort           => "#{"ga:year" if values["graphtype"] == "month"}"))
-
-    if defined?(rest_dimensions.code)
-      # mostra mensagem de erro
-      concat rest_dimensions.code["message"]
-    else
-      rest_dimensions_response  = rest_dimensions.parsed
-      dimensions    = []
-
-      # Criar header ta tabela
-      dimensions_h  = []
-      rest_dimensions_response["columnHeaders"].each { |header| dimensions_h << content_tag(:th, header["name"].gsub(/^ga:/, '')) }
-      dimensions << content_tag(:thead, content_tag(:tr, dimensions_h.join.html_safe))
-
-      # Cria body da tabela
-      dimensions_b  = []
-      rest_dimensions_response["rows"].each do |row|
-        row_h = []
-        row.each { |value| row_h << content_tag(:td, value) }
-        dimensions_b << content_tag(:tr, row_h.join.html_safe)
-      end
-      dimensions << content_tag(:tbody, dimensions_b.join.html_safe)
-
-      # renderiza os dados
-      concat content_tag :table, dimensions.join("\n").html_safe
-    end
-=end
+    %>
+    <script type="text/javascript">
+      google.load("visualization", "1.0", {packages:["corechart"]});
+      // Carrega os graficos
+      $.each(google_charts, function(k, v) { google.setOnLoadCallback(v); });
+    </script>
+    <%
   end
 end
 %>
 </div>
-<!--
- HTTP/1.1 200 OK
- Content-length: 244
- X-xss-protection: 1; mode=block
- Content-location: https://www.googleapis.com/oauth2/v1/userinfo?access_token=ya29.AHES6ZQnzxi-o6OdnmJg22o8KBJEd3fppW8OXLdkem-CP-M
- X-content-type-options: nosniff
- Expires: Fri, 01 Jan 1990 00:00:00 GMT
- X-google-cache-control: remote-fetch
- Server: GSE
- Reason: OK
- Via: HTTP/1.1 GWA
- Pragma: no-cache
- Cache-control: no-cache, no-store, max-age=0, must-revalidate
- Date: Fri, 18 Jan 2013 18:01:08 GMT
- X-frame-options: SAMEORIGIN
- Content-type: application/json; charset=UTF-8
- -content-encoding: gzip
-
- {
-  "id": "106649545261331314301",
-  "email": "admin@requestdev.com.br",
-  "verified_email": true,
-  "name": "Administrador Requestdev",
-  "given_name": "Administrador",
-  "family_name": "Requestdev",
-  "locale": "pt-BR",
-  "hd": "requestdev.com.br"
- }
-  -->
-<!--
-      <div class="control-group">
-        <label for="post_datetime" class="control-label">Data</label>
-        <div class="controls datetime_select">
-          <select name="post[datetime(3i)]" id="post_datetime_3i">
-            <option value="2">2</option>
-            <option value="3" selected="selected">3</option>
-          </select>
-          <select name="post[datetime(2i)]" id="post_datetime_2i">
-            <option value="1" selected="selected">Janeiro</option>
-            <option value="2">Fevereiro</option>
-          </select>
-          <select name="post[datetime(1i)]" id="post_datetime_1i">
-            <option value="2013" selected="selected">2013</option>
-            <option value="2018">2018</option>
-          </select>
-           &mdash; <select name="post[datetime(4i)]" id="post_datetime_4i">
-            <option value="15">15</option>
-            <option value="16" selected="selected">16</option>
-          </select>
-           : <select name="post[datetime(5i)]" id="post_datetime_5i">
-            <option value="43">43</option>
-            <option value="44" selected="selected">44</option>
-          </select>
-        </div>
-      </div>
- -->

@@ -34,6 +34,8 @@ br:
       default: ! '%d/%m/%Y'
       long: ! '%d de %B de %Y'
       short: ! '%d de %B'
+      short_month: ! '%d de %b'
+      month: ! '%B de %Y'
     month_names:
     -
     - Janeiro
