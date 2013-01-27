@@ -33,7 +33,7 @@ $(document).ready(function() {
     .bind("best_in_place:abort", function() { $(this).removeClass("focus"); });
 
   // call setMask function on the document.ready event
-  if (!$.browser.chrome)
+  if (!$.browser.webkit)
     $('input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], input[type=tel]')
       .setMask();
 });
@@ -88,7 +88,6 @@ $(document).ready(function() {
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
   $('div#overview_sidebar div.title a').bind("click", function(){
     $(this).children("ul").hide();
-
   });
   $('div#overview_sidebar div.title a').trigger("click");
 
@@ -100,24 +99,20 @@ $(document).ready(function() {
   });
   $("form .form-actions .btn.cancel").append(" (ESC)");
   key('esc', function(){
-    target = $("form .form-actions .btn.cancel").attr("href");
-    if (target)
-      window.location = target;
+    $("form .form-actions .btn.cancel").trigger("click");
     return false;
   });
 
   // Action Items
   $("#title_bar .action_items a[href$='new']").append(" (⌘-N)")
   key('⌘+n, ctrl+n', function(){
-    target = $("#title_bar .action_items a[href$='new']").attr("href");
-    window.location = target;
+    $("#title_bar .action_items a[href$='new']").trigger("click");
     return false;
   });
 
   $("#title_bar .action_items a[href$='edit']").append(" (⌘-E)")
   key('⌘+e, ctrl+e', function(){
-    target = $("#title_bar .action_items a[href$='edit']").attr("href");
-    window.location = target;
+    $("#title_bar .action_items a[href$='edit']").trigger("click");
     return false;
   });
 
