@@ -1,9 +1,11 @@
-$.loadBootstrap = ->
-  tooltip_options =
-    placement: "bottom"
+$.loadBootstrap = (options) ->
+  options = $.extend true, {
+    tooltip_options:
+      placement: "bottom"
+    }, options
 
-  $("*[rel=popover]").popover(tooltip_options)
-  $("*[rel=tooltip], .tooltip").tooltip(tooltip_options)
+  $("*[rel=popover]").popover(options.tooltip_options)
+  $("*[rel=tooltip], .tooltip").tooltip(options.tooltip_options)
 
   return true
 

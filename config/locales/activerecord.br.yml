@@ -160,8 +160,10 @@ br:
     tours:
       show:
         <<: *attributes_all
+        speed: Duração
       form:
         <<: *attributes_all
+        speed: Duração
     users:
       show:
         <<: *attributes_all
@@ -289,6 +291,7 @@ br:
         <<: *attributes_all
       tour:
         <<: *attributes_all
+        speed: Duração
       upload:
         <<: *attributes_all
       user:
