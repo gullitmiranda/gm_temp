@@ -9,7 +9,7 @@
     <ul class="thumbnails">
       <% @galleries.each do |gallery| %>
         <li class="span3">
-          <div class="thumbnail">
+          <div class="thumbnail clearfix">
             <%= link_to(gallery_path(gallery), { title: gallery.name, class: "thumb" }) do %>
               <%= image_tag gallery.uploads.blank? ? "empty.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
             <% end %>
