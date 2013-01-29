@@ -1,23 +1,20 @@
-<div class="row">
-  <div id="partners_list" class="<%= defined?(list_class) ? list_class : "span12" %>">
+<!-- <div class="row"> -->
+  <!-- <div id="partners_list" class="<%= defined?(list_class) ? list_class : "span12" %>"> -->
+  <div id="partners_list" class="<%= defined?(list_class) ? list_class : "" %>">
     <ul class="thumbnails">
       <% @partners.each do |partner| %>
         <li class="span3">
           <div class="thumbnail">
-            <div class="sponsor" title="<%= I18n.t(".click_to_flip") %>" rel="tooltip" >
+            <div class="sponsor clearfix" title="<%= I18n.t(".click_to_flip") %>" rel="tooltip" >
               <div class="sponsorFlip thumb">
-                <%#= link_to(gallery_path(gallery), { title: gallery.name, class: "thumb" }) do %>
-                  <%#= image_tag gallery.uploads.blank? ? "empty.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
-                <%# end %>
                 <%= image_tag partner.partner(:thumb), class: "img-polaroid" %>
               </div>
 
               <div class="sponsorData">
-                <div class="sponsorLogo">
-                  <!-- <img src="" alt="<%= I18n.t(".more_about_company", company: partner.name) %>" /> -->
+                <div class="sponsorDescription clearfix">
                   <%= image_tag partner.partner(:thumb), alt: I18n.t(".more_about_company", company: partner.name), title: I18n.t(".more_about_company", company: partner.name), rel: "tooltip" %>
+                  <div class="description"><%= partner.description %></div>
                 </div>
-                <div class="sponsorDescription"><%= partner.description %></div>
                 <div class="sponsorURL"><%= link_to(partner.url, partner.url, target: "_blank", title: partner.name, rel: "tooltip") %></div>
               </div>
             </div>
@@ -26,7 +23,7 @@
       <% end %>
     </ul>
   </div>
-</div>
+<!-- </div> -->
 <script type="text/javascript" charset="utf-8">
 $(function() {
   // Carrega Sponsor
