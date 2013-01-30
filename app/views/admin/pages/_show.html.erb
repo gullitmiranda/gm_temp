@@ -7,6 +7,7 @@
           <tr><th><%= t(".created_at" ) %></th><td><%= l s.created_at %></td></tr>
           <tr><th><%= t(".updated_at" ) %></th><td><%= l s.updated_at %></td></tr>
           <tr><th><%= t(".published"  ) %></th><td><%= best_in_place s, :published, type: :checkbox , path: [:admin, s] %></td></tr>
+          <tr><th><%= t(".in_menu"    ) %></th><td><%= best_in_place s, :in_menu  , type: :checkbox , path: [:admin, s] %></td></tr>
         </tbody>
       </table>
     </div>

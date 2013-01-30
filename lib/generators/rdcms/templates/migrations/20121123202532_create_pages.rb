@@ -4,6 +4,7 @@ class CreatePages < ActiveRecord::Migration
       t.string :slug
       t.string :name
       t.text :content
+      t.boolean :in_menu, :default => false
       t.boolean :published, :default => false
 
       t.timestamps

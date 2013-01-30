@@ -58,6 +58,7 @@ br:
     history: História
     id: Código
     image: Imagem
+    in_menu: Menu
     index: Índice
     last_sign_in_at: Último conexão
     lastname: Sobrenome

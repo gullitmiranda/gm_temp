@@ -16,6 +16,9 @@ ActiveAdmin.register Page do
       link_to(truncate(p.name, :length => 40), [:admin, p], title: "#{title || ""}" )
     end
     column :updated_at
+    column :in_menu, :sortable => :in_menu do |p|
+      best_in_place p, :in_menu, type: :checkbox, path: [:admin, p]
+    end
     column :published, :sortable => :published do |p|
       best_in_place p, :published, type: :checkbox, path: [:admin, p]
     end

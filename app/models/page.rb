@@ -1,7 +1,7 @@
 class Page < ActiveRecord::Base
-  attr_accessible :content, :name, :published, :slug,
-  								# I18n
-  								:translations_attributes, :published
+  attr_accessible :content, :name, :published, :in_menu, :slug,
+                  # I18n
+                  :translations_attributes, :published
 
   # URL amigáveis através do :name
   extend FriendlyId
@@ -10,9 +10,10 @@ class Page < ActiveRecord::Base
   # Translate
   translates :name, :content
   accepts_nested_attributes_for :translations
-  
+
   # Escopos
   scope :visible, where("published = ?", true)
+  scope :in_menu, where("in_menu = ?", true)
 
   class Translation
     attr_accessible :locale, :name, :content
