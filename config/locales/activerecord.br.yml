@@ -5,6 +5,7 @@ br:
   # Atributos para formulários
   attributes_all: &attributes_all
     active: ativo
+    activity: Atividade
     address: Endereço
     application_template: Páginas padrões
     apply_color: Aplicar cor
@@ -25,7 +26,9 @@ br:
     categories: Categorias
     children: Filhos
     city: Cidade
+    company: Empresa
     complete_name: Nome completo
+    confirmed: Cofirmado
     content: Conteúdo
     created_at: Criado em
     contact: Contato
@@ -39,9 +42,11 @@ br:
     description: Descrição
     direction: Direção
     district: Bairro
+    downloaded: Carregado
     email: E-mail
     end_date: Data final
     entry: Entrada
+    fax: Fax
     firstname: Nome
     footer: Rodapé
     function: Funções
@@ -75,6 +80,7 @@ br:
     phone: Telefone
     play_stop: Reproduzir/Parar
     price: Preço
+    province: Bairro
     published: Publicado
     sign_in_count: Número de conexões
     sizes: Tamanhos
@@ -101,13 +107,16 @@ br:
     start_date: Data inicial
     start_playback: Iniciar Reprodução
     start_position: Posição inicial
+    state: Estado
     summary: Resumo
+    tel: Telefone
     tour: Panorama
     type: Tipo
     update: Atualizar
     username: Nome
     visitors: Visitantes
     visits: Visitas
+    website: Site
     weight: Peso
     weights_and_measures: Pesos e Medidas
     width: Largura
@@ -124,6 +133,8 @@ br:
 
   # Admin module
   admin: &admin
+    affairs:
+      <<: *attributes_all
     analytics:
       <<: *attributes_all
       date: Diário
@@ -205,6 +216,9 @@ br:
       content_management: Gestão de Conteúdos
       settings: Configurações
 
+      affair:
+        one: Business Form
+        other: Business Form
       analytics:
         one: Estatística
         other: Estatísticas
@@ -276,6 +290,8 @@ br:
 
     # Atributos dos módulos
     attributes:
+      affair:
+        <<: *attributes_all
       gallery:
         <<: *attributes_all
         upload_file_name: Nome da imagem

@@ -3,7 +3,6 @@ rdcms:
     user: "current_user"
     role: "admin"
     api: ""
-  html2pdf_uid: "c5c13af822"
   use_solr: "false"
   url: "www.requestdev.com.br"
   use_ssl: "false"
@@ -50,15 +49,15 @@ rdcms:
   # Informações da compania
   company:
     name: Requestdev Desenvolvimento e Consultoria LTDA
-    address: Rua dos Caripunas, 75
-    district: Bairro Urupá
-    cep: 76.900-184
+    address: Rua Dom Augusto
+    district: Bairro Centro
+    cep: 76.900-103
     city: Ji-Paraná
     state: Rondônia
     country: Brasil
     phone: "+55 (69) 3421-4346"
     email: "contato@requestdev.com.br"
-    year: "2011"
+    year: "2011 - 2013"
 
   site:
     name: Requestdev Sistemas
