@@ -1,7 +1,7 @@
 class Ckeditor::Picture < Ckeditor::Asset
   has_attached_file :data,
                     :hash_secret  => "longSecretString",
-                    :url          => "http://images.valeriatotti.com/:attachment/:id/:hash.:extension",
+                    :url          => "http://images.requestdev.com/:attachment/:id/:hash.:extension",
                     :path         => "/images/:attachment/:id/:hash.:extension",
 	                  :styles => { :content => '800>', :thumb => '118x100#' },
                     :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
