@@ -49,7 +49,7 @@ rdcms:
   # Informações da compania
   company:
     name: Requestdev Desenvolvimento e Consultoria LTDA
-    address: Rua Dom Augusto
+    address: Rua Dom Augusto, 1196
     district: Bairro Centro
     cep: 76.900-103
     city: Ji-Paraná
@@ -58,6 +58,7 @@ rdcms:
     phone: "+55 (69) 3421-4346"
     email: "contato@requestdev.com.br"
     year: "2011 - 2013"
+    localization: -10.879028,-61.95147
 
   site:
     name: Requestdev Sistemas

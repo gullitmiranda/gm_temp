@@ -6,21 +6,26 @@
     <!-- <div class="attributes_table well"> -->
     <div class="thumbnail">
       <!-- Objetos -->
-      <% name     = @company.find_by_title("name"     ) %>
-      <% address  = @company.find_by_title("address"  ) %>
-      <% district = @company.find_by_title("district" ) %>
-      <% cep      = @company.find_by_title("cep"      ) %>
-      <% city     = @company.find_by_title("city"     ) %>
-      <% state    = @company.find_by_title("state"    ) %>
-      <% country  = @company.find_by_title("country"  ) %>
-      <% phone    = @company.find_by_title("phone"    ) %>
-      <% email    = @company.find_by_title("email"    ) %>
-      <% year     = @company.find_by_title("year"     ) %>
+      <% name         = @company.find_by_title("name"         ) %>
+      <% localization = @company.find_by_title("localization" ) %>
+      <% address      = @company.find_by_title("address"      ) %>
+      <% district     = @company.find_by_title("district"     ) %>
+      <% cep          = @company.find_by_title("cep"          ) %>
+      <% city         = @company.find_by_title("city"         ) %>
+      <% state        = @company.find_by_title("state"        ) %>
+      <% country      = @company.find_by_title("country"      ) %>
+      <% phone        = @company.find_by_title("phone"        ) %>
+      <% email        = @company.find_by_title("email"        ) %>
+      <% year         = @company.find_by_title("year"         ) %>
 
       <dl class="form span6">
         <!-- Nome -->
         <dt><%= t(".name") %>:</dt>
         <dd><%= best_in_place name, :value, type: :input, classes: "span4", path: [:admin, name] %></dd>
+
+        <!-- Localização -->
+        <dt><%= t(".localization") %>:</dt>
+        <dd><%= best_in_place localization, :value, type: :input, classes: "span4", path: [:admin, localization] %></dd>
 
         <!-- Endereço -->
         <dt><%= t(".address") %>:</dt>
