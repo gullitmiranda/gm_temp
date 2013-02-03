@@ -30,7 +30,7 @@ gem 'sunspot_solr'
 # gem 'pdfkit'
 # gem 'wkhtmltopdf-binary'
 # gem 'wicked_pdf'
-gem "sidekiq", "~> 2.7.0", :git => 'git://github.com/mperham/sidekiq.git'
+gem "sidekiq", "~> 2.7.0"
 gem 'sinatra', :require => false
 gem 'slim'
 #gem 'bullet'  testing for slow queries
