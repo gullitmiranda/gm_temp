@@ -1,85 +1,86 @@
 en:
   # Atributos para formulários
   attributes_all: &attributes_all
-    active: "active"
-    approved: "approved"
-    article_type: tipo de artigo
-    author: Autor
-    auto_start: Iniciar automaticamente
+    active: active
+    approved: approved
+    article_type: article type
+    author: Author
+    auto_start: Auto start
     back_page: Previous Page
-    background: Imagen de fundo
-    body: Texto
-    cancel: Cancelar
-    categories: Categorias
-    complete_name: "name"
-    content: "Content"
-    created_at: "created at"
+    background: Background
+    body: Text
+    cancel: Cancel
+    categories: Categories
+    complete_name: Name
+    content: Content
+    created_at: created at
     contact_email: Contact email
-    control_display: Controles
-    current_sign_in_at: Conexão atual
-    date: Data
-    dates: Datas
-    datetime: Data
-    description: "Description"
-    direction: Direção
-    email: "email"
-    entry: Entrada
-    firstname: "firstname"
-    function: "function"
-    general: Geral
-    gender: Gênero
+    control_display: Controls
+    cubage: Cubage
+    current_sign_in_at: Sessão atual
+    date: Date
+    dates: Dates
+    datetime: Datetime
+    description: Description
+    direction: Direction
+    email: email
+    entry: Entry
+    firstname: Firstname
+    function: function
+    general: General
+    gender: Denger
     googleplus: Google Plus
-    height: Altura
-    history: História
-    id: Código
-    image: "image"
+    height: Height
+    history: History
+    id: ID
+    image: image
     index: Index
-    last_sign_in_at: Último conexão
-    lastname: "lastname"
-    length: Comprimento
-    localization: Localização
-    loop: Contínuo
-    measures: Medidas
-    name: Nome
+    last_sign_in_at: Last connection
+    lastname: Lastname
+    length: Length
+    localization: Localization
+    loop: Loop
+    measures: Measures
+    name: Name
     next_page: Next Page
-    no: Não
-    password: "password"
-    password_confirmation: "password confirmation"
+    no: No
+    password: password
+    password_confirmation: password confirmation
     # password_hint: Deixe em branco se a senha não deve ser alterada.
-    preview: Visualização
+    preview: Preview
     phone: Phone
     play_stop: Play/Stop
-    price: Preço
-    published: Publicado
-    reference: Referência
-    reported: "reported"
-    rights: "rights"
-    roles: "roles"
+    price: Price
+    published: Published
+    reference: Reference
+    reported: reported
+    rights: rights
+    roles: roles
     rotate_left: Rotate Left
     rotate_right: Rotate right
     save: Save
     separated_by_commas: 'Separado por virgulas ","'
-    sign_in_count: Número de conexões
-    sizes: Tamanhos
+    sign_in_count: Sign-in Count
+    sizes: Sizes
     slug: Link permanent
-    source: "source"
-    speed: Velocidade
-    start_position: Posição inicial
-    summary: Resumo
-    tag_list: Categorias
-    title: "title"
-    tour: Panorama
-    updated_at: "updated at"
-    upload_content_type: "upload content type"
-    upload_file_name: "upload file name"
-    upload_file_size: "upload file size"
+    source: Source
+    speed: Speed
+    start_position: Start Position
+    summary: Summary
+    tag_list: Categories
+    title: Title
+    tour: Tour
+    updated_at: updated at
+    upload_content_type: upload content type
+    upload_file_name: upload file name
+    upload_file_size: upload file size
     url: url
-    username: Nome
-    weight: Peso
-    weights_and_measures: Pesos e Medidas
-    width: Largura
+    username: Username
+    weight: Weight
+    weights_and_measures: Weights and Measures
+    width: Width
     year: Year
-    yes: Sim
+    yes: Yes
     zoom: Enlarge / Reduce
   # Admin module
   admin: &admin
@@ -128,22 +129,22 @@ en:
         <<: *attributes_all
       form:
         <<: *attributes_all
-        add_partner: Adicionar parceiro
+        add_partner: Add partner
     publications:
       show:
         <<: *attributes_all
       form:
         <<: *attributes_all
-        name_placeholder: Publicação sem nome
-        body_placeholder: Escreva algo relacionado a essa publicação
+        name_placeholder: Publication unnamed
+        body_placeholder: Write something related to this publication
     settings:
       visualization:
         <<: *attributes_all
-        header: Cabeçalho
-        file: Imagem
-        file_hint: "O tamanho recomendável é de %{size}."
-        background: Cor do espaçamento
-        inner_background: Cor de fundo
+        header: Header
+        file: Image
+        file_hint: "The recommended size is %{size}."
+        background: Color spacing
+        inner_background: Background Color
       company:
         <<: *attributes_all
   <<: *admin
@@ -204,14 +205,14 @@ en:
         other: Widgets
       tour: Virtual Tour
       page:
-        one: Página
-        other: Páginas
+        one: Page
+        other: Pages
       partner:
         one: Parceiro
         other: Parceiros
       publication:
-        one: Publicação
-        other: Publicações
+        one: Publication
+        other: Publications
 
       # Desativados
       metag:
@@ -245,4 +246,4 @@ en:
         <<: *attributes_all
       publication:
         <<: *attributes_all
-        children: Páginas
+        children: Pages

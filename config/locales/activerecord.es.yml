@@ -24,6 +24,7 @@ es:
     contact_email: Email de contacto
     control_display: Controles
     country: País
+    cubage: Cubicación
     current_sign_in_at: Conexão atual
     date: Data
     dates: Datas
@@ -89,7 +90,7 @@ es:
     tour: Panorama
     username: Nome
     weight: Peso
-    weights_and_measures: Pesos e Medidas
+    weights_and_measures: Pesos y Medidas
     width: Largura
     year: Año
     yes: Sim
