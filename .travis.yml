@@ -19,6 +19,6 @@ branches:
     - master
 mysql:
   adapter: mysql2
-  database: goldencobra_test
+  database: rdcms_test
   username: root
   encoding: utf8
