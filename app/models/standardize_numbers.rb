@@ -1,4 +1,4 @@
-class StandardiseNumbers
+class StandardizeNumbers
   def initialize(record, attributes)
     @attributes = attributes
 
