@@ -4,17 +4,19 @@ class StandardiseNumbers
 
     if @attributes.kind_of?(Array)
       @attributes.each do |attribute|
-        value = record[attribute]
+        unless record[attribute].nil?
+          value = record[attribute]
 
-        if !(value =~ /\.\d+\,/).nil?
-          value = value.gsub(/[.,]/, ',' => '.', '.' => '_')
-        elsif !(value =~ /\,\d+\./).nil?
-          value = value.gsub(/\,/, '_')
-        elsif !(value =~ /\,/).nil?
-          value = value.gsub(/\,/, '.')
+          if !(value =~ /\.\d+\,/).nil?
+            value = value.gsub(/[.,]/, ',' => '.', '.' => '_')
+          elsif !(value =~ /\,\d+\./).nil?
+            value = value.gsub(/\,/, '_')
+          elsif !(value =~ /\,/).nil?
+            value = value.gsub(/\,/, '.')
+          end
+
+          record[attribute] = value
         end
-        
-        record[attribute] = value
       end
     end
   end
