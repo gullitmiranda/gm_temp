@@ -32,9 +32,16 @@ class Upload < ActiveRecord::Base
   # Taggings
   acts_as_taggable
 
+  REGEXP = case ActiveRecord::Base.connection.adapter_name.downcase.to_sym
+    when :postgresql
+      "~"
+    else
+      "REGEXP"
+  end
+
   # Escopos
   scope :filters_params, lambda{ |params = {}|
-    where(params[:accept_content_type] ? "upload_content_type REGEXP '#{params[:accept_content_type]}'" : "")
+    where(params[:accept_content_type] ? "upload_content_type #{REGEXP} '#{params[:accept_content_type]}'" : "")
     .where(params[:item_type] ? "item_type = '#{params[:item_type]}'" : "")
     .order(params[:order])
     .limit(params[:limit])
