@@ -18,15 +18,17 @@ class Slider < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
 
-  # Translate
-  translates :name, :body
-  accepts_nested_attributes_for :translations
-
   # Escopos
   scope :visible, where("published = ?", true)
   scope :recents, lambda{ |limit = 10| visible.order("created_at desc").limit(limit)}
   scope :ordained, order("position asc, updated_at desc")
 
+  # Contador de visitas
+  is_visitable accept_ip: true
+
+  # Translate
+  translates :name, :body
+  accepts_nested_attributes_for :translations
 
   class Translation
     attr_accessible :locale, :name, :body

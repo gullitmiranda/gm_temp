@@ -34,6 +34,9 @@ class Post < ActiveRecord::Base
   # Taggings
   acts_as_taggable
 
+  # Contador de visitas
+  is_visitable accept_ip: true
+
   # def self.tagged_with(name)
   #   Tag.find_by_name!(name).posts
   # end

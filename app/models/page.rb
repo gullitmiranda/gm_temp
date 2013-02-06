@@ -7,13 +7,16 @@ class Page < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
 
-  # Translate
-  translates :name, :content
-  accepts_nested_attributes_for :translations
-
   # Escopos
   scope :visible, where("published = ?", true)
   scope :in_menu, where("in_menu = ?", true)
+
+  # Contador de visitas
+  is_visitable accept_ip: true
+
+  # Translate
+  translates :name, :content
+  accepts_nested_attributes_for :translations
 
   class Translation
     attr_accessible :locale, :name, :content

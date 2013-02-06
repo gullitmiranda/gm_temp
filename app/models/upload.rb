@@ -32,6 +32,9 @@ class Upload < ActiveRecord::Base
   # Taggings
   acts_as_taggable
 
+  # Contador de visitas
+  is_visitable accept_ip: true
+
   REGEXP = case ActiveRecord::Base.connection.adapter_name.downcase.to_sym
     when :postgresql
       "~"

@@ -18,10 +18,16 @@ class Gallery < ActiveRecord::Base
   scope :visible, where("published = ?", true)
   scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
 
-# Translate
+  # Taggings
+  acts_as_taggable
+
+  # Contador de visitas
+  is_visitable accept_ip: true
+
+  # Translate
   translates :name, :description
   accepts_nested_attributes_for :translations
-  
+
   class Translation
     attr_accessible :locale, :name, :description
   end
@@ -31,9 +37,6 @@ class Gallery < ActiveRecord::Base
     end
     set_translations new_translations
   end
-
-  # Taggings
-  acts_as_taggable
 
   # Refaz a ordenação dos uploads
   def reorder_positions(ids = nil)

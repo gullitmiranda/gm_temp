@@ -10,6 +10,8 @@ class PagesController < ApplicationController
 
   def show
     @page = Page.visible.find(params[:id])
+    @page.visit! :by => request.try(:remote_ip)
+
     respond_with @page
   end
 end

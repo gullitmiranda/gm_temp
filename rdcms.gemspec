@@ -81,4 +81,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'formtastic'
   s.add_dependency 'formtastic-bootstrap'
   s.add_dependency 'client_side_validations-formtastic'
+
+  # Estatísticas
+  s.add_dependency "is_visitable", "~> 0.1.0"#, :git => "git://github.com/gullitmiranda/is_visitable.git"
 end

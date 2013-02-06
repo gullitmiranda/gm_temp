@@ -29,6 +29,9 @@ class Publication < ActiveRecord::Base
   scope :catalogue, where("object_type=?", 0)
   scope :campaign,  where("object_type=?", 1)
 
+  # Contador de visitas
+  is_visitable accept_ip: true
+
   # Translate
   translates :name, :body
   accepts_nested_attributes_for :translations

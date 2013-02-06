@@ -18,6 +18,9 @@ class Partner < ActiveRecord::Base
   scope :visible, where("published = ?", true)
   scope :ordained, order("position asc")
 
+  # Contador de visitas
+  is_visitable accept_ip: true
+
   # Translate
   translates :description
   accepts_nested_attributes_for :translations

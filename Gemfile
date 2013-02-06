@@ -60,6 +60,9 @@ gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'client_side_validations-formtastic'
 
+# Estatísticas
+gem "is_visitable", "~> 0.1.0", :git => "git://github.com/gullitmiranda/is_visitable.git"
+
 group :assets do
   gem "twitter-bootstrap-rails", "~> 2.1.3"
 end
