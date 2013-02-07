@@ -23,7 +23,7 @@ class Publication < ActiveRecord::Base
   scope :publication_root, where("ancestry is ?", nil)
   scope :visible, where("published = ?", true)
   scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
-  scope :ordained, order("position asc")
+  scope :ordained, order("position asc").order("datetime desc")
 
   # View scopes
   scope :catalogue, where("object_type=?", 0)

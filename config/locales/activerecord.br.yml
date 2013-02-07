@@ -61,6 +61,7 @@ br:
     image: Imagem
     in_menu: Menu
     index: Índice
+    item_type: Objeto
     last_sign_in_at: Último conexão
     lastname: Sobrenome
     length: Comprimento

@@ -3,7 +3,7 @@ class GalleriesController < ApplicationController
 
   respond_to :html, :json
   def index
-    @galleries = Gallery.visible
+    @galleries = Gallery.visible.orderly
     respond_with @galleries
   end
 

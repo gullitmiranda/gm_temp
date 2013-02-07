@@ -51,8 +51,10 @@ ActiveAdmin.register Upload do
       best_in_place o, :tag_list, type: :input, path: [:admin, o]
     end
 
+    column :item_type
+
     # column :upload_file_name, :upload_file_name
-    column :upload_content_type, :upload_content_type
+    column :upload_content_type
     column :upload_file_size, :sortable => :upload_file_size do |i|
       div :class => "align-right" do
         number_to_human_size i.upload_file_size
