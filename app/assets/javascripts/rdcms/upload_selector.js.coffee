@@ -32,8 +32,6 @@ jQuery ->
     template  = tmpl "template-download", files: data
 
     if container == gallery_container_ul
-      temp_itens  = $("<div />").append(template).children()
-      # console.debug temp_itens
       $("<div />").append(template).children().each(() ->
         _li = $(this)
         _li.appendTo(container).addClass('in') unless $("##{_li.prop 'id'}", upload_selector).length

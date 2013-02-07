@@ -8,17 +8,19 @@ jQuery ->
   upload_container_ul     = $('#upload_container ul:first'  , publications_container)
   action                  = file_selector.prop('action') || file_selector.prop('href')
   #### end Selectores
-  
+
   # Core Functions
   # renderFiles - Renderiza os itens
   renderFiles = (data = {}, container = $(), offset) ->
-    template  = $(tmpl "template-download", files: data)
+    template  = tmpl "template-download", files: data
+    temp_itens  = $("<div />").append(template).children()
 
-    if container.children().length
-      template.each () ->
+    if temp_itens.length
+      temp_itens.each (o, ix) ->
         _t = $(this)
         _r = container.find("##{this.id}")
-        
+        # console.debug temp_itens.length, ix, o
+
         if _r.length
           _r.replaceWith _t
         else
@@ -26,7 +28,7 @@ jQuery ->
           _savePositions()
     else
       container.append template
-    
+
     container.children().addClass('in')
     _sortable(container).data()
 
@@ -56,7 +58,7 @@ jQuery ->
         _checkAndDestroyViewPort($(this))
 
     .appendTo(container)
-    
+
   # caso a viewPort não exista cria
   _checkOrCreateViewPort = ->
     viewPort = $('body .page_edit_viewport')
@@ -97,7 +99,7 @@ jQuery ->
     file_selector.submit()
 
   #### end Core Functions
-  
+
   # Renderiza os itens carregados do Banco de dados
   selectedData = upload_container_ul.data('load')
   if selectedData && selectedData.length
@@ -105,19 +107,19 @@ jQuery ->
   else
     _sortable upload_container_ul
   publications_itens      = $('li', upload_container_ul)
-  
+
   # Callbacks
   fileupload_form
     .bind "fileuploadcompleted", (e, data) ->
       _savePositions()
-  
+
   # console.debug upload_container_ul, publications_itens
   publications_itens.on "click", ".edit .btn", _renderEdit
   # end Callbacks
 
   # Ações de ordenação
   # auto_save.checkbox()
-  
+
   # upload_selector
   #   .on 'click.upload_selector', '.add button', (ev) ->
   #     ev.preventDefault()
@@ -135,6 +137,6 @@ jQuery ->
   #       # file_selector.submit() if auto_save_checkbox.prop('checked')
   #     else
   #       _ref.remove()
-      
-      
+
+
   # end Ações de ordenação
