@@ -16,7 +16,7 @@ class Gallery < ActiveRecord::Base
 
   # Escopos
   scope :visible, where("published = ?", true)
-  scope :orderly, lambda{ |order| order(order || "datetime desc")}
+  scope :orderly, lambda{ |order = nil| order(order || "datetime desc")}
   scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
 
   # Taggings
