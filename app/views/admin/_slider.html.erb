@@ -15,22 +15,6 @@
           <%= raw slider.body %>
         </div>
       </div>
-      <% if defined?(admin) and admin %>
-        <div class="admin-caption royalCaption">
-          <span><%= link_to slider.name, admin_slider_path(slider) %></span>
-          <div class="admin-actions">
-            <a class="btn btn-success btn-mini" href="<%= new_admin_slider_path %>" title="<%= I18n.t('.add') %>">
-              <i class="icon-plus-2"></i>
-            </a>
-            <a class="btn btn-primary btn-mini" href="<%= edit_admin_slider_path(slider) %>" title="<%= I18n.t('.edit') %>">
-              <i class="icon-pencil-2"></i>
-            </a>
-            <a class="btn btn-mini btn-danger" rel="nofollow" data-method="delete" href="<%= admin_slider_path(slider) %>" title="<%= I18n.t('.delete') %>">
-              <i class="icon-trashcan"></i>
-            </a>
-          </div>
-        </div>
-      <% end %>
     </li>
   <% end %>
 </ul>

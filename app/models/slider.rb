@@ -39,4 +39,49 @@ class Slider < ActiveRecord::Base
     end
     set_translations new_translations
   end
+
+  #Jquery File Uploads
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::NumberHelper
+  # include I18n::Backend::Fallbacks
+  # include I18n::Backend::Simple
+
+  def to_jq_upload
+    {
+      "id"            => read_attribute(:id),
+      "name"          => read_attribute(:name) || read_attribute(:background_file_name),
+      "content_type"  => read_attribute(:background_content_type),
+      "size"          => read_attribute(:background_file_size),
+      "updated_at"    => read_attribute(:updated_at),
+      "created_at"    => read_attribute(:created_at),
+      "images" =>  {
+        "original"    => background.url,
+        "page"        => background.url(:page  ),
+        "thumb"       => background.url(:thumb  ),
+      },
+      "url"           => background.url(:original),
+      "page"          => background.url(:page),
+      "thumb"         => background.url(:thumb),
+      "edit_url"      => edit_admin_slider_path(self),
+      "delete_url"    => admin_slider_path(self),
+      "delete_type"   => "DELETE",
+      "i18n" => {
+        "size"        => number_to_human_size(read_attribute(:background_file_size)),
+        "updated_at"  => I18n.l(read_attribute(:updated_at), format: :long),
+        "created_at"  => I18n.l(read_attribute(:created_at), format: :long),
+      }
+    }
+  end
+
+  # Refaz a ordenação dos uploads
+  def self.reorder_positions(ids = nil)
+    [] if ids.blank?
+    counter = 1
+    ActiveRecord::Base.establish_connection
+    ids.each do |id|
+      ActiveRecord::Base.connection.execute("UPDATE sliders SET position=#{counter} WHERE id='#{id}';\n")
+      counter += 1
+    end
+    return true
+  end
 end

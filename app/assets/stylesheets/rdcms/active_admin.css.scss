@@ -122,6 +122,11 @@ body.active_admin {
     &.btn-link { text-decoration: underline; }
   }
 
+  #upload_container .uploads-list .template-download .det.footer > div {
+    float: none;
+    display: inline-block;
+  }
+
   /* Uploads */
   .uploads-list {
     height: 512px;
@@ -205,9 +210,40 @@ body.active_admin {
 
         .template-download {
           .det.footer > div {
-            float: none;
-            display: inline-block;
+            a.btn-primary {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+  /* Sliders */
+  &.admin_sliders {
+    .form-actions {
+      padding: 10px 0;
+    }
+    .tabbable {
+      .tab-content {
+        padding: 25px;
+      }
+    }
+    .description .text_area {
+      height: 73px;
+      padding: 4px 6px;
+    }
+    /* Ajax Form */
+    .slider_edit_container {
+      form {
+        .image_input_send { display: none; }
+      }
+    }
+    #upload_container {
+      .uploads-list {
+        height: auto;
 
+        .template-download {
+          .det.footer > div {
             a.btn-primary {
               color: #fff;
             }
@@ -236,9 +272,6 @@ body.active_admin {
 
         .template-download {
           .det.footer > div {
-            float: none;
-            display: inline-block;
-
             a.btn-primary {
               color: #fff;
             }

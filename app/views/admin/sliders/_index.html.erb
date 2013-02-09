@@ -1,0 +1,133 @@
+</table>
+<div class="fileuploads-container">
+  <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+  <%= form_for Slider.new, :url => admin_sliders_path, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+    <div class="row fileupload-buttonbar">
+      <div class="span3 btn-toolbar">
+        <div class="btn-group">
+          <!-- The fileinput-button span is used to style the file input field as button -->
+          <span class="btn btn-success fileinput-button" title="<%= I18n.t('.add_files') %>" rel="tooltip" >
+            <i class="icon-plus-2"></i>
+            <input type="file" name="slider[background]" accept="image/*" multiple="multiple" />
+          </span>
+        </div>
+        <em><%= t("recommended_size_for_upload", :size => "1920x1200") %></em>
+      </div>
+      <div class="span3 fileupload-progress fileupload-progressbar fade">
+        <!-- The global progress bar -->
+        <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="bar" style="width:0%;"></div>
+        </div>
+        <div class="progress-extended">&nbsp;</div>
+      </div>
+    </div>
+    <!-- The loading indicator is shown during image processing -->
+    <div class="fileupload-loading"></div>
+    <!-- Visualização do tipo grid -->
+    <div id="upload_container" class="row">
+      <div class="span12">
+        <ul class="files uploads-list thumbnails selectable connectedSortable"></ul>
+      </div>
+      <script type="text/javascript">
+        $("#upload_container ul.files").data(
+          'load',<%= raw defined?(@sliders) ? @sliders.ordained.map{|slider| slider.to_jq_upload }.to_json : '""' %>);
+      </script>
+    </div>
+    <!-- upload -->
+    <script id="template-upload" type="text/x-tmpl">
+      {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <li id="slider_{%=file.id%}" class="template-upload span3 fade">
+          <div class="thumbnail">
+            <div class="det bg header clearfix">
+              <span>{%=file.name%}</span>
+            </div>
+            <div class="thumbnail preview">
+              <span class="fade"></span>
+            </div>
+            {% if (file.error) { %}
+              <div class="det alert alert-error clearfix">
+                <strong>{%=locale.fileupload.error%}</strong> {%=locale.fileupload.errors[file.error] || file.error%}
+              </div>
+            {% } %}
+            <div class="det footer clearfix">
+              <div class="progress progress-danger"><div class="bar" style="width:0%;"></div></div>
+              <div class="cancel">
+                {% if (!i) { %}
+                <button class="btn btn-mini btn-warning" title="<%= I18n.t(".cancel") %>">
+                  <i class="icon-denied"></i>
+                </button>
+                {% } %}
+              </div>
+            </div>
+          </div>
+        </li>
+      {% } %}
+    </script>
+    <!-- download e visualização -->
+    <script id="template-download" type="text/x-tmpl">
+      {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <li id="slider_{%=file.id%}" class="template-download span3 fade">
+          <div class="thumbnail">
+            <div class="det bg header clearfix">
+              <span>{%=file.name%}</span>
+              <!-- <input type="checkbox" name="selected" value="{%=file.id%}" class="toggle_selected"> -->
+            </div>
+            <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
+              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : 'empty.png' %}" />
+            </a>
+            {% if (file.error) { %}
+              <div class="det alert alert-error clearfix">
+                <strong>{%=locale.fileupload.error%}</strong> {%=locale.fileupload.errors[file.error] || file.error%}
+              </div>
+            {% } %}
+            <div class="det footer clearfix">
+              {% if (!file.error) { %}
+              <input type="input" value="{%=file.id%}" name="ids_order[]" class="ids_order hidden" >
+              <div class="edit">
+                <a href="{%=file.edit_url%}" class="btn btn-mini btn-primary" title="<%= I18n.t('.edit') %>">
+                  <i class="icon-pencil-2"></i>
+                </a>
+                <input type="checkbox" value="{%=file.id%}" class="hidden">
+              </div>
+              {% } %}
+
+              <div class="delete">
+                <button class="btn btn-mini btn-danger" title="<%= I18n.t('.delete') %>" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                  <i class="icon-trashcan"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      {% } %}
+    </script>
+  <% end %>
+
+  <%= form_for Slider.new, :url => admin_sliders_path, :html => { :id => "file_selector", :remote => true } do |f| -%>
+    <div class="hidden">
+      <%= hidden_field_tag :reorder_positions, value: true %>
+    </div>
+  <% end -%>
+
+  <script>
+    var fileUploadErrors = {
+      maxFileSize     : '<%= I18n.t "error.messages.max_file_size" %>',
+      minFileSize     : '<%= I18n.t "error.messages.min_file_size" %>',
+      acceptFileTypes : '<%= I18n.t "error.messages.accept_file_types" %>',
+      maxNumberOfFiles: '<%= I18n.t "error.messages.max_number_of_files" %>',
+      uploadedBytes   : '<%= I18n.t "error.messages.uploaded_bytes" %>',
+      emptyResult     : '<%= I18n.t "error.messages.empty_result" %>'
+    };
+  </script>
+  <script type="text/javascript" charset="utf-8">
+    $(function () {
+      // Initialize the jQuery File Upload widget:
+      fileupload_fun = $("#fileupload").fileupload({
+        autoUpload: true,
+        acceptFileTypes : "/(\.|\/)(gif|jpe?g|png)$/i"
+      });
+    });
+  </script>
+</div>
+<%= javascript_include_tag "index_slider" %>
+<table>

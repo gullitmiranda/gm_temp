@@ -1,49 +1,51 @@
-<%= semantic_form_for [:admin, @slider], :html => { :multipart => true, class: 'form-horizontal' } do |f| %>
+<% @slider = Slider.new if !defined?(@slider) %>
+
+<%= semantic_form_for [:admin, @slider], :validate => true, :remote => (params[:action] != "new"), :html => { :multipart => true, class: 'form-horizontal' } do |f| %>
   <%= errors_for @slider %>
 
-  <%= f.globalize_inputs :translations do |lf| %>
-    <div class="control-group">
-      <%= lf.label :name, t(".name"), :class => 'control-label' %>
-      <div class="controls">
-        <%= lf.text_field :name, :class => 'text_field' %>
+  <div class="row">
+    <!-- Acões -->
+    <div class="span12">
+      <div class="align-right">
+        <%= f.submit :class => 'btn btn-primary' %>
+        <%= link_to t(".cancel"), admin_sliders_path, :class => 'btn btn-link cancel' %>
       </div>
     </div>
-    <div class="control-group">
-      <%= lf.label :body, t(".body"), :class => 'control-label' %>
-      <div class="controls">
-        <%= lf.cktext_area :body, :class => 'text_area' %>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <!-- Nome e descrição -->
+    <div class="span9">
+      <%= f.globalize_inputs :translations do |lf| %>
+        <div class="line name"        ><%= lf.text_field  :name, :class => 'text_field span4' , placeholder: t(".name_placeholder") %></div>
+        <div class="line description" ><%= lf.cktext_area :body, :class => 'text_area span4'  , placeholder: t(".body_placeholder") %></div>
+        <%= lf.input :locale, :as => :hidden %>
+      <% end %>
+    </div>
+    <!-- publicado -->
+    <div class="span3">
+<!--       <div class="control-group image_input_send">
+        <%= f.label :background, t(".background"), :class => 'control-label' %>
+        <div class="controls">
+          <%= f.file_field :background, :accept => "image/*" %>
+        </div>
+        <em class="controls"><%= t("recommended_size_for_upload", :size => "1920x1200") %></em>
+      </div> -->
+      <!-- Exibe miniatura caso não seja um novo objeto -->
+      <%- unless @slider.new_record? %>
+      <div class="control-group thumb_item">
+        <%= image_tag @slider.background(:thumb), class: "img-polaroid" %>
+      </div>
+      <% end -%>
+      <!-- Published? -->
+      <div class="control-group">
+        <%= f.label :published, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :published, :class => 'checkbox' %>
+        </div>
       </div>
     </div>
-    <%= lf.input :locale, :as => :hidden %>
-  <% end %>
-  
-  <hr />
-
-  <div class="control-group">
-    <%= f.label :background, t(".background"), :class => 'control-label' %>
-    <div class="controls">
-      <%= f.file_field :background, :accept => "image/*" %>
-    </div>
-    <em class="controls"><%= t("recommended_size_for_upload", :size => "1920x1200") %></em>
-  </div>
-  <div class="control-group">
-    <%= f.label :tag_list, t(".tag_list"), :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :tag_list, :class => 'text_field span4' %>
-    </div>
-    <em class="controls"><%= t(".separated_by_commas") %></em>
-  </div>
-  <div class="control-group">
-    <%= f.label :published, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.check_box :published, :class => 'checkbox' %>
-    </div>
-  </div>
-  
-  <hr />
-
-  <div class="form-actions">
-    <%= f.submit :class => 'btn btn-primary' %>
-    <%= link_to t(".cancel"), admin_sliders_path, :class => 'btn btn-link' %>
   </div>
 <% end %>
