@@ -30,7 +30,7 @@ ActiveAdmin.register Slider do
     end
 
     def create
-      unless params['ids_order'].blank?
+      unless params['reorder_positions'].blank?
         Slider.reorder_positions params['ids_order']
 
         respond_to do |format|
