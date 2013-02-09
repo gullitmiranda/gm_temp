@@ -11,7 +11,7 @@ jQuery ->
 
   # Core Functions
   # renderFiles - Renderiza os itens
-  renderFiles = (data = {}, container = $(), offset) ->
+  renderFiles = (data = {}, container = $(), offset, onload = false) ->
     template  = tmpl "template-download", files: data
     temp_itens  = $("<div />").append(template).children()
 
@@ -25,7 +25,8 @@ jQuery ->
           _r.replaceWith _t
         else
           container.append _t
-          _savePositions()
+          unless (onload)
+            _savePositions()
     else
       container.append template
 
@@ -103,7 +104,7 @@ jQuery ->
   # Renderiza os itens carregados do Banco de dados
   selectedData = upload_container_ul.data('load')
   if selectedData && selectedData.length
-    renderFiles selectedData, upload_container_ul, 0
+    renderFiles selectedData, upload_container_ul, 0, true
   else
     _sortable upload_container_ul
   publications_itens      = $('li', upload_container_ul)

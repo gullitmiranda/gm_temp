@@ -39,8 +39,6 @@ ActiveAdmin.register Publication do
   form :partial => "form"
 
   controller do
-    # layout nil, :except => [:edit]
-
     def index
       index! do |format|
         format.html # index.html.erb
@@ -64,6 +62,7 @@ ActiveAdmin.register Publication do
         end
       end
     end
+
     def update
       unless params['ids_order'].blank?
         Publication.reorder_positions params['ids_order']
