@@ -1,7 +1,9 @@
 #encoding: utf-8
-
 class ArticlesController < ApplicationController
-  load_and_authorize_resource
+  #require ::Rails.root + "app" + "controllers" + "application_controller"
+  #load_and_authorize_resource :class => "Article"
+  #load_and_authorize_resource
+  #authorize_resource
 
   layout "application"
   before_filter :check_format
@@ -13,41 +15,45 @@ class ArticlesController < ApplicationController
   end
 
   def show_cache_path
-    if Setting.for_key("rdcms.article.max_cache_24h") == "true"
-      "g/u_#{current_user.id if current_user.present?}/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
-    else
-      "g/u_#{current_user.id if current_user.present?}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
-    end
+    geo_cache = Setting.for_key("rdcms.geocode_ip_address") == "true" && session[:user_location].present? && session[:user_location].city.present? ? session[:user_location].city.parameterize.underscore : "no_geo"
+    date_cache = Setting.for_key("rdcms.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
+    art_cache = @article ? @article.cache_key : "no_art"
+    user_cache = current_user.present? ? current_user.id : "no_user"
+
+    "g/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
   end
 
+
   def show
+    ActiveSupport::Notifications.instrument("rdcms.article.show", :params => params)
+    before_init()
     if serve_iframe?
       respond_to do |format|
-        format.html { render layout: "/bare_layout" }
+        format.html { render layout: "/rdcms/bare_layout" }
       end
     elsif serve_basic_article?
       initialize_article(@article)
       Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
 
-      if can_load_associated_model?
-        load_associated_model_into_liquid
-      end
+      load_associated_model_into_liquid() if can_load_associated_model?
+      after_init()
 
       if generate_index_list?
         @list_of_articles = get_articles_by_article_type
-        include_related_models
-        get_articles_with_tags if @article.index_of_articles_tagged_with.present?
-        get_articles_without_tags if @article.not_tagged_with.present?
-        get_articles_by_frontend_tags if params[:frontend_tags].present?
-        sort_response
+        include_related_models()
+        get_articles_with_tags() if @article.index_of_articles_tagged_with.present?
+        get_articles_without_tags() if @article.not_tagged_with.present?
+        get_articles_by_frontend_tags() if params[:frontend_tags].present?
+        sort_response()
+        after_index()
       end
 
       if serve_fresh_page?
-        set_expires_in
-        layout_to_render = choose_layout
-
+        set_expires_in()
+        ActiveSupport::Notifications.instrument("rdcms.article.render", :params => params)
+        before_render()
         respond_to do |format|
-          format.html { render layout: layout_to_render }
+          format.html { render layout: choose_layout() }
           format.rss
           format.json do
             @article["list_of_articles"] = @list_of_articles
@@ -58,10 +64,10 @@ class ArticlesController < ApplicationController
     elsif should_statically_redirect?
         redirect_to @article.external_url_redirect
     elsif should_dynamically_redirect?
-      redirect_dynamically
+      redirect_dynamically()
     else
       # Render 404 Article if no Article else is found
-      redirect_to_404
+      redirect_to_404()
     end
   end
 
@@ -92,6 +98,7 @@ class ArticlesController < ApplicationController
     end
     @domain_name = Setting.for_key("rdcms.url")
     @articles = Article.for_sitemap
+    #TODO: authorize! :read, @article
     respond_to do |format|
       format.xml
     end
@@ -131,6 +138,7 @@ class ArticlesController < ApplicationController
   end
 
   def redirect_to_404
+    ActiveSupport::Notifications.instrument("rdcms.article.not_found", :params => params)
     @article = Article.find_by_url_name("404")
     if @article
       respond_to do |format|
@@ -202,7 +210,13 @@ class ArticlesController < ApplicationController
         @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
       elsif @article.sort_order.include?(".")
         sort_order = @article.sort_order.downcase.split(".")
-        @list_of_articles = @list_of_articles.flatten.sort_by{|a| eval("a.#{@article.sort_order}") if a.respond_to_all?(@article.sort_order) }
+        @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
+        @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
+        @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
+        if @unsortable.count > 0
+          @list_of_articles = @unsortable + @list_of_articles
+          @list_of_articles = @list_of_articles.flatten
+        end
       end
       if @article.reverse_sort
         @list_of_articles = @list_of_articles.reverse
@@ -215,11 +229,11 @@ class ArticlesController < ApplicationController
   end
 
   def get_articles_with_tags
-    @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(","), on: :tags)
+    @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
   end
 
   def get_articles_without_tags
-    @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true, on: :tags)
+    @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(",").map{|t| t.strip}, :exclude => true, on: :tags)
   end
 
   def get_articles_by_frontend_tags
@@ -249,11 +263,16 @@ class ArticlesController < ApplicationController
   # ------------------ /adjust response -------------------------------------
 
   def article_by_role
-    # Admins should get preview of article even if it's offline
-    if current_user && current_user.has_role?('Admin')
+    # Admin should get preview of article even if it's offline
+    if current_user && current_user.has_role?(Setting.for_key("rdcms.article.preview.roles").split(",").map{|a| a.strip})
       @article = Article.search_by_url(params[:article_id])
     else
-      @article = Article.active.search_by_url(params[:article_id])
+      article = Article.active.search_by_url(params[:article_id])
+      operator = current_user || current_visitor
+      a = Ability.new(operator)
+      if a.can?(:read, article)
+        @article = article
+      end
     end
   end
 
@@ -273,9 +292,16 @@ class ArticlesController < ApplicationController
     if ActiveRecord::Base.connection.table_exists?("settings")
       if Setting.for_key("rdcms.geocode_ip_address") == "true"
         if session[:user_location].blank?
-          @ip_result = request.location
-          session[:user_location] = request.location
-          if @ip_result && @ip_result.city.present?
+          #Geokit::Geocoders::MultiGeocoder.geocode("194.39.218.11") schlägt fehl (Completed 500 Internal Server Error) daher...
+          begin
+              @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
+              session[:user_location] = @ip_result
+          rescue Exception => e
+            logger.error("***********")
+            logger.error(e)
+            @ip_result = nil
+          end
+          if @ip_result.present? && @ip_result.city.present?
             Article::LiquidParser["user_location"] = @ip_result.city
           else
             Article::LiquidParser["user_location"] = "Ji-Paraná"
@@ -289,6 +315,7 @@ class ArticlesController < ApplicationController
 
   def is_cachable?
     if Setting.for_key("rdcms.article.cache_articles") == "true" && @article.cacheable
+      #Wenn es einen current_user gibt, dann kein caching
       Devise.mappings.keys.each do |key|
         if eval("current_#{key.to_s}.present?")
           return false
