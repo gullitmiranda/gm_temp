@@ -7,13 +7,8 @@ class CreateUploads < ActiveRecord::Migration
       t.string :upload_file_name
       t.string :upload_content_type
       t.integer :upload_file_size
-      t.integer :attachable_id
-      t.string :attachable_type
-      t.string :alt_text
-      t.string :item_type
 
       t.timestamps
     end
-    add_index :uploads, :upload_file_name
   end
 end

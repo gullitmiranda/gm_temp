@@ -3,7 +3,6 @@ class CreateArticleImages < ActiveRecord::Migration
     create_table :article_images do |t|
       t.integer :article_id
       t.integer :image_id
-      t.string :position
 
       t.timestamps
     end
