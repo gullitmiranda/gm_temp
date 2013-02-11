@@ -1,6 +1,6 @@
 language: ruby
 before_script:
-  - "mysql -e 'create database goldencobra_test;'"
+  - "mysql -e 'create database rdcms_test;'"
 bundler_args: --without development
 before_script:
   - "export DISPLAY=:99.0"

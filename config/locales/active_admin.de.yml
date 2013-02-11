@@ -80,6 +80,8 @@ de:
       labels:
         set_article_online: "Artikel online stellen"
         set_article_offline: "Artikel offline stellen"
+        set_menu_offline: "Menü online stellen"
+        set_menu_online: "Menü offline stellen"
         reset_cache: "Cache leeren"
         send_default_conf_mails: "Sende Bestätigungsmails"
         destroy: "Löschen"
@@ -119,7 +121,7 @@ de:
         resend_unlock_instructions: "E-Mail zum Entsperren neu zuschicken"
   activerecord:
     attributes:
-      admin_user: 
+      admin_user:
         id: ID
         email: E-Mail
         encrypted_Password: Verschlüsseltes Passwort
@@ -136,8 +138,8 @@ de:
     models:
       admin_user:
         one: Administrator
-        other: Administratoren  
-  devise:      
+        other: Administratoren
+  devise:
     failure:
       admin_user:
         invalid: Benutzername oder Kennwort nicht korrekt.

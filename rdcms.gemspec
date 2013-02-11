@@ -13,15 +13,22 @@ Gem::Specification.new do |s|
   s.homepage    = "http://www.requestdev.com.br/rdcms"
   s.summary     = "Sistema de controle de conteúdo da Requestdev"
   s.description = "This is the Basic Module of Rdcms. It Offers Devise, ActiveAdmin, an Article-Module, a Menu-Module, and global Settings for an CMS"
+  s.licenses    = "Lizenz CC BY-NC-SA 3.0"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["test/**/*"]
 
+  if File.exists?('UPGRADING')
+    s.post_install_message = File.read("UPGRADING")
+  end
+
   s.requirements << "ImageMagick"
   s.required_ruby_version = ">= 1.9.2"
 
+  s.add_dependency "capistrano", "2.14.1"
+  s.add_dependency "rvm-capistrano"
   s.add_dependency "rails", "~> 3.2.11"
-  s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-rails", "2.1.4"
   s.add_dependency "jqueryui_rails"
   s.add_dependency 'devise'
   s.add_dependency 'activeadmin-cancan'
@@ -31,16 +38,20 @@ Gem::Specification.new do |s|
   #s.add_dependency 'meta_search', '~> 1.1.3'
   s.add_dependency 'sprockets'
   #s.add_dependency "sass-rails", "~> 3.2.1"
+  s.add_dependency "sass"
   s.add_dependency "sass-rails"
+  s.add_dependency "coffee-rails"
   s.add_dependency "compass-rails"
+  s.add_dependency 'compass-960-plugin'
+  s.add_dependency 'progress_bar'
   s.add_dependency "execjs"
-  s.add_dependency "therubyracer"
+  s.add_dependency "therubyracer", "~> 0.10.2"
   s.add_dependency "friendly_id"#, ">= 4.0.6"
   s.add_dependency "omniauth"
   s.add_dependency "omniauth-openid"
   s.add_dependency 'oa-oauth'
   s.add_dependency 'oa-openid'
-  s.add_dependency "cancan", "1.6.7"
+  s.add_dependency "cancan"
   s.add_dependency "ancestry"
   s.add_dependency 'meta-tags'
   s.add_dependency 'paperclip'
@@ -84,4 +95,6 @@ Gem::Specification.new do |s|
 
   # Estatísticas
   s.add_dependency "is_visitable", "~> 0.1.0"#, :git => "git://github.com/gullitmiranda/is_visitable.git"
+  s.add_development_dependency 'better_errors'
+  s.add_development_dependency 'binding_of_caller'
 end
