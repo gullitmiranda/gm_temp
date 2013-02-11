@@ -55,10 +55,23 @@ module RdcmsHelper
     user_mod = Setting.for_key("rdcms.bugherd.user")
     role_mod = Setting.for_key("rdcms.bugherd.role")
     bugherd_api = Setting.for_key("rdcms.bugherd.api")
-    if bugherd_api.present? && user_mod.present? && role_mod.present? && eval("#{user_mod} && #{user_mod}.has_role?('#{role_mod}')")
+    if bugherd_api.present? && user_mod.present? && role_mod.present? && eval("#{user_mod} && #{user_mod}.present? && #{user_mod}.has_role?('#{role_mod}')")
       render :partial => "articles/bugherd", :locals => {:bugherd_api => bugherd_api}
     end
   end
+
+  def edit_article_link
+    user_mod = Setting.for_key("rdcms.article.edit_link.user")
+    role_mod = Setting.for_key("rdcms.article.edit_link.role")
+    if user_mod.present? && role_mod.present? && eval("#{user_mod} && #{user_mod}.present? && #{user_mod}.has_role?('#{role_mod}')")
+      render :partial => "/articles/edit_article_link"
+    end
+  end
+
+  def basic_headers(options={})
+    render :partial => "/articles/headers", :locals => {:options => options}
+  end
+
   # Renderiza language selector
   def language_links(options={})
     links = []

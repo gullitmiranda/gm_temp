@@ -20,8 +20,8 @@ module ArticlesHelper
       result = ""
       uploads = Upload.tagged_with(@article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : "" )
       if uploads && uploads.count > 0
-        uploads.each do |upload|
-          result << content_tag("li", link_to(image_tag(upload.image.url(:thumb)), upload.image.url(:large)))
+        uploads.order(:sorter_number).each do |upload|
+          result << content_tag("li", link_to(image_tag(upload.image.url(:thumb), {alt: upload.alt_text}), upload.image.url(:large), title: raw(upload.description)))
         end
       end
       return content_tag("ul", raw(result), :class => "article_image_gallery")
@@ -54,7 +54,6 @@ module ArticlesHelper
     return raw(result)
   end
 
-
   def breadcrumb(options={})
     id_name = options[:id] || "breadcrumb"
     class_name = options[:class] || ""
@@ -66,7 +65,7 @@ module ArticlesHelper
       end
       content_list = content_tag(:ol, raw(list))
       if id_name.present?
-  		  result = content_tag(:nav, raw(content_list), :id => "#{id_name}", :class => "#{class_name}")
+        result = content_tag(:nav, raw(content_list), :id => "#{id_name}", :class => "#{class_name}")
       else
         result = content_tag(:nav, raw(content_list), :class => "#{class_name}")
       end
@@ -109,38 +108,27 @@ module ArticlesHelper
       if tags.present? && default == "false"
         widgets = widgets.tagged_with(tags.split(","))
       elsif default == true && tags.present?
-        widgets = Widget.where(:default => true).tagged_with(tags.split(","))
+        widgets = Widget.active.where(:default => true).tagged_with(tags.split(","))
       else
         widgets = widgets.where(:tag_list => "")
       end
+      widgets = widgets.order(:sorter)
 
       widgets.each do |widget|
         template = Liquid::Template.parse(widget.content)
         alt_template = Liquid::Template.parse(widget.alternative_content)
-        if widget.id_name.present?
-          result << content_tag(widget_wrapper, raw(template.render(Article::LiquidParser)),
-                                class: "#{widget.css_name} #{custom_css} widget",
-                                id: widget.id_name,
-                                'data-time-day' => widget.offline_days,
-                                'data-time-start' => widget.offline_time_start_display,
-                                'data-time-end' => widget.offline_time_end_display,
-                                'data-offline-active' => widget.offline_time_active,
-                                'data-id' => widget.id)
-          result << content_tag(widget_wrapper, raw(alt_template.render(Article::LiquidParser)),
-                                class: "#{widget.css_name} #{custom_css} hidden widget",
-                                id: widget.id_name, 'data-id' => widget.id)
-        else
-          result << content_tag(widget_wrapper, raw(template.render(Article::LiquidParser)),
-                                class: "#{widget.css_name} #{custom_css} widget",
-                                'data-time-day' => widget.offline_days,
-                                'data-time-start' => widget.offline_time_start_display,
-                                'data-time-end' => widget.offline_time_end_display,
-                                'data-offline-active' => widget.offline_time_active,
-                                'data-id' => widget.id)
-          result << content_tag(widget_wrapper, raw(alt_template.render(Article::LiquidParser)),
-                                class: "#{widget.css_name} #{custom_css} hidden",
-                                id: widget.id_name, 'data-id' => widget.id)
-        end
+        html_data_options = {"class" => "#{widget.css_name} #{custom_css} rdcms_widget",
+                              "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
+                              'data-date-start' => widget.offline_date_start_display,
+                              'data-date-end' => widget.offline_date_end_display,
+                              'data-offline-active' => widget.offline_time_active,
+                              'data-id' => widget.id
+                            }
+        html_data_options = html_data_options.merge(widget.offline_time_week)
+        result << content_tag(widget_wrapper, raw(template.render(Article::LiquidParser)), html_data_options)
+        result << content_tag(widget_wrapper, raw(alt_template.render(Article::LiquidParser)),
+                      class: "#{widget.css_name} #{custom_css} hidden rdcms_widget",
+                      id: widget.id_name, 'data-id' => widget.id)
       end
     end
     return raw(result)
@@ -180,5 +168,4 @@ module ArticlesHelper
     end
     return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
   end
-
 end
