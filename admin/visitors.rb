@@ -1,5 +1,6 @@
 ActiveAdmin.register Visitor do
   #controller.authorize_resource :class => Visitor
+  menu false
 
   filter :firstname
   filter :lastname
