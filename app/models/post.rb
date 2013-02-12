@@ -127,7 +127,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.active
-    Post.where("published = 1 AND active_since < '#{Time.now.utc}'")
+    Post.where("published = true AND active_since < '#{Time.now.utc}'")
   end
 
   def self.load_liquid_methods(options={})
