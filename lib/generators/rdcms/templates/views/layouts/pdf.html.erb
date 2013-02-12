@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= content_for?(:title) ? yield(:title) : Setting.for_key("rdcms.site.name") %></title>
+
+    <%= stylesheet_link_tag "pdf", :media => "all" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= params[:controller] %>">
+    <section id="main" class="container">
+      <%= yield %>
+    </section> <!-- end container -->
+  </body>
+</html>

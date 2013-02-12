@@ -90,7 +90,7 @@ module Rdcms
 
         route "# Administracion"
         route "devise_for :users, ActiveAdmin::Devise.config"
-        route "devise_for :visitors"
+        # route "devise_for :visitors"
         route "match '/admin/edit_page/:id' =>  'admin/publications#edit_page', :as => :admin_edit_page_publication"
 
         route "ActiveAdmin.routes(self)"

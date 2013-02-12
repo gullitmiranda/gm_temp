@@ -1,6 +1,9 @@
 module ExtendPostsController
   def before_init
-    #::Rails.logger.info("********************************** - BEFORE-INIT")
+    @post = Post.find(params[:id])
+    @post.visit! :by => request.try(:remote_ip)
+
+    # respond_with @post
   end
 
   def after_init
