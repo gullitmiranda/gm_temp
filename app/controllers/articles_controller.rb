@@ -62,7 +62,7 @@ class ArticlesController < ApplicationController
         end
       end
     elsif should_statically_redirect?
-        redirect_to @article.external_url_redirect
+      redirect_to @article.external_url_redirect
     elsif should_dynamically_redirect?
       redirect_dynamically()
     else
@@ -191,7 +191,7 @@ class ArticlesController < ApplicationController
 
   def choose_layout
     if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
-      "for_pdf"
+      "pdf"
     else
       @article.selected_layout
     end

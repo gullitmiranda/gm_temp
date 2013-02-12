@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<!--[if IE]>
+    <%= stylesheet_link_tag "ie", :media => "screen" %>
+<![endif]-->
+
+<!--[if lte IE 8]>
+    <%= stylesheet_link_tag "ie8", :media => "screen" %>
+<![endif]-->
+
+<!--[if IE 7]>
+    <%= stylesheet_link_tag "ie7", :media => "screen" %>
+<![endif]-->
+
+<!-- For third-generation iPad with high-resolution Retina display: -->
+<!-- Size should be 144 x 144 pixels -->
+<%= favicon_link_tag 'favicons/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+<!-- For first- and second-generation iPad: -->
+<!-- Size should be 72 x 72 pixels -->
+<%= favicon_link_tag 'favicons/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+<!-- Size should be 57 x 57 pixels -->
+<%= favicon_link_tag 'favicons/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+<!-- For all other devices -->
+<!-- Size should be 32 x 32 pixels -->
+<%= favicon_link_tag 'favicons/favicon.ico', :rel => 'shortcut icon' %>
+
+<%= stylesheet_link_tag "rdcms/application", :media => "all" unless options[:exclude] && options[:exclude].include?("stylesheets") %>
+<%= javascript_include_tag "rdcms/application" unless options[:exclude] && options[:exclude].include?("javascripts") %>
+<%= display_meta_tags unless options[:exclude] && options[:exclude].include?("metatags") %>
+<%= bugtracker unless options[:exclude] && options[:exclude].include?("bugtracker") %>
+<%= edit_post_link unless options[:exclude] && options[:exclude].include?("post_administration") %>
+<%#= airbrake_javascript_notifier unless options[:exclude] && options[:exclude].include?("airbrake") %>

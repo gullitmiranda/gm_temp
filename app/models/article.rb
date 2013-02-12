@@ -1,89 +1,95 @@
-#Encoding: UTF-8
-
 # == Schema Information
 #
 # Table name: articles
 #
-#  id                               :integer(4)      not null, primary key
+#  id                               :integer          not null, primary key
 #  title                            :string(255)
-#  created_at                       :datetime        not null
-#  updated_at                       :datetime        not null
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #  url_name                         :string(255)
 #  slug                             :string(255)
 #  content                          :text
 #  teaser                           :text
 #  ancestry                         :string(255)
-#  startpage                        :boolean(1)      default(FALSE)
-#  active                           :boolean(1)      default(TRUE)
+#  startpage                        :boolean          default(FALSE)
+#  active                           :boolean          default(TRUE)
 #  subtitle                         :string(255)
 #  summary                          :text
 #  context_info                     :text
 #  canonical_url                    :string(255)
-#  robots_no_index                  :boolean(1)      default(FALSE)
+#  robots_no_index                  :boolean          default(FALSE)
 #  breadcrumb                       :string(255)
 #  template_file                    :string(255)
-#  enable_social_sharing            :boolean(1)
-#  article_for_index_id             :integer(4)
-#  article_for_index_levels         :integer(4)      default(0)
-#  article_for_index_count          :integer(4)      default(0)
-#  article_for_index_images         :boolean(1)      default(FALSE)
-#  cacheable                        :boolean(1)      default(TRUE)
+#  article_for_index_id             :integer
+#  article_for_index_levels         :integer          default(0)
+#  article_for_index_count          :integer          default(0)
+#  article_for_index_images         :boolean          default(FALSE)
+#  enable_social_sharing            :boolean
+#  cacheable                        :boolean          default(TRUE)
 #  image_gallery_tags               :string(255)
 #  article_type                     :string(255)
 #  external_url_redirect            :string(255)
 #  index_of_articles_tagged_with    :string(255)
 #  sort_order                       :string(255)
-#  reverse_sort                     :boolean(1)
+#  reverse_sort                     :boolean
 #  author                           :string(255)
-#  sorter_limit                     :integer(4)
+#  sorter_limit                     :integer
 #  not_tagged_with                  :string(255)
-#  use_frontend_tags                :boolean(1)      default(FALSE)
-#  dynamic_redirection              :string(255)     default("false")
-#  redirection_target_in_new_window :boolean(1)      default(FALSE)
-#  commentable                      :boolean(1)      default(FALSE)
-#  active_since                     :datetime        default(2012-10-02 13:09:32 UTC)
+#  use_frontend_tags                :boolean          default(FALSE)
+#  dynamic_redirection              :string(255)      default("false")
+#  redirection_target_in_new_window :boolean          default(FALSE)
+#  commentable                      :boolean          default(FALSE)
+#  active_since                     :datetime         default(2012-09-30 12:53:13 UTC)
 #  redirect_link_title              :string(255)
 #
 
+#For article rendering to string (:render_html) needed
+include ApplicationHelper
 
 class Article < ActiveRecord::Base
   extend FriendlyId
   MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
   LiquidParser = {}
   SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
-  DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
+  DynamicRedirectOptions = [[:false,"disabled"],[:latest,"latest subentry"], [:oldest, "eldest subentry"]]
   attr_accessor   :hint_label
 
-  has_many        :metatags
-  has_many        :images, :through => :article_images, :class_name => Upload
-  has_many        :article_images
-  has_many        :article_widgets
-  has_many        :widgets, :through => :article_widgets
-  has_many        :vita_steps, :as => :loggable, :class_name => Vita
-  has_many        :comments, :class_name => Comment
+  has_many :metatags
+  has_many :images, :through => :article_images, :class_name => Upload
+  has_many :article_images
+  has_many :article_widgets
+  has_many :widgets, :through => :article_widgets
+  has_many :vita_steps, :as => :loggable, :class_name => Vita
+  has_many :comments, :class_name => Comment
+  has_many :permissions, :class_name => Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Article"}
 
   accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
   accepts_nested_attributes_for :article_images, :allow_destroy => true
+  accepts_nested_attributes_for :permissions, :allow_destroy => true
 
   acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
   has_ancestry    :orphan_strategy => :restrict
-  friendly_id     :url_name, use: [:slugged, :history]
+  friendly_id     :for_friendly_name, use: [:slugged] #, :history
   web_url         :external_url_redirect
   has_paper_trail
   liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
 
-  validates_presence_of :title
+  validates_presence_of :title, :article_type
   validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
 
-  before_save :verify_existens_of_url_name_and_slug
+  after_create :set_active_since
   before_save :parse_image_gallery_tags
   after_save :verify_existence_of_opengraph_image
+  after_save :set_default_opengraph_values
+  after_create :notification_event_create
+  after_update :notification_event_update
+  before_save :set_url_name_if_blank
 
   attr_protected :startpage
 
   scope :robots_index, where(:robots_no_index => false)
   scope :robots_no_index, where(:robots_no_index => true)
-  #scope :active, lambda{ |now| where("active = 1 AND active_since < '#{now}'") }
+  #scope :active nun als Klassenmethode unten definiert
   scope :inactive, where(:active => false)
   scope :startpage, where(:startpage => true)
   scope :articletype, lambda{ |name| where(:article_type => name)}
@@ -92,9 +98,12 @@ class Article < ActiveRecord::Base
   scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
   scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
   scope :for_sitemap, where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
-  # Escopos
-  scope :recents, lambda{ |limit = 10| order("updated_at desc").limit(limit)}
+  scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
+  scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
 
+
+  search_methods :frontend_tag_name_contains
+  search_methods :tag_name_contains
   search_methods :parent_ids_in
   search_methods :parent_ids_in_eq
 
@@ -116,6 +125,18 @@ class Article < ActiveRecord::Base
 
   # Instance Methods
   # **************************
+
+  def render_html(layoutfile="application", localparams={})
+    av = ActionView::Base.new(ActionController::Base.view_paths + ["#{::Rdcms::Engine.root}/app/views/articles/"])
+    av.request = ActionDispatch::Request.new(Rack::MockRequest.env_for(self.public_url))
+    av.request["format"] = "text/html"
+    av.controller = ArticlesController.new
+    av.controller.request = av.request
+    av.params.merge!(localparams[:params])
+    av.assign({:article => self})
+    html_to_render = av.render(template: "/articles/show.html.erb", :layout => "layouts/#{layoutfile}", :locals => localparams, :content_type => "text/html" )
+    return html_to_render
+  end
 
   def comments_of_subarticles
     Comment.where("article_id in (?)", self.subtree_ids)
@@ -208,10 +229,16 @@ class Article < ActiveRecord::Base
   end
 
   def public_url
-    if self.startpage
-      return "/"
-    else
-      "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+    # if self.startpage
+    #   return "/"
+    # else
+    #   "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+    # end
+  end
+
+  def set_url_name_if_blank
+    if self.url_name.blank?
+      self.url_name = self.friendly_id.split("--")[0]
     end
   end
 
@@ -228,7 +255,11 @@ class Article < ActiveRecord::Base
   end
 
   def absolute_public_url
-    "http://#{Setting.for_key('rdcms.url')}#{self.public_url}"
+    if Setting.for_key("rdcms.use_ssl") == "true"
+      "https://#{Setting.for_key('rdcms.url')}#{self.public_url}"
+    else
+      "http://#{Setting.for_key('rdcms.url')}#{self.public_url}"
+    end
   end
 
   def parse_image_gallery_tags
@@ -236,15 +267,52 @@ class Article < ActiveRecord::Base
       self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
     end
   end
+
   def verify_existence_of_opengraph_image
     if Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
-      Metatag.create(article_id: self.id, name: "OpenGraph Image", value: Setting.for_key("rdcms.facebook.opengraph_default_image"))
+      Metatag.create( article_id: self.id,
+                      name: "OpenGraph Image",
+                      value: Setting.for_key("rdcms.facebook.opengraph_default_image"))
+    end
+
+    if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
+      meta_tag = Metatag.where(article_id: self.id, name: "OpenGraph Image").first
+      meta_tag.value = "http://#{Setting.for_key('rdcms.url')}#{self.article_images.first.image.image.url}"
+      meta_tag.save
     end
   end
 
-  def verify_existens_of_url_name_and_slug
-    self.url_name = self.title.downcase.parameterize if self.url_name.blank?
-    self.slug = self.url_name.downcase.parameterize if self.slug.blank?
+  def set_default_opengraph_values
+    if Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
+      Metatag.create(name: 'OpenGraph Title',
+                                  article_id: self.id,
+                                  value: self.title)
+    end
+
+    if Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
+      Metatag.create(name: 'OpenGraph URL',
+                                  article_id: self.id,
+                                  value: self.absolute_public_url)
+    end
+
+    if Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
+      if self.teaser.present?
+        value = self.teaser
+      else
+        value = self.content.present? ? self.content.truncate(200) : self.title
+      end
+      Metatag.create(name: 'OpenGraph Description',
+                                  article_id: self.id,
+                                  value: value)
+    end
+  end
+
+  def for_friendly_name
+    if self.url_name.present?
+      self.url_name
+    else
+      self.title
+    end
   end
 
   # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
@@ -336,6 +404,18 @@ class Article < ActiveRecord::Base
 
   def complete_json
 
+  end
+
+  def set_active_since
+    self.active_since = self.created_at
+  end
+
+  def notification_event_create
+    ActiveSupport::Notifications.instrument("rdcms.article.created", :article_id => self.id)
+  end
+
+  def notification_event_update
+    ActiveSupport::Notifications.instrument("rdcms.article.updated", :article_id => self.id)
   end
 
   # Class Methods

@@ -1,4 +1,4 @@
 module ApplicationHelper
 	include RdcmsHelper
-  include ArticlesHelper
+  include PostsHelper
 end
