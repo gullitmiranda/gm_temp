@@ -16,7 +16,7 @@ $('.social-container').social(<%= raw social_buttons_json %>);
   </div>
   <% if @post.commentable and Setting.for_key("rdcms.disqus.active") %>
     <% shortname = Setting.for_key("rdcms.disqus.shortname")
-      unless shortname.blank? %>
+      unless shortname.present? %>
       <div id="comments">
         <div id="disqus_thread"></div>
         <script type="text/javascript">
