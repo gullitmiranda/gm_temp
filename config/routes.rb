@@ -6,14 +6,23 @@ Rdcms::Engine.routes.draw do
   if RUBY_VERSION.include?("1.9.")
     mount Sidekiq::Web => '/admin/background'
   end
-  # get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
-  # match "/*article_id.pdf", :to => "articles#convert_to_pdf"
-  # match "/*article_id", :to => "articles#show"
 
-  # resources :products, :only => [:index, :show]
+  # post '/api/v1/tokens' => '/api/v1/tokens_controller#create'
+  namespace "api" do
+    namespace "v1" do
+      resources :tokens, only: [:create]
+    end
+  end
 
-  # match "/uploads", :to => "uploads"
-  # resources :uploads, :only => [:index, :create, :update, :destroy]
+  get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
+
+  devise_for :visitors, :controllers => { :omniauth_callbacks => "visitors/omniauth_callbacks" }
+  devise_scope :visitors do
+    get '/visitors/auth/:provider' => 'omniauth_callbacks#passthru'
+  end
+
+  match "/*article_id.pdf", :to => "articles#convert_to_pdf"
+  match "/*article_id", :to => "articles#show"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
