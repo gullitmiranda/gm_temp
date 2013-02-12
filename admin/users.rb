@@ -24,13 +24,13 @@ ActiveAdmin.register User do
       end
       f.input :password, hint: I18n.t("activerecord.attributes.user.password_hint")
       f.input :password_confirmation, hint: I18n.t("activerecord.attributes.user.password_confirmation")
+      f.input :enable_expert_mode
       f.input :function
       f.input :phone
       f.input :fax
       f.input :facebook
       f.input :twitter
       f.input :linkedin
-      f.input :xing
       f.input :googleplus
     end
     # f.inputs I18n.t("activerecord.attributes.user.history") do
@@ -62,7 +62,7 @@ ActiveAdmin.register User do
   show :title => :title do |u|
     panel User.model_name.human do
       attributes_table_for user do
-        [:firstname, :lastname, :title, :email, :gender, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :created_at, :updated_at].each do |aa|
+        [:firstname, :lastname, :title, :email, :gender, :function, :phone, :fax, :facebook, :twitter, :linkedin, :googleplus, :created_at, :updated_at].each do |aa|
           row aa
         end
       end

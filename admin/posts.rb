@@ -2,17 +2,17 @@ ActiveAdmin.register Post do
   menu  :priority => 3,
         if: proc{can?(:update, Post)}
   # menu false
-  
+
   controller.authorize_resource :class => Post
 
-  # scope "Alle", :scoped, :default => true
-  # scope "online", :active
-  # scope "offline", :inactive
+  scope "All", :scoped, :default => true
+  scope "Online", :active
+  scope "Offline", :inactive
 
   # Listagem dos itens
   index do
     selectable_column
-    
+
     column :id
     column :name, :sortable => :name do |p|
       title = p.name if p.name.to_s.length < 40
@@ -38,7 +38,7 @@ ActiveAdmin.register Post do
   # end
   # Formulário de edição dos itens e suas traduções
   form :partial => "form"
-  
+
   filter :name
   filter :body
   filter :datetime

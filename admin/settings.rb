@@ -6,12 +6,19 @@ ActiveAdmin.register Setting  do
   menu false;
 
   controller.authorize_resource :class => Setting
-  scope "Werte", :with_values, :default => true
+  scope "Alle Settings", :with_values, :default => true
+
+  if ActiveRecord::Base.connection.table_exists?("settings") && Setting.all.count > 0
+    Setting.roots.each do |rs|
+      scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
+    end
+  end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title
       f.input :value
+      f.input :data_type, :as => :select, :collection => Setting::SettingsDataTypes, :include_blank => false
       f.input :parent_id, :as => :select, :collection => Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
     end
     f.actions
@@ -24,6 +31,12 @@ ActiveAdmin.register Setting  do
       link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting)
     end
     column :value
+    column :data_type
+    column "" do |setting|
+      result = ""
+      result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
+      raw(result)
+    end
   end
 
   sidebar :overview, only: [:index]  do
