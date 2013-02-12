@@ -2,23 +2,24 @@
 #
 # Table name: menus
 #
-#  id                  :integer(4)      not null, primary key
+#  id                  :integer          not null, primary key
 #  title               :string(255)
 #  target              :string(255)
 #  css_class           :string(255)
-#  active              :boolean(1)      default(TRUE)
-#  created_at          :datetime        not null
-#  updated_at          :datetime        not null
+#  active              :boolean          default(TRUE)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #  ancestry            :string(255)
-#  sorter              :integer(4)      default(0)
+#  sorter              :integer          default(0)
 #  description         :text
 #  call_to_action_name :string(255)
 #  description_title   :string(255)
-#  image_id            :integer(4)
+#  image_id            :integer
 #
+
 class Menu < ActiveRecord::Base
-  attr_accessible :title, :target, :parent_id, :sorter, :active, :css_class, :image_id, :description_title, :description, :call_to_action_name
-  
+  attr_accessible :title, :target, :css_class, :active, :ancestry, :parent_id,
+                  :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id
   has_ancestry :orphan_strategy => :rootify
   belongs_to :image, :class_name => Upload, :foreign_key => "image_id"
   validates_presence_of :title
@@ -31,7 +32,8 @@ class Menu < ActiveRecord::Base
     has_paper_trail
   end
   scope :active, where(:active => true).order(:sorter)
-  scope :visible, where("css_class <> 'hidden'")
+  scope :inactive, where(:active => false).order(:sorter)
+  scope :visible, where("css_class <> 'hidden'").where("css_class <> 'not_visible'")
 
   scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
   search_methods :parent_ids_in_eq
@@ -52,5 +54,4 @@ class Menu < ActiveRecord::Base
   def mapped_to_article?
     @mapped_to_article_result ||= Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
   end
-
 end

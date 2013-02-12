@@ -1,10 +1,30 @@
+# == Schema Information
+#
+# Table name: uploads
+#
+#  id                 :integer          not null, primary key
+#  source             :string(255)
+#  rights             :string(255)
+#  description        :text
+#  upload_file_name    :string(255)
+#  upload_content_type :string(255)
+#  upload_file_size    :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  attachable_id      :integer
+#  attachable_type    :string(255)
+#  alt_text           :string(255)
+#  sorter_number      :integer
+#
+
 class Upload < ActiveRecord::Base
   attr_accessible :upload, :upload_content_type, :upload_file_name, :upload_file_size,
                   :source, :rights, :tag_list, :description, :alt_text, :item_type
                   # Associações
                   :products_id
 
-  if ActiveRecord::Base.connection.table_exists?("uploads")
+  if ActiveRecord::Base.connection.table_exists?("uploads") &&
+    ActiveRecord::Base.connection.table_exists?("settings")
     has_attached_file :upload,
                       :styles => {
                         :large  => ["900x900>",:jpg],
@@ -16,7 +36,7 @@ class Upload < ActiveRecord::Base
                         # Logo
                         :logo       => ["600x175#"],
                       },
-                      :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
+                      :convert_options => { :all => "#{Setting.for_key('rdcms.upload.convert_options')}" }
 
     before_post_process :image_file?
   end
