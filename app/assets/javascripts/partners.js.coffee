@@ -109,5 +109,5 @@ jQuery ->
     .bind "fileuploadcompleted", (e, data) ->
       _savePositions()
 
-  partners_itens.on "click.edit_partner", ".edit .btn", _renderEdit
+  $(document).on "click", "#{partners_itens.selector} .edit .btn", _renderEdit
   # end Callbacks

@@ -115,7 +115,7 @@ jQuery ->
       _savePositions()
 
   # console.debug upload_container_ul, publications_itens
-  publications_itens.on "click", ".edit .btn", _renderEdit
+  $(document).on "click", "#{publications_itens.selector} .edit .btn", _renderEdit
   # end Callbacks
 
   # Ações de ordenação
