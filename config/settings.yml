@@ -3,9 +3,43 @@ rdcms:
     user: "current_user"
     role: "admin"
     api: ""
+  comments:
+    commentator: "User"
+  menus:
+    recreate_cache: "false"
+  widgets:
+    recreate_cache: "false"
+  html2pdf_uid: "c5c13af822"
   use_solr: "false"
   url: "www.requestdev.com.br"
   use_ssl: "false"
+
+  article:
+    preview:
+      roles: "Admin"
+    edit_link:
+      user: "current_user"
+      role: "admin"
+    image_positions: "standard"
+    cache_articles: "true"
+    max_cache_24h: "false"
+    article_index:
+      link_to_article: "weiterlesen"
+  remove_old_versions:
+    active: "true"
+    weeks: "2"
+  visitors:
+    send_confirmation_email: 'false'
+  upload:
+    convert_options: '-auto-orient -strip -flatten -normalize -quality 70 -interlace Plane'
+  post:
+    preview:
+      roles: "Admin"
+    edit_link:
+      user: "current_user"
+      role: "admin"
+    cache_posts: "true"
+    max_cache_24h: "false"
 
   # Botões dos perfis nas redes sociais
   social_pages:
