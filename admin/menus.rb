@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 ActiveAdmin.register Menu do
   menu  priority: 2,
         label: Menu.model_name.human.pluralize,
@@ -7,6 +9,14 @@ ActiveAdmin.register Menu do
   menu false;
 
   controller.authorize_resource :class => Menu
+
+  filter :title
+  filter :target
+  filter :css_class
+  filter :sorter
+
+  scope :active
+  scope :inactive
 
   form do |f|
     f.actions
@@ -39,16 +49,15 @@ ActiveAdmin.register Menu do
     column :sorter
     column "Artikel" do |menu|
       if menu.mapped_to_article?
-        link_to("search", admin_articles_path("q[url_name_contains]" => menu.target.to_s.split('/').last))
+        link_to("search", admin_articles_path("q[url_name_contains]" => menu.target.to_s.split('/').last), :class => "list", :title => "Artikel auflisten")
       else
-        link_to("create one", new_admin_article_path(:article => {:title => menu.title, :url_name => menu.target.to_s.split('/').last}))
+        link_to("create one", new_admin_article_path(:article => {:title => menu.title, :url_name => menu.target.to_s.split('/').last}), :class => "create", :title => "Artikel erzeugen")
       end
     end
     column "" do |menu|
       result = ""
-      result += link_to("View", admin_menu_path(menu), :class => "member_link view_link view", :title => "Vorschau")
       result += link_to("Edit", edit_admin_menu_path(menu), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to("New Submenu", new_admin_menu_path(:parent => menu), :class => "member_link edit_link", :class => "new_subarticle", :title => "neues Untermenue")
+      result += link_to("New Submenu", new_admin_menu_path(:parent => menu), :class => "member_link edit_link", :class => "new_subarticle", :title => "neues Untermenu")
       result += link_to("Delete", admin_menu_path(menu), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link delete", :title => "loeschen")
       raw(result)
     end
@@ -58,8 +67,25 @@ ActiveAdmin.register Menu do
     render :partial => "/admin/shared/overview", :object => Menu.order(:title).roots, :locals => {:link_name => "title", :url_path => "menu", :order_by => "title" }
   end
 
-  batch_action :destroy, false
+  #batch_action :destroy, false
 
+  batch_action :set_menu_offline, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
+    Menu.find(selection).each do |menu|
+      menu.active = false
+      menu.save
+    end
+    flash[:notice] = "Menüpunkte wurden offline gestellt"
+    redirect_to :action => :index
+  end
+
+  batch_action :set_menu_online, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
+    Menu.find(selection).each do |menu|
+      menu.active = true
+      menu.save
+    end
+    flash[:notice] = "Menüpunkte wurden online gestellt"
+    redirect_to :action => :index
+  end
 
   controller do
     def new

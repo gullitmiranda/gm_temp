@@ -17,7 +17,13 @@ ActiveAdmin.register Upload do
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "File" do
-      f.input :upload, :as => :file
+      f.input :upload, :as => :file, hint: "Upload a new picture for this ressource, if the file name is the same!"
+    end
+    f.inputs "Preview" do
+      image_tag(f.object.image(:medium)) if f.object && f.object.image.present?
+    end
+    f.inputs "Dateiname" do
+      f.object.upload_file_name
     end
     f.inputs "Allgemein" do
       f.input :source
@@ -25,6 +31,7 @@ ActiveAdmin.register Upload do
       f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
       f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
       f.input :alt_text
+      f.input :sorter_number
     end
 
     f.actions
@@ -61,10 +68,14 @@ ActiveAdmin.register Upload do
       end
     end
 
-    column :updated_at
-    # column :created_at
+    column :sorter_number
 
-    column "" do |upload|
+    column :updated_at
+    column :created_at, sortable: :created_at do |upload|
+      l(upload.created_at, format: :short)
+    end
+
+    column "zip" do |upload|
       if upload.upload_file_name && upload.upload_file_name.include?(".zip")
         link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
       end

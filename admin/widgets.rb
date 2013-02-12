@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 ActiveAdmin.register Widget do
   menu  priority: 5,
         parent: proc{ I18n.t('activerecord.models.content_management') },
@@ -18,34 +20,61 @@ ActiveAdmin.register Widget do
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
-    f.inputs "Allgemein" do
+    f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title
+      f.input :tag_list, :label => "Position"
+      f.input :active
+      f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
+    end
+    f.inputs "Layout - Default", :class => "foldable inputs" do
       f.input :content
+    end
+    f.inputs "Layout - Mobil", :class => "foldable inputs closed" do
       f.input :mobile_content
+    end
+    f.inputs "Zeitsteuerung", :class => "foldable inputs closed" do
+      f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
+      f.input :offline_date_start, :hint => "Ab diesem Datum wird dieses Widget jeden Mo,Di.. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
+      f.input :offline_date_end, :hint => "Bis zu diesem Datum wird dieses Widget jeden Mo,Di.. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
+      f.input :offline_day, as: :check_boxes, collection: Widget::OfflineDays
+      f.input :offline_time_start_mo, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_mo) }
+      f.input :offline_time_end_mo, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_mo) }
+      f.input :offline_time_start_tu, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_tu) }
+      f.input :offline_time_end_tu, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_tu) }
+      f.input :offline_time_start_we, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_we) }
+      f.input :offline_time_end_we, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_we) }
+      f.input :offline_time_start_th, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_th) }
+      f.input :offline_time_end_th, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_th) }
+      f.input :offline_time_start_fr, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_fr) }
+      f.input :offline_time_end_fr, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_fr) }
+      f.input :offline_time_start_sa, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_sa) }
+      f.input :offline_time_end_sa, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_sa) }
+      f.input :offline_time_start_su, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_start_su) }
+      f.input :offline_time_end_su, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'rdcms/widget']), input_html: { value: (f.object.get_offline_time_end_su) }
+      f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
+    end
+
+    f.inputs "Erweiterte Infos", :class => "foldable inputs closed"  do
+      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
       f.input :id_name
       f.input :css_name
       f.input :teaser
-      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
-      f.input :tag_list
-      f.input :active
+      f.input :description, :hint => "Interne Beschreibung dieses Widgets"
     end
-    f.inputs "Darstellung" do
-      f.input :offline_day, as: :check_boxes, collection: Widget::OfflineDays
-      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
-      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
-      f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
-      f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
-    end
-    f.inputs "Admin" do
-      if(proc{can?(:read, Widget)})
-        f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
-      end
-      f.input :description
-    end
-    f.inputs "Artikel" do
+    f.inputs "Zugewiesene Artikel" do
       f.input :articles, :as => :select, :collection => Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
     end
     f.actions
+  end
+
+  sidebar :layout_positions, :only => [:edit] do
+    ul do
+      Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
+        li do
+          wtag
+        end
+      end
+    end
   end
 
   index do

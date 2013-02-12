@@ -2,6 +2,9 @@
 ActiveAdmin.register_page "Dashboard" do
   menu :priority => 1, :label => proc{ I18n.t("active_admin.dashboard") }
 
+  # == Simple Dashboard Section
+  # Here is an example of a simple dashboard section
+  #
 
   content :title => proc{ t ".dashboard_header" } do
   # content :title => proc{ I18n.t "active_admin.dashboard_header" } do
@@ -15,29 +18,6 @@ ActiveAdmin.register_page "Dashboard" do
     # Recentes
     ## Row #1 - [Produtos, Artigos, Newsletter]
     columns do
-      # Produtos Recentes
-      # column do
-      #   panel I18n.t("rdcms.recent_products") do
-      #     div class:"attributes_table well" do
-      #       @products = Product.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
-      #       if @products.blank?
-      #         div :class => "blank_slate_container" do
-      #           div :class => "blank_slate" do
-      #             span I18n.t("active_admin.blank_slate.content", resource_name: Product.model_name.human)
-      #             small link_to(I18n.t('active_admin.new_model', model: Product.model_name.human), new_admin_product_path)
-      #           end
-      #         end
-      #       else
-      #         ul do
-      #           @products.map do |object|
-      #             li link_to(object.name, admin_product_path(object))
-      #           end
-      #         end
-      #       end
-      #     end
-      #   end
-      # end
-      # Artigos Recentes
       column do
         panel I18n.t("rdcms.recent_posts") do
           div class:"attributes_table well" do
