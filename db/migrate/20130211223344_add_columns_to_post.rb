@@ -9,7 +9,7 @@ class AddColumnsToPost < ActiveRecord::Migration
     add_column :posts, :author, :string
     add_column :posts, :dynamic_redirection, :string, :default => "false"
     add_column :posts, :redirection_target_in_new_window, :boolean, :default => false
-    add_column :posts, :commentable, :boolean, :default => false
+    add_column :posts, :commentable, :boolean, :default => true
     add_column :posts, :active_since, :datetime, :default => (Time.now - 1.week)
   end
 end
