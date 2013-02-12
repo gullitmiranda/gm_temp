@@ -6,7 +6,7 @@ class Ability
     can :manage, :all
 
     # Todos os direitos relativos
-    Permission.where("role_id IS NULL OR role_id = ''").each do |permission|
+    Permission.where("role_id IS NULL").each do |permission|
       if permission.subject_id.blank?
         if permission.action.include?("not_")
           cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize
