@@ -1,0 +1,7 @@
+<% if @post %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('body').append('<div id="edit_post_link"><a href="/admin/posts/<%= @post.friendly_id %>/edit"><i class="icon-pencil-2"></i><%= t "edit_post" %></a></div>');
+    });
+  </script>
+<% end %>
