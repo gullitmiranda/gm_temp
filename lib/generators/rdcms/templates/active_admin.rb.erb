@@ -24,6 +24,7 @@ ActiveAdmin.setup do |config|
 
   # == Load Paths
   config.load_paths << "#{Rdcms::Engine.root}/admin/"
+  config.load_paths << "#{::Rails.root}/admin/"
 
   # == Default Namespace
   #
@@ -141,12 +142,16 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-  # config.register_stylesheet 'rdcms/active_admin'
-  # config.register_stylesheet 'rdcms/chosen.css'
+  config.register_stylesheet 'rdcms/active_admin'
+  config.register_stylesheet 'rdcms/chosen.css'
 
+  # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
+  #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
+  #
   # To load a javascript file:
-  # config.register_javascript 'rdcms/active_admin.js'
-  # config.register_javascript 'rdcms/chosen.jquery.min.js'
-
+  config.register_javascript 'rdcms/active_admin.js'
+  config.register_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+  config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
   config.register_javascript 'ckeditor/init.js'
+  config.register_javascript 'rdcms/chosen.jquery.min.js'
 end

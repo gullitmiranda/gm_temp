@@ -1,0 +1,30 @@
+development:
+  adapter: mysql2
+  timeout: 5000
+  encoding: utf8
+  pool: 5
+  host: localhost
+  database: <%= db_name %>
+  username: <%= db_username %>
+  password: <%= db_password %>
+  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+
+test:
+  adapter: mysql2
+  timeout: 5000
+  encoding: utf8
+  pool: 5
+  host: localhost
+  database: <%= db_name %>
+  username: <%= db_username %>
+  password: <%= db_password %>
+  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+
+production:
+  adapter: postgresql
+  timeout: 5000
+  encoding: unicode
+  pool: 5
+  database: <%= db_name %>
+  username: <%= db_username %>
+  password: <%= db_password %>

@@ -1,0 +1,176 @@
+#encoding: utf-8
+
+User.delete_all
+Role.delete_all
+admin = Role.find_or_create_by_name("admin")
+guest = Role.find_or_create_by_name("guest")
+user = User.create!(:email => "<%= @admin_email %>", :password => "<%= @admin_password %>", :password_confirmation => "<%= @admin_password %>", :firstname => "Administrador", :lastname => "Requestdev")
+user.roles << admin
+
+Help.delete_all
+Help.create!(:title => "Requestdev", :description => "http://www.requestdev.com.br")
+
+Article.delete_all
+
+Article.create!(content: "Diese Seite existiert leider nicht.", url_name: "404", breadcrumb: "Seite nicht gefunden", title: "404",article_type: "Default Show")
+Article.create!(content: "", url_name: "search-results", breadcrumb: "Suchergebnisse", title: "Suchergebnisse",article_type: "Default Show")
+
+Permission.delete_all
+Permission.create(:sorter_id => 1, :role_id => Role.find_by_name("admin").id, :action => "manage", :subject_class => ":all" )
+Permission.create(:sorter_id => 1, :role_id => Role.find_by_name("guest").id, :action => "read", :subject_class => "Article" )
+Permission.create(:sorter_id => 1, :role_id => Role.find_by_name("guest").id, :action => "show", :subject_class => "User", :subject_id => "user.id" )
+Permission.create(:sorter_id => 1, :role_id => Role.find_by_name("guest").id, :action => "update", :subject_class => "User", :subject_id => "user.id" )
+Permission.create(:sorter_id => 1, :role_id => Role.find_by_name("guest").id, :action => "destroy", :subject_class => "User", :subject_id => "user.id" )
+
+
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+#
+# Examples:
+#
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+### MAIN MENU ###
+puts "create main menu..."
+Menu.delete_all
+main = Menu.find_by_title("Top-Navigation")
+main = Menu.create!(title: "Top-Navigation", css_class: "", target: "") if main.blank?
+home = Menu.find_by_title("Startseite")
+home = Menu.create!(title: "Startseite", parent_id: main.id, css_class: "", target: "/") if home.blank?
+news = Menu.find_by_title("News")
+news = Menu.create!(title: "News", parent_id: main.id, css_class: "", target: "/news") if news.blank?
+dates = Menu.find_by_title("Termine")
+dates = Menu.create!(title: "Termine", parent_id: main.id, css_class: "", target: "/termine") if dates.blank?
+more = Menu.find_by_title("Weiteres")
+more = Menu.create!(title: "Weiteres", parent_id: main.id, css_class: "", target: "/weiteres") if more.blank?
+
+puts "main menu created."
+
+
+### FOOTER MENU ###
+puts "create footer menu..."
+
+footer = Menu.find_by_title("Footer-Navigation")
+footer = Menu.create!(title: "Footer-Navigation", css_class: "", target: "") if footer.blank?
+agb = Menu.find_by_title("AGB")
+agb = Menu.create!(title: "AGB", parent_id: footer.id, css_class: "", target: "/agb") if agb.blank?
+contact = Menu.find_by_title("Kontakt")
+contact = Menu.create!(title: "Kontakt", parent_id: footer.id, css_class: "", target: "/kontakt") if contact.blank?
+impress = Menu.find_by_title("Impressum")
+impress = Menu.create!(title: "Impressum", parent_id: footer.id, css_class: "", target: "/impressum") if impress.blank?
+
+puts "footer menu created."
+
+### START AND 404 PAGE ###
+puts "create start page article..."
+start = Article.find_by_title("Willkommen")
+start = Article.create!(title: "Willkommen", article_type: "Default Show", ancestry: nil, active: true, url_name: "willkommen", template_file: "application") if start.blank?
+start.mark_as_startpage!
+
+### CONTENT PAGES ###
+puts "create content page articles..."
+
+newsblog = Article.find_by_title("News")
+newsblogContent = "<article>
+    <h2><a href='/news'>News 1 &Uuml;berschrift</a></h2>
+    <div class='article-date'>
+      03. Januar 2013
+    </div>
+    <div>
+        Erste Nachricht - Inhalt:<br/>Mehrere mehrere mehrere mehrere mehrere mehrere<br/>Zeilen Zeilen Zeilen Zeilen Zeilen!
+        <p><a class='more' href='#'>weiterlesen</a></p>
+    </div>
+    <hr>
+  </article>
+  <article>
+    <h2><a href='/news'>News 2 &Uuml;berschrift</a></h2>
+    <div class='article-date'>
+      01. Januar 2013
+    </div>
+    <div>
+        Zweite Nachricht - Inhalt:<br/>Mehrere mehrere mehrere mehrere mehrere mehrere<br/>Zeilen Zeilen Zeilen Zeilen Zeilen!
+        <p><a class='more' href='#'>weiterlesen</a></p>
+    </div>
+    <hr>
+  </article>"
+newsblog = Article.create!(title: "News", article_type: "Default Show", ancestry: nil, active: true, content: newsblogContent, url_name: "news", template_file: "application") if newsblog.blank?
+
+datestable = Article.find_by_title("Termine")
+datestableContent = "<table border='0'>
+    <tbody>
+      <tr>
+        <td>Punkt1:</td>
+        <td>Eins</td>
+      </tr>
+      <tr>
+        <td>Punkt2:</td>
+        <td>Zwei</td>
+      </tr>
+      <tr>
+        <td>Punkt3:</td>
+        <td>Drei</td>
+      </tr>
+      <tr>
+        <td>Punkt4:</td>
+        <td>Vier Vier Vier Vier<br/>&uuml;ber &uuml;ber &uuml;ber &uuml;ber<br/>mehrere mehrere mehrere mehrere<br/>Zeilen</td>
+      </tr>
+      <tr>
+        <td>Punkt5:</td>
+        <td>F&uuml;nf F&uuml;nf F&uuml;nf F&uuml;nf<br/>&uuml;ber &uuml;ber &uuml;ber &uuml;ber<br/>mehrere mehrere mehrere mehrere<br/>Zeilen</td>
+      </tr>
+    </tbody>
+  </table>"
+datestable = Article.create!(title: "Termine", article_type: "Default Show", ancestry: nil, active: true, content: datestableContent, url_name: "termine", template_file: "application") if datestable.blank?
+
+moreform = Article.find_by_title("Weiteres")
+moreformContent = "<form method='post' data-remote='true' action='/' accept-charset='UTF-8'>
+    <div class='choice'>
+      <ul>
+        <li>
+          <label class='' for='gender'>Anrede <span>*</span></label>
+        </li>
+        <li style='margin-left: 30px;'>
+          <input type='radio' value='1' name='gender' id='gender_1'>
+          <label for='gender_1'>Herr</label>
+        </li>
+        <li style='margin-left: 20px;'>
+          <input type='radio' value='0' name='gender' id='gender_0'>
+          <label for='gender_0'>Frau</label>
+        </li>
+      </ul>
+    <br>
+    </div>
+
+    <label for='first_name'>Vorname <span>*</span></label>
+    <input type='text' value='' name='first_name' id='first_name'><br>
+
+    <label for='last_name'>Nachname <span>*</span></label>
+    <input type='text' value='' name='last_name' id='last_name'><br>
+
+    <label for='email'>E-Mail <span>*</span></label>
+    <input type='text' value='' name='email' id='email'><br/>
+
+    <input type='submit' value='Eintragen' name='commit'>
+    <div class='clear'></div>
+  </form>"
+moreform = Article.create!(title: "Weiteres", article_type: "Default Show", ancestry: nil, active: true, content: moreformContent, url_name: "weiteres", template_file: "application") if moreform.blank?
+
+puts "content page articles created."
+
+### DEFAULT SIDEBAR WIDGET ###
+puts "create default sidebar widget..."
+
+Widget.delete_all
+contactwidget = Widget.find_by_title("Kontakt")
+contactwidgetContent = "<h3>Requestdev Desenvolvimento e Consultoria LTDA</h3>
+  <p>Rua Dom Augusto, 1196<br/>
+    Bairro Centro, CEP: 76.900-103<br/>
+    Ji-Paraná - Rondônia, Brasil</p>
+  <hr>
+  <p>Telefone: +55 (69) 3421-3292</p>
+  <hr>
+  <p><a href='mailto:contato@requestdev.com.br'>contato@requestdev.com.br</a></p>"
+contactwidget = Widget.create!(title: "Kontakt", active: true, content: contactwidgetContent, default: true) if contactwidget.blank?
+
+puts "default sidebar widget created."
