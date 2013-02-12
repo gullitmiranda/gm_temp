@@ -89,11 +89,12 @@ $(document).ready(function() {
   $('div#overview_sidebar div.title a').bind("click", function(){
     $(this).children("ul").hide();
   });
+
   $('div#overview_sidebar div.title a').trigger("click");
 
   // Atalhos de formulários Formulários
   $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
-  key('⌘+s, ctrl+s', function(){
+  key('⌘+s, ctrl+s', function() {
     $("#main_content form input:submit").trigger("click");
     return false;
   });
@@ -116,11 +117,80 @@ $(document).ready(function() {
     return false;
   });
 
-  // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)")
+  // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
   // key('⌘+z, ctrl+z', function(){
   //   target = $("#title_bar .action_items a[href$='revert']").attr("href");
   //   window.location = target;
   //   return false;
   // });
+
+  $('.expert').hide();
+
+  /**** DOM Manipulation Zeitsteuerung ****/
+  /* text input felder für den jeweiligen
+     tag in dom gruppieren */
+
+  // hilfsarray tage englisch kurz
+  var engDaysShort = ["mo", "tu", "we", "th", "fr", "sa", "su"];
+  // tages checkboxen elemente (mo, di, ..., so)
+  var checkBoxesDays = $(".choice");
+  // für jede checkbox die dazugehörigen input felder holen und anhängen
+  checkBoxesDays.each(function(i, el) {
+    // checkbox muss neue css styles erhalten
+    var addCssBox = {"float" : "left", "width" : "50px", "margin-top" : "8px"};
+    $(el).height(50).find("label").css(addCssBox);
+    // selektoren für start und end inputs eines tages
+    var startInput = $("#widget_offline_time_start_" + engDaysShort[i] + "_input");
+    var endInput = $("#widget_offline_time_end_" + engDaysShort[i] + "_input");
+    // label der inputs entfernen und benötigten css style ergänzen
+    var addCssInput = {"float" : "left", "width" : "180px"};
+    $(startInput).css(addCssInput).find("label").remove();
+    $(endInput).css(addCssInput).find("label").remove();
+    // inputs zur checkbox gruppieren
+    $(startInput).appendTo(el);
+    $(endInput).appendTo(el);
+  });
+  /**** END DOM Manipulation *****/
 });
+
+
+//Notifications
+function notify(title,body,token) {
+    // check for notification compatibility
+    if(!window.Notification) {
+        // if browser version is unsupported, be silent
+        return;
+    }
+    // log current permission level
+    console.log(Notification.permissionLevel());
+    // if the user has not been asked to grant or deny notifications from this domain
+    if(Notification.permissionLevel() === 'default') {
+        Notification.requestPermission(function() {
+            // callback this function once a permission level has been set
+            notify();
+        });
+    }
+    // if the user has granted permission for this domain to send notifications
+    else if(Notification.permissionLevel() === 'granted') {
+        var n = new Notification(
+                    title,
+                    { 'body': body,
+                      // prevent duplicate notifications
+                      'tag' : token,
+                      'onclick': function(){
+                        console.log("notification clicked");
+                      },
+                      // callback function when the notification is closed
+                      'onclose': function() {
+                           console.log('notification closed');
+                       }
+                    }
+                );
+    }
+    // if the user does not want notifications to come from this domain
+    else if(Notification.permissionLevel() === 'denied') {
+      // be silent
+      return;
+    }
+}
 
