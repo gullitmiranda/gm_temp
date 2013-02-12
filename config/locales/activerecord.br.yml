@@ -13,6 +13,7 @@ br:
     approved: aprovado
     article_type: tipo de artigo
     author: Autor
+    auto_play: Iniciar automaticamente
     auto_start: Iniciar automaticamente
     authorize_access: Autorizar acesso
     back_page: "Página anterior"
@@ -40,6 +41,7 @@ br:
     date: Data
     dates: Datas
     datetime: Data
+    delay: Tempo de atraso
     description: Descrição
     direction: Direção
     district: Bairro
@@ -71,13 +73,15 @@ br:
     name: Nome
     next_page: "Próxima página"
     no: Não
+    num_images_to_preload: Número de imagens para pré-carregamento
     object_type: Tipo
     padding: Espaçamento interno
     padding_hint: 'Espaçamento seguindo a conveção:<br />[ <b>superior direito inferior esquerdo</b> ]<br /><br />ex:<br /> [ 10px 10px 10px 10px ]<br />ou<br />[ 5% 0px 0 10px ]'
     pages: Páginas
     password: Senha
     password_confirmation: Confirmação de senha
-    password_hint: Deixe em branco se a senha não deve ser alterada.
+    password_hint: Deixe em branco se a senha não deve ser alterada
+    pause_on_hover: Pausar enquanto mouse estiver em cima
     preview: Visualização
     profile: Perfil
     phone: Telefone
@@ -111,9 +115,11 @@ br:
     start_playback: Iniciar Reprodução
     start_position: Posição inicial
     state: Estado
+    stop_at_action: Interromper após alguma ação
     summary: Resumo
     tel: Telefone
     tour: Panorama
+    transition_speed: Duração da transição
     type: Tipo
     update: Atualizar
     username: Nome
@@ -162,6 +168,9 @@ br:
       form:
         <<: *attributes_all
     sliders:
+      index:
+        <<: *attributes_all
+        start_slide_id: Slider inicial
       show:
         <<: *attributes_all
       form:

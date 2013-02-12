@@ -96,7 +96,7 @@ rdcms:
     phone: "+55 (69) 3421-4346"
     email: "contato@requestdev.com.br"
     year: "2011 - 2013"
-    localization: -10.879028,-61.95147
+    localization: "-10.879028,-61.95147"
 
   site:
     name: Requestdev Sistemas
@@ -119,6 +119,19 @@ rdcms:
       logo: logo_fullscreen.png
       background: ""
       inner-background: ""
+    # Slider
+    slider:
+      start_slide_id: "0"
+      loop: "false"
+      num_images_to_preload: "4"
+      transition_speed: "600"
+
+      auto_play:
+        enabled: "false"
+        stop_at_action: "true"
+        pause_on_hover: "true"
+        delay: "300"
+
   omniauth:
     google: # also used by the YouTube provider
       key: "632827312868.apps.googleusercontent.com"

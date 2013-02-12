@@ -21,8 +21,30 @@
 
 <script>
 $(function() {
+  <%
+  # autoPlay
+  auto_play_enabled         = Setting.for_key("rdcms.view.slider.auto_play.enabled")
+  auto_play_stop_at_action  = Setting.for_key("rdcms.view.slider.auto_play.stop_at_action")
+  auto_play_pause_on_hover  = Setting.for_key("rdcms.view.slider.auto_play.pause_on_hover")
+  auto_play_delay           = Setting.for_key("rdcms.view.slider.auto_play.delay")
+  # Others options
+  start_slide_id            = Setting.for_key("rdcms.view.slider.start_slide_id")
+  loop                      = Setting.for_key("rdcms.view.slider.loop"          )
+  num_images_to_preload     = Setting.for_key("rdcms.view.slider.num_images_to_preload")
+  transition_speed          = Setting.for_key("rdcms.view.slider.transition_speed")
+  %>
   var defaultSlider = $("#home-slider").royalSlider({
-		captionShowEffects:["moveleft", "fade"]
+    captionShowEffects:["moveleft", "fade"],
+		autoPlay          : {
+      <%= "enabled      : '#{auto_play_enabled}',".html_safe        if auto_play_enabled.present? %>
+      <%= "stopAtAction : '#{auto_play_stop_at_action}',".html_safe if auto_play_stop_at_action.present? %>
+      <%= "pauseOnHover : '#{auto_play_pause_on_hover}',".html_safe if auto_play_pause_on_hover.present? %>
+      <%= "delay        : '#{auto_play_delay}',".html_safe          if auto_play_delay.present? %>
+    },
+    <%= "startSlideId       : '#{start_slide_id}',".html_safe         if start_slide_id.present? %>
+    <%= "loop               : '#{loop}',".html_safe                   if loop.present? %>
+    <%= "numImagesToPreload : '#{num_images_to_preload}',".html_safe  if num_images_to_preload.present? %>
+    <%= "transitionSpeed    : '#{transition_speed}',".html_safe       if transition_speed.present? %>
 	});
 });
 </script>

@@ -1,4 +1,56 @@
 </table>
+<div class="row">
+  <div class="span12">
+    <!-- Objetos -->
+    <%
+    @slider_options = Setting.get_object("rdcms.view.slider").children
+    # autoPlay
+    @slider_options_auto_play = @slider_options.find_by_title("auto_play")
+    @slider_options_auto_play = @slider_options.get_object("auto_play").children
+    auto_play_enabled         = @slider_options_auto_play.find_by_title("enabled")
+    auto_play_stop_at_action  = @slider_options_auto_play.find_by_title("stop_at_action")
+    auto_play_pause_on_hover  = @slider_options_auto_play.find_by_title("pause_on_hover")
+    auto_play_delay           = @slider_options_auto_play.find_by_title("delay")
+    # Others options
+    start_slide_id            = @slider_options.find_by_title("start_slide_id")
+    loop                      = @slider_options.find_by_title("loop"          )
+    num_images_to_preload     = @slider_options.find_by_title("num_images_to_preload")
+    transition_speed          = @slider_options.find_by_title("transition_speed")
+    %>
+
+    <!-- Auto Play -->
+    <dl class="form form-horizontal span6">
+      <!-- Nome -->
+      <dt><%= t(".auto_play") %>:</dt>
+      <dd><%= best_in_place auto_play_enabled, :value, type: :checkbox, path: [:admin, auto_play_enabled] %></dd>
+      <!-- Localização -->
+      <dt><%= t(".stop_at_action") %>:</dt>
+      <dd><%= best_in_place auto_play_stop_at_action, :value, type: :checkbox, path: [:admin, auto_play_stop_at_action] %></dd>
+      <!-- Endereço -->
+      <dt><%= t(".pause_on_hover") %>:</dt>
+      <dd><%= best_in_place auto_play_pause_on_hover, :value, type: :checkbox, path: [:admin, auto_play_pause_on_hover] %></dd>
+      <!-- Bairro -->
+      <dt><%= t(".delay") %>:</dt>
+      <dd><%= best_in_place auto_play_delay, :value, type: :input, path: [:admin, auto_play_delay] %></dd>
+    </dl>
+
+    <dl class="form span5">
+      <!-- CEP -->
+      <dt><%= t(".start_slide_id") %>:</dt>
+      <dd><%= best_in_place start_slide_id, :value, type: :input, path: [:admin, start_slide_id] %></dd>
+      <!-- Cidade -->
+      <dt><%= t(".loop") %>:</dt>
+      <dd><%= best_in_place loop, :value, type: :checkbox, path: [:admin, loop] %></dd>
+      <!-- País -->
+      <dt><%= t(".num_images_to_preload") %>:</dt>
+      <dd><%= best_in_place num_images_to_preload, :value, type: :input, path: [:admin, num_images_to_preload] %></dd>
+      <!-- Telefone -->
+      <dt><%= t(".transition_speed") %>:</dt>
+      <dd><%= best_in_place transition_speed, :value, type: :input, path: [:admin, transition_speed] %></dd>
+    </dl>
+
+  </div>
+</div>
 <div class="fileuploads-container">
   <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
   <%= form_for Slider.new, :url => admin_sliders_path, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
