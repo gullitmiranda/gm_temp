@@ -93,7 +93,7 @@ class Post < ActiveRecord::Base
   after_update :notification_event_update
   after_save :verify_existence_of_opengraph_image
   after_save :set_default_opengraph_values
-  before_save :set_url_name_if_blank
+  # before_save :set_url_name_if_blank
 
   # Instance Methods
   # **************************
