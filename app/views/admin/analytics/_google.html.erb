@@ -72,7 +72,7 @@ unless token.blank?
       end
 
       accounts_list << content_tag(:option, account["name"], options)
-    end
+    end unless rest_response["items"].blank?
 
     # Cria lista de tipos de gráficos
     %w{ month date }.each do |type|
@@ -166,7 +166,7 @@ unless token.blank?
         metrics << content_tag(:div) do
           content_tag(:span, "#{I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")}: ", class: "name") + content_tag(:span, rest_metrics_response["totalsForAllResults"][header["name"]], class: "value")
         end
-      end
+      end unless rest_metrics_response["columnHeaders"].blank?
 
       # lista os dados
       %>
@@ -219,7 +219,7 @@ unless token.blank?
                       # Quantidade
                       concat "data.setValue(#{row_key},1,#{row.last})\n".html_safe
                       # data.setValue(<?php echo $row ?>,0,'<?php if ($visits_graph_type === "month"){echo date("M", mktime(0, 0, 0, $visits["month"]))." ".$visits["year"];}else{echo substr($visits['date'],6,2)."-".date('M', mktime(0, 0, 0, substr($visits['date'],4,2)))."-".substr($visits['date'],0,4);} ?>');
-                    end
+                    end unless rest_g_visits_response["rows"].blank?
                     %>
                   var chart = new google.visualization.AreaChart($(".visits_barchart")[0]);
                     chart.draw(data, {
@@ -260,7 +260,9 @@ unless token.blank?
 
       # Criar header ta tabela
       dimensions_h  = []
-      rest_referrals_response["columnHeaders"].each { |header| dimensions_h << content_tag(:th, I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}")) }
+      rest_referrals_response["columnHeaders"].each { |header|
+        dimensions_h << content_tag(:th, I18n.t("admin.analytics.#{header["name"].gsub(/^ga:/, '')}"))
+      } unless rest_referrals_response["columnHeaders"].blank?
       dimensions << content_tag(:thead, content_tag(:tr, dimensions_h.join.html_safe))
 
       # Cria body da tabela
@@ -269,7 +271,7 @@ unless token.blank?
         row_h = []
         row.each { |value| row_h << content_tag(:td, value) }
         dimensions_b << content_tag(:tr, row_h.join.html_safe)
-      end
+      end unless rest_referrals_response["rows"].blank?
       dimensions << content_tag(:tbody, dimensions_b.join.html_safe)
 
       # lista os dados e graficos
@@ -296,7 +298,7 @@ unless token.blank?
                   concat "data.setValue(#{row_key},0,\"#{row[0]}\")\n".html_safe
                   # Quantidade
                   concat "data.setValue(#{row_key},1,#{row[1]})\n".html_safe
-                end
+                end unless rest_referrals_response["rows"].blank?
                 %>
               var chart = new google.visualization.PieChart($(".referrals_piechart")[0]);
                 chart.draw(data, {height: 440, is3D: true, title: '<%= I18n.t("admin.analytics.referrer_visits") %>'});
