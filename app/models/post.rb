@@ -1,6 +1,7 @@
 include ApplicationHelper
 
 class Post < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
   attr_accessible :datetime, :name, :summary, :body, :published,
     # Slug, I18n e tags
     :slug, :locale, :translations_attributes, :tag_list,
@@ -213,11 +214,7 @@ class Post < ActiveRecord::Base
   # URL
   # **************************
   def public_url
-    url_for controller: "posts", action: "show", only_path: true
-    # post_path(s)
-    # post_path(self)
-    # self.path
-    # "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+    post_path(self)
   end
 
   def absolute_public_url
