@@ -33,8 +33,8 @@
 <!-- Size should be 32 x 32 pixels -->
 <%= favicon_link_tag 'favicons/favicon.ico', :rel => 'shortcut icon' %>
 
-<%= stylesheet_link_tag "rdcms/application", :media => "all" unless options[:exclude] && options[:exclude].include?("stylesheets") %>
-<%= javascript_include_tag "rdcms/application" unless options[:exclude] && options[:exclude].include?("javascripts") %>
+<%= stylesheet_link_tag "rdcms/application", :media => "all" if options[:include] && options[:include].include?("stylesheets") %>
+<%= javascript_include_tag "rdcms/application" if options[:include] && options[:include].include?("javascripts") %>
 <%= display_meta_tags unless options[:exclude] && options[:exclude].include?("metatags") %>
 <%= bugtracker unless options[:exclude] && options[:exclude].include?("bugtracker") %>
 <%= edit_post_link unless options[:exclude] && options[:exclude].include?("post_administration") %>
