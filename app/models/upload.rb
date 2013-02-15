@@ -27,7 +27,7 @@ class Upload < ActiveRecord::Base
     ActiveRecord::Base.connection.table_exists?("settings")
 
     convert_options = Setting.for_key('rdcms.upload.convert_options')
-    convert_options = "-auto-orient -strip -flatten -normalize -quality 70 -interlace Plane" if convert_options.empty?
+    convert_options = "-auto-orient -strip -normalize -quality 70 -interlace Plane" if convert_options.empty?
 
     has_attached_file :upload,
                       :styles => {
