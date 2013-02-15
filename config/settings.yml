@@ -34,8 +34,6 @@ rdcms:
     weeks: "2"
   visitors:
     send_confirmation_email: 'false'
-  upload:
-    convert_options: '-auto-orient -strip -flatten -normalize -quality 70 -interlace Plane'
   post:
     preview:
       roles: "Admin"
@@ -65,6 +63,7 @@ rdcms:
     limit_itens: "10"
   upload:
     auto_save: "false"
+    convert_options: '-auto-orient -strip -flatten -normalize -quality 70 -interlace Plane'
   home:
     products:
       limit: "8"

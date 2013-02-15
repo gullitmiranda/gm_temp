@@ -25,6 +25,10 @@ class Upload < ActiveRecord::Base
 
   if ActiveRecord::Base.connection.table_exists?("uploads") &&
     ActiveRecord::Base.connection.table_exists?("settings")
+
+    convert_options = Setting.for_key('rdcms.upload.convert_options')
+    convert_options = "-auto-orient -strip -flatten -normalize -quality 70 -interlace Plane" if convert_options.empty?
+
     has_attached_file :upload,
                       :styles => {
                         :large  => ["900x900>",:jpg],
@@ -36,7 +40,7 @@ class Upload < ActiveRecord::Base
                         # Logo
                         :logo       => ["600x175#"],
                       },
-                      :convert_options => { :all => "#{Setting.for_key('rdcms.upload.convert_options')}" }
+                      :convert_options => { :all => convert_options }
 
     before_post_process :image_file?
   end
