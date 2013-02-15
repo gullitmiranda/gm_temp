@@ -32,7 +32,7 @@ ActiveAdmin.register Gallery do
   controller do
     def update
       update!
-      @gallery.reorder_positions params[:gallery]['upload_ids'] unless params[:gallery]['upload_ids'].empty?
+      @gallery.reorder_positions params[:gallery]['upload_ids'] if params[:gallery].include?('upload_ids')
     end
   end
 end
