@@ -36,9 +36,7 @@ $(document).ready(function() {
   if (!$.browser.webkit)
     $('input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], input[type=tel]')
       .setMask();
-});
 
-$(document).ready(function() {
   //Foldable overview in sidebar
   $("div.overview-sidebar div.folder").bind("click", function(){
     $(this).closest('li').find("ul:first").slideToggle();
@@ -194,3 +192,8 @@ function notify(title,body,token) {
     }
 }
 
+/* Protototypes */
+String.prototype.truncate = function (limit=null, dots=true) {
+  var dots = (dots && typeof dots == "boolean") ? "..." : (typeof dots == "string") ? dots : "";
+  return this.length > limit ? this.substring(0,limit) + dots : this;
+}
