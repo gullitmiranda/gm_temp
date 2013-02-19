@@ -193,7 +193,7 @@ function notify(title,body,token) {
 }
 
 /* Protototypes */
-String.prototype.truncate = function (limit=null, dots=true) {
+String.prototype.truncate = function (limit, dots) {
   var dots = (dots && typeof dots == "boolean") ? "..." : (typeof dots == "string") ? dots : "";
   return this.length > limit ? this.substring(0,limit) + dots : this;
 }
