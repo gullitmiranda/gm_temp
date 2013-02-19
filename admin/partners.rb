@@ -23,20 +23,9 @@ ActiveAdmin.register Partner do
     end
 
     def create
-      create! do |format|
-        if @partner.save
-          format.html { redirect_to admin_partner_path @partner }
-          format.json { render json: [@partner.to_jq_upload].to_json, status: :created }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @partner.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-
-    def update
-      unless params['ids_order'].blank?
+      unless params['reorder_positions'].blank?
         Partner.reorder_positions params['ids_order']
+
         respond_to do |format|
           format.json { render json: {
             success: true,
@@ -44,13 +33,25 @@ ActiveAdmin.register Partner do
           }.to_json }
         end
       else
-        update! do |format|
-          format.html do
-            if request.xhr?
-              render json: @partner.to_jq_upload
-            else
-              redirect_to @publication
-            end
+        create! do |format|
+          if @partner.save
+            format.html { redirect_to admin_partner_path @partner }
+            format.json { render json: [@partner.to_jq_upload].to_json, status: :created }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @partner.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+    end
+
+    def update
+      update! do |format|
+        format.html do
+          if request.xhr?
+            render json: @partner.to_jq_upload
+          else
+            redirect_to @publication
           end
         end
       end

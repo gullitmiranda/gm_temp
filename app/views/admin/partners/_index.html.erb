@@ -117,11 +117,11 @@
     </script>
   <% end %>
 
-  <%= form_for [:admin, @partner], :html => { :id => "file_selector", :remote => true } do |f| -%>
+  <%= form_for Partner.new, :url => admin_partners_path, :html => { :id => "file_selector", :remote => true } do |f| -%>
     <div class="hidden">
       <%= hidden_field_tag :reorder_positions, value: true %>
     </div>
-  <% end if defined?(@partner) -%>
+  <% end -%>
 
   <script>
     var fileUploadErrors = {
