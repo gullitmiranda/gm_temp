@@ -65,7 +65,8 @@ module Rdcms
         gem('compass-rails')
         gem('mysql2', :group => "development, test")
         gem('pg', :group => "production")
-        gem('thin', :group => "production")
+        gem('unicorn', :group => "production, staging")
+        gem('thin', :group => "production", :platform => :ruby)
         system("bundle install")
       end
 
