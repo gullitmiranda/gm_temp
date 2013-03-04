@@ -175,6 +175,13 @@ module RdcmsHelper
   def render_header(setting_layout="application", preview=false, options={})
     setting_layout ||= "application"
     setting_name = "rdcms.view.#{setting_layout}"
+    options = {
+      type: "inner", # before = antes do menu, inner = junto ao menu
+      language: {
+        dropdown: true,
+        string: true
+      }
+    }.merge options
 
     styleHeader = ""
     form        = ""
@@ -209,7 +216,7 @@ module RdcmsHelper
       nav = %Q{
             <div class="nav-collapse collapse">
               #{navigation_links.html_safe}
-              #{language_links(options[:language]).html_safe}
+              #{language_links(options[:language]).html_safe if options[:type] == "inner"}
             </div>}
     else
       form = %Q{<div id="updates" class="hidden">}
@@ -228,17 +235,30 @@ module RdcmsHelper
       html
     end
 
+    header_html = %Q{
+    <div class="navbar #{setting_layout} before_header_nav">
+      <div class="navbar-inner nav-colorize" style="#{style}">
+        <div class="container" style="#{style}">
+          #{brand if options[:type] == "before"}
+          #{language_links(options[:language]).html_safe if options[:type] == "before"}
+        </div>
+      </div>
+    </div>} if options[:type] == "before" or options[:type] == "before"
+
+    # style = styleHeader if options[:type] == "before"
+
     inner_html = %Q{
+    #{header_html}
     <div class="navbar #{setting_layout} #{"navbar navbar-fixed-top navbar-fade-background" if options[:fixed] == true}">
       <div class="navbar-inner nav-colorize" style="#{styleHeader}">
-        <div class="container nav-background" style="#{style}">
+        <div class="container nav-background" style="#{style if options[:type] == "inner"}">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
 
-          #{brand}
+          #{brand if options[:type] == "inner"}
           #{nav}
           #{form}
         </div>
