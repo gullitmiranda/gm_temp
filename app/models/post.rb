@@ -33,7 +33,8 @@ class Post < ActiveRecord::Base
   # Escopos
   scope :active, where(:published => true)
   scope :inactive, where(:published => false)
-  scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
+  scope :ordained, order("datetime desc")
+  scope :recents, lambda{ |limit = 10| active.ordained.limit(limit)}
   # avoid bug
   scope :visible, where(:published => true)
 
