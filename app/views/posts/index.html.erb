@@ -1,3 +1,4 @@
+<% if params[:controller] == "posts" %>
 <hr>
 <div class="row">
   <div class="span12">
@@ -7,6 +8,7 @@
     </ul>
   </div>
 </div>
+<% end %>
 <div class="row">
   <div id="post-list-container" class="<%= defined?(list_class) ? list_class : "span12" %>">
     <% unless defined?(disable_social) and disable_social %>
