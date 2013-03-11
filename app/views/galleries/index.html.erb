@@ -1,3 +1,12 @@
+<hr>
+<div class="row">
+  <div class="span12">
+    <% tags = Gallery.tag_counts.order("count desc") %>
+    <ul class="nav nav-pills">
+      <%= raw tags.map { |t| content_tag(:li, link_to(t.name, gallery_tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
+    </ul>
+  </div>
+</div>
 <div class="row">
   <div id="gallery_list" class="<%= defined?(list_class) ? list_class : "span12" %>">
     <% unless defined?(disable_social) and disable_social %>
@@ -17,7 +26,7 @@
             <div class="details">
               <span class="line name"><%= link_to(gallery.name, gallery_path(gallery), { title: gallery.name }) %></span>
               <span class="line datetime"><%= l gallery.datetime.to_date, format: :long %></span>
-              <span class="line categories"><%= gallery.tag_list.blank? ? "&nbsp;".html_safe : gallery.tag_list %></span>
+              <span class="line categories"><%= raw gallery.tag_list.map { |t| link_to t, gallery_tag_path(t) }.join(', ') %></span>
             </div>
           </div>
         </li>

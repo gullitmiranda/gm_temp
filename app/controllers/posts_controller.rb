@@ -16,7 +16,12 @@ class PostsController < ApplicationController
 
   respond_to :html, :json
   def index
-    @posts = Post.active
+    if params[:tag]
+      @posts = Post.active.tagged_with(params[:tag])
+    else
+      @posts = Post.active
+    end
+
     respond_with @posts
   end
 
@@ -109,6 +114,9 @@ class PostsController < ApplicationController
     end
   end
 
+  def tag_list
+    @tags = Post.tag_counts.order("count desc")
+  end
   private
   # ------------------ Redirection ------------------------------------------
   def redirect_dynamically
