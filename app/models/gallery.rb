@@ -15,9 +15,13 @@ class Gallery < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :history]
 
   # Escopos
-  scope :visible, where("published = ?", true)
-  scope :orderly, lambda{ |order = nil| order(order || "datetime desc")}
-  scope :recents, lambda{ |limit = 10| visible.order("datetime desc").limit(limit)}
+  scope :with_locale, lambda{ with_translations(I18n.locale)}
+  scope :active     , lambda{ where(:published => true)     }
+  scope :inactive   , lambda{ where(:published => false)    }
+  scope :ordained   , lambda{ order("datetime desc")        }
+
+  scope :list_all   , lambda{ with_locale.active.ordained   }
+  scope :recents    , lambda{ |limit = 10| active.ordained.limit(limit) }
 
   # Taggings
   acts_as_taggable

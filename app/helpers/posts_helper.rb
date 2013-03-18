@@ -163,7 +163,7 @@ module PostsHelper
           content_level << navigation_menu_helper(subchild, depth, current_depth, options)
       end
       if content_level.present?
-        child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.visible.count}" )
+        child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.count}" )
       end
     end
     return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)

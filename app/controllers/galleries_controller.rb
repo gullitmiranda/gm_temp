@@ -3,10 +3,13 @@ class GalleriesController < ApplicationController
 
   respond_to :html, :json
   def index
+
     if params[:tag]
-      @galleries = Gallery.visible.orderly.tagged_with(params[:tag])
+      @search = Gallery.tagged_with(params[:tag]).list_all.search(params[:search])
+      @galleries = @search
     else
-      @galleries = Gallery.visible.orderly
+      @search = Gallery.list_all.search(params[:search])
+      @galleries = @search
     end
 
     respond_with @galleries

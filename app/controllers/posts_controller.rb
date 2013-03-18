@@ -16,10 +16,13 @@ class PostsController < ApplicationController
 
   respond_to :html, :json
   def index
+
     if params[:tag]
-      @posts = Post.active.tagged_with(params[:tag])
+      @search = Post.list_all.tagged_with(params[:tag]).search(params[:search])
+      @posts = @search
     else
-      @posts = Post.active
+      @search = Post.list_all.search(params[:search])
+      @posts = @search
     end
 
     respond_with @posts

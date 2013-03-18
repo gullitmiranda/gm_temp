@@ -1,38 +1,51 @@
+<!-- Search -->
 <% if params[:controller] == "galleries" %>
-<hr>
-<div class="row">
-  <div class="span12">
-    <% tags = Gallery.tag_counts.order("count desc") %>
-    <ul class="nav nav-pills">
-      <%= raw tags.map { |t| content_tag(:li, link_to(t.name, gallery_tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
-    </ul>
-  </div>
-</div>
+<%= render partial: "search" %>
 <% end %>
+
 <div class="row">
   <div id="gallery_list" class="<%= defined?(list_class) ? list_class : "span12" %>">
+    <!-- Social buttons -->
     <% unless defined?(disable_social) and disable_social %>
-      <div class="social-container" data-url="<%= galleries_url %>"></div>
-      <script type="text/javascript" charset="utf-8">
-      $('.social-container').social(<%= raw social_buttons_json %>);
-      </script>
+    <div class="row">
+      <div class="span8">
+        <div class="social-container" data-url="<%= galleries_url %>"></div>
+        <script type="text/javascript" charset="utf-8">
+        $('.social-container').social(<%= raw social_buttons_json %>);
+        </script>
+      </div>
+    </div>
     <% end -%>
-    <ul class="thumbnails">
-      <% @galleries.each do |gallery| %>
-        <li class="span3">
-          <div class="thumbnail clearfix">
-            <%= link_to(gallery_path(gallery), { title: gallery.name, class: "thumb" }) do %>
-              <%= image_tag gallery.uploads.blank? ? "empty.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
-            <% end %>
-
-            <div class="details">
-              <span class="line name"><%= link_to(gallery.name, gallery_path(gallery), { title: gallery.name }) %></span>
-              <span class="line datetime"><%= l gallery.datetime.to_date, format: :long %></span>
-              <span class="line categories"><%= raw gallery.tag_list.map { |t| link_to t, gallery_tag_path(t) }.join(', ') %></span>
-            </div>
-          </div>
-        </li>
+    <div class="row">
+      <!-- Tags -->
+      <% if params[:controller] == "galleries" %>
+      <div class="span2">
+        <h3>Categorias</h3>
+        <% tags = Gallery.tag_counts.order("count desc") %>
+        <ul class="nav nav-pills nav-stacked">
+          <%= raw tags.map { |t| content_tag(:li, link_to(t.name, gallery_tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
+        </ul>
+      </div>
       <% end %>
-    </ul>
+      <!-- Itens -->
+      <div class="span8">
+        <ul class="thumbnails">
+          <% @galleries.each do |gallery| %>
+            <li class="span3">
+              <div class="thumbnail clearfix">
+                <%= link_to(gallery_path(gallery), { title: truncate(gallery.description, :length => 250), class: "thumb" }) do %>
+                  <%= image_tag gallery.uploads.blank? ? "empty.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
+                <% end %>
+
+                <div class="details">
+                  <span class="line name"><%= link_to truncate(gallery.name, :length => 35), gallery_path(gallery) %></span>
+                  <span class="line datetime"><%= l gallery.datetime.to_date, format: :long %></span>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

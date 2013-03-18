@@ -31,12 +31,13 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :permissions, :allow_destroy => true
 
   # Escopos
-  scope :active, where(:published => true)
-  scope :inactive, where(:published => false)
-  scope :ordained, order("datetime desc")
-  scope :recents, lambda{ |limit = 10| active.ordained.limit(limit)}
-  # avoid bug
-  scope :visible, where(:published => true)
+  scope :with_locale, lambda{ with_translations(I18n.locale)}
+  scope :active     , lambda{ where(:published => true)     }
+  scope :inactive   , lambda{ where(:published => false)    }
+  scope :ordained   , lambda{ order("datetime desc")        }
+
+  scope :list_all   , lambda{ with_locale.active.ordained   }
+  scope :recents    , lambda{ |limit = 10| active.ordained.limit(limit) }
 
   # URl externa para redirecionamento
   web_url         :external_url_redirect

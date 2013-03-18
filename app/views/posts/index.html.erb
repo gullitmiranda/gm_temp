@@ -1,41 +1,94 @@
+<!-- Search -->
 <% if params[:controller] == "posts" %>
-<hr>
-<div class="row">
-  <div class="span12">
-    <% tags = Post.tag_counts.order("count desc") %>
-    <ul class="nav nav-pills">
-      <%= raw tags.map { |t| content_tag(:li, link_to(t.name, tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
-    </ul>
-  </div>
-</div>
+<%= render partial: "search" %>
 <% end %>
+<% show_type = "list" unless defined?(show_type) %>
 <div class="row">
   <div id="post-list-container" class="<%= defined?(list_class) ? list_class : "span12" %>">
+    <!-- Social buttons -->
     <% unless defined?(disable_social) and disable_social %>
-      <div class="social-container" data-url="<%= posts_url %>"></div>
-      <script type="text/javascript" charset="utf-8">
-      $('.social-container').social(<%= raw social_buttons_json %>);
-      </script>
+    <div class="row">
+      <div class="span8">
+        <div class="social-container" data-url="<%= posts_url %>"></div>
+        <script type="text/javascript" charset="utf-8">
+        $('.social-container').social(<%= raw social_buttons_json %>);
+        </script>
+      </div>
+    </div>
     <% end -%>
-    <ul class="thumbnails">
-      <% @posts.each do |post| %>
-        <li class="span6">
-          <div class="thumbnail post-list">
-            <h3><%= link_to post.name, post_path(post) %></h3>
-            <div class="details">
-              <span class="post-data"><%= time_ago_in_words post.datetime %> (<%= l post.datetime %>)</span>
-              <span class="post-categories"><%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span>
-            </div>
-            <div class="post-body clearfix">
-              <%= link_to(post, { title: t("view_more"), class: "thumb" }) do %>
-                <%= image_tag post.posts(:thumb), class: "img-rounded" %>
-              <% end if post.posts? %>
-              <p><%= raw post.summary %></p>
-            </div>
-            <div class="read_more"><%= link_to t(:view_more), post_path(post), class: "btn btn-link" %></div>
+    <div class="row">
+      <!-- Tags -->
+      <% if params[:controller] == "posts" %>
+      <div class="span2">
+        <h3>Categorias</h3>
+        <% tags = Post.tag_counts.order("count desc") %>
+        <ul class="nav nav-list nav-stacked">
+          <%= raw tags.map { |t| content_tag(:li, link_to(t.name, tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
+        </ul>
+      </div>
+      <% end %>
+      <!-- Itens -->
+      <div class="<%= show_type == "grid" ? defined?(list_class) ? list_class : "span12" : "span8" %>">
+        <ul class="thumbnails">
+          <% if show_type == "grid" %>
+            <% @posts.each do |post| %>
+              <li class="span3">
+                <div class="thumbnail post-list">
+                  <h3><%= link_to truncate(post.name, :length => 35), post_path(post) %></h3>
+                  <div class="post-body clearfix">
+                    <%= link_to(post, { title: t("view_more"), class: "thumb" }) do %>
+                      <%= image_tag post.posts(:thumb), class: "img-rounded" %>
+                    <% end if post.posts? %>
+                    <p><%= raw truncate(post.summary, :length => 85) %></p>
+                  </div>
+                  <div class="read_more"><%= link_to t(:view_more), post_path(post), class: "btn btn-link" %></div>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <% @posts.each do |post| %>
+              <li class="span8">
+                <div class="thumbnail post-list clearfix">
+                  <%= link_to(post, { title: t("view_more"), class: "thumb pull-left" }) do %>
+                    <%= image_tag post.posts(:thumb), class: "img-rounded" %>
+                  <% end if post.posts? %>
+                  <div class="post-container">
+                    <h3><%= link_to post.name, post_path(post) %></h3>
+                    <div class="details">
+                      <span class="post-data"><%= time_ago_in_words post.datetime %> (<%= l post.datetime %>)</span>
+                      <span class="post-categories"><%= post.tag_list %></span>
+                      <!-- <span class="post-categories">< %= post.tag_list.map {|t| link_to t, tag_path(t) }.join(', ') %></span> -->
+                    </div>
+                    <div class="post-body">
+                      <p><%= raw truncate(post.summary, :length => 200) %></p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <% posts_featured = Post.recents(6).offset(Setting.for_key("rdcms.home.articles.limit")) %>
+
+  <% unless posts_featured.blank? %>
+  <div id="post_featured_box" class="<%= show_type == "grid" ? "span3" : "span4" %>">
+    <h3><%= I18n.t("most_visited") %></h3>
+    <hr />
+    <ul class="thumbnails post_featured_list">
+      <% posts_featured.each do |post| %>
+        <li class="<%= show_type == "grid" ? "span3" : "span4" %>">
+          <span class="line name"><%= link_to post.name, post_path(post) %></span>
+
+          <div class="details">
+            <p><%= raw truncate(post.summary, :length => 50) %></p>
           </div>
         </li>
       <% end %>
     </ul>
+    <div class="read_more"><%= link_to t(:view_all), posts_path, class: "btn btn-link" %></div>
   </div>
+  <% end %>
 </div>
