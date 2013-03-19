@@ -1,10 +1,6 @@
-<div class="navbar">
-  <div class="navbar-inner">
-    <%= form_for @search, url: posts_path, :html => { :method => :get, class: "navbar-form" } do |f| %>
-      <div class="input-append pull-right">
-        <%= f.text_field :translations_name_or_translations_body_contains, placeholder: I18n.t(".search_posts"), class: "span2" %>
-        <%= f.button "<i class=\"icon-search\" aria-hidden=\"true\"></i>".html_safe, name: nil, type: "submit", class: "btn btn-success" %>
-      </div>
-    <% end %>
+<%= form_for @search, url: posts_path, :html => { :method => :get, class: "navbar-form" } do |f| %>
+  <div class="input-append pull-right">
+    <%= f.text_field :translations_name_or_translations_body_contains, placeholder: I18n.t(".search_posts"), class: "span2" %>
+    <%= f.button "<i class=\"icon-search\" aria-hidden=\"true\"></i>".html_safe, name: nil, type: "submit", class: "btn btn-success" %>
   </div>
-</div>
+<% end %>

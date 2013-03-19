@@ -1,6 +1,14 @@
 <!-- Search -->
 <% if params[:controller] == "posts" %>
-<%= render partial: "search" %>
+<div class="navbar sub_header_bar">
+  <div class="navbar-inner">
+    <ul class="nav nav_tags">
+      <% tags = Post.tag_counts.order("count desc") %>
+      <%= raw tags.map { |t| content_tag(:li, link_to(t.name, tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
+    </ul>
+    <%= render partial: "search" %>
+  </div>
+</div>
 <% end %>
 <% show_type = "list" unless defined?(show_type) %>
 <div class="row">
@@ -17,18 +25,8 @@
     </div>
     <% end -%>
     <div class="row">
-      <!-- Tags -->
-      <% if params[:controller] == "posts" %>
-      <div class="span2">
-        <h3>Categorias</h3>
-        <% tags = Post.tag_counts.order("count desc") %>
-        <ul class="nav nav-list nav-stacked">
-          <%= raw tags.map { |t| content_tag(:li, link_to(t.name, tag_path(t.name)), class: "#{"active" if defined?(params[:tag]) and params[:tag] == t.name}") }.join %>
-        </ul>
-      </div>
-      <% end %>
       <!-- Itens -->
-      <div class="<%= show_type == "grid" ? defined?(list_class) ? list_class : "span12" : "span8" %>">
+      <div class="<%= defined?(list_class) ? list_class : "span8" %>">
         <ul class="thumbnails">
           <% if show_type == "grid" %>
             <% @posts.each do |post| %>
