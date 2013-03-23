@@ -54,7 +54,7 @@ gem 'contact_us', '~> 0.4.0.beta', :git => 'git://github.com/gullitmiranda/conta
 gem "meta_search", "~> 1.1.3"
 gem "awesome_nested_set", "~> 2.1.5"
 gem "jquery-fileupload-rails"
-gem "best_in_place", "~> 2.0.3", git: "git://github.com/bernat/best_in_place.git"
+gem "best_in_place", "~> 2.1.0", git: "git://github.com/bernat/best_in_place.git"
 gem "ckeditor", "~> 3.7.3"
 gem "string_base64", "~> 1.0.1"
 gem "email_validator", "~> 1.3.0"

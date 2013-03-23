@@ -85,7 +85,7 @@ Gem::Specification.new do |s|
   s.add_dependency "globalize3_helpers"
   s.add_dependency "awesome_nested_set"#, "~> 2.1.5"
   s.add_dependency "jquery-fileupload-rails"
-  s.add_dependency "best_in_place", "~> 2.0.3"#, git: "git://github.com/bernat/best_in_place.git"
+  s.add_dependency "best_in_place", "~> 2.1.0"#, git: "git://github.com/bernat/best_in_place.git"
   s.add_dependency "ckeditor"#, "~> 3.7.3"
   s.add_dependency "string_base64"#, "~> 1.0.1"
   s.add_dependency "email_validator"#, "~> 1.3.0"
