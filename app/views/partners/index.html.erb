@@ -13,7 +13,7 @@
               <div class="sponsorData">
                 <div class="sponsorDescription clearfix">
                   <%= image_tag partner.partner(:thumb), alt: I18n.t(".more_about_company", company: partner.name), title: I18n.t(".more_about_company", company: partner.name), rel: "tooltip" %>
-                  <div class="description"><%= partner.description %></div>
+                  <div class="description clearfix"><%= partner.description %></div>
                 </div>
                 <div class="sponsorURL"><%= link_to(partner.url, partner.url, target: "_blank", title: partner.name, rel: "tooltip") %></div>
               </div>
