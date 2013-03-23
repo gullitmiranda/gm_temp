@@ -12,7 +12,7 @@
 <% end %>
 <% show_type = "list" unless defined?(show_type) %>
 <div class="row">
-  <div id="post-list-container" class="<%= defined?(list_class) ? list_class : "span12" %>">
+  <div id="post-list-container" class="<%= defined?(list_class) ? list_class : show_type == "grid" ? "span12" : "span8" %>">
     <!-- Social buttons -->
     <% unless defined?(disable_social) and disable_social %>
     <div class="row">
@@ -68,27 +68,26 @@
           <% end %>
         </ul>
       </div>
-
-      <% posts_featured = Post.recents(6).offset(Setting.for_key("rdcms.home.articles.limit")) %>
-
-      <% unless posts_featured.blank? %>
-      <div id="post_featured_box" class="<%= show_type == "grid" ? "span3" : "span4" %>">
-        <h3><%= I18n.t("most_visited") %></h3>
-        <hr />
-        <ul class="thumbnails post_featured_list">
-          <% posts_featured.each do |post| %>
-            <li class="<%= show_type == "grid" ? "span3" : "span4" %>">
-              <span class="line name"><%= link_to post.name, post_path(post) %></span>
-
-              <div class="details">
-                <p><%= raw truncate(post.summary, :length => 50) %></p>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-        <div class="read_more"><%= link_to t(:view_all), posts_path, class: "btn btn-link" %></div>
-      </div>
-      <% end %>
     </div>
   </div>
+
+  <% posts_featured = Post.recents(6).offset(Setting.for_key("rdcms.home.articles.limit")) %>
+  <% unless posts_featured.blank? %>
+  <div id="post_featured_box" class="<%= show_type == "grid" ? "span3" : "span4" %>">
+    <h3><%= I18n.t("most_visited") %></h3>
+    <hr />
+    <ul class="thumbnails post_featured_list">
+      <% posts_featured.each do |post| %>
+        <li class="<%= show_type == "grid" ? "span3" : "span4" %>">
+          <span class="line name"><%= link_to post.name, post_path(post) %></span>
+
+          <div class="details">
+            <p><%= raw truncate(post.summary, :length => 50) %></p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <div class="read_more"><%= link_to t(:view_all), posts_path, class: "btn btn-link" %></div>
+  </div>
+  <% end %>
 </div>
