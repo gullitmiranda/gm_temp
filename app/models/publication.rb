@@ -10,8 +10,16 @@ class Publication < ActiveRecord::Base
   # Ancestrais
   has_ancestry
 
+  # Get Attached Styles for paperclip
+  def self.get_attached_styles
+    @attached_styles = {
+      :thumb => Setting.for_key("rdcms.publication.thumb"),
+      :page => Setting.for_key("rdcms.publication.page")
+    }
+  end
+
   has_attached_file :publication,
-                    :styles => { :thumb => "260x180#", :page => "1920x1200#" },
+                    :styles => self.get_attached_styles,
                     :processors => [:thumbnail, :compression],
                     :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
 

@@ -25,7 +25,7 @@
           </span>
 -->
         </div>
-        <em><%= t("recommended_size_for_upload", :size => "1920x1200") %></em>
+        <em><%= t("recommended_size_for_upload", :size => Publication.get_attached_styles[:page]) %></em>
       </div>
       <div class="span3 fileupload-progress fileupload-progressbar fade">
         <!-- The global progress bar -->
