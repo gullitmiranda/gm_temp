@@ -7,7 +7,7 @@
   </div>
 </div>
 <% else %>
-<ul id="home-slider" class="royalSlider clearfix">
+<ul id="home-slider" class="royalSlider rsMinW clearfix">
   <% @sliders.each do |slider| %>
     <li class="royalSlide rsContent" style="background-image:url('<%= slider.background.url(:slider) %>');">
       <div class="royalCaption bContainer" style="width:100%;">
@@ -35,7 +35,8 @@ $(function() {
   %>
   var defaultSlider = $("#home-slider").royalSlider({
     captionShowEffects:["moveleft", "fade"],
-		autoPlay          : {
+    arrowsNavAutoHide: false,
+    autoPlay          : {
       <%= "enabled      : '#{auto_play_enabled}',".html_safe        if auto_play_enabled.present? %>
       <%= "stopAtAction : '#{auto_play_stop_at_action}',".html_safe if auto_play_stop_at_action.present? %>
       <%= "pauseOnHover : '#{auto_play_pause_on_hover}',".html_safe if auto_play_pause_on_hover.present? %>
@@ -45,7 +46,7 @@ $(function() {
     <%= "loop               : '#{loop}',".html_safe                   if loop.present? %>
     <%= "numImagesToPreload : '#{num_images_to_preload}',".html_safe  if num_images_to_preload.present? %>
     <%= "transitionSpeed    : '#{transition_speed}',".html_safe       if transition_speed.present? %>
-	});
+  });
 });
 </script>
 <% end %>

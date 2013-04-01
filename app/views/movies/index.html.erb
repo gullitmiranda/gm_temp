@@ -1,57 +1,63 @@
 <% if @movies %>
   <% if !@movies.blank? %>
-  <div id="movies_slider" class="royalSlider videoGallery rsDefault">
+  <div id="movies_slider" class="royalSlider rsUni clearfix fwImage">
     <% @movies.entry.each do |movie| %>
       <div class="rsContent">
-        <a class="rsImg" data-rsVideo="<%= movie.group.player.url %>" href="<%= movie.group.thumbnail[2].url %>">
-          <div class="rsTmb">
-            <h5><%= movie.title %></h5>
-            <p><%= distance_of_time_in_words_to_now movie.published.to_datetime %></p>
-          </div>
+        <a class="rsImg" data-rsVideo="<%= movie.group.player.url %>" href="<%= movie.group.thumbnail[3].url %>">
+          <img class="rsTmb" src="<%= movie.group.thumbnail[1].url %>" />
         </a>
-        <h3 class="rsABlock sampleBlock"><%= movie.group.description %></h3>
+        <div class="infoBlock infoBlockLeftBlack rsABlock">
+          <h5><%= movie.title %></h5>
+          <p><%= movie.group.description %></p>
+        </div>
       </div>
     <% end -%>
    </div>
   <% end %>
 
-  <%= stylesheet_link_tag    "slider", "movies" %>
-  <%= javascript_include_tag "slider" %>
-
   <script>
   jQuery(document).ready(function($) {
-    $("#movies_slider").royalSlider({
+    var options = $.extend(true, {
       fullscreen: {
         enabled: true,
         nativeFS: true
       },
+
       arrowsNav: false,
       fadeinLoadedSlide: true,
-      controlNavigationSpacing: 0,
-      controlNavigation: 'thumbnails',
+      loop: true,
+      loopRewind: true,
+      // keyboardNavEnabled: true,
 
-      thumbs: {
-        autoCenter: false,
-        fitInViewport: true,
-        orientation: 'horizontal',
-        // orientation: 'vertical',
-        spacing: 0
-      },
-      keyboardNavEnabled: true,
       imageScaleMode: 'fill',
       imageAlignCenter:true,
-      loop: false,
-      loopRewind: true,
       numImagesToPreload: 3,
+
+      /* Controle de navegação */
+      controlNavigation: 'thumbnails',
+      controlNavigationSpacing: 0,
+
+      thumbs: {
+        autoCenter: true,
+        fitInViewport: true,
+        orientation: 'horizontal',
+        paddingBottom: 4,
+        appendSpan: true
+      },
+
+      /* Vídeos */
       video: {
         autoHideArrows:true,
         autoHideControlNav:false,
         autoHideBlocks: true
       },
+
       autoScaleSlider: true,
       autoScaleSliderWidth: 960,
-      autoScaleSliderHeight: 450
-    });
+      autoScaleSliderHeight: 600,
+    }, <%= params[:slider].to_json.html_safe %>);
+
+    $("#movies_slider").royalSlider(options);
   });
   </script>
   <!-- end imagens -->
@@ -59,8 +65,8 @@
   <div class="index_movies_container"></div>
   <script>
   $(document).ready(function() {
-    // console.debug($.get('/movies'))
-    $('.index_movies_container').load('/movies');
+    $('.index_movies_container').load('/movies',
+      jQuery.param({ slider: <%= defined?(slider) ? slider.to_json.html_safe : "{}" %> }, false));
   });
   </script>
 <style>

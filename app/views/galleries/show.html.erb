@@ -1,84 +1,98 @@
 <!-- Título, Data e Tags -->
 <div class="row">
-	<div id="gallery_informations" class="span12 informations-container">
-	  <div class="page-header">
-	    <h2><%= @gallery.name %></h2>
-		  <div class="details">
-		    <span class="line datetime"> - <%= time_ago_in_words @gallery.datetime %> (<%= l @gallery.datetime %>)</span>
-		    <span class="line categories"><%= @gallery.tag_list %></span>
-		  </div>
-	  </div>
-	</div>
+  <div id="gallery_informations" class="span12 informations-container">
+    <div class="page-header">
+      <h2><%= @gallery.name %></h2>
+      <div class="details">
+        <span class="line datetime"> - <%= time_ago_in_words @gallery.datetime %> (<%= l @gallery.datetime %>)</span>
+        <span class="line categories"><%= @gallery.tag_list %></span>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Imagens -->
 <div class="row">
-	<div class="span12">
-		<% if !@gallery.uploads.blank? %>
-		<div id="gallery_slider" class="royalSlider clearfix fwImage span12">
-		  <% for p in @gallery.uploads %>
-		  <a class="rsImg"
-		    data-rsBigImg="<%= p.upload %>"
-		    href="<%= p.upload(:big) %>">
-		      <%= p.upload_file_name %>
-		      <img width="96" height="72" class="rsTmb" src="<%= p.upload(:thumb) %>" />
-		  </a>
-		  <% end %>
-		</div>
-		<% end %>
+  <div class="span12">
+    <% if !@gallery.uploads.blank? %>
+    <div id="gallery_slider" class="royalSlider clearfix fwImage rsUni">
+      <% for p in @gallery.uploads %>
+      <a class="rsImg"
+        data-rsBigImg="<%= p.upload %>"
+        href="<%= p.upload(:big) %>">
+          <%= p.upload_file_name %>
+          <img class="rsTmb" src="<%= p.upload(:thumb) %>" />
+      </a>
+      <% end %>
+    </div>
+    <% end %>
 
-		<%= stylesheet_link_tag    "slider" %>
-		<%= javascript_include_tag "slider" %>
+    <script>
+    jQuery(document).ready(function($) {
+      $("#gallery_slider").royalSlider({
+        fullscreen: {
+          enabled: true,
+          nativeFS: true
+        },
+        controlNavigation: 'thumbnails',
+        captionShowEffects:["moveleft", "fade"],
 
-		<script>
-		jQuery(document).ready(function($) {
-		  $("#gallery_slider").royalSlider({
-		  // $("#gallery-1").royalSlider({
-		    fullscreen: {
-		      enabled: true,
-		      nativeFS: true
-		    },
-		    controlNavigation: 'thumbnails',
-		    captionShowEffects:["moveleft", "fade"],
-		    // autoScaleSlider: true,
-		    // autoScaleSliderWidth: 960,
-		    // autoScaleSliderHeight: 850,
-		    // loop: false,
-		    // numImagesToPreload: 4,
-		    // arrowsNavAutohide: true,
-		    // arrowsNavHideOnTouch: true,
-		    // keyboardNavEnabled: true
-		  });
-		});
-		</script>
-	</div>
+        arrowsNav: false,
+        fadeinLoadedSlide: true,
+        loop: true,
+        loopRewind: true,
+        keyboardNavEnabled: true,
+
+        imageScaleMode: 'fill',
+        imageAlignCenter:true,
+        numImagesToPreload: 3,
+
+        /* Miniaturas */
+        controlNavigation: 'thumbnails',
+        controlNavigationSpacing: 0,
+
+        thumbs: {
+          autoCenter: true,
+          fitInViewport: true,
+          orientation: 'horizontal',
+          paddingBottom: 4,
+          appendSpan: true
+        },
+
+        autoScaleSlider: true,
+        autoScaleSliderWidth: 960,
+        autoScaleSliderHeight: 600,
+      });
+    });
+    </script>
+  </div>
 </div>
 <!-- Rede social -->
 <div class="row">
-	<div class="span12">
-		<div class="social-container" data-url="<%= gallery_url(@gallery) %>"></div>
-		<script type="text/javascript" charset="utf-8">
-		$('.social-container').social(<%= raw social_buttons_json %>);
-		</script>
-	</div>
-	<hr />
+  <div class="span12">
+    <div class="social-container" data-url="<%= gallery_url(@gallery) %>"></div>
+    <script type="text/javascript" charset="utf-8">
+    $('.social-container').social(<%= raw social_buttons_json %>);
+    </script>
+  </div>
+  <hr />
 </div>
 <!-- Descrição e Comentários -->
 <div class="row">
-	<div id="gallery_informations" class="span12 informations-container">
-	  <div class="tabbable">
-	    <ul class="nav nav-tabs">
-	      <li class="active"><a href="#descriptions" data-toggle="tab"><%= t(".description") %></a></li>
-	      <!-- <li><a href="#comments" data-toggle="tab"><%= t(".comments") %></a></li> -->
-	    </ul>
-	    <div class="tab-content">
-	      <div id="descriptions" class="tab-pane active clearfix">
-	        <%= raw @gallery.description %>
-	      </div>
-	<!--       <div id="comments" class="tab-pane">
-	        ===> comentários
-	      </div> -->
-	    </div>
-	  </div>
-	</div>
+  <div id="gallery_informations" class="span12 informations-container">
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#descriptions" data-toggle="tab"><%= t(".description") %></a></li>
+        <!-- <li><a href="#comments" data-toggle="tab"><%= t(".comments") %></a></li> -->
+      </ul>
+      <div class="tab-content">
+        <div id="descriptions" class="tab-pane active clearfix">
+          <%= raw @gallery.description %>
+        </div>
+  <!--       <div id="comments" class="tab-pane">
+          ===> comentários
+        </div> -->
+      </div>
+    </div>
+  </div>
 
 </div>
