@@ -26,7 +26,7 @@
     <% end -%>
     <div class="row">
       <!-- Itens -->
-      <div class="span8">
+      <div class="<%= defined?(list_class) ? list_class : "span12" %>">
         <ul class="thumbnails">
           <% @galleries.each do |gallery| %>
             <li class="span3">
