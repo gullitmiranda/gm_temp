@@ -1,4 +1,9 @@
-<div class="social-container" data-url="<%= post_url(@post) %>"></div>
+<div class="social-container" data-url="<%= post_url(@post) %>">
+  <a href="#" class="btn btn-mini btn-info window_print">
+    <i class="icon-printer"></i>
+    <%= I18n.t(".print") %>
+  </a>
+</div>
 <script type="text/javascript" charset="utf-8">
 $('.social-container').social(<%= raw social_buttons_json %>);
 </script>
@@ -40,3 +45,8 @@ $('.social-container').social(<%= raw social_buttons_json %>);
     <% end %>
   <% end %>
 </div>
+<script>
+  $(".window_print").on("click", function(ev) {
+    window.print();
+  });
+</script>

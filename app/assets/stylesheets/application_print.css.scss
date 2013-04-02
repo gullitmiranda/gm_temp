@@ -1,0 +1,10 @@
+body {
+  a:link:after,
+  a:visited:after { content: ""; }
+
+  .navbar .language_selector,
+  .navbar .btn-navbar,
+  .social-container,
+  .partners_container,
+  > footer { display: none; }
+}
