@@ -14,7 +14,7 @@ ActiveAdmin.register Gallery do
       link_to(truncate(p.name, :length => 40), [:admin, p], title: "#{title || ""}" )
     end
     column :datetime
-    column :tag_list, :sortable => :tag_list do |p|
+    column :tag_list do |p|
       best_in_place p, :tag_list, type: :input, path: [:admin, p]
     end
     column :published, :sortable => :published do |p|

@@ -18,7 +18,7 @@ ActiveAdmin.register Publication do
       best_in_place p, :object_type, type: :select, path: [:admin, p],
             :collection => [["0"  , I18n.t("attributes_all.catalogue" ) ], ["1"   , I18n.t("attributes_all.campaign"  ) ]]
     end
-    column :tag_list, :sortable => :tag_list do |p|
+    column :tag_list do |p|
       best_in_place p, :tag_list, type: :input, path: [:admin, p]
     end
     column :children do |p|
