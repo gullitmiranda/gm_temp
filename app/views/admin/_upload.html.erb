@@ -87,7 +87,7 @@
               <span title="{%=file.name%}">{%=file.name.truncate(35) %}</span>
             </div>
             <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
-              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : 'empty.png' %}" />
+              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : '/images/missing.png' %}" />
             </a>
             {% if (file.error) { %}
               <div class="det alert alert-error clearfix">
@@ -199,7 +199,7 @@
     };
   </script>
   <script type="text/javascript" charset="utf-8">
-    $(function () {
+    $(document).ready(function () {
       // Initialize the jQuery File Upload widget:
       fileupload_fun = $("#fileupload").fileupload({
         autoUpload: true,

@@ -72,7 +72,7 @@
               <span>{%=file.name%}</span>
             </div>
             <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
-              <img class="img-rounded" src="{%= (file.images && file.images["<%= options[:style] || "original" %>"]) ? file.images["<%= options[:style] || "original" %>"] : 'empty.png' %}" />
+              <img class="img-rounded" src="{%= (file.images && file.images["<%= options[:style] || "original" %>"]) ? file.images["<%= options[:style] || "original" %>"] : '/images/missing.png' %}" />
             </a>
             {% if (file.error) { %}
               <div class="det alert alert-error clearfix">
@@ -120,7 +120,7 @@
     };
   </script>
   <script type="text/javascript" charset="utf-8">
-    $(function () {
+    $(document).ready(function () {
       // Initialize the jQuery File Upload widget:
       fileupload_fun = $('#fileupload<%= ".#{options[:class]}" if defined?(options[:class]) %>').fileupload({
         autoUpload: true,
