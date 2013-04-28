@@ -95,7 +95,7 @@
                 /* Upload da logo */
                 single_logo.bind('fileuploaddone', function (e, data) {
                   var $this = $(this),
-                      that  = $this.data('fileupload'),
+                      that  = $this.data('blueimpFileupload'),
                       dt    = data.result[0];
 
                   // Remover item após upload
@@ -177,7 +177,7 @@
                 /* Upload da logo */
                 fullscreen_logo.bind('fileuploaddone', function (e, data) {
                   var $this = $(this),
-                      that  = $this.data('fileupload'),
+                      that  = $this.data('blueimpFileupload'),
                       dt    = data.result[0];
 
                   // Remover item após upload
