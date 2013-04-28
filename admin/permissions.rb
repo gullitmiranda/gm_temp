@@ -2,10 +2,9 @@
 
 ActiveAdmin.register Permission, :sort_order => :sorter_id do
   menu  priority: 3,
-        parent: proc{ I18n.t('activerecord.models.settings') },
+        parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Permission)}
   #
-  controller.authorize_resource :class => Permission
   menu false;
 
   scope "Alle", :scoped, :default => true

@@ -6,7 +6,6 @@ ActiveAdmin.register Article do
         if: proc{can?(:update, Article)}
   #
   menu false;
-  controller.authorize_resource :class => Article
   # unless Rails.env == "test"
   #   I18n.locale = :de
   #   I18n.default_locale = :de

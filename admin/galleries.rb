@@ -2,7 +2,6 @@ ActiveAdmin.register Gallery do
   menu  :priority => 3,
         if: proc{can?(:update, Gallery)}
   # menu false
-  controller.authorize_resource :class => Gallery
 
   # Listagem dos itens
   index do

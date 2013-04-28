@@ -1,6 +1,6 @@
 ActiveAdmin.register Partner do
   menu  priority: 8,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:update, Partner)}
 
   index do

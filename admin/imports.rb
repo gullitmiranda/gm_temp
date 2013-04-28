@@ -1,6 +1,6 @@
 ActiveAdmin.register Import do
   menu  priority: 4,
-        parent: proc{ I18n.t('activerecord.models.settings') },
+        parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Import)}
   #
   menu false;

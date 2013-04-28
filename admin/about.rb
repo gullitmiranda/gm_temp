@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "About" do
-  menu priority: 20, label: I18n.t('activerecord.models.about')
+  menu priority: 10, label: I18n.t('activerecord.models.about')
   menu false;
 
   content do

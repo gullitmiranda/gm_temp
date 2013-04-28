@@ -3,8 +3,6 @@ ActiveAdmin.register Post do
         if: proc{can?(:update, Post)}
   # menu false
 
-  controller.authorize_resource :class => Post
-
   scope "All", :scoped, :default => true
   scope "Online", :active
   scope "Offline", :inactive

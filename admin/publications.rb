@@ -1,10 +1,8 @@
 ActiveAdmin.register Publication do
   menu  priority: 7,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:update, Publication)}
   # menu false
-
-  scope :publication_root, default: true
 
   index do
     selectable_column

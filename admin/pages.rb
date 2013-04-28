@@ -1,10 +1,8 @@
 ActiveAdmin.register Page do
   menu  priority: 6,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:update, Page)}
   # menu false
-
-  controller.authorize_resource :class => Page
 
   # Listagem dos itens
   index do

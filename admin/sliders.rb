@@ -1,6 +1,6 @@
 ActiveAdmin.register Slider do
   menu  priority: 3,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:update, Slider)}
   # menu false
 

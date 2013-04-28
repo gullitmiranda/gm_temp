@@ -1,11 +1,10 @@
 ActiveAdmin.register Setting  do
   menu  priority: 5,
-        parent: proc{ I18n.t('activerecord.models.settings') },
+        parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, Setting)}
   #
   menu false;
 
-  controller.authorize_resource :class => Setting
   scope "Alle Settings", :with_values, :default => true
 
   if ActiveRecord::Base.connection.table_exists?("settings") && Setting.all.count > 0

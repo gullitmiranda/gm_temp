@@ -1,11 +1,9 @@
 ActiveAdmin.register Upload do
   menu  priority: 1,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:update, Upload)}
   #
   menu false;
-
-  controller.authorize_resource :class => Upload
 
   if ActiveRecord::Base.connection.table_exists?("tags")
     Upload.tag_counts_on(:tags).each do |utag|

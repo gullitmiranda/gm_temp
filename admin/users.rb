@@ -1,10 +1,8 @@
 ActiveAdmin.register User do
   menu  priority: 1,
-        parent: proc{ I18n.t('activerecord.models.settings') },
+        parent: I18n.t('activerecord.models.settings'),
         if: proc{can?(:update, User)}
   #
-  controller.authorize_resource :class => User
-
   filter :firstname
   filter :lastname
   filter :email

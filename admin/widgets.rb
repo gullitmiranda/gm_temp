@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Widget do
   menu  priority: 5,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Widget)}
   #
   menu false;

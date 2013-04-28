@@ -3,12 +3,10 @@
 ActiveAdmin.register Menu do
   menu  priority: 2,
         label: Menu.model_name.human.pluralize,
-        parent: proc{ I18n.t('activerecord.models.content_management') },
+        parent: I18n.t('activerecord.models.content_management'),
         if: proc{can?(:read, Menu)}
   #
   menu false;
-
-  controller.authorize_resource :class => Menu
 
   filter :title
   filter :target
