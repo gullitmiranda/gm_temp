@@ -1,6 +1,9 @@
 <div class="fileuploads-container single_upload">
   <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
   <%= form_for Upload.new, :url => admin_uploads_path, :html => { :multipart => true, :id => "fileupload", class: "single_#{options[:style]} #{options[:class]}" } do |f| %>
+    <div class="hidden">
+      <%= f.hidden_field :item_type, value: options[:item_type] %>
+    </div>
     <div class="row fileupload-buttonbar">
       <div class="span3 btn-toolbar">
         <div class="btn-group">
@@ -8,7 +11,7 @@
           <span class="btn btn-success fileinput-button" title="<%= I18n.t('.add_file') %>">
             <i class="icon-plus-2"></i>
             <input type="file" name="upload[upload]"
-              <%= ' accept="#{options[:accept]}"'     .html_safe if defined?(options[:accept]) %>>
+              <%= " accept=\"#{options[:accept]}\"".html_safe if defined?(options[:accept]) %>>
           </span>
         </div>
       </div>

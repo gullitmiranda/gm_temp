@@ -12,8 +12,8 @@
           <span class="btn btn-success fileinput-button" title="<%= I18n.t('.add_files') %>">
             <i class="icon-plus-2"></i>
             <input type="file" name="upload[upload]"
-              <%= ' accept="#{options[:accept]}"'     .html_safe if defined?(options[:accept]) %>
-              <%= ' multiple="#{options[:multiple]}"' .html_safe if defined?(options[:multiple]) %>>
+              <%= " accept=\"#{options[:accept]}\"".html_safe if defined?(options[:accept]) %>
+              <%= " multiple=\"#{options[:multiple]}\"".html_safe if defined?(options[:multiple]) %>>
           </span>
 <!--
           <button type="reset" class="btn btn-warning cancel" title="<%= I18n.t(".cancel") %>">
