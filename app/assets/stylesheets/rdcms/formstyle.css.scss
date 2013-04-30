@@ -1,0 +1,20 @@
+.fs-checkbox {
+  display: inline-block;
+
+  [class^="icon-"],
+  [class*=" icon-"] {
+    vertical-align: baseline;
+  }
+  label {
+    margin: 0;
+  }
+  .fs-block {
+    display: block;
+  }
+}
+.form-inline .fs-checkbox {
+  display: inline-block;
+  padding: 4px 14px;
+  vertical-align: bottom;
+}
+

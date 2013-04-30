@@ -1,8 +1,9 @@
 /* Active Admin CSS */
 // Reset Away!
-body.active_admin {
-  @include global-reset;
-}
+// fixbug: fileupload-ui and ckeditor
+// body.active_admin {
+//   @include global-reset;
+// }
 
 // Partials
 body.active_admin {

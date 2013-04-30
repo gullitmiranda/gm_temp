@@ -23,6 +23,7 @@ br:
       create: "criar"
 
     # Dashboard labels
+    dashboard_header: "Painel Administrativo"
     recent_entries: Novos assinantes
     recent_posts: Artigos recentes
     recent_products: Produtos recentes
@@ -105,7 +106,7 @@ br:
         reset_cache: "redefinir o cache"
         send_default_conf_mails: "Enviar e-mail de confirmação"
         destroy: "Excluir"
-    comments:    
+    comments:
       body: "Conteúdo"
       author: "Autor"
       title: "Comentário"
@@ -148,9 +149,6 @@ br:
         product:
           one: Produto
           other: Produtos
-    page:
-      index:
-        dashboard_header: "Painel Administrativo"
 
   id: "ID"
   name: "Nome"

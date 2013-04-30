@@ -82,13 +82,13 @@ form {
 
   /* Text Fields */
   input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], input[type=tel], textarea {
-    width: 76%;
+    // width: 76%;
     border: 1px solid #c9d0d6;
     @include rounded;
     font-size: 0.95em;
     @include sans-family;
     outline: none;
-    padding: 8px $text-input-horizontal-padding 7px;
+    // padding: 8px $text-input-horizontal-padding 7px;
 
     &:focus {
       border: 1px solid #99a2aa;

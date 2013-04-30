@@ -1,0 +1,42 @@
+/* Overlays */
+body {
+  .overlay-viewport,
+  .overlay-block,
+  .overlay-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    display: block;
+    opacity: 1.0;
+    z-index: 1200;
+  }
+  .overlay-viewport {
+    .overlay-container {
+      position: absolute;
+      overflow: auto;
+
+      > .container {
+        background: #fff;
+        color: #393939;
+
+        .overlay-item {
+          padding: 20px 0;
+          .thumb_item {
+            margin-top: 40px;
+          }
+        }
+      }
+    }
+  }
+  .overlay-block {
+    opacity: 0;
+    position: absolute;
+  }
+  .overlay-white {
+    background: #fff;
+    opacity: 0.9;
+  }
+}
