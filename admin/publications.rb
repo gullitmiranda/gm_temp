@@ -40,7 +40,7 @@ ActiveAdmin.register Publication do
     def index
       index! do |format|
         format.html # index.html.erb
-        format.json { render json: @publications.map{|publication| publication.to_jq_upload } }
+        format.json { render json: { files: @publications.map{|publication| publication.to_jq_upload } } }
       end
     end
 
@@ -53,7 +53,7 @@ ActiveAdmin.register Publication do
       create! do |format|
         if @publication.save
           format.html { redirect_to admin_publication_path @publication }
-          format.json { render json: [@publication.to_jq_upload].to_json, status: :created }
+          format.json { render json: { files: [@publication.to_jq_upload] }.to_json, status: :created }
         else
           format.html { render action: "new" }
           format.json { render json: @publication.errors, status: :unprocessable_entity }
@@ -74,7 +74,7 @@ ActiveAdmin.register Publication do
         update! do |format|
           format.html do
             if request.xhr?
-              render json: @publication.to_jq_upload
+              render json: { files: @publication.to_jq_upload }
             else
               redirect_to @publication
             end

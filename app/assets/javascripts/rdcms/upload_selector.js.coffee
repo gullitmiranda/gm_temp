@@ -62,8 +62,8 @@ jQuery ->
 
   # Renderiza os itens carregados do Banco de dados
   selectedData = selected_container_ul.data('load')
-  if selectedData && selectedData.length
-    renderFiles selectedData, selected_container_ul, 0
+  if selectedData && $.isArray(selectedData.files)
+    renderFiles selectedData.files, selected_container_ul, 0
   else
     _sortable selected_container_ul
 

@@ -39,7 +39,7 @@
       </div>
       <script type="text/javascript">
         $("#upload_container ul.files").data(
-          'load',<%= raw defined?(@partners) ? @partners.order("position asc").map{|partner| partner.to_jq_upload }.to_json : '""' %>);
+          'load',<%= raw defined?(@partners) ? { files: @partners.order("position asc").map{|partner| partner.to_jq_upload } }.to_json : "{}" %>);
       </script>
     </div>
     <!-- upload -->

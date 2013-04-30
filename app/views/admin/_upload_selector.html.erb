@@ -18,7 +18,7 @@
             </div>
             <script type="text/javascript">
               $("#selected_container ul:first").data(
-                'load',<%= raw defined?(options[:form_for][1].uploads) ? options[:form_for][1].uploads.map{|upload| upload.to_jq_upload }.to_json : '""' %>);
+                'load',<%= raw defined?(options[:form_for][1].uploads) ? { files: options[:form_for][1].uploads.map{|upload| upload.to_jq_upload } }.to_json : "{}" %>);
             </script>
           </div>
         <% end if defined?(options[:form_for]) -%>

@@ -44,7 +44,7 @@
       </div>
       <script type="text/javascript">
         $("#upload_container ul.files").data(
-          'load',<%= raw defined?(@publication.children) ? @publication.children.order("position asc").map{|publication| publication.to_jq_upload }.to_json : '""' %>);
+          'load',<%= raw defined?(@publication.children) ? { files: @publication.children.order("position asc").map{|publication| publication.to_jq_upload } }.to_json : "{}" %>);
       </script>
     </div>
     <!-- upload -->

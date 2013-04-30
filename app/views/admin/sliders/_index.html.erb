@@ -82,7 +82,7 @@
       </div>
       <script type="text/javascript">
         $("#upload_container ul.files").data(
-          'load',<%= raw defined?(@sliders) ? @sliders.ordained.map{|slider| slider.to_jq_upload }.to_json : '""' %>);
+          'load',<%= raw defined?(@sliders) ? { files: @sliders.ordained.map{|slider| slider.to_jq_upload } }.to_json : "{}" %>);
       </script>
     </div>
     <!-- upload -->

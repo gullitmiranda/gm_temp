@@ -103,8 +103,8 @@ jQuery ->
 
   # Renderiza os itens carregados do Banco de dados
   selectedData = upload_container_ul.data('load')
-  if selectedData && selectedData.length
-    renderFiles selectedData, upload_container_ul, 0, true
+  if selectedData && $.isArray(selectedData.files)
+    renderFiles selectedData.files, upload_container_ul, 0, true
   else
     _sortable upload_container_ul
   sliders_itens      = $('li', upload_container_ul)
