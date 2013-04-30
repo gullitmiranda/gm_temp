@@ -36,7 +36,7 @@ ActiveAdmin.register Partner do
         create! do |format|
           if @partner.save
             format.html { redirect_to admin_partner_path @partner }
-            format.json { render json: { files: [@partner.to_jq_upload].to_json }, status: :created }
+            format.json { render json: { files: [@partner].map{|partner| partner.to_jq_upload } }, status: :created }
           else
             format.html { render action: "new" }
             format.json { render json: @partner.errors, status: :unprocessable_entity }
@@ -49,9 +49,9 @@ ActiveAdmin.register Partner do
       update! do |format|
         format.html do
           if request.xhr?
-            render json: { files: @partner.to_jq_upload }
+            render json: { files: [@partner].map{|partner| partner.to_jq_upload } }
           else
-            redirect_to @publication
+            redirect_to @partner
           end
         end
       end

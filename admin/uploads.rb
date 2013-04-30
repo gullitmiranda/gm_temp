@@ -117,7 +117,7 @@ ActiveAdmin.register Upload do
       create! do |format|
         if @upload.save
           format.html { redirect_to admin_upload_path @upload }
-          format.json { render json: { files: [@upload.to_jq_upload].to_json }, status: :created }
+          format.json { render json: { files: [@upload].map{|upload| upload.to_jq_upload } }, status: :created }
         else
           format.html { render action: "new" }
           format.json { render json: @upload.errors, status: :unprocessable_entity }

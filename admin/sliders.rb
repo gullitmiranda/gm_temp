@@ -43,7 +43,7 @@ ActiveAdmin.register Slider do
         create! do |format|
           if @slider.save
             format.html { redirect_to admin_slider_path @slider }
-            format.json { render json: { files: [@slider.to_jq_upload].to_json }, status: :created }
+            format.json { render json: { files: [@slider].map{|slider| slider.to_jq_upload } }, status: :created }
           else
             format.html { render action: "new" }
             format.json { render json: @slider.errors, status: :unprocessable_entity }
@@ -56,7 +56,7 @@ ActiveAdmin.register Slider do
       update! do |format|
         format.html do
           if request.xhr?
-            render json: { files: @slider.to_jq_upload }
+            render json: { files: [@slider].map{|slider| slider.to_jq_upload } }
           else
             redirect_to @slider
           end
