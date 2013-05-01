@@ -19,7 +19,6 @@ jQuery ->
       temp_itens.each (o, ix) ->
         _t = $(this)
         _r = container.find("##{this.id}")
-        # console.debug temp_itens.length, ix, o
 
         if _r.length
           _r.replaceWith _t
@@ -51,7 +50,7 @@ jQuery ->
           ev.preventDefault()
         .bind "ajax:complete", (ev, data) ->
           jData = eval("(#{data.responseText})")
-          renderFiles [jData], upload_container_ul
+          renderFiles jData.files, upload_container_ul
           _checkAndDestroyViewPort($(this))
 
       cancel = $('.btn.cancel', overlay_form).bind "click", (ev) ->
@@ -114,7 +113,6 @@ jQuery ->
     .bind "fileuploadcompleted", (e, data) ->
       _savePositions()
 
-  # console.debug upload_container_ul, publications_itens
   $(document).on "click", "#{publications_itens.selector} .edit .btn", _renderEdit
   # end Callbacks
 

@@ -317,7 +317,6 @@
                   valBackground = $('#background'     , admin_contact).val()
 
                   preview_background.css('background-color', valBackground);
-                  console.debug($('.background.best_in_place' , formulario));
                   $('.background.best_in_place' , formulario).click(function() {$('input', this).val(valBackground ).trigger('blur') }).trigger('click');
                 });
               });

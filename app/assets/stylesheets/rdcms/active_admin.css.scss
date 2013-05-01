@@ -1,7 +1,25 @@
 // Active Admin CSS Styles
 @import "active_admin/mixins";
 @import "active_admin/base";
+
+/* Fixbug bootstrap-activeadmin */
+body.active_admin {
+  form {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    textarea {
+      padding: 4px 6px;
+      width: auto;
+    }
+  }
+}
 @import "rdcms/chosen";
+/* Ckeditor fix bug ActveAdmin Style */
+@import "rdcms/ckeditor_moono";
 
 @import "compass";
 @import "rdcms/farbtastic";
@@ -178,7 +196,7 @@ body.active_admin {
     .preview_contact_background {
       height: 255px;
       width: 100%;
-      background: url("slider/pattern_bg.png") repeat scroll 0 0 #282828;
+      background: url("rdcms/sliders/pattern_bg.png") repeat scroll 0 0 #282828;
 
       -webkit-border-radius: 10px;
          -moz-border-radius: 10px;
@@ -508,6 +526,7 @@ body.active_admin .sidebar_section > div div.overview-sidebar{
             display:inline-block;
             text-indent:-9999px;
           }
+/*
           a.new_link{
             width:14px;
             height:14px;
@@ -520,6 +539,7 @@ body.active_admin .sidebar_section > div div.overview-sidebar{
             background:url("/assets/icons/16/compose-3.png");
             @include background-size(14px);
           }
+*/
         }
       }
     }
@@ -575,7 +595,7 @@ body.active_admin .status{
   background: none;
   color: #000;
 }
-
+/*
 body.active_admin .index_table .edit{
   background: url("/assets/icons/32/compose-3.png") no-repeat center center transparent;
   @include background-size(20px);
@@ -647,7 +667,7 @@ body.active_admin .new_subarticle{
   height: 22px;
   display: inline-block;
 }
-
+ */
 body.active_admin .import{
   background: url("/assets/import.jpg") no-repeat center center transparent;
   text-indent:-99999px;

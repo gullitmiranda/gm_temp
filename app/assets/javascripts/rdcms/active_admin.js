@@ -1,26 +1,28 @@
 //= require active_admin/base
 //= require jquery
 //= require jquery_ujs
-//= require jquery.mb.browser
-//= require rdcms/keymaster
 
-// Edição de formulários na sua visualização
+//= require rdcms/plugins/modernizr.2.5.3.min
+//= require rdcms/plugins/jquery.mb.browser
+//= require rdcms/plugins/jquery.easing.1.3
+//= require rdcms/plugins/jquery.mousewheel.min
+//= require rdcms/plugins/jquery.parallax-1.1.3
+//= require rdcms/plugins/jquery.chosen.min
+//= require rdcms/plugins/jquery.chosen.init
+//= require rdcms/plugins/jquery.meio.mask
+//= require rdcms/plugins/rails.validations
+//= require rdcms/plugins/rails.validations.action_view
+
+//= require rdcms/admin/keymaster
+//= require rdcms/admin/formstyle
+//= require rdcms/admin/farbtastic
+
 //= require best_in_place
 //= require jquery-fileupload
-//= require jquery.meio.mask
-
 //= require twitter/bootstrap
-//= require bootstrap
+//= require rdcms/init/bootstrap
 
-//= require formstyle
-//= require rdcms/chosen.jquery.min
-
-// Color Picker
-//= require ./farbtastic
-
-// Slider
-//= require slider
-
+//= require rdcms/init/social
 
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
@@ -36,12 +38,6 @@ $(document).ready(function() {
   if (!$.browser.webkit)
     $('input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], input[type=tel]')
       .setMask();
-
-  //Foldable overview in sidebar
-  $("div.overview-sidebar div.folder").bind("click", function(){
-    $(this).closest('li').find("ul:first").slideToggle();
-  });
-  $("div.overview-sidebar div.folder").trigger("click");
 
   //Add Button Background Jobs zu Settings
   $('#einstellungen ul').append("<li><a href='/admin/background'>Background Jobs</a></li>")
@@ -71,49 +67,30 @@ $(document).ready(function() {
   $('div#main_content fieldset.foldable.closed legend').trigger("click");
 
 
-  //die sidebar_section bekommen einen button zum auf und zu klappen
-  $('div#sidebar div.sidebar_section h3').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
-  $('div#sidebar div.sidebar_section h3').bind("click", function(){
-    $(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
-    $(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
-  });
-  $('div#sidebar div.sidebar_section:not(#overview_sidebar_section) h3').trigger("click");
-  $('div#sidebar div.sidebar_section .warning').closest("div.sidebar_section").addClass("warning").find("h3").trigger("click");
-
-  $(".chzn-select").chosen();
-  $(".chzn-select-deselect").chosen({allow_single_deselect:true});
-
-  //Menuepunkte bekommen eine funktion zum auf und zu klappen
-  $('div#overview_sidebar div.title a').bind("click", function(){
-    $(this).children("ul").hide();
-  });
-
-  $('div#overview_sidebar div.title a').trigger("click");
-
   // Atalhos de formulários Formulários
-  $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
-  key('⌘+s, ctrl+s', function() {
-    $("#main_content form input:submit").trigger("click");
-    return false;
-  });
-  $("form .form-actions .btn.cancel").append(" (ESC)");
-  key('esc', function(){
-    $("form .form-actions .btn.cancel").trigger("click");
-    return false;
-  });
+  // $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
+  // key('⌘+s, ctrl+s', function() {
+  //   $("#main_content form input:submit").trigger("click");
+  //   return false;
+  // });
+  // $("form .form-actions .btn.cancel").append(" (ESC)");
+  // key('esc', function(){
+  //   $("form .form-actions .btn.cancel").trigger("click");
+  //   return false;
+  // });
 
   // Action Items
-  $("#title_bar .action_items a[href$='new']").append(" (⌘-N)")
-  key('⌘+n, ctrl+n', function(){
-    $("#title_bar .action_items a[href$='new']").trigger("click");
-    return false;
-  });
+  // $("#title_bar .action_items a[href$='new']").append(" (⌘-N)")
+  // key('⌘+n, ctrl+n', function(){
+  //   $("#title_bar .action_items a[href$='new']").trigger("click");
+  //   return false;
+  // });
 
-  $("#title_bar .action_items a[href$='edit']").append(" (⌘-E)")
-  key('⌘+e, ctrl+e', function(){
-    $("#title_bar .action_items a[href$='edit']").trigger("click");
-    return false;
-  });
+  // $("#title_bar .action_items a[href$='edit']").append(" (⌘-E)")
+  // key('⌘+e, ctrl+e', function(){
+  //   $("#title_bar .action_items a[href$='edit']").trigger("click");
+  //   return false;
+  // });
 
   // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
   // key('⌘+z, ctrl+z', function(){

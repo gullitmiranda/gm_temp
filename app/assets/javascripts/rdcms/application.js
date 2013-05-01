@@ -1,30 +1,18 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require jquery.mb.browser
-//= require rdcms/jquery.tools.min
+// ckeditor-jquery
+//= require rdcms/plugins/jquery.mb.browser
+//= require rdcms/plugins/jquery.tools.min
+//= require rdcms/plugins/rails.validations
+//= require rdcms/plugins/rails.validations.action_view
+
+//= require rdcms/admin/moment
+
 //= require jquery-fileupload
-//= require rdcms/moment
 
-// Validações
-//= require rails.validations
-//= require_tree ./rails.validations/
-
-// Aparência
 //= require twitter/bootstrap
-//= require bootstrap
+//= require rdcms/init/bootstrap
 
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument

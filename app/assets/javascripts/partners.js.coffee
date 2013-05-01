@@ -47,7 +47,7 @@ jQuery ->
           ev.preventDefault()
         .bind "ajax:complete", (ev, data) ->
           jData = eval("(#{data.responseText})")
-          renderFiles [jData], upload_container_ul
+          renderFiles jData.files, upload_container_ul
           _checkAndDestroyViewPort($(this))
 
       cancel = $('.btn.cancel', overlay_form).bind "click", (ev) ->
