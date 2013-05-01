@@ -15,6 +15,7 @@
 
 //= require twitter/bootstrap
 //= require rdcms/init/bootstrap
+//= require rdcms/init/social
 
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
