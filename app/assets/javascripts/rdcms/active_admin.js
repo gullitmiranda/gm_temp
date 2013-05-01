@@ -6,7 +6,6 @@
 //= require rdcms/plugins/jquery.mb.browser
 //= require rdcms/plugins/jquery.easing.1.3
 //= require rdcms/plugins/jquery.mousewheel.min
-//= require rdcms/plugins/jquery.parallax-1.1.3
 //= require rdcms/plugins/jquery.chosen.min
 //= require rdcms/plugins/jquery.chosen.init
 //= require rdcms/plugins/jquery.meio.mask
