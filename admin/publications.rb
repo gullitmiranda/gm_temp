@@ -4,6 +4,8 @@ ActiveAdmin.register Publication do
         if: proc{can?(:update, Publication)}
   # menu false
 
+  scope :publication_root, default: true
+
   index do
     selectable_column
 
