@@ -157,7 +157,7 @@
 
   <%= form_for Slider.new, :url => admin_sliders_path, :html => { :id => "file_selector", :remote => true } do |f| -%>
     <div class="hidden">
-      <%= hidden_field_tag :reorder_positions, value: true %>
+      <%= hidden_field_tag :reorder_positions, true %>
     </div>
   <% end -%>
 
