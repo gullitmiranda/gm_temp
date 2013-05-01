@@ -23,6 +23,8 @@
 
 //= require rdcms/init/social
 
+//= require rdcms/sliders
+
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
 jQuery.ajaxSettings.traditional = true;
