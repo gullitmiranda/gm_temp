@@ -14,7 +14,7 @@
 <div class="row">
   <div class="span12">
     <% if !@gallery.uploads.blank? %>
-    <div id="gallery_slider" class="royalSlider clearfix fwImage rsUni">
+    <div id="gallery_slider" class="royalSlider rsMinW clearfix fwImage rsUni">
       <% for p in @gallery.uploads %>
       <a class="rsImg"
         data-rsBigImg="<%= p.upload %>"
