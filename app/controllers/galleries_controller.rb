@@ -6,10 +6,10 @@ class GalleriesController < ApplicationController
 
     if params[:tag]
       @search = Gallery.tagged_with(params[:tag]).list_all.search(params[:search])
-      @galleries = @search
+      @galleries = @search.all
     else
       @search = Gallery.list_all.search(params[:search])
-      @galleries = @search
+      @galleries = @search.all
     end
 
     respond_with @galleries

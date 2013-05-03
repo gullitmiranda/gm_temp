@@ -19,10 +19,10 @@ class PostsController < ApplicationController
 
     if params[:tag]
       @search = Post.list_all.tagged_with(params[:tag]).search(params[:search])
-      @posts = @search
+      @posts = @search.all
     else
       @search = Post.list_all.search(params[:search])
-      @posts = @search
+      @posts = @search.all
     end
 
     respond_with @posts

@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @pages = Page.all.visible
+    @pages = Page.visible.all
     respond_with @pages
   end
 

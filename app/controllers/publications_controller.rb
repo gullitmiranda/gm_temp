@@ -4,8 +4,8 @@ class PublicationsController < ApplicationController
 
   respond_to :html, :json, :pdf
   def index
-    @catalogue  = Publication.publication_root.visible.ordained.catalogue
-    @campaign   = Publication.publication_root.visible.ordained.campaign
+    @catalogue  = Publication.publication_root.visible.ordained.catalogue.all
+    @campaign   = Publication.publication_root.visible.ordained.campaign.all
     @publications = [@catalogue, @campaign]
     respond_with @publications
   end

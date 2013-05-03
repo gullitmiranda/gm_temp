@@ -3,7 +3,7 @@ class PartnersController < InheritedResources::Base
 
   respond_to :html, :json
   def index
-    @partners  = Partner.visible.ordained
+    @partners  = Partner.visible.ordained.all
     respond_with @partners
   end
 end
