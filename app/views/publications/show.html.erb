@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
     both: ['/assets/flip/flip.js','/assets/flip/zoom.js'],
     complete: function() {
       $("#publication-<%= @publication.slug %>").makeFlip({
-        download_url: "<%= publication_path(@publication, format: :pdf) %>"
+        // download_url: "<%= publication_path(@publication, format: :pdf) %>"
       });
     }
   });
