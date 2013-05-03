@@ -63,7 +63,7 @@
         box-shadow:0 0 20px rgba(0,0,0,0.2);
       }
       .depth{
-        background-image: url(flip/pages-depth.png);
+        background-image: url(pages-depth.png);
         position: absolute;
         top: 7px;
         width: 16px;
@@ -228,7 +228,7 @@
 
           position: absolute;
           cursor: pointer;
-          background: url(flip/sprite.png);
+          background: url(sprite.png);
         }
       }
     }
