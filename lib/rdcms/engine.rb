@@ -21,7 +21,7 @@ require 'sidekiq'
 require 'sinatra'
 require 'slim'
 require 'geokit'
-require 'fastimage'
+# require 'fastimage'
 
 
 module Rdcms
@@ -41,11 +41,11 @@ module Rdcms
       Devise::SessionsController.helper(ApplicationHelper)
       Devise::PasswordsController.helper(ApplicationHelper)
 
-      ApplicationController.helper(ArticlesHelper)
-      ActionController::Base.helper(ArticlesHelper)
-      DeviseController.helper(ArticlesHelper)
-      Devise::SessionsController.helper(ArticlesHelper)
-      Devise::PasswordsController.helper(ArticlesHelper)
+      # ApplicationController.helper(ArticlesHelper)
+      # ActionController::Base.helper(ArticlesHelper)
+      # DeviseController.helper(ArticlesHelper)
+      # Devise::SessionsController.helper(ArticlesHelper)
+      # Devise::PasswordsController.helper(ArticlesHelper)
     end
   end
 end
