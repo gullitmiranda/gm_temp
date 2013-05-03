@@ -30,6 +30,10 @@ br:
     recent_galleries: Galerias recentes
     published_sliders: Sliders publicados
 
+    # About
+    about:
+      changelog_app: Atualizações da aplicação
+
     # Pages
       # index:
 
