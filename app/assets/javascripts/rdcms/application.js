@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-// ckeditor-jquery
 //= require rdcms/plugins/jquery.mb.browser
 //= require rdcms/plugins/jquery.chosen.min
 //= require rdcms/plugins/jquery.chosen.init
@@ -19,7 +18,7 @@
 
 //= require rdcms/sliders
 
-// Evitar bug:
+// avoid bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
 jQuery.ajaxSettings.traditional = true;
 
