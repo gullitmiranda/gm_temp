@@ -2,21 +2,6 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
-/* Fixbug bootstrap-activeadmin */
-body.active_admin {
-  form {
-    input[type="text"],
-    input[type="password"],
-    input[type="email"],
-    input[type="number"],
-    input[type="url"],
-    input[type="tel"],
-    textarea {
-      padding: 4px 6px;
-      width: auto;
-    }
-  }
-}
 @import "rdcms/chosen";
 /* Ckeditor fix bug ActveAdmin Style */
 
