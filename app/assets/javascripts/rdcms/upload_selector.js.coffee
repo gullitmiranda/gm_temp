@@ -24,7 +24,7 @@ jQuery ->
     , fileUploadsHashOptions, options, gallery_container_ul.data()
 
     $.getJSON action, options, (data) =>
-      renderFiles data, gallery_container_ul, options.offset
+      renderFiles data.files, gallery_container_ul, options.offset
   #end getUploads
 
   # renderFiles - Renderiza os itens
