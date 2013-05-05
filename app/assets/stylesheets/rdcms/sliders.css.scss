@@ -1138,13 +1138,26 @@ img.rsImg {
 ******************************/
 
 /* Background */
-.rsUni,
-.rsUni .rsOverflow,
-.rsUni .rsSlide,
-.rsUni .rsVideoFrameHolder,
-.rsUni .rsThumbs {
-  background: #222;
-  color: #FFF;
+.rsUni {
+  &,
+  .rsOverflow,
+  .rsSlide,
+  .rsVideoFrameHolder,
+  .rsThumbs {
+    background: #fff;
+    color: #393939;
+  }
+}
+/* Dark Background */
+.rsUniDark {
+  &,
+  .rsOverflow,
+  .rsSlide,
+  .rsVideoFrameHolder,
+  .rsThumbs {
+    background: #222;
+    color: #FFF;
+  }
 }
 
 
