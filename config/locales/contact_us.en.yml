@@ -31,3 +31,4 @@ en:
       error: "You must enter both fields."
       success: "Email contact sent successfully."
   required: Required
+  required_alert: Fields with (*) are required fills!

@@ -16,7 +16,7 @@ br:
         subject: "Mensagem de contato de <strong>%{email}</strong>"
     contacts:
       new: &new
-        contact_us: Contate-nos
+        contact_us: Fale conosco
         email: "Email"
         message: "Mensagem"
         name: "Nome"
@@ -31,3 +31,4 @@ br:
       error: "Você deve preencher os campos."
       success: "Email de contato enviado com sucesso."
   required: Obrigatório
+  required_alert: Campos com (*) são de preenchimentos obrigatórios!

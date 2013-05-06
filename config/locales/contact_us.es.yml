@@ -31,3 +31,4 @@ es:
       error: "Debes de ingresar ambos campos."
       success: "Contacto Correo electrónico enviado con éxito."
   required: Obligatorio
+  required_alert: Los campos marcados con (*) son obligatorios llena!
