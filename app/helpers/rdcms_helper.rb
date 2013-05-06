@@ -132,7 +132,7 @@ module RdcmsHelper
   end
 
   # Renderiza botões de páginas das redes sociais
-  def social_pages_buttons
+  def social_pages_buttons(options={})
     # Botões das redes sociais
     @social_pages = Setting.get_object("rdcms.social_pages")
     html = ""
@@ -142,7 +142,7 @@ module RdcmsHelper
       end unless record.value.empty?
     end
 
-    content_tag(:ul, html.html_safe, class: "follow_us")
+    content_tag(:ul, html.html_safe, class: "nav pull-right follow_us #{options[:class]}")
   end
 
   # Renderiza o endereço formatado
