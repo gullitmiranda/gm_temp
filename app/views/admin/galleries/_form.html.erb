@@ -7,9 +7,9 @@
       <%= f.datetime_select :datetime %>
     </div>
   </div>
-  
+
   <hr />
-  
+
   <%= f.globalize_inputs :translations do |lf| %>
     <div class="control-group">
       <%= lf.label :name, t(".name"), :class => 'control-label' %>
@@ -18,16 +18,16 @@
       </div>
     </div>
     <div class="control-group">
-      <%= lf.label :description, t(". description"), :class => 'control-label' %>
+      <%= lf.label :description, t(".description"), :class => 'control-label' %>
       <div class="controls">
         <%= lf.cktext_area :description, :class => 'text_area' %>
       </div>
     </div>
     <%= lf.hidden_field :locale %>
   <% end %>
-  
+
   <hr />
-  
+
   <div class="control-group">
     <%= f.label :tag_list, :class => 'control-label' %>
     <div class="controls">
@@ -35,7 +35,7 @@
     </div>
     <em class="controls"><%= t(".separated_by_commas") %></em>
   </div>
-  
+
   <hr />
 
   <div class="form-actions">
