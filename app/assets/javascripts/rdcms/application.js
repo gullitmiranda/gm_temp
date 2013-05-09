@@ -5,6 +5,7 @@
 //= require rdcms/plugins/jquery.chosen.min
 //= require rdcms/plugins/jquery.chosen.init
 //= require rdcms/plugins/jquery.tools.min
+//= require rdcms/plugins/interface
 //= require rdcms/plugins/rails.validations
 //= require rdcms/plugins/rails.validations.action_view
 
