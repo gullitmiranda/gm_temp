@@ -96,7 +96,7 @@
                 single_logo.bind('fileuploaddone', function (e, data) {
                   var $this = $(this),
                       that  = $this.data('blueimpFileupload'),
-                      dt    = data.result[0];
+                      dt    = data.result.files[0];
 
                   // Remover item após upload
                   that._adjustMaxNumberOfFiles(1);
@@ -178,7 +178,7 @@
                 fullscreen_logo.bind('fileuploaddone', function (e, data) {
                   var $this = $(this),
                       that  = $this.data('blueimpFileupload'),
-                      dt    = data.result[0];
+                      dt    = data.result.files[0];
 
                   // Remover item após upload
                   that._adjustMaxNumberOfFiles(1);
