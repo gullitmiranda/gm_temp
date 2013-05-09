@@ -21,7 +21,7 @@ require 'sidekiq'
 require 'sinatra'
 require 'slim'
 require 'geokit'
-# require 'fastimage'
+require 'markdown'
 
 
 module Rdcms
