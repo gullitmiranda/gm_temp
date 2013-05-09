@@ -1,32 +1,33 @@
-<!-- <div class="row"> -->
-  <!-- <div id="partners_list" class="<%= defined?(list_class) ? list_class : "span12" %>"> -->
-  <div id="partners_list" class="<%= defined?(list_class) ? list_class : "" %>">
-    <ul class="thumbnails">
-      <% @partners.each do |partner| %>
-        <li class="span3">
-          <div class="thumbnail">
-            <div class="sponsor clearfix" title="<%= I18n.t(".click_to_flip") %>" rel="tooltip" >
-              <div class="sponsorFlip thumb">
-                <%= image_tag partner.partner(:thumb), class: "img-polaroid" %>
-              </div>
-
-              <div class="sponsorData">
-                <div class="sponsorDescription clearfix">
-                  <%= image_tag partner.partner(:thumb), alt: I18n.t(".more_about_company", company: partner.name), title: I18n.t(".more_about_company", company: partner.name), rel: "tooltip" %>
-                  <div class="description clearfix"><%= partner.description %></div>
-                </div>
-                <div class="sponsorURL"><%= link_to(partner.url, partner.url, target: "_blank", title: partner.name, rel: "tooltip") %></div>
-              </div>
-            </div>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+<div class="row">
+  <div class="navbar partners_container">
+    <div class="navbar-inner">
+      <ul class="nav partners_list dock">
+        <div class="dockContainer">
+          <% @partners.each do |partner| %>
+          <li>
+            <a class="dockItem" href="<%= partner.url %>" target="_blank" data-placement="top">
+              <%= image_tag partner.partner(:thumb), alt: partner.name %>
+              <%= content_tag(:span, partner.description) if partner.description? %>
+            </a>
+          </li>
+          <% end %>
+        </div>
+      </ul>
+    </div>
   </div>
-<!-- </div> -->
+</div>
+<%= stylesheet_link_tag    "rdcms/dock" %>
+
 <script type="text/javascript" charset="utf-8">
 $(function() {
-  // Carrega Sponsor
-  // $('.sponsor').sponsor({ color: "#44a531" });
+  $('.partners_container').Fisheye({
+    maxWidth: 120,
+    items: 'a',
+    itemsText: 'span',
+    container: '.dockContainer',
+    itemWidth: 70,
+    proximity: 90,
+    halign : 'center'
+  });
 });
 </script>

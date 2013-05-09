@@ -1,0 +1,86 @@
+/* dock - top */
+.dock {
+  position: relative;
+  height: 50px;
+  text-align: center;
+
+  .dockContainer {
+    // position: absolute;
+    height: 50px;
+    // background: url(images/dock-bg2.gif);
+    // padding-left: 20px;
+
+    > li { float: left; }
+
+    .dockItem {
+      display: block;
+      position: absolute;
+      margin: 0;
+      top: 0;
+      width: 70px;
+      text-align: center;
+      z-index: 22;
+      text-decoration: none;
+
+      span {
+        display: none;
+        background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
+        border-radius: 5px 5px 5px 5px;
+        box-shadow: 0 0 5px -2px #FFFFFF;
+        color: #F5F5F5;
+        margin-top: 10px;
+        padding: 3px 10px;
+      }
+      img {
+        // height: 48px;
+        height: auto;
+        // margin: 0 10px 0;
+        width: 100%;
+      }
+    }
+  }
+
+}
+a.dock-item {
+  display: block;
+  width: 40px;
+  color: #000;
+  position: absolute;
+  top: 0px;
+  text-align: center;
+  text-decoration: none;
+  font: bold 12px Arial, Helvetica, sans-serif;
+}
+
+/* dock2 - bottom */
+#dock2 {
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  left: 0px;
+}
+.dock-container2 {
+  position: absolute;
+  height: 50px;
+  background: url(images/dock-bg.gif);
+  padding-left: 20px;
+}
+a.dock-item2 {
+  display: block;
+  font: bold 12px Arial, Helvetica, sans-serif;
+  width: 40px;
+  color: #000;
+  bottom: 0px;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+}
+.dock-item2 span {
+  display: none;
+  padding-left: 20px;
+}
+.dock-item2 img {
+  border: none;
+  margin: 5px 10px 0px;
+  width: 100%;
+}
