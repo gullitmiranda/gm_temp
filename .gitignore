@@ -13,22 +13,12 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-test/dummy/log/*
-test/dummy/tmp
-test/dummy/tmp/*
-test/dummy/log/test.log
-test/dummy/public/system/
-test/dummy/db
-test/dummy/db/*
 
 *.sublime*
 .DS_Store
 db/.DS_Store
 test/.DS_Store
-test/dummy/.DS_Store
 .sass-cache/
-test/dummy/coverage/*
-test/dummy/solr/*
 .rvmrc
 
 # Gem
