@@ -22,7 +22,7 @@ require 'sinatra'
 require 'slim'
 require 'geokit'
 require 'markdown'
-
+require "bootstrap-x-editable-rails"
 
 module Rdcms
   class Engine < ::Rails::Engine

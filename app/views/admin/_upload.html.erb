@@ -51,7 +51,7 @@
         <li id="upload_{%=file.id%}" class="template-upload span3 fade">
           <div class="thumbnail">
             <div class="det bg header clearfix">
-              <span title="{%=file.name%}">{%=file.name.truncate(35) %}</span>
+              <span title="{%=file.name%}">{%=file.name && file.name.truncate(35) %}</span>
               <input type="checkbox" value="{%=file.id%}"
                 <%= " name='#{options[:attribute_name]}'".html_safe if defined?(options[:attribute_name]) %>
                 id="upload_ids_" class="hidden">
@@ -84,10 +84,10 @@
         <li id="upload_{%=file.id%}" class="template-download span3 fade">
           <div class="thumbnail">
             <div class="det bg header clearfix">
-              <span title="{%=file.name%}">{%=file.name.truncate(35) %}</span>
+              <span title="{%=file.name%}">{%=file.name && file.name.truncate(35) %}</span>
             </div>
             <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
-              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : '/images/missing.png' %}" />
+              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : '/assets/missing/thumb.png' %}" />
             </a>
             {% if (file.error) { %}
               <div class="det alert alert-error clearfix">
@@ -130,7 +130,9 @@
       {% for (var i=0, file; file=o.files[i]; i++) { %}
       <tr class="template-upload fade">
         <td class="preview"><span class="fade"></span></td>
-        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="name">
+          <span title="{%=file.name%}">{%=file.name && file.name.truncate(35) %}</span>
+        </td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         {% if (file.error) { %}
         <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
@@ -162,7 +164,9 @@
         <tr class="template-download fade">
           {% if (file.error) { %}
             <td></td>
-            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="name">
+              <span title="{%=file.name%}">{%=file.name && file.name.truncate(35) %}</span>
+            </td>
             <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
             <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
             {% } else { %}

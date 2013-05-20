@@ -130,13 +130,6 @@ en:
       form:
         <<: *attributes_all
         add_partner: Add partner
-    publications:
-      show:
-        <<: *attributes_all
-      form:
-        <<: *attributes_all
-        name_placeholder: Publication unnamed
-        body_placeholder: Write something related to this publication
     settings:
       visualization:
         <<: *attributes_all
@@ -210,9 +203,6 @@ en:
       partner:
         one: Parceiro
         other: Parceiros
-      publication:
-        one: Publication
-        other: Publications
 
       # Desativados
       metag:
@@ -244,6 +234,3 @@ en:
         <<: *attributes_all
       partner:
         <<: *attributes_all
-      publication:
-        <<: *attributes_all
-        children: Pages

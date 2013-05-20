@@ -17,12 +17,14 @@ $background-color: black;
 
 body.active_admin {
   @import "rdcms/bootstrap_and_overrides";
+  @import "bootstrap-editable";
   @import "rdcms/jquery.fileupload-ui";
   @import "rdcms/formstyle";
 }
 
 @import "rdcms/glyphs";
 @import "rdcms/flags";
+@import "rdcms/uploads";
 @import "rdcms/sliders";
 @import "core";
 
@@ -123,6 +125,7 @@ body.active_admin {
     &.btn-primary { color: #FFF; }
     &.btn-link { text-decoration: underline; }
   }
+  th, td { &.title { height: auto; } }
 
   #upload_container .uploads-list .template-download .det.footer {
     > div {

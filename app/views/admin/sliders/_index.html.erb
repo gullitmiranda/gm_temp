@@ -91,7 +91,7 @@
         <li id="slider_{%=file.id%}" class="template-upload span3 fade">
           <div class="thumbnail">
             <div class="det bg header clearfix">
-              <span>{%=file.name%}</span>
+              <span title="{%=file.name%}">{%=file.name && file.name.truncate(35) %}</span>
             </div>
             <div class="thumbnail preview">
               <span class="fade"></span>
@@ -121,11 +121,11 @@
         <li id="slider_{%=file.id%}" class="template-download span3 fade">
           <div class="thumbnail">
             <div class="det bg header clearfix">
-              <span>{%=file.name%}</span>
+              <span title="{%=file.name%}">{%=file.name && file.name.truncate(35) %}</span>
               <!-- <input type="checkbox" name="selected" value="{%=file.id%}" class="toggle_selected"> -->
             </div>
             <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" class="thumb" target="_blank" >
-              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : '/images/missing.png' %}" />
+              <img class="img-rounded" src="{%= (file.images && file.images.thumb) ? file.images.thumb : '/assets/missing/thumb.png' %}" />
             </a>
             {% if (file.error) { %}
               <div class="det alert alert-error clearfix">

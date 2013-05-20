@@ -12,7 +12,7 @@
 /* Use the following CSS code if you want to use data attributes for inserting your icons */
 [data-icon]:before {
   cursor: default;
-	
+
 	font-family: 'glyphs';
 	content: attr(data-icon);
 	speak: none;
@@ -23,7 +23,7 @@
 /* Use the following CSS code if you want to have a class per icon */
 [class^="icon-"]:before, [class*=" icon-"]:before {
   cursor: default;
-	
+
 	font-family: 'glyphs';
 	font-style: normal;
 	speak: none;
@@ -307,9 +307,11 @@ li [class^="icon-"], li [class*=" icon-"] {
 .icon-switch:before {
 	content: "\e07f";
 }
+.icon-remove:before,
 .icon-close:before {
 	content: "\e082";
 }
+.icon-ok:before,
 .icon-checkmark:before {
 	content: "\e083";
 }

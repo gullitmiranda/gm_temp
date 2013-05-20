@@ -138,9 +138,3 @@ rdcms:
       token: ""
       refresh_token: ""
       expires_at: ""
-
-  # Publications
-  publication:
-    styles:
-      thumb: "260x180#"
-      page: "1920x1200#"

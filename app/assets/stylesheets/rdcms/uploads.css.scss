@@ -1,0 +1,55 @@
+body,
+body.active_admin {
+  $margin: 25px;
+  $height: 100px;
+  $actions-width: 120px;
+
+  .fileuploads-container {
+    .preview-container { text-align: center; }
+    .checkbox-container {
+      min-height: $height;
+      text-align: center;
+      width: $margin;
+      vertical-align: middle;
+
+      input[type=checkbox] { margin-top: 45px; }
+    }
+    .template-download .checkbox-container { cursor: move; }
+
+    .actions {
+      width: $actions-width;
+      text-align: center;
+      vertical-align: middle;
+
+      .btn > .string {
+        display: inline-block;
+        text-indent: -9999px;
+      }
+    }
+
+/*     .media {
+      height: 100px;
+      padding: 25px;
+
+      .size { text-align: right; }
+      .media-body {
+        position: relative;
+        padding-right: $actions-width;
+        height: $height;
+      }
+      .media-actions {
+        width: $actions-width;
+        height: $height;
+        position: absolute;
+        right: 0;
+        top: 2.5px;
+        text-align: center;
+
+        .btn > .string {
+          display: inline-block;
+          text-indent: -9999px;
+        }
+      }
+    }
+ */  }
+}

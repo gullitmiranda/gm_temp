@@ -20,6 +20,7 @@
 //= require jquery-fileupload
 //= require twitter/bootstrap
 //= require rdcms/init/bootstrap
+//= require bootstrap-editable
 
 //= require rdcms/init/social
 
@@ -27,7 +28,16 @@
 
 // Evitar bug:
 // NS_ERROR_XPC_BAD_CONVERT_JS: Could not convert JavaScript argument
-jQuery.ajaxSettings.traditional = true;
+// jQuery.ajaxSettings.traditional = true;
+/* Configurações default do x-editable */
+$.fn.editable.defaults = $.extend({}, $.fn.editable.defaults, {
+  ajaxOptions: {
+    type: 'put',
+    dataType: 'json'
+  },
+  disabled: true,
+  mode: "inline"
+});
 
 $(document).ready(function() {
   /* Activating Best In Place */

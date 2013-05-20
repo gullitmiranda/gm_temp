@@ -32,7 +32,7 @@
             <li class="span3">
               <div class="thumbnail clearfix">
                 <%= link_to(gallery_path(gallery), { title: truncate(gallery.description, :length => 250), class: "thumb" }) do %>
-                  <%= image_tag gallery.uploads.blank? ? "/images/missing.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
+                  <%= image_tag gallery.uploads.blank? ? "/assets/missing/thumb.png" : gallery.uploads.first.upload(:thumb), class: "img-rounded" %>
                 <% end %>
 
                 <div class="details">
