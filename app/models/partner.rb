@@ -7,7 +7,6 @@ class Partner < ActiveRecord::Base
 
   has_attached_file :partner,
                     :styles => { :thumb => "260x180#" },
-                    :processors => [:thumbnail, :compression],
                     :convert_options => { :all => '-auto-orient -quality 70 -interlace Plane' }
 
   # URL amigáveis através do :name

@@ -5,25 +5,36 @@ body.active_admin {
   $actions-width: 120px;
 
   .fileuploads-container {
-    .preview-container { text-align: center; }
-    .checkbox-container {
-      min-height: $height;
-      text-align: center;
-      width: $margin;
-      vertical-align: middle;
+    tbody.files {
+      .checkbox-container {
+        min-height: $height;
+        text-align: center;
+        width: $margin;
+        vertical-align: middle;
 
-      input[type=checkbox] { margin-top: 45px; }
-    }
-    .template-download .checkbox-container { cursor: move; }
+        input[type=checkbox] { margin-top: 45px; }
+      }
+      .template-download .checkbox-container { cursor: move; }
 
-    .actions {
-      width: $actions-width;
-      text-align: center;
-      vertical-align: middle;
+      .preview-container {
+        text-align: center;
 
-      .btn > .string {
-        display: inline-block;
-        text-indent: -9999px;
+        img {
+          display: inline-block;
+          max-width: 130px;
+          max-height: 130px;
+        }
+      }
+
+      .actions {
+        width: $actions-width;
+        text-align: center;
+        vertical-align: middle;
+
+        .btn > .string {
+          display: inline-block;
+          text-indent: -9999px;
+        }
       }
     }
 
