@@ -22,7 +22,11 @@
             <div class="row">
               <div id="preview" class="span12">
                 <%= form_for [:admin, @logo], :html => { :remote => true } do |f| -%>
-                  <%= render_header nil, true %>
+                  <%= render partial: "/layouts/header", locals: { :options => {
+                    preview: true,
+                    search: false,
+                    :language => { dropdown: false, string: false }
+                  } } %>
                 <% end -%>
               </div>
             </div>
@@ -133,6 +137,7 @@
           </div>
 
           <!-- Fullscreen template -->
+          <% unless Setting.for_key("rdcms.view.full_screen.disable") %>
           <div id="full_screen" class="attributes_table">
             <div class="section"><h3><%= t(".fullscreen_template") %></h3></div>
 
@@ -163,7 +168,13 @@
               </div>
               <div id="preview" class="span4">
                 <%= form_for [:admin, @logo], :html => { :remote => true } do |f| -%>
-                  <%= render_header "full_screen", true %>
+                  <%= render partial: "/layouts/header", locals: { :options => {
+                    layout: "full_screen",
+                    preview: true,
+                    menu: false,
+                    search: false,
+                    language: false
+                  } } %>
                 <% end -%>
               </div>
 
@@ -192,6 +203,7 @@
             </script>
             </div>
           </div>
+          <% end %>
         </div>
       </div>
       <div id="admin_footer" class="tab-pane">
@@ -205,7 +217,7 @@
             <!-- Prévisualização do cabeçalho do site principal -->
             <div class="row">
               <div id="preview" class="span12">
-                <%= render_footer nil, true %>
+                <%= render partial: "/layouts/footer", locals: { :options => { preview: true } } %>
               </div>
             </div>
 

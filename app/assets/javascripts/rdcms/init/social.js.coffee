@@ -19,7 +19,7 @@ http://www.requestdev.com.br
         size: "medium"
 
       facebook:
-        # send: true
+        send: true
         layout: "button_count"
         width: 450
         show_faces: true
@@ -54,17 +54,21 @@ http://www.requestdev.com.br
           $g1 = $(".gplusone", $t)
           $fc = $(".facebook", $t)
           $tt = $(".twitter", $t)
+
+          # Botão do Google Plus
           if $g1.length or options.gplusone
             $el = $("<g:plusone />").attr($.extend(true, options.gplusone, $g1.data(),
               href: url
             ))
             (if $g1.length then $g1.replaceWith($el) else $t.append($el))
             window.gapi and gapi.plusone.go()
+          # Botão do Twitter
           if $tt.length or options.twitter
             $el = $("<a />").attr($.extend(true, options.twitter, $tt.data(),
               "data-url": url
             ))
             (if $tt.length then $tt.replaceWith($el) else $t.append($el))
+          # Botões do facebook
           if $fc.length or options.facebook
             $el = $("<fb:like />").attr($.extend(true, options.facebook, $fc.data(),
               href: url

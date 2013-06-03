@@ -17,7 +17,7 @@ ActiveAdmin.register Setting  do
     f.inputs "Allgemein" do
       f.input :title
       f.input :value
-      f.input :data_type, :as => :select, :collection => Setting::SettingsDataTypes, :include_blank => false
+      # f.input :data_type, :as => :select, :collection => Setting::SettingsDataTypes, :include_blank => false
       f.input :parent_id, :as => :select, :collection => Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
     end
     f.actions

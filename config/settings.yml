@@ -118,6 +118,7 @@ rdcms:
       logo: logo_fullscreen.png
       background: ""
       inner-background: ""
+      disable: "false"
     # Slider
     slider:
       start_slide_id: "0"
