@@ -258,9 +258,9 @@ class Post < ActiveRecord::Base
 
     if Metatag.where(post_id: self.id, name: 'OpenGraph Description').none?
       if self.summary.present?
-        value = self.summary
+        value = self.summary.truncate(255)
       else
-        value = self.body.present? ? self.body.truncate(200) : self.name
+        value = self.body.present? ? self.body.truncate(255) : self.name
       end
       Metatag.create( name: 'OpenGraph Description',
                       post_id: self.id,
