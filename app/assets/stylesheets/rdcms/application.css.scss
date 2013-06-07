@@ -65,6 +65,11 @@ body {
   /* Follow us */
   .navbar.inner_header_nav .nav.follow_us > li > a { padding: 0; }
 
+  .breadcumbs-container {
+    display: block;
+    padding-bottom: 10px;
+  }
+
   .follow_us {
     display: block;
     font-size: 40px;

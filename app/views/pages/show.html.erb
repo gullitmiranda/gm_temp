@@ -6,7 +6,10 @@ $('.social-container').social(<%= raw social_buttons_json %>);
 <div class="panel page-list">
   <h2 class"title"><%= @page.name %></h2>
 
-	<hr class="page">
+  <div class="breadcumbs-container clearfix">
+    <%= link_to t(".back"), pages_path, class: "back_link pull-right" %>
+  </div>
+  <hr class="page">
 
   <div id="description clearfix">
     <%= raw @page.content %>

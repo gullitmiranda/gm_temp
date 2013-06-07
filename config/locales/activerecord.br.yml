@@ -16,6 +16,7 @@ br:
     auto_play: Iniciar automaticamente
     auto_start: Iniciar automaticamente
     authorize_access: Autorizar acesso
+    back: Voltar
     back_page: "Página anterior"
     background: Imagen de fundo
     body: Texto

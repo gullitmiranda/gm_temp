@@ -14,6 +14,9 @@ $('.social-container').social(<%= raw social_buttons_json %>);
     <span class="post-data">- <%= time_ago_in_words @post.datetime %> (<%= l @post.datetime %>)</span>
     <span class="post-categories"><%= @post.tag_list %></span>
   </div>
+  <div class="breadcumbs-container clearfix">
+    <%= link_to t(".back"), posts_path, class: "back_link pull-right" %>
+  </div>
   <div id="description">
     <div class="attributes_table well clearfix">
       <%= raw @post.body %>

@@ -8,6 +8,9 @@
         <span class="line categories"><%= @gallery.tag_list %></span>
       </div>
     </div>
+    <div class="breadcumbs-container clearfix">
+      <%= link_to t(".back"), galleries_path, class: "back_link pull-right" %>
+    </div>
   </div>
 </div>
 <!-- Imagens -->
