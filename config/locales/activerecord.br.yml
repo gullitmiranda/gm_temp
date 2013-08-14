@@ -43,6 +43,7 @@ br:
     dates: Datas
     datetime: Data
     delay: Tempo de atraso
+    delete: Excluir
     description: Descrição
     direction: Direção
     district: Bairro
@@ -153,6 +154,11 @@ br:
       referrals: Fontes de tráfego
       referrer_visits: Origem/Visitas
       source: Origem
+    marcations:
+      form:
+        <<: *attributes_all
+        body: Título do produto
+        url: Endereço do produto
     posts:
       show:
         <<: *attributes_all
@@ -228,6 +234,9 @@ br:
       analytics:
         one: Estatística
         other: Estatísticas
+      marcations:
+        one: Marcação
+        other: Marcações
       product:
         one: Produto
         other: Produtos
@@ -294,6 +303,8 @@ br:
     # Atributos dos módulos
     attributes:
       affair:
+        <<: *attributes_all
+      marcation:
         <<: *attributes_all
       gallery:
         <<: *attributes_all
