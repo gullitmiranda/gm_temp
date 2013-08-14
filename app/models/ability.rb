@@ -2,8 +2,14 @@ class Ability
   include CanCan::Ability
 
   def initialize(operator=nil)
-    can :read, Article
-    can :manage, :all
+    # guest user (not logged in)
+    # unless user
+    #   user = User.new
+    #   user.role = 'guest'
+    # end
+
+    can :read, :all
+    # can :manage, :all
 
     # Todos os direitos relativos
     Permission.where("role_id IS NULL").each do |permission|
@@ -24,7 +30,7 @@ class Ability
       end
     end
 
-    #Rechte, die nur bestimmte nutzerrollen betreffen
+    # Direitos que afetam apenas certas funções de usuário
     if operator && operator.respond_to?(:roles)
       operator.roles.each do |role|
         role.permissions.each do |permission|
