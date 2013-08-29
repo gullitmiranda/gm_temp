@@ -326,7 +326,7 @@ module RdcmsHelper
                   <div class="span4">
                     <h4>#{t("layouts.#{setting_layout}.pages")}</h4>
 
-                    #{navigation_links "nav"}
+                    #{navigation_links "nav", { dropdown: false }}
                     <ul class="nav">
                       <li>#{link_to t("menu_nav.login"), admin_root_path, target: "_blank"}</li>
                     </ul>
