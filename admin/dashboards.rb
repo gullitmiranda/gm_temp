@@ -19,6 +19,17 @@ ActiveAdmin.register_page "Dashboard" do
     ## Row #1 - [Produtos, Artigos, Newsletter]
     columns do
       column do
+        # section "Recently updated content" do
+        #   table_for Version.order('id desc').limit(10) do
+        #     column "Item" do |v| v.item end
+        #     column "Type" do |v| v.item_type.underscore.humanize end
+        #     column "Modified at" do |v| v.created_at.to_s :long end
+        #     column "Admin" do |v|
+        #       link_to(User.find(v.whodunnit).email, admin_user_path(User.find(v.whodunnit))) if v.whodunnit?
+        #     end
+        #   end
+        # end
+
         panel I18n.t("rdcms.recent_posts") do
           div class:"attributes_table well" do
             @posts = Post.recents(Setting.for_key("rdcms.dashboard.limit_itens"))
